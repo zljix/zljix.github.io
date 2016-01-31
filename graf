@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html style="height: 100%;">
+  <head>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"199e8a4832","applicationID":"2972453","transactionName":"c11cQBFeWw5TSh9AWkVVW1oQHkQKWU8=","queueTime":0,"applicationTime":28,"agent":""}</script>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(){}function r(t){function e(t){return t&&t instanceof n?t:t?a(t,i,o):o()}function c(n,r,o){t&&t(n,r,o);for(var i=e(o),a=f(n),c=a.length,u=0;c>u;u++)a[u].apply(i,r);return i}function u(t,e){p[t]=f(t).concat(e)}function f(t){return p[t]||[]}function s(){return r(c)}var p={};return{on:u,emit:c,create:s,listeners:f,context:e,_events:p}}function o(){return new n}var i="nr@context",a=t("gos");e.exports=r()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],3:[function(t,e){function n(t){return function(){r(t,[(new Date).getTime()].concat(i(arguments)))}}var r=t("handle"),o=t(1),i=t(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(t,e){window.NREUM[e]=n("api-"+e)}),e.exports=window.NREUM},{1:12,2:13,handle:"D5DuLP"}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):void(r.q&&(r.q[t]||(r.q[t]=[]),r.q[t].push(e)))}var r=t("ee").create();e.exports=n,n.ee=r,r.q={}},{ee:"QJf3ax"}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],G9z0Bl:[function(t,e){function n(){if(!v++){var t=l.info=NREUM.info,e=f.getElementsByTagName("script")[0];if(t&&t.licenseKey&&t.applicationID&&e){c(p,function(e,n){t[e]||(t[e]=n)});var n="https"===s.split(":")[0]||t.sslForHttp;l.proto=n?"https://":"http://",a("mark",["onload",i()]);var r=f.createElement("script");r.src=l.proto+t.agent,e.parentNode.insertBefore(r,e)}}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),c=t(1),u=window,f=u.document;t(2);var s=(""+location).split("?")[0],p={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-852.min.js"},d=window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent),l=e.exports={offset:i(),origin:s,features:{},xhrWrappable:d};f.addEventListener?(f.addEventListener("DOMContentLoaded",o,!1),u.addEventListener("load",n,!1)):(f.attachEvent("onreadystatechange",r),u.attachEvent("onload",n)),a("mark",["firstbyte",i()]);var v=0},{1:12,2:3,handle:"D5DuLP"}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],12:[function(t,e){function n(t,e){var n=[],o="",i=0;for(o in t)r.call(t,o)&&(n[i]=e(o,t[o]),i+=1);return n}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],13:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}]},{},["G9z0Bl"]);</script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//thingspeak.com/highcharts-3.0.8.js"></script>
+    <script type="text/javascript" src="//thingspeak.com/exporting.js"></script>
+
+    <style type="text/css">
+  body { background-color: white; height: 100%; margin: 0; padding: 0; }
+  #chart-container { width: 425px; height: 235px; display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden; }
+</style>
+
+
+    <script type="text/javascript">
+  // variables for the first series
+  var series_1_channel_id = 82350;
+  var series_1_field_number = 1;
+  var series_1_read_api_key = 'F9GVWNCK6XMRKPMD';
+  var series_1_results = 30;
+  var series_1_color = '#d62020';
+
+  // variables for the second series
+  var series_2_channel_id = 82350;
+  var series_2_field_number = 2;
+  var series_2_read_api_key = 'F9GVWNCK6XMRKPMD';
+  var series_2_results = 30;
+  var series_2_color = '#00aaff';
+
+  // chart title
+  var chart_title = 'Humidity & Temperature';
+  // y axis title
+  var y_axis_title = 'Values';
+
+  // user's timezone offset
+  var my_offset = new Date().getTimezoneOffset();
+  // chart variable
+  var my_chart;
+
+  // when the document is ready
+  $(document).on('ready', function() {
+    // add a blank chart
+    addChart();
+    // add the first series
+    addSeries(series_1_channel_id, series_1_field_number, series_1_read_api_key, series_1_results, series_1_color);
+    // add the second series
+    addSeries(series_2_channel_id, series_2_field_number, series_2_read_api_key, series_2_results, series_2_color);
+  });
+
+  // add the base chart
+  function addChart() {
+    // variable for the local date in milliseconds
+    var localDate;
+
+    // specify the chart options
+    var chartOptions = {
+      chart: {
+        renderTo: 'chart-container',
+        defaultSeriesType: 'line',
+        backgroundColor: '#ffffff',
+        events: { }
+      },
+      title: { text: chart_title },
+      plotOptions: {
+        series: {
+          marker: { radius: 3 },
+          animation: true,
+          step: false,
+          borderWidth: 0,
+          turboThreshold: 0
+        }
+      },
+      tooltip: {
+        // reformat the tooltips so that local times are displayed
+        formatter: function() {
+          var d = new Date(this.x + (my_offset*60000));
+          var n = (this.point.name === undefined) ? '' : '<br>' + this.point.name;
+          return this.series.name + ':<b>' + this.y + '</b>' + n + '<br>' + d.toDateString() + '<br>' + d.toTimeString().replace(/\(.*\)/, "");
+        }
+      },
+      xAxis: {
+        type: 'datetime',
+        title: { text: 'Date' }
+      },
+      yAxis: { title: { text: y_axis_title } },
+      exporting: { enabled: false },
+      legend: { enabled: false },
+      credits: {
+        text: 'ThingSpeak.com',
+        href: 'https://thingspeak.com/',
+        style: { color: '#D62020' }
+      }
+    };
+
+    // draw the chart
+    my_chart = new Highcharts.Chart(chartOptions);
+  }
+
+  // add a series to the chart
+  function addSeries(channel_id, field_number, api_key, results, color) {
+    var field_name = 'field' + field_number;
+
+    // get the data with a webservice call
+    $.getJSON('https://api.thingspeak.com/channels/' + channel_id + '/fields/' + field_number + '.json?offset=0&round=2&results=' + results + '&api_key=' + api_key, function(data) {
+
+      // blank array for holding chart data
+      var chart_data = [];
+
+      // iterate through each feed
+      $.each(data.feeds, function() {
+        var point = new Highcharts.Point();
+        // set the proper values
+        var value = this[field_name];
+        point.x = getChartDate(this.created_at);
+        point.y = parseFloat(value);
+        // add location if possible
+        if (this.location) { point.name = this.location; }
+        // if a numerical value exists add it
+        if (!isNaN(parseInt(value))) { chart_data.push(point); }
+      });
+
+      // add the chart data
+      my_chart.addSeries({ data: chart_data, name: data.channel[field_name], color: color });
+    });
+  }
+
+  // converts date format from JSON
+  function getChartDate(d) {
+    // offset in minutes is converted to milliseconds and subtracted so that chart's x-axis is correct
+    return Date.parse(d) - (my_offset * 60000);
+  }
+
+</script>
+
+
+
+</head>
+<body>
+  <div id="chart-container">
+    <img alt="Ajax loader" src="//thingspeak.com/assets/loader-transparent.gif" style="position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0;" />
+  </div>
+</body>
+</html>
+
+
