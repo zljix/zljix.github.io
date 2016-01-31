@@ -1,0 +1,172 @@
+<html> 
+<head> 
+
+<style type="text/css"> 
+body 
+{ 
+background-color: #ddd; 
+font-family:verdana; 
+} 
+
+table, td, tr { 
+text-align: center; 
+font-size: 40; 
+} 
+</style> 
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'></script> 
+<script type='text/javascript' src='https://www.google.com/jsapi'></script> 
+<script type='text/javascript'> 
+
+//body { background-color: transparent; } 
+//div.chart_div1 {position:center; width:200;} 
+var chart1, chart2, chart3, chart4; 
+var charts; 
+var data1, data2, data3, data4; 
+
+google.load('visualization', '1', {packages:['gauge']}); 
+google.setOnLoadCallback(initChart); 
+
+function displayData1(point1) { 
+data1.setValue(0, 0, 'Ptot'); 
+data1.setValue(0, 1, point1); 
+chart1.draw(data1, options); 
+} 
+function displayData2(point2) { 
+data2.setValue(0, 0, 'P1'); 
+data2.setValue(0, 1, point2); 
+chart2.draw(data2, options); 
+} 
+function displayData3(point3) { 
+data3.setValue(0, 0, 'P2'); 
+data3.setValue(0, 1, point3); 
+chart3.draw(data3, options); 
+} 
+function displayData4(point4) { 
+data4.setValue(0, 0, 'P3'); 
+data4.setValue(0, 1, point4); 
+chart4.draw(data4, options); 
+} 
+
+function loadData() { 
+
+// variable for the data point 
+var p1, p2, p3, p4; 
+
+$.getJSON('https://api.thingspeak.com/channels/45572/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data1) { 
+
+// get the data point 
+p1 = data1.field1; 
+
+if (p1) 
+{ 
+p1 = Math.round(p1); 
+displayData1(p1); 
+} 
+
+
+}); 
+$.getJSON('https://api.thingspeak.com/channels/45572/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data2) { 
+
+// get the data point 
+p2 = data2.field2; 
+
+if (p2) 
+{ 
+p2 = Math.round(p2); 
+displayData2(p2); 
+} 
+
+}); 
+$.getJSON('https://api.thingspeak.com/channels/45572/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data3) { 
+
+// get the data point 
+p3 = data3.field3; 
+
+if (p3) 
+{ 
+p3 = Math.round(p3); 
+displayData3(p3); 
+} 
+}); 
+$.getJSON('https://api.thingspeak.com/channels/45572/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data4) { 
+
+// get the data point 
+p4 = data4.field4; 
+
+if (p4) 
+{ 
+p4 = Math.round(p4); 
+displayData4(p4); 
+} 
+
+}); 
+
+} 
+
+function initChart() { 
+
+data1 = new google.visualization.DataTable(); 
+data1.addColumn('string', 'Label'); 
+data1.addColumn('number', 'Value'); 
+data1.addRows(1); 
+data2 = new google.visualization.DataTable(); 
+data2.addColumn('string', 'Label'); 
+data2.addColumn('number', 'Value'); 
+data2.addRows(1); 
+data3 = new google.visualization.DataTable(); 
+data3.addColumn('string', 'Label'); 
+data3.addColumn('number', 'Value'); 
+data3.addRows(1); 
+data4 = new google.visualization.DataTable(); 
+data4.addColumn('string', 'Label'); 
+data4.addColumn('number', 'Value'); 
+data4.addRows(1); 
+chart1 = new google.visualization.Gauge(document.getElementById('chart_div1')); 
+options = {width: 150, height: 150, redFrom: 2000, redTo: 4000, 
+yellowFrom:500, yellowTo: 2000, greenFrom: 0, greenTo: 500, minorTicks: 500, min: 0, max: 4000}; 
+
+chart2 = new google.visualization.Gauge(document.getElementById('chart_div2')); 
+options = {width: 150, height: 150, redFrom: 2000, redTo: 4000, 
+yellowFrom:500, yellowTo: 2000, greenFrom: 0, greenTo: 500, minorTicks: 500, min: 0, max: 4000}; 
+
+chart3 = new google.visualization.Gauge(document.getElementById('chart_div3')); 
+options = {width: 150, height: 150, redFrom: 2000, redTo: 4000, 
+yellowFrom:500, yellowTo: 2000, greenFrom: 0, greenTo: 500, minorTicks: 500, min: 0, max: 4000}; 
+
+chart4 = new google.visualization.Gauge(document.getElementById('chart_div4')); 
+options = {width: 150, height: 150, redFrom: 2000, redTo: 4000, 
+yellowFrom:500, yellowTo: 2000, greenFrom: 0, greenTo: 500, minorTicks: 500, min: 0, max: 4000}; 
+
+loadData(); 
+
+setInterval('loadData()', 15000); 
+
+} 
+
+</script> 
+
+</head> 
+
+<body> 
+<table> 
+<tr> 
+<td>Ptot</td> 
+<td> </td> 
+<td>P1</td> 
+<td> </td> 
+<td>P2</td> 
+<td> </td> 
+<td>P3</td> 
+</tr> 
+<tr> 
+<td><div id='chart_div1'></div></td> 
+<td>=</td> 
+<td><div id='chart_div2'></div></td> 
+<td>+</td> 
+<td><div id='chart_div3'></div></td> 
+<td>+</td> 
+<td><div id='chart_div4'></div></td> 
+</tr> 
+</table> 
+</body> 
+</html>
