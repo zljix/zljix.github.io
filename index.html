@@ -28,22 +28,22 @@ google.load('visualization', '1', {packages:['gauge']});
 google.setOnLoadCallback(initChart); 
 
 function displayData1(point1) { 
-data1.setValue(0, 0, 'Ptot'); 
+data1.setValue(0, 0, '°C'); 
 data1.setValue(0, 1, point1); 
 chart1.draw(data1, options1); 
 } 
 function displayData2(point2) { 
-data2.setValue(0, 0, 'P1'); 
+data2.setValue(0, 0, '%'); 
 data2.setValue(0, 1, point2); 
 chart2.draw(data2, options2); 
 } 
 function displayData3(point3) { 
-data3.setValue(0, 0, 'P2'); 
+data3.setValue(0, 0, 'hPa'); 
 data3.setValue(0, 1, point3); 
 chart3.draw(data3, options3); 
 } 
 function displayData4(point4) { 
-data4.setValue(0, 0, 'P3'); 
+data4.setValue(0, 0, '°C'); 
 data4.setValue(0, 1, point4); 
 chart4.draw(data4, options4); 
 } 
