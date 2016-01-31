@@ -52,7 +52,7 @@ function loadData() {
 // variable for the data point 
 var p1, p2, p3, p4; 
 
-$.getJSON('https://api.thingspeak.com/channels/45572/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data1) { 
+$.getJSON('https://api.thingspeak.com/channels/82350/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data1) { 
 
 // get the data point 
 p1 = data1.field1; 
@@ -65,7 +65,7 @@ displayData1(p1);
 
 
 }); 
-$.getJSON('https://api.thingspeak.com/channels/45572/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data2) { 
+$.getJSON('https://api.thingspeak.com/channels/82350/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data2) { 
 
 // get the data point 
 p2 = data2.field2; 
@@ -77,7 +77,7 @@ displayData2(p2);
 } 
 
 }); 
-$.getJSON('https://api.thingspeak.com/channels/45572/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data3) { 
+$.getJSON('https://api.thingspeak.com/channels/82350/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data3) { 
 
 // get the data point 
 p3 = data3.field3; 
@@ -88,7 +88,7 @@ p3 = Math.round(p3);
 displayData3(p3); 
 } 
 }); 
-$.getJSON('https://api.thingspeak.com/channels/45572/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data4) { 
+$.getJSON('https://api.thingspeak.com/channels/82350/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data4) { 
 
 // get the data point 
 p4 = data4.field4; 
@@ -122,20 +122,16 @@ data4.addColumn('string', 'Label');
 data4.addColumn('number', 'Value'); 
 data4.addRows(1); 
 chart1 = new google.visualization.Gauge(document.getElementById('chart_div1')); 
-options = {width: 150, height: 150, redFrom: 2000, redTo: 4000, 
-yellowFrom:500, yellowTo: 2000, greenFrom: 0, greenTo: 500, minorTicks: 500, min: 0, max: 4000}; 
+options = {width: 200, height: 200, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
 
 chart2 = new google.visualization.Gauge(document.getElementById('chart_div2')); 
-options = {width: 150, height: 150, redFrom: 2000, redTo: 4000, 
-yellowFrom:500, yellowTo: 2000, greenFrom: 0, greenTo: 500, minorTicks: 500, min: 0, max: 4000}; 
+options = {width: 200, height: 200, min: 0, max: 100, redFrom: 50, redTo: 100, yellowFrom:0, yellowTo: 30, greenFrom:30, greenTo:50, minorTicks: 5}; 
 
 chart3 = new google.visualization.Gauge(document.getElementById('chart_div3')); 
-options = {width: 150, height: 150, redFrom: 2000, redTo: 4000, 
-yellowFrom:500, yellowTo: 2000, greenFrom: 0, greenTo: 500, minorTicks: 500, min: 0, max: 4000}; 
+options = {width: 200, height: 200, min: 900, max: 1100, redFrom: 900, redTo: 1005, greenFrom:1005, greenTo:1020, yellowFrom:1020, yellowTo: 1100, minorTicks: 5}; 
 
 chart4 = new google.visualization.Gauge(document.getElementById('chart_div4')); 
-options = {width: 150, height: 150, redFrom: 2000, redTo: 4000, 
-yellowFrom:500, yellowTo: 2000, greenFrom: 0, greenTo: 500, minorTicks: 500, min: 0, max: 4000}; 
+options = {width: 200, height: 200, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
 
 loadData(); 
 
@@ -150,13 +146,13 @@ setInterval('loadData()', 15000);
 <body> 
 <table> 
 <tr> 
-<td>Ptot</td> 
+<td>Temp DHT22</td> 
 <td> </td> 
-<td>P1</td> 
+<td>Humidity DHT22</td> 
 <td> </td> 
-<td>P2</td> 
+<td>Pressure BMP180</td> 
 <td> </td> 
-<td>P3</td> 
+<td>Temp BMP180</td> 
 </tr> 
 <tr> 
 <td><div id='chart_div1'></div></td> 
