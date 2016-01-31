@@ -64,7 +64,7 @@ p1 = data1.field1;
 
 if (p1) 
 { 
-p1 = Math.round(p1); 
+//p1 = Math.round(p1); 
 displayData1(p1); 
 } 
 
@@ -77,7 +77,7 @@ p2 = data2.field2;
 
 if (p2) 
 { 
-p2 = Math.round(p2); 
+//p2 = Math.round(p2); 
 displayData2(p2); 
 } 
 
@@ -89,7 +89,7 @@ p3 = data3.field3;
 
 if (p3) 
 { 
-p3 = Math.round(p3); 
+//p3 = Math.round(p3); 
 displayData3(p3); 
 } 
 }); 
@@ -100,7 +100,7 @@ p4 = data4.field4;
 
 if (p4) 
 { 
-p4 = Math.round(p4); 
+//p4 = Math.round(p4); 
 displayData4(p4); 
 } 
 
@@ -143,9 +143,6 @@ loadData();
 setInterval('loadData()', 15000); 
 
 } 
-
-</script> 
-<script type="text/javascript">
   // variables for the first series
   var series_1_channel_id = 82350;
   var series_1_field_number = 1;
@@ -262,8 +259,8 @@ setInterval('loadData()', 15000);
     // offset in minutes is converted to milliseconds and subtracted so that chart's x-axis is correct
     return Date.parse(d) - (my_offset * 60000);
   }
+</script> 
 
-</script>
 
 
 
@@ -293,10 +290,10 @@ setInterval('loadData()', 15000);
 <td><div id='chart_div4'></div></td> 
 <td></td>
 </tr> 
-<tr> 
+<tr> <td>
   <div id="chart-container">
     <img alt="Ajax loader" src="http://thingspeak.com/assets/loader-transparent.gif" style="position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0;" />
-  </div>
+  </div></td>
 </tr> 
 </table> 
 </body> 
