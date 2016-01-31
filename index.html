@@ -30,22 +30,22 @@ google.setOnLoadCallback(initChart);
 function displayData1(point1) { 
 data1.setValue(0, 0, 'Ptot'); 
 data1.setValue(0, 1, point1); 
-chart1.draw(data1, options); 
+chart1.draw(data1, options1); 
 } 
 function displayData2(point2) { 
 data2.setValue(0, 0, 'P1'); 
 data2.setValue(0, 1, point2); 
-chart2.draw(data2, options); 
+chart2.draw(data2, options2); 
 } 
 function displayData3(point3) { 
 data3.setValue(0, 0, 'P2'); 
 data3.setValue(0, 1, point3); 
-chart3.draw(data3, options); 
+chart3.draw(data3, options3); 
 } 
 function displayData4(point4) { 
 data4.setValue(0, 0, 'P3'); 
 data4.setValue(0, 1, point4); 
-chart4.draw(data4, options); 
+chart4.draw(data4, options4); 
 } 
 
 function loadData() { 
@@ -123,16 +123,16 @@ data4.addColumn('string', 'Label');
 data4.addColumn('number', 'Value'); 
 data4.addRows(1); 
 chart1 = new google.visualization.Gauge(document.getElementById('chart_div1')); 
-options = {width: 200, height: 200, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
+options1 = {width: 200, height: 200, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
 
 chart2 = new google.visualization.Gauge(document.getElementById('chart_div2')); 
-options = {width: 200, height: 200, min: 0, max: 100, redFrom: 50, redTo: 100, yellowFrom:0, yellowTo: 30, greenFrom:30, greenTo:50, minorTicks: 5}; 
+options2 = {width: 200, height: 200, min: 0, max: 100, redFrom: 50, redTo: 100, yellowFrom:0, yellowTo: 30, greenFrom:30, greenTo:50, minorTicks: 5}; 
 
 chart3 = new google.visualization.Gauge(document.getElementById('chart_div3')); 
-options = {width: 200, height: 200, min: 900, max: 1100, redFrom: 900, redTo: 1005, greenFrom:1005, greenTo:1020, yellowFrom:1020, yellowTo: 1100, minorTicks: 5}; 
+options3 = {width: 200, height: 200, min: 900, max: 1100, redFrom: 900, redTo: 1005, greenFrom:1005, greenTo:1020, yellowFrom:1020, yellowTo: 1100, minorTicks: 5}; 
 
 chart4 = new google.visualization.Gauge(document.getElementById('chart_div4')); 
-options = {width: 200, height: 200, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
+options4 = {width: 200, height: 200, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
 
 loadData(); 
 
