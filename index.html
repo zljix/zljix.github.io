@@ -5,7 +5,8 @@
 
 #chart-container 
 { 
-  width: 425px; height: 235px; display: block;  
+  width: 425px; height: 235px; display: block; position:absolute; 
+  bottom:0; top:50; left:250; right:0; margin: 5px 15px 15px 0; overflow: hidden; 
   }
 
 body 
@@ -59,13 +60,13 @@ for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},
   var series_1_channel_id = 82350;
   var series_1_field_number = 1;
   var series_1_read_api_key = 'F9GVWNCK6XMRKPMD';
-  var series_1_results = 30;
+  var series_1_results = 300;
   var series_1_color = '#d62020';
   // variables for the second series
   var series_2_channel_id = 82350;
   var series_2_field_number = 2;
   var series_2_read_api_key = 'F9GVWNCK6XMRKPMD';
-  var series_2_results = 30;
+  var series_2_results = 300;
   var series_2_color = '#00aaff';
   // chart title
   var chart_title = 'Humidity & Temperature';
@@ -310,7 +311,7 @@ setInterval('loadData()', 15000);
 </tr> 
 <tr> 
  <div id="chart-container">
-    <img alt="Ajax loader" src="//thingspeak.com/assets/loader-transparent.gif" />
+    <img alt="Ajax loader" src="//thingspeak.com/assets/loader-transparent.gif" style="position: absolute; margin: auto; top: 0; left: 100; right: 0; bottom: 0;" />
   </div>
 </tr> 
 </table> 
