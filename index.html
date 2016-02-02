@@ -202,7 +202,7 @@ data4 = new google.visualization.DataTable();
 data4.addColumn('string', 'Label'); 
 data4.addColumn('number', 'Value'); 
 data4.addRows(1); 
-gaugeWidth=200;
+var gaugeWidth=200;
 chart1 = new google.visualization.Gauge(document.getElementById('chart_div1')); 
 options1 = {width: gaugeWidth, height: gaugeWidth, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
 chart2 = new google.visualization.Gauge(document.getElementById('chart_div2')); 
