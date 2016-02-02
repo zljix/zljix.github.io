@@ -39,40 +39,27 @@ for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},
 </script>
 
 <script type="text/javascript">
-  // variables for the first series
   var series_1_channel_id = 82350;
   var series_1_field_number = 1;
   var series_1_read_api_key = 'F9GVWNCK6XMRKPMD';
-  var series_1_results = 3000;
+  var series_1_results = 500;
   var series_1_color = '#d62020';
-  // variables for the second series
   var series_2_channel_id = 82350;
   var series_2_field_number = 2;
   var series_2_read_api_key = 'F9GVWNCK6XMRKPMD';
-  var series_2_results = 3000;
+  var series_2_results = 500;
   var series_2_color = '#00aaff';
-  // chart title
   var chart_title = 'Humidity & Temperature';
-  // y axis title
   var y_axis_title = 'Values';
-  // user's timezone offset
   var my_offset = new Date().getTimezoneOffset();
-  // chart variable
   var my_chart;
-  // when the document is ready
   $(document).on('ready', function() {
-    // add a blank chart
     addChart();
-    // add the first series
     addSeries(series_1_channel_id, series_1_field_number, series_1_read_api_key, series_1_results, series_1_color);
-    // add the second series
     addSeries(series_2_channel_id, series_2_field_number, series_2_read_api_key, series_2_results, series_2_color);
   });
-  // add the base chart
   function addChart() {
-    // variable for the local date in milliseconds
     var localDate;
-    // specify the chart options
     var chartOptions = {
       chart: {
         renderTo: 'chart-container',
@@ -91,7 +78,6 @@ for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},
         }
       },
       tooltip: {
-        // reformat the tooltips so that local times are displayed
         formatter: function() {
           var d = new Date(this.x + (my_offset*60000));
           var n = (this.point.name === undefined) ? '' : '<br>' + this.point.name;
@@ -111,29 +97,20 @@ for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},
         style: { color: '#D62020' }
       }
     };
-    // draw the chart
     my_chart = new Highcharts.Chart(chartOptions);
   }
-  // add a series to the chart
   function addSeries(channel_id, field_number, api_key, results, color) {
     var field_name = 'field' + field_number;
-    // get the data with a webservice call
     $.getJSON('https://api.thingspeak.com/channels/' + channel_id + '/fields/' + field_number + '.json?offset=0&round=2&results=' + results + '&api_key=' + api_key, function(data) {
-      // blank array for holding chart data
       var chart_data = [];
-      // iterate through each feed
       $.each(data.feeds, function() {
         var point = new Highcharts.Point();
-        // set the proper values
         var value = this[field_name];
         point.x = getChartDate(this.created_at);
         point.y = parseFloat(value);
-        // add location if possible
         if (this.location) { point.name = this.location; }
-        // if a numerical value exists add it
         if (!isNaN(parseInt(value))) { chart_data.push(point); }
       });
-      // add the chart data
       my_chart.addSeries({ data: chart_data, name: data.channel[field_name], color: color });
     });
   }
@@ -145,14 +122,11 @@ for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},
 </script>
 
 <script type='text/javascript'> 
-
 var chart1, chart2, chart3, chart4; 
 var charts; 
 var data1, data2, data3, data4; 
-
 google.load('visualization', '1', {packages:['gauge']}); 
 google.setOnLoadCallback(initChart); 
-
 function displayData1(point1) { 
 data1.setValue(0, 0, '°C'); 
 data1.setValue(0, 1, point1); 
@@ -175,63 +149,40 @@ chart4.draw(data4, options4);
 } 
 
 function loadData() { 
-
-// variable for the data point 
 var p1, p2, p3, p4; 
 
 $.getJSON('https://api.thingspeak.com/channels/82350/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data1) { 
 
-// get the data point 
 p1 = data1.field1; 
-
 if (p1) 
-{ 
-//p1 = Math.round(p1); 
-displayData1(p1); 
+{ displayData1(p1); 
 } 
-
-
 }); 
 $.getJSON('https://api.thingspeak.com/channels/82350/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data2) { 
 
-// get the data point 
 p2 = data2.field2; 
-
 if (p2) 
-{ 
-//p2 = Math.round(p2); 
-displayData2(p2); 
+{ displayData2(p2); 
 } 
-
 }); 
 $.getJSON('https://api.thingspeak.com/channels/82350/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data3) { 
-
 // get the data point 
 p3 = data3.field3; 
-
 if (p3) 
-{ 
-//p3 = Math.round(p3); 
-displayData3(p3); 
+{ displayData3(p3); 
 } 
 }); 
 $.getJSON('https://api.thingspeak.com/channels/82350/feed/last.json?key=F9GVWNCK6XMRKPMD&callback=?', function(data4) { 
 
 // get the data point 
 p4 = data4.field4; 
-
 if (p4) 
-{ 
-//p4 = Math.round(p4); 
-displayData4(p4); 
+{ displayData4(p4); 
 } 
-
 }); 
-
 } 
 
 function initChart() { 
-
 data1 = new google.visualization.DataTable(); 
 data1.addColumn('string', 'Label'); 
 data1.addColumn('number', 'Value'); 
@@ -249,21 +200,15 @@ data4.addColumn('string', 'Label');
 data4.addColumn('number', 'Value'); 
 data4.addRows(1); 
 chart1 = new google.visualization.Gauge(document.getElementById('chart_div1')); 
-options1 = {width: 20, height: 20, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
-
+options1 = {width: 100, height: 100, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
 chart2 = new google.visualization.Gauge(document.getElementById('chart_div2')); 
-options2 = {width: 20, height: 20, min: 0, max: 100, redFrom: 50, redTo: 100, yellowFrom:0, yellowTo: 30, greenFrom:30, greenTo:50, minorTicks: 5}; 
-
+options2 = {width: 100, height: 100, min: 0, max: 100, redFrom: 50, redTo: 100, yellowFrom:0, yellowTo: 30, greenFrom:30, greenTo:50, minorTicks: 5}; 
 chart3 = new google.visualization.Gauge(document.getElementById('chart_div3')); 
-options3 = {width: 20, height: 20, min: 900, max: 1100, redFrom: 900, redTo: 1005, greenFrom:1005, greenTo:1020, yellowFrom:1020, yellowTo: 1100, minorTicks: 5}; 
-
+options3 = {width: 100, height: 100, min: 900, max: 1100, redFrom: 900, redTo: 1005, greenFrom:1005, greenTo:1020, yellowFrom:1020, yellowTo: 1100, minorTicks: 5}; 
 chart4 = new google.visualization.Gauge(document.getElementById('chart_div4')); 
-options4 = {width: 20, height: 20, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
-
+options4 = {width: 100, height: 100, min: -10, max: 40, redFrom: 35, redTo: 40, yellowFrom:30, yellowTo: 35, greenFrom:20, greenTo:30, minorTicks: 5}; 
 loadData(); 
-
 setInterval('loadData()', 15000); 
-
 } 
 </script> 
 </head> 
