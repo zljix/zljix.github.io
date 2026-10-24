@@ -14,4 +14,6 @@ for(const icon of [...manifest.icons,{src:'apple-touch-icon.png',sizes:'180x180'
   assert.equal(png.readUInt32BE(16),Number(icon.sizes.split('x')[0]));assert.equal(png.readUInt32BE(20),Number(icon.sizes.split('x')[1]));
 }
 const worker=await readFile(new URL('sw.js',dir),'utf8');new vm.Script(worker);assert.ok(!worker.includes('__ORBIT_BUILD__'));
+assert.equal(await readFile(new URL('downloads/Orbit-OS.html',dir),'utf8'),await readFile(new URL('../Orbit-OS.html',dir),'utf8'));
+assert.ok(worker.includes('downloads/Orbit-OS.html'));
 console.log('Mobile package verified: inline app, scoped manifest, complete icons, valid offline worker.');

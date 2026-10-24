@@ -95,9 +95,17 @@ body.large .editor-text{font-size:16px;line-height:1.9}
 
 </style><style>
 /* Last stylesheet: touch controls and narrow-screen reading. */
-#pwa-status-button{font:inherit;font-size:12px;gap:6px;white-space:nowrap;padding:7px 10px;border:1px solid #ffffff50;border-radius:8px;min-height:32px}
-#pwa-status-button::before{content:'';width:7px;height:7px;border-radius:50%;background:#ffc987;flex:none}
-#pwa-status-button[data-ready=true]::before{background:#99e5cb}
+/* The score belongs to the shell, so every app and scroll position shares it. */
+.topbar{position:fixed;top:0;left:0;right:0}
+#global-score{flex:none;gap:7px;padding:6px 10px;border:1px solid #e0c38180;border-radius:9px;background:#352e45;color:#ffe1a3;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+#global-score svg{height:18px;width:18px;fill:none;stroke:currentColor;stroke-width:1.7}
+#pwa-status-button{flex:none;justify-content:center;width:38px;height:34px;padding:6px;border:1px solid #ffffff40;border-radius:9px;color:#c4bfcb;background:#ffffff0a}
+#pwa-status-button svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8}
+#pwa-status-button:disabled{opacity:.55;cursor:default}
+#pwa-status-button[data-ready=true]{color:#c4ffe1;background:#175d47;border-color:#71dba7}
+#pwa-status-button[data-ready=true]:hover{background:#217956}
+.pwa-download{display:flex;width:100%;justify-content:center;margin-top:16px;text-decoration:none}
+@media(max-width:1100px){#clock{display:none}.topbar{gap:10px}.top-right{gap:8px}}
 #pwa-dialog{color:#423652;background:#fcfaff;width:min(540px,94vw);max-height:90dvh;overflow:auto;border:1px solid #ddd4ec;border-radius:20px;padding:24px;font-size:15px;line-height:1.6}
 #pwa-dialog::backdrop{background:#20172c99;backdrop-filter:blur(5px)}
 #pwa-dialog h2{font-size:25px;line-height:1.25;margin:10px 0 18px}
@@ -117,7 +125,10 @@ body.large .editor-text{font-size:16px;line-height:1.9}
   .local-work-button{font-size:13px!important;padding:7px 10px!important;min-height:44px}
   .local-badge{max-width:100px;font-size:10px}
   html[data-distribution=pwa] .local-badge{display:none!important}
-  #pwa-status-button{font-size:11px;padding:7px 8px;min-height:44px}
+  #pwa-status-button{width:44px;min-width:44px;height:44px;padding:9px}
+  #global-score{font-size:13px;padding:6px 9px;min-height:44px}
+  #global-score svg{width:16px;height:16px}
+  .topbar .local-badge{display:none!important}
   #desktop{top:var(--phone-top);left:env(safe-area-inset-left);right:env(safe-area-inset-right)}
   .window,.window.maximized{left:0!important;top:0!important;width:100%!important;height:calc(100% - var(--phone-bottom))!important;border-radius:0;border-left:0;border-right:0}
   .window-header{height:48px;min-height:48px;padding:0 10px;touch-action:auto}
@@ -251,13 +262,18 @@ body.large .editor-text{font-size:16px;line-height:1.9}
 .course-sidebar .game-lesson-score{display:block;margin-top:3px;font-size:10px!important;font-weight:400}.course-lesson-card>span:nth-child(2){min-width:0;flex:1}.game-task fieldset.game-options{border:0;padding:0;margin:0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:700px){.course-card-status.game-lesson-score{display:block;max-width:54px;white-space:normal;text-align:right}.game-task h2{font-size:20px}.course-lesson-card{gap:8px}.course-field select{font-size:16px}}
 
+.game-difficulty{margin:24px 0}.game-difficulty h2{font-size:20px;margin:0 0 12px}.game-difficulty>p{font-size:12px!important;color:#655a78;line-height:1.6!important}.game-difficulty-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.game-difficulty-options button{display:flex;flex-direction:column;text-align:left;gap:8px;border:1px solid #d4cae3;background:#fff;color:#493b61;padding:16px;border-radius:13px;font:inherit;cursor:pointer}.game-difficulty-options button[aria-pressed=true]{border:2px solid #795b9c;background:#eee7fa;padding:15px;box-shadow:0 3px 12px #77599c16}.game-difficulty-options button>span{font-size:17px;font-weight:750}.game-difficulty-options strong{font-size:13px}.game-difficulty-options small{font-size:12px;line-height:1.6;font-weight:400}.game-difficulty-options b{font-size:11px;color:#71568c;margin-top:auto;padding-top:4px}.game-difficulty-select{display:flex;align-items:center;gap:8px;font-size:12px;color:#675578}.game-difficulty-select select{font:inherit;border:1px solid #cabbdb;border-radius:8px;padding:7px;background:#fff;color:#493b61;min-height:36px}.course-top{flex-wrap:wrap;gap:12px}.game-path-goal,.game-coach{font-size:13px;line-height:1.7;background:#f0eaf8;border-left:3px solid #a38abf;padding:12px 15px;border-radius:0 8px 8px 0}.game-coach strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px}.game-extension-intro{padding:16px 0 0}.game-extension-intro h2{font-size:21px;margin:8px 0}.game-extension-intro p{line-height:1.65;font-size:14px}.game-final-bests{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.game-final-bests span{border:1px solid #d9d0e7;background:#f7f3fc;border-radius:8px;padding:10px;font-size:12px}.game-final-bests b{display:block;margin-bottom:5px}.game-options label span{overflow-wrap:anywhere;min-width:0}.game-difficulty-options button:focus-visible,#global-score:focus-visible,#pwa-status-button:focus-visible{outline:3px solid #b899e2;outline-offset:3px}
+@media(max-width:700px){.game-difficulty-options{grid-template-columns:1fr}.game-difficulty-options button{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:14px}.game-difficulty-options button[aria-pressed=true]{padding:13px}.game-difficulty-options strong,.game-difficulty-options small{grid-column:1/-1}.game-difficulty-options b{grid-column:2;grid-row:1;padding:0;align-self:center}.game-difficulty-options small{font-size:13px}.game-difficulty-select{margin-left:auto}.game-path-goal,.game-coach{font-size:14px}.course-top>span{display:none}.game-mission-progress{flex-wrap:wrap}.game-mission-progress>progress{max-width:100%}}
+
+.keep-word{white-space:nowrap}.game-picked{font-size:12px;line-height:1.6;font-weight:400;color:#66547a;overflow-wrap:anywhere}.game-picked:empty{display:none}
+
 </style>
 <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Orbit OS"></head>
 <body data-theme="dusk">
   <div class="wallpaper" aria-hidden="true"><div class="planet"></div><div class="orbit-line one"></div><div class="orbit-line two"></div><div class="wall-glow"></div><div class="wall-word">orbit<span>Otkrij kako sustav radi.</span></div></div>
-  <header class="topbar"><button id="brand" aria-label="Orbit — početna"><span class="brand-symbol">◌</span><strong>orbit<span> OS</span></strong></button><span class="top-divider"></span><span id="active-app">Radna površina</span><div class="top-right"><span class="local-badge"><i></i> Otvaranje lokalnog rada…</span><button id="desktop-toggle" title="Prikaži radnu površinu" aria-label="Prikaži radnu površinu"></button><time id="clock"></time></div></header>
+  <header class="topbar"><button id="brand" aria-label="Orbit — početna"><span class="brand-symbol">◌</span><strong>orbit<span> OS</span></strong></button><span class="top-divider"></span><span id="active-app">Radna površina</span><button id="global-score" title="Ukupni bodovi" aria-label="Bodovi: 0 XP. Otvori pregled misija."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L2.2 9.4l6.1-.9Z"/></svg><span id="global-score-value" role="status" aria-live="polite" aria-atomic="true">0 XP</span></button><div class="top-right"><span class="local-badge"><i></i> Otvaranje lokalnog rada…</span><button id="desktop-toggle" title="Prikaži radnu površinu" aria-label="Prikaži radnu površinu"></button><time id="clock"></time></div></header>
   <main id="desktop" aria-label="Radna površina"><nav id="shortcuts" aria-label="Aplikacije na radnoj površini"></nav><div id="windows"></div><div class="desktop-caption"><span class="tiny-pill">UČENJE OPERACIJSKIH SUSTAVA</span><span>Struktura. Funkcije. Mehanizmi.</span></div></main>
-  <div id="launcher" class="launcher" hidden><div class="launcher-heading"><strong>Tvoje aplikacije</strong><span>ORBIT OS · 0.10.0</span></div><label class="search"><span id="search-icon"></span><input id="app-search" placeholder="Pronađi aplikaciju…" aria-label="Pronađi aplikaciju"></label><div id="launcher-grid"></div><div class="launcher-footer"><span class="avatar">U</span><div><strong>Lokalni rad</strong><small>Spremi JSON kroz Moj rad</small></div></div></div>
+  <div id="launcher" class="launcher" hidden><div class="launcher-heading"><strong>Tvoje aplikacije</strong><span>ORBIT OS · 0.11.0</span></div><label class="search"><span id="search-icon"></span><input id="app-search" placeholder="Pronađi aplikaciju…" aria-label="Pronađi aplikaciju"></label><div id="launcher-grid"></div><div class="launcher-footer"><span class="avatar">U</span><div><strong>Lokalni rad</strong><small>Spremi JSON kroz Moj rad</small></div></div></div>
   <footer class="dock" aria-label="Traka aplikacija"><button class="dock-launch" id="launcher-button" aria-label="Otvori izbornik aplikacija" aria-expanded="false"></button><span class="dock-divider"></span><div id="dock-apps"></div></footer>
   <div id="toast" role="status" aria-live="polite" hidden></div>
   <dialog id="dialog"><form id="dialog-form"><div class="dialog-symbol" id="dialog-icon"></div><h2 id="dialog-title"></h2><p id="dialog-description"></p><label id="dialog-label">Naziv<input id="dialog-input" autocomplete="off" maxlength="100"></label><p id="dialog-error" class="error" role="alert"></p><div class="dialog-actions"><button type="button" class="button secondary" id="dialog-cancel">Odustani</button><button type="submit" class="button primary" id="dialog-submit">Spremi</button></div></form></dialog>
@@ -436,112 +452,6 @@ body.large .editor-text{font-size:16px;line-height:1.9}
     }
   ];
   var lessonById = (id) => COURSE.find((l) => l.id === id);
-
-  // public/orbit/course-model.js
-  var int = (n, min, max) => Number.isInteger(n) && n >= min && n <= max;
-  var object = (x) => x && typeof x === "object" && !Array.isArray(x);
-  var STAGES = ["Razumij", "Pogledaj primjer", "Isprobaj", "Provjeri"];
-  function defaultCourse() {
-    return { version: 1, lesson: COURSE[0].id, stage: 0, overview: true, records: {} };
-  }
-  function defaultRecord(lesson) {
-    return { example: 0, exampleSeen: 0, variant: lesson.experiment.variants[0].id, prediction: null, step: -1, answers: lesson.quiz.map(() => null), firstAnswers: lesson.quiz.map(() => null), attempts: lesson.quiz.map(() => 0), reflection: "", finished: false };
-  }
-  function courseRecord(course, lesson) {
-    return course.records[lesson.id] || defaultRecord(lesson);
-  }
-  function currentVariant(lesson, record) {
-    return lesson.experiment.variants.find((v) => v.id === record.variant);
-  }
-  function readyToFinish(lesson, r) {
-    return r.exampleSeen === lesson.example.steps.length - 1 && r.prediction !== null && r.step === currentVariant(lesson, r)?.steps.length - 1 && lesson.quiz.every((q, i) => r.answers[i] === q.answer) && r.reflection.trim().length > 0;
-  }
-  function validateCourse(raw) {
-    if (raw === void 0 || raw === null) return defaultCourse();
-    if (!object(raw) || raw.version !== 1 || !lessonById(raw.lesson) || !int(raw.stage, 0, 3) || typeof raw.overview !== "boolean" || !object(raw.records) || Object.keys(raw.records).length > COURSE.length) throw new Error("Neispravan zapis vođenih lekcija.");
-    const result = { version: 1, lesson: raw.lesson, stage: raw.stage, overview: raw.overview, records: {} };
-    for (const [id, r] of Object.entries(raw.records)) {
-      const lesson = lessonById(id), variant = lesson && object(r) && currentVariant(lesson, r);
-      if (!lesson || !variant || !int(r.example, 0, lesson.example.steps.length - 1) || !int(r.exampleSeen, r.example, lesson.example.steps.length - 1) || !int(r.step, -1, variant.steps.length - 1) || r.prediction !== null && !int(r.prediction, 0, lesson.experiment.choices.length - 1) || r.step >= 0 && r.prediction === null || typeof r.reflection !== "string" || r.reflection.length > 3e3 || typeof r.finished !== "boolean") throw new Error("Neispravan napredak lekcije.");
-      for (const key of ["answers", "firstAnswers", "attempts"]) if (!Array.isArray(r[key]) || r[key].length !== lesson.quiz.length) throw new Error("Neispravna provjera razumijevanja.");
-      for (let i = 0; i < lesson.quiz.length; i++) {
-        const n = lesson.quiz[i].options.length - 1;
-        if (r.answers[i] !== null && !int(r.answers[i], 0, n) || r.firstAnswers[i] !== null && !int(r.firstAnswers[i], 0, n) || !int(r.attempts[i], 0, 100) || r.answers[i] === null !== (r.firstAnswers[i] === null) || r.answers[i] === null !== (r.attempts[i] === 0)) throw new Error("Neispravni odgovori lekcije.");
-      }
-      if (r.finished && !readyToFinish(lesson, r)) throw new Error("Lekcija je označena dovršenom bez potrebnog rada.");
-      result.records[id] = { example: r.example, exampleSeen: r.exampleSeen, variant: r.variant, prediction: r.prediction, step: r.step, answers: [...r.answers], firstAnswers: [...r.firstAnswers], attempts: [...r.attempts], reflection: r.reflection, finished: r.finished };
-    }
-    return result;
-  }
-  function changeCourse(course, action) {
-    const next = validateCourse(course);
-    if (action.type === "overview") {
-      next.overview = true;
-      return next;
-    }
-    if (action.type === "open") {
-      if (!lessonById(action.id)) throw new Error("Nepoznata lekcija.");
-      if (next.lesson !== action.id) next.stage = 0;
-      next.lesson = action.id;
-      next.overview = false;
-      return next;
-    }
-    const l = lessonById(next.lesson), r = next.records[l.id] || defaultRecord(l);
-    next.records[l.id] = r;
-    if (action.type === "stage") {
-      if (!int(action.value, 0, 3)) throw new Error("Nepoznat korak lekcije.");
-      next.stage = action.value;
-    } else if (action.type === "example") {
-      if (![-1, 1].includes(action.delta)) throw new Error("Neispravan pomak primjera.");
-      r.example = Math.max(0, Math.min(l.example.steps.length - 1, r.example + action.delta));
-      r.exampleSeen = Math.max(r.exampleSeen, r.example);
-    } else if (action.type === "variant") {
-      if (!l.experiment.variants.some((v) => v.id === action.id)) throw new Error("Nepoznat uvjet pokusa.");
-      r.variant = action.id;
-      r.prediction = null;
-      r.step = -1;
-      r.finished = false;
-    } else if (action.type === "predict") {
-      if (r.step >= 0) throw new Error("Za novo predviđanje prvo ponovi pokus.");
-      r.prediction = action.value;
-    } else if (action.type === "step") {
-      if (r.prediction === null) throw new Error("Prvo odaberi što očekuješ.");
-      r.step = Math.min(currentVariant(l, r).steps.length - 1, r.step + 1);
-    } else if (action.type === "replay") {
-      r.prediction = null;
-      r.step = -1;
-      r.finished = false;
-    } else if (action.type === "answer") {
-      const q = l.quiz[action.question];
-      if (!q || !int(action.value, 0, q.options.length - 1)) throw new Error("Neispravan odgovor.");
-      const i = action.question;
-      if (r.firstAnswers[i] === null) r.firstAnswers[i] = action.value;
-      r.answers[i] = action.value;
-      r.attempts[i] = Math.min(100, r.attempts[i] + 1);
-      if (action.value !== q.answer) r.finished = false;
-    } else if (action.type === "reflect") {
-      r.reflection = action.value;
-      if (!r.reflection.trim()) r.finished = false;
-    } else if (action.type === "finish") {
-      if (!readyToFinish(l, r)) throw new Error("Dovrši primjer, pokus, provjere i svoje objašnjenje.");
-      r.finished = true;
-    } else throw new Error("Nepoznata radnja lekcije.");
-    return validateCourse(next);
-  }
-  function courseReport(course, esc3) {
-    course = validateCourse(course);
-    return `<h2>Učenje od početka</h2><p class="report-note">Dovršeno znači: pregledan primjer, završen jedan pokus s predviđanjem, riješene obje samoprovjere i upisano vlastito objašnjenje. Pogrešni odgovori mogu se ispraviti uz pomoć. Slobodno objašnjenje nije automatski ocijenjeno.</p>${COURSE.filter((l) => course.records[l.id]).map((l) => {
-      const r = course.records[l.id], v = currentVariant(l, r), done = r.step === v.steps.length - 1;
-      return `<section class="report-lesson"><h3>${esc3(l.title)} · ${r.finished ? "Dovršene aktivnosti" : "U tijeku"}</h3><p>Uvjet: ${esc3(v.label)}. Predviđanje: ${esc3(r.prediction === null ? "Nije odabrano" : l.experiment.choices[r.prediction])} · Pokus: ${done ? "Dovršen" : "Nije dovršen"}.</p>${done ? `<p>Ishod: ${esc3(v.conclusion)}</p>` : ""}<ul>${l.quiz.map((q, i) => `<li>${esc3(q.q)}<br>Prvi odgovor: ${esc3(r.firstAnswers[i] === null ? "Nije upisan" : q.options[r.firstAnswers[i]])} · Zadnji: ${esc3(r.answers[i] === null ? "Nije upisan" : q.options[r.answers[i]])} · Pokušaji: ${r.attempts[i]}.</li>`).join("")}</ul><p><strong>${esc3(l.reflection)}</strong></p><div class="answer">${esc3(r.reflection || "Objašnjenje još nije upisano.")}</div></section>`;
-    }).join("") || "<p>Vođene lekcije još nisu započete.</p>"}`;
-  }
-  function courseReportText(course) {
-    course = validateCourse(course);
-    return ["UČENJE OD POČETKA", "Samoprovjere dopuštaju ispravke. Slobodna objašnjenja nisu automatski ocijenjena.", ...COURSE.filter((l) => course.records[l.id]).flatMap((l) => {
-      const r = course.records[l.id], v = currentVariant(l, r);
-      return ["", l.title + " — " + (r.finished ? "dovršene aktivnosti" : "u tijeku"), "Uvjet: " + v.label, "Predviđanje: " + (r.prediction === null ? "nije odabrano" : l.experiment.choices[r.prediction]), "Pokus: " + (r.step === v.steps.length - 1 ? "dovršen" : "nije dovršen"), ...l.quiz.flatMap((q, i) => [q.q, "Prvi odgovor: " + (r.firstAnswers[i] === null ? "nije upisan" : q.options[r.firstAnswers[i]]), "Zadnji odgovor: " + (r.answers[i] === null ? "nije upisan" : q.options[r.answers[i]]) + "; pokušaji: " + r.attempts[i]]), l.reflection, r.reflection || "(nije upisano)"];
-    })].join("\n");
-  }
 
   // public/orbit/mechanisms-model.js
   var MECHANISMS = [
@@ -766,6 +676,217 @@ body.large .editor-text{font-size:16px;line-height:1.9}
     return { drafts, records };
   }
 
+  // public/orbit/difficulty-data.js
+  var DIFFICULTIES = [
+    { id: "easy", label: "Easy", title: "Upoznaj i razumij", description: "Za prvi susret s OS-om. Dva izbora, početak redoslijeda i vodič uz svaki korak.", goal: "Prepoznaj dio sustava, opiši njegovu ulogu i prati jednostavan mehanizam.", target: 100 },
+    { id: "moderate", label: "Moderate", title: "Primijeni znanje", description: "Svi izbori, pomoć na zahtjev i dodatni slučaj iz svakodnevnog rada.", goal: "Prenesi pravilo na novu situaciju i poveži ishod s razlogom.", target: 120 },
+    { id: "hard", label: "Hard", title: "Istraži uzrok", description: "Primjena i dodatna dijagnoza: poveži tri odluke. Pomoć nakon prvog pokušaja.", goal: "Razlikuj moguća objašnjenja, predvidi posljedicu i odaberi opravdan popravak.", target: 140 }
+  ];
+  var difficultyById = (id) => DIFFICULTIES.find((d) => d.id === id);
+  var field = (label, ...options) => ({ label, options });
+  var scenario = (q, fields, answer, why, hint) => ({ type: "pair", q, fields, answer, why, hint });
+  var cases = {
+    hardware: [
+      scenario(
+        "Spremiš verziju A bilješke. Zatim napišeš verziju B, bez spremanja i bez automatske kopije. Nestane napajanja. Što očekuješ pri ponovnom otvaranju?",
+        [
+          field("Koja verzija ostaje?", "A", "B", "Ni jedna, jer su obje bile prikazane na zaslonu."),
+          field("Gdje je bila nespremljena promjena B?", "Samo u trajnoj pohrani.", "U radnoj memoriji aplikacije.", "U zasebnoj jezgri OS-a.")
+        ],
+        [0, 1],
+        "Na SSD-u je ostala A. B je promijenila radnu kopiju u RAM-u, a spremanje nove verzije nije dovršeno.",
+        "Razdvoji posljednju uspješno spremljenu verziju od teksta koji je samo vidljiv."
+      ),
+      scenario(
+        "Učenik kaže: „B je bila na zaslonu, pa je SSD morao zakazati jer se nakon nestanka napajanja vratila A.” Poznato je samo da je A bila spremljena, a B nije. Procijeni tvrdnju.",
+        [
+          field("Što objašnjava ishod?", "Kvar SSD-a je dokazan.", "Nespremljena B mogla je ostati samo u RAM-u.", "CPU je trajno pohranio B."),
+          field("Koji podatak bi promijenio zaključak?", "B je bila vidljiva deset minuta.", "Aplikacija je bila povećana.", "Potvrđeno uspješno spremanje B prije nestanka napajanja."),
+          field("Što ubuduće smanjuje isti rizik?", "Dovršiti spremanje i provjeriti spremljenu verziju.", "Dodati RAM bez promjene postupka spremanja.", "Ostaviti prozor povećan.")
+        ],
+        [1, 2, 0],
+        "Nestanak nespremljene promjene nije dokaz kvara SSD-a. Za drukčiji zaključak treba dokaz da je nova verzija doista zapisana.",
+        "Odvoji opažanje od pretpostavke: što je dokazano o zapisu na trajnu pohranu?"
+      )
+    ],
+    os: [
+      scenario(
+        "Ista aplikacija uspješno sprema u mapu A, a zapis u mapu B se odbija. Disk je isti i radi; korisnik nema pravo pisanja u B.",
+        [
+          field("Koji dio puta zaustavlja zapis?", "Provjera prava pristupa.", "Izbor boje prozora.", "Izvođenje svake aplikacijske upute na SSD-u."),
+          field("Koji je razuman sljedeći korak?", "Ponovno pokrenuti CPU dok dozvole ostaju iste.", "Tražiti odobrenje ili spremiti u dopuštenu mapu.", "Zaobići OS izravnim pisanjem na uređaj.")
+        ],
+        [0, 1],
+        "Isti disk može poslužiti jedan dopušteni zahtjev i odbiti drugi. Odabrati dopušteno odredište ili zatražiti odgovarajuće pravo rješava konkretni uzrok.",
+        "Usporedi što se razlikuje između A i B; uređaj je u oba slučaja isti."
+      ),
+      scenario(
+        "Zapis u B je odbijen. Učenik predlaže zamjenu upravljačkog programa. Zapis u A na istom uređaju uspijeva, a pregled prava pokazuje da korisnik u B smije samo čitati.",
+        [
+          field("Najbolje potkrijepljen uzrok", "Nema prava pisanja u B.", "Nijedan upravljački program ne radi.", "CPU ne može izvršavati jezgru OS-a."),
+          field("Ako administrator odobri pisanje u B, uz ostale uvjete iste…", "CPU više ne mora izvršavati upute.", "Ova prepreka zapisu nestaje.", "OS prestaje posredovati zahtjevu."),
+          field("Zašto zamjena upravljačkog programa nije prvi korak?", "Upravljački programi ne sudjeluju u zapisu.", "Čitanje uvijek daje i pravo pisanja.", "Uspjeh u A potvrđuje da uređaj može primiti zapis, a utvrđena je razlika u pravima.")
+        ],
+        [0, 1, 2],
+        "Dijagnoza slijedi razliku u uvjetima. Odobrenje uklanja utvrđenu prepreku; ne tvrdi da u svakom stvarnom sustavu više nikakav kvar nije moguć.",
+        "Traži objašnjenje koje se slaže i s uspjehom u A i s odbijanjem u B."
+      )
+    ],
+    process: [
+      scenario(
+        "Program je pokrenut dvaput: P1 ima nespremljen tekst, a P2 je već spremio svoju datoteku. U ovom modelu završimo samo P1, bez automatskog spremanja.",
+        [
+          field("Što se događa s P2?", "Mora završiti zajedno s P1.", "Može nastaviti raditi.", "Pretvara se u datoteku programa."),
+          field("Što ostaje sigurno spremljeno?", "Nespremljeni tekst P1.", "Samo identifikator P1.", "Datoteka koju je P2 uspješno spremio.")
+        ],
+        [1, 2],
+        "Odvojene instance imaju zasebno stanje. Završetak P1 ne briše spremljenu datoteku P2 niti nužno završava P2.",
+        "Razdvoji tri stvari: datoteku programa, stanje procesa i spremljeni dokument."
+      ),
+      scenario(
+        "U modelu P1 i P2 izvode isti program, bez zajedničkih radnih podataka. P1 čeka disk, P2 je spreman. Učenik želi obrisati datoteku programa jer „nijedan prozor trenutačno ne piše”.",
+        [
+          field("Što opisuje P1?", "Završen proces.", "Aktivan proces koji čeka događaj.", "Datoteku koja više ne postoji."),
+          field("Tko je kandidat za CPU?", "P2.", "P1, iako potreban podatak još nije stigao.", "Ni jedan, jer im je program isti."),
+          field("Koji zaključak nije opravdan opažanjem prozora?", "Proces može čekati bez završetka.", "Spreman proces može nastaviti.", "Datoteka programa više nije potrebna zato što nema vidljivog pisanja.")
+        ],
+        [1, 0, 2],
+        "Stanje procesa opisuje izvođenje, a ne postojanje programa. Čekanje i nevidljiv rad nisu dokaz da je proces završen ili da program treba brisati.",
+        "Provjeri zasebno status svakog procesa i postojanje pohranjenih uputa."
+      )
+    ],
+    cpu: [
+      scenario(
+        "Jedan CPU: P1 se izvodi, P2 čeka disk. P1 se blokira čekajući tipkovnicu; u istom trenutku disk dovrši zahtjev P2. Nema drugih procesa.",
+        [
+          field("Tko sada može dobiti CPU?", "P1 jer je zadnji bio aktivan.", "P2.", "Oba moraju ostati blokirana."),
+          field("Koja je promjena to omogućila?", "P2 je iz čekanja prešao među spremne.", "P1 je izbrisao program P2.", "Disk je preuzeo izvršavanje uputa P2.")
+        ],
+        [1, 0],
+        "Dovršetak I/O-a uklanja razlog čekanja P2. P1 sada čeka drugi događaj; raspoređivač može izabrati spremni P2.",
+        "Ažuriraj stanja oba procesa prije izbora sljedećega."
+      ),
+      scenario(
+        "P1 se izvodi na jedinom CPU-u, P2 čeka disk, P3 je spreman. Vremenski odsječak P1 istječe. Učenik tvrdi da se tada nužno izvodi P2.",
+        [
+          field("Zašto tvrdnja ne slijedi?", "P2 još čeka I/O.", "Svaki prekid završava sve procese.", "P3 ne može biti spreman dok P1 radi."),
+          field("Što OS treba prije prijelaza s P1 na P3?", "Obrisati upute P1.", "Sačuvati kontekst P1 i obnoviti kontekst P3.", "Prenijeti program P3 na CPU bez njegova stanja."),
+          field("Ako se I/O P2 dovrši, što je tada sigurno?", "P2 postaje spreman; izbor za CPU ovisi o raspoređivaču.", "P2 odmah završava.", "P2 nužno istisne svaki drugi proces istoga trenutka.")
+        ],
+        [0, 1, 0],
+        "Prekid i promjena procesa nisu isto. Kandidat mora biti spreman; dovršetak I/O-a daje spremnost, a raspoređivač određuje izvođenje.",
+        "Razdvoji događaj prekida, skup spremnih procesa i odluku raspoređivača."
+      )
+    ],
+    memory: [
+      scenario(
+        "P1 i P2 koriste virtualnu adresu 120. P1 je preslikava u fizički okvir A, P2 u B. Oba pristupa su dopuštena i oba su okvira u RAM-u.",
+        [
+          field("Čitaju li nužno isti podatak?", "Da, jer je broj 120 isti.", "Ne, okviri A i B mogu sadržavati različite podatke.", "Ni jedan pristup nije moguć."),
+          field("Treba li ovdje učitati stranicu s diska?", "Ne, tražene stranice već su prisutne.", "Da, zbog jednakih virtualnih adresa.", "Da, pri svakom čitanju RAM-a.")
+        ],
+        [1, 0],
+        "Virtualna adresa vrijedi unutar adresnog prostora procesa. Jednaki brojevi ne jamče isto fizičko mjesto, a prisutne stranice ne treba ponovno učitati.",
+        "Najprije pogledaj preslikavanje svakog procesa, zatim prisutnost njegove stranice."
+      ),
+      scenario(
+        "Za P1 stranica je dopuštena, nije u RAM-u i ima kopiju na disku. P2 pokušava nedopušten pristup drugoj stranici koja jest u RAM-u. Usporedi postupke.",
+        [
+          field("Postupak za P1", "Odbiti jer svaka iznimka znači zabranu.", "Učitati dopuštenu stranicu i ponoviti pristup.", "Zaobići preslikavanje."),
+          field("Postupak za P2", "Dopustiti jer je podatak u RAM-u.", "Učitati istu stranicu još jednom da bi dobio pravo.", "Odbiti nedopušten pristup."),
+          field("Bi li više slobodnog RAM-a samo uklonilo problem P2?", "Da, kapacitet određuje dozvole.", "Ne, kapacitet i pravo pristupa različiti su uvjeti.", "Da, ako P1 prestane raditi.")
+        ],
+        [1, 2, 1],
+        "Dopuštenost se provjerava zasebno od prisutnosti. Učitavanje može riješiti nedostupnost dopuštene stranice, ali ne stvara dozvolu za P2.",
+        "Za svaki proces odgovori na dva pitanja: smije li pristupiti i je li stranica prisutna?"
+      )
+    ],
+    read: [
+      scenario(
+        "P1 dopušteno čita sadržaj koji nije u predmemoriji. Dok uređaj čita, P2 je spreman. Nakon dovršetka sadržaj ostaje u RAM-u.",
+        [
+          field("Što CPU može raditi tijekom čitanja?", "Izvršavati P2.", "Izvršavati blokirani P1 kao da je podatak stigao.", "Mora biti neaktivan cijelo vrijeme."),
+          field("Ponovno dopušteno čitanje istog sadržaja može…", "…nužno ponovno čekati isti fizički disk.", "…upotrijebiti kopiju iz RAM-a.", "…preskočiti svaku provjeru prava.")
+        ],
+        [0, 1],
+        "I/O jednog procesa može se preklopiti s izvršavanjem drugoga. Sačuvani sadržaj zatim može poslužiti iz predmemorije uz odgovarajuće pravo pristupa.",
+        "Prati odvojeno CPU, uređaj i mjesto gdje se sadržaj nalazi."
+      ),
+      scenario(
+        "Prvo dopušteno čitanje čeka disk, drugo je brzo jer su sadržaj i metapodatci u RAM-u. Treći zahtjev dolazi nakon ukidanja prava čitanja. U ovom modelu OS ponovno provjerava dozvolu za svaki zahtjev.",
+        [
+          field("Najbolje objašnjenje ubrzanja drugog čitanja", "Sadržaj se mogao preuzeti iz predmemorije.", "CPU je trajno zamijenio SSD.", "Drugi zahtjev nije trebao nikakve upute."),
+          field("Ishod trećeg zahtjeva", "Dopušten je jer postoji kopija u RAM-u.", "Odbijen je zbog prava pristupa.", "Dopušten je tek kad se kopija ukloni iz RAM-a."),
+          field("Ako se predmemorija isprazni, a pravo opet odobri…", "Čitanje je zauvijek nemoguće.", "Predmemorija automatski mijenja dozvole.", "Sadržaj može opet trebati pročitati s diska.")
+        ],
+        [0, 1, 2],
+        "Predmemorija objašnjava put podataka, a dozvola odluku smije li zahtjev proći. Promjena jednoga ne mijenja automatski drugo.",
+        "Usporedi tri uvjeta: dozvola, mjesto sadržaja i završetak potrebnog I/O-a."
+      )
+    ],
+    threads: [
+      scenario(
+        "x=10. T1 i T2 povećavaju x za 1. Isti mutex štiti cijelo čitanje, računanje i upis; T1 završi prije nego T2 uđe.",
+        [
+          field("Završni x", "11", "12", "20"),
+          field("Zašto?", "T2 čita 11 koji je upisala T1.", "Obje čitaju 10 pa mutex zbroji rezultate.", "Mutex zamjenjuje oba izračuna jednim.")
+        ],
+        [1, 0],
+        "T1 upisuje 11 i otpusti lokot. T2 zatim pročita novu vrijednost i upiše 12. Zaštićena je cijela operacija, ne samo pojedini upis.",
+        "Zapiši vrijednost koju druga dretva vidi u trenutku svojeg čitanja."
+      ),
+      scenario(
+        "x=10. Obje dretve prvo pročitaju 10 bez lokota. Zatim svaka izračuna 11. Isti mutex štiti samo završni upis, pa T1 upiše 11, zatim T2 upiše 11.",
+        [
+          field("Završni x u navedenom rasporedu", "12", "11", "10"),
+          field("Zašto mutex nije bio dovoljan?", "Samo upisi su uređeni; izračuni koriste istu staru vrijednost.", "Mutex nužno onemogućuje svako povećanje.", "Druga dretva ne izvršava upis."),
+          field("Koja izmjena daje 12 za dva dovršena povećanja?", "Zaključati samo crtanje broja.", "Svakoj dretvi dati drugi, neovisni lokot.", "Istim mutexom zaštititi čitanje, računanje i upis svake dretve.")
+        ],
+        [1, 0, 2],
+        "Redoslijed samih upisa ne popravlja rezultat izračunat iz stare vrijednosti. Kritični odsječak mora obuhvatiti cijelo povećanje.",
+        "Provjeri je li zajednička vrijednost pročitana prije ulaska u zaštićeni dio."
+      )
+    ],
+    deadlock: [
+      scenario(
+        "P1 drži R1 i čeka R2. P2 drži R2, ali ne traži R1 i može dovršiti rad te otpustiti R2.",
+        [
+          field("Je li opisan nužan zastoj?", "Da, čim jedan proces čeka.", "Ne, P2 može napredovati.", "Da, čim postoje dva resursa."),
+          field("Koji događaj može omogućiti nastavak P1?", "P2 otpusti R2 nakon rada.", "P1 ponovno zatraži R2 bez promjene uvjeta.", "P1 zadrži R1 i zabrani P2 dovršetak.")
+        ],
+        [1, 0],
+        "Čekanje nije samo po sebi zastoj. Nema zatvorenog kruga: P2 može dovršiti rad i osloboditi ono što P1 treba.",
+        "Pronađi postoji li barem jedan sudionik koji može završiti bez čekanja na drugoga."
+      ),
+      scenario(
+        "P1 drži R1 i čeka R2; P2 drži R2 i čeka R1. Nema odustajanja ni prisilnog oduzimanja. Predlaže se: „Ubrzajmo CPU i promijenimo prioritet P1.”",
+        [
+          field("Hoće li to samo po sebi osloboditi resurs?", "Da, veći prioritet automatski otpušta tuđi lokot.", "Ne, oba i dalje čekaju resurs koji drži drugi.", "Da, brži CPU prekida svaki krug."),
+          field("Koje pravilo za buduća izvođenja sprječava ovaj krug?", "Svi uzimaju R1 prije R2.", "Svaki proces uzima drugi redoslijed.", "Svi drže prvi resurs zauvijek."),
+          field("Primjenjuje li samo novo pravilo retroaktivno popravak već nastalog zastoja?", "Da, bez ikakve promjene postojećih stanja.", "Da, ako se pravilo napiše u bilješku.", "Ne, postojeći krug treba zasebno razriješiti; pravilo uređuje nova zauzimanja.")
+        ],
+        [1, 0, 2],
+        "Brzina ne uklanja zatvoren krug čekanja. Jedinstven redoslijed sprječava takav krug pri novom zauzimanju, ali sam ne mijenja već zauzete resurse.",
+        "Razlikuj sprječavanje budućeg zastoja od oporavka nakon već nastalog zastoja."
+      )
+    ]
+  };
+  var EXTENSION_TASKS = Object.entries(cases).flatMap(([lesson, list]) => list.map((t, i) => ({ ...t, id: `c-${lesson}-${i ? "challenge" : "apply"}`, lesson, area: "extension", difficulty: i ? "hard" : "moderate", stage: 3, points: 20 })));
+  var choice = (q, options, answer, why) => ({ type: "choice", q, options, answer, why, hint: why });
+  var extraEasy = [
+    ["link1", choice("P1 čeka podatke s diska. P2 je spreman. Može li CPU za to vrijeme izvršavati P2?", ["Može.", "Ne može dok P1 čeka."], 0, "Dok jedan proces čeka I/O, CPU može izvršavati drugi spremni proces."), choice("Kopija datoteke postoji u RAM-u, ali korisnik nema pravo čitanja. Daje li mu sama kopija to pravo?", ["Da.", "Ne."], 1, "Dostupnost sadržaja ne zamjenjuje dozvolu za pristup.")],
+    ["link2", choice("Bilješka je uspješno spremljena na SSD. Proces uređivača zatim završi. Mora li nestati i bilješka?", ["Ne, spremljena datoteka može ostati.", "Da, završetak procesa briše spremljeni dokument."], 0, "Proces je aktivno izvođenje, a spremljeni dokument može ostati nakon njegova završetka."), choice("Što je jezgra OS-a?", ["Programski dio sustava koji izvršava CPU.", "Fizički procesor odvojen od računala."], 0, "Jezgra OS-a je softver, dok je CPU hardver koji izvršava upute.")]
+  ];
+  var EASY_FINAL_BANK = [...COURSE.map((l) => [l.id, ...l.quiz.map((q) => ({ ...q, type: "choice", why: q.feedback[q.answer], hint: q.feedback[q.answer] }))]), ...extraEasy].flatMap(([topic, ...list]) => list.map((q, i) => ({ ...q, id: `easy-${topic}-${i}`, topic, points: 10 })));
+  var HARD_FINAL_BANK = Object.entries(cases).flatMap(([topic, list]) => list.map((t, i) => {
+    const f = t.fields, indices = t.answer, combination = (values) => values.map((v, k) => f[k].label + ": " + f[k].options[v]).join(" · ");
+    const wrongA = indices.map((v, k) => k === 0 ? (v + 1) % f[k].options.length : v), wrongB = indices.map((v, k) => k === 1 ? (v + 1) % f[k].options.length : v), wrongC = indices.map((v, k) => k === f.length - 1 ? (v + 2) % f[k].options.length : v);
+    return { ...choice(t.q + " Odaberi potpuno ispravno objašnjenje.", [combination(indices), combination(wrongA), combination(wrongB), combination(wrongC)], 0, t.why), id: `hard-${topic}-${i}`, topic, points: 10 };
+  })).concat([
+    ["link1", choice("P1 ima dopuštenu stranicu izvan RAM-a; P2 je spreman. Disk učitava stranicu. Koji slijed je moguć?", ["CPU izvršava P2; po dovršetku I/O-a P1 postaje spreman i kasnije ponovi pristup.", "P1 nastavlja pristup prije učitavanja jer dozvola znači da je stranica prisutna.", "CPU mora mirovati sve do učitavanja, bez obzira na P2.", "Učitavanje stranice briše program P2."], 0, "Čekanje I/O-a, raspoređivanje CPU-a i ponavljanje memorijskog pristupa povezani su, ali odvojeni koraci."), choice("Datoteka je u predmemoriji, ali novi zahtjev nema dozvolu. P2 je spreman na CPU-u. Koja promjena rješava baš odbijanje zahtjeva?", ["Više procesorskog vremena za P2.", "Opravdano odobrenje prava čitanja; sama predmemorija i izbor CPU-a nisu dozvola.", "Pražnjenje predmemorije bez promjene prava.", "Veći odsječak vremena bez promjene prava."], 1, "Pravo pristupa je utvrđena prepreka; lokacija sadržaja i raspoređivanje CPU-a ne zamjenjuju provjeru prava.")],
+    ["link2", choice("P1 i P2 drže po jedan resurs i čekaju onaj drugoga. P3 je spreman i radi. Je li rad P3 dokaz da P1 i P2 nisu u zastoju?", ["Da, zastoj mora zaustaviti svaki proces računala.", "Ne, zatvoren krug P1–P2 može ostati dok P3 napreduje.", "Da, P3 svojim izvođenjem automatski otpušta njihove resurse.", "Ne, zato što spreman proces nikada ne može dobiti CPU."], 1, "Zastoj može zahvatiti podskup procesa. Aktivnost trećega ne razrješava njihov krug čekanja."), choice("Dvije dretve zaštićene istim mutexom dovrše dva povećanja u RAM-u. Posljednje spremanje na SSD prethodilo je tim povećanjima. Nema automatskog spremanja; nestane napajanja. Što vrijedi?", ["Mutex jamči i trajnost novih vrijednosti nakon nestanka napajanja.", "Ispravno usklađivanje u RAM-u ne znači da je novo stanje spremljeno na SSD.", "CPU uvijek prenosi RAM na SSD pri nestanku napajanja.", "Završetak dretve sam po sebi potvrđuje trajni zapis."], 1, "Sinkronizacija uređuje zajedničko izvođenje, a trajno spremanje rješava drugi problem: očuvanje podataka nakon gubitka napajanja.")]
+  ].flatMap(([topic, ...list]) => list.map((q, i) => ({ ...q, id: `hard-${topic}-${i}`, topic, points: 10 }))));
+
   // public/orbit/game-data.js
   var single = (q, options, answer, why, hint) => ({ type: "choice", q, options, answer, why, hint: hint || why });
   var pair = (q, fields, answer, why, hint) => ({ type: "pair", q, fields, answer, why, hint: hint || why });
@@ -780,7 +901,7 @@ body.large .editor-text{font-size:16px;line-height:1.9}
     threads: { bridge: "Proces može imati više tokova izvođenja: dretvi. Kada dijele podatak, važno je kada ga koja pročita i upiše.", pitfall: "Ispravno zbrajanje nije dovoljno ako se računa iz stare zajedničke vrijednosti.", warm: single("T1 iz pročitanog 0 izračuna 1, ali još nije upisala rezultat. Koliki je zajednički x?", ["1", "2", "0"], 2, "Privatni izračun još nije promijenio zajedničku memoriju. Promjena nastaje upisom."), compare: single("Zašto isti lokot oko cijelog povećanja mijenja završni rezultat s 1 na 2?", ["Druga dretva čita ažuriranu vrijednost nakon dovršetka prve.", "Lokot pretvara dva privatna rezultata 1 u zbroj 2.", "Lokot dopušta istodobno čitanje stare vrijednosti oboma."], 0, "Lokot uređuje pristup: čitanje, izračun i upis jedne dretve završe prije sljedeće."), order: order("Isti mutex štiti cijelo povećanje. T1 prva dobiva lokot.", ["T1 zauzme lokot.", "T1 pročita, poveća i upiše x.", "T1 otpusti lokot.", "T2 zauzme lokot i započne svoje povećanje."], "Druga dretva smije ući tek nakon otpuštanja istog lokota."), transfer: pair("x počinje s 4. Bez lokota obje dretve prvo pročitaju 4, zatim svaka izračuna i upiše povećanje za 1.", [{ label: "Završni x u tom redoslijedu", options: ["6", "5", "8"] }, { label: "Razlog", options: ["Svaka je pročitala rezultat druge.", "Jedna dretva uopće nije izvršila povećanje.", "Obje su iz stare vrijednosti izračunale i upisale 5."] }], [1, 2], "Jedno povećanje se gubi: dvije radnje upisuju istu novu vrijednost, 5.") },
     deadlock: { bridge: "Lokot omogućuje isključiv pristup. Sada prati što se događa kad proces drži jedan lokot, a čeka drugi.", pitfall: "Samo čekanje nije dokaz zastoja. Traži zatvoreni krug koji onemogućuje napredak.", warm: single("P1 radi i ne čeka nijedan dodatni resurs; P2 čeka njegov lokot. Je li to samo po sebi zastoj?", ["Da, svako je čekanje zastoj.", "Ne, P1 može završiti i otpustiti lokot.", "Da, samo postojanje dvaju procesa stvara zastoj."], 1, "Postoji put do napretka: P1 može završiti i omogućiti P2 nastavak."), compare: single("Zašto zajedničko pravilo R1 pa R2 uklanja prikazani krug?", ["Time nestaje svako čekanje na lokot.", "Time procesi dobivaju lokote u suprotnom redoslijedu.", "P2 ne drži R2 dok čeka R1, pa P1 može završiti."], 2, "P2 čeka bez R2. Zato resurs koji treba P1 ostaje dostupan."), order: order("Oba procesa traže R1 pa R2; P1 prvi dobije R1. Složi opisani slučaj.", ["P1 zauzme R1.", "P2 čeka R1, ne držeći R2.", "P1 zauzme R2, dovrši posao i otpusti oba lokota.", "P2 zauzme potrebne resurse i dovrši posao."], "P2 može čekati, ali ne blokira resurs koji P1 treba za završetak."), transfer: pair("P1 drži A i čeka B. P2 drži B i čeka A. Nitko ne odustaje ni prisilno otpušta resurs.", [{ label: "Stanje", options: ["Zastoj.", "Normalan završetak oba procesa.", "Privremeno čekanje koje se nužno samo razrješava."] }, { label: "Koje pravilo sprječava taj obrazac?", options: ["Oba prvo traže bilo koji slobodan resurs.", "Svi uvijek traže A pa B.", "Svaki proces prvo uzima svoj uobičajeni resurs."] }], [0, 1], "Zajednički redoslijed sprječava da procesi uzajamno drže drugi potrebni resurs.") }
   };
-  var TASKS = [];
+  var TASKS = [...EXTENSION_TASKS];
   for (const l of COURSE) {
     const s = SUPPORT[l.id];
     for (const [key, points, stage] of [["warm", 10, 0], ["order", 20, 1], ["compare", 20, 2], ["transfer", 30, 3]]) TASKS.push({ ...s[key], id: `c-${l.id}-${key}`, lesson: l.id, area: "course", stage, points });
@@ -1005,16 +1126,20 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
 
   // public/orbit/game-model.js
   var copy2 = (x) => JSON.parse(JSON.stringify(x));
-  var int2 = (n, a, b) => Number.isInteger(n) && n >= a && n <= b;
+  var int = (n, a, b) => Number.isInteger(n) && n >= a && n <= b;
   var obj = (x) => x && typeof x === "object" && !Array.isArray(x);
   var courseKeys = COURSE.flatMap((l) => l.experiment.variants.map((v) => l.id + ":" + v.id));
   var mechanismKeys = MECHANISMS.flatMap((l) => l.variants.map((v) => l.id + ":" + v[0]));
-  var MAX_XP = 1400;
+  var MAX_XP = 1720;
   function defaultGame() {
-    return { version: 1, screen: "lessons", legacy: {}, answers: {}, observed: [], mechanisms: [], labs: [], round: 0, active: null, runs: [] };
+    return { version: 1, difficulty: "easy", screen: "lessons", legacy: {}, answers: {}, observed: [], mechanisms: [], labs: [], round: 0, active: null, runs: [] };
   }
   function blankAnswer() {
-    return { first: null, last: null, tries: 0, help: false };
+    return { first: null, last: null, tries: 0, help: false, firstMode: null, lastMode: null };
+  }
+  function chooseDifficulty(state, id) {
+    if (!difficultyById(id)) throw Error("Nepoznata težina.");
+    state.learning.game.difficulty = id;
   }
   function correct(task, value) {
     const expected = Array.isArray(task.answer) ? task.answer : [task.answer];
@@ -1022,9 +1147,9 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
   }
   function validValue(task, value) {
     if (!Array.isArray(value)) return false;
-    if (task.type === "choice") return value.length === 1 && int2(value[0], 0, task.options.length - 1);
-    if (task.type === "pair") return value.length === task.fields.length && value.every((n, i) => int2(n, 0, task.fields[i].options.length - 1));
-    return value.length === task.items.length && new Set(value).size === value.length && value.every((n) => int2(n, 0, task.items.length - 1));
+    if (task.type === "choice") return value.length === 1 && int(value[0], 0, task.options.length - 1);
+    if (task.type === "pair") return value.length === task.fields.length && value.every((n, i) => int(n, 0, task.fields[i].options.length - 1));
+    return value.length === task.items.length && new Set(value).size === value.length && value.every((n) => int(n, 0, task.items.length - 1));
   }
   function solved(game, id) {
     const r = game.answers[id];
@@ -1039,41 +1164,59 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
   function completedLesson(game, id) {
     return lessonXP(game, id) === 100;
   }
-  function finalUnlocked(game) {
-    return COURSE.every((l) => completedLesson(game, l.id));
+  function pathTasks(id, mode) {
+    return [...lessonTasks(id), ...TASKS.filter((t) => t.area === "extension" && t.lesson === id && (mode === "hard" || mode === "moderate" && t.difficulty === "moderate"))];
   }
-  function finalQuestions(round) {
-    return FINAL_BANK.filter((_, i) => i % 2 === (round + Math.floor(i / 2)) % 2);
+  function pathXP(game, id, mode = game.difficulty) {
+    return pathTasks(id, mode).reduce((n, t) => n + (solved(game, t.id) ? t.points : 0), 0);
+  }
+  function pathCompleted(game, id, mode = game.difficulty) {
+    return pathXP(game, id, mode) === difficultyById(mode).target;
+  }
+  function finalUnlocked(game, mode = game.difficulty) {
+    return COURSE.every((l) => pathCompleted(game, l.id, mode));
+  }
+  function finalQuestions(round, mode = "moderate") {
+    const bank = mode === "easy" ? EASY_FINAL_BANK : mode === "hard" ? HARD_FINAL_BANK : FINAL_BANK;
+    return bank.filter((_, i) => i % 2 === (round + Math.floor(i / 2)) % 2);
   }
   function runScore(run) {
-    return finalQuestions(run.round).reduce((n, q, i) => n + (q.answer === run.answers[i] ? 10 : 0), 0);
+    return finalQuestions(run.round, run.difficulty).reduce((n, q, i) => n + (q.answer === run.answers[i] ? 10 : 0), 0);
+  }
+  function bestFinal(game, mode) {
+    return Math.max(0, ...game.runs.filter((r) => (r.difficulty || "moderate") === mode).map(runScore));
   }
   function validateGame(raw) {
     if (raw === void 0) return defaultGame();
-    if (!obj(raw) || raw.version !== 1 || !["lessons", "final"].includes(raw.screen) || !obj(raw.answers) || Object.keys(raw.answers).length > TASKS.length || !int2(raw.round, 0, 1e5) || !Array.isArray(raw.runs) || raw.runs.length > 20) throw Error("Neispravan zapis bodovanja.");
+    if (!obj(raw) || raw.version !== 1 || !["lessons", "final"].includes(raw.screen) || !obj(raw.answers) || Object.keys(raw.answers).length > TASKS.length || !int(raw.round, 0, 1e5) || !Array.isArray(raw.runs) || raw.runs.length > 20) throw Error("Neispravan zapis bodovanja.");
     const result = defaultGame();
     result.screen = raw.screen;
     result.round = raw.round;
+    result.difficulty = raw.difficulty ?? "easy";
+    if (!difficultyById(result.difficulty)) throw Error("Neispravan odabir težine.");
     for (const [id, r] of Object.entries(raw.answers)) {
       const t = taskById(id);
-      if (!t || !obj(r) || !int2(r.tries, 0, 1e4) || typeof r.help !== "boolean" || (r.tries === 0 ? r.first !== null || r.last !== null : !validValue(t, r.first) || !validValue(t, r.last)) || r.tries === 1 && JSON.stringify(r.first) !== JSON.stringify(r.last)) throw Error("Neispravan odgovor za automatsko bodovanje.");
-      result.answers[id] = { first: copy2(r.first), last: copy2(r.last), tries: r.tries, help: r.help };
+      if (!t || !obj(r) || !int(r.tries, 0, 1e4) || typeof r.help !== "boolean" || (r.tries === 0 ? r.first !== null || r.last !== null : !validValue(t, r.first) || !validValue(t, r.last)) || r.tries === 1 && JSON.stringify(r.first) !== JSON.stringify(r.last)) throw Error("Neispravan odgovor za automatsko bodovanje.");
+      const firstMode = r.firstMode === void 0 ? r.tries ? "moderate" : null : r.firstMode, lastMode = r.lastMode === void 0 ? r.tries ? "moderate" : null : r.lastMode;
+      if (r.tries ? !difficultyById(firstMode) || !difficultyById(lastMode) : firstMode !== null || lastMode !== null) throw Error("Neispravna težina odgovora.");
+      result.answers[id] = { first: copy2(r.first), last: copy2(r.last), tries: r.tries, help: r.help, firstMode, lastMode };
     }
-    for (const [field, allowed] of [["observed", courseKeys], ["mechanisms", mechanismKeys], ["labs", Array.from({ length: 11 }, (_, i) => i)]]) {
-      const a = raw[field];
+    for (const [field2, allowed] of [["observed", courseKeys], ["mechanisms", mechanismKeys], ["labs", Array.from({ length: 11 }, (_, i) => i)]]) {
+      const a = raw[field2];
       if (!Array.isArray(a) || a.length > allowed.length || new Set(a).size !== a.length || a.some((v) => !allowed.includes(v))) throw Error("Neispravni dokazi aktivnosti.");
-      result[field] = [...a];
+      result[field2] = [...a];
     }
     const seen = /* @__PURE__ */ new Set();
     for (const run of raw.runs) {
-      if (!obj(run) || !int2(run.round, 1, raw.round) || seen.has(run.round) || !Array.isArray(run.answers) || run.answers.length !== 10 || run.answers.some((v, i) => !int2(v, 0, finalQuestions(run.round)[i].options.length - 1))) throw Error("Neispravan rezultat završnog izazova.");
+      const mode = run?.difficulty ?? "moderate";
+      if (!obj(run) || !difficultyById(mode) || !int(run.round, 1, raw.round) || seen.has(run.round) || !Array.isArray(run.answers) || run.answers.length !== 10 || run.answers.some((v, i) => !int(v, 0, finalQuestions(run.round, mode)[i].options.length - 1))) throw Error("Neispravan rezultat završnog izazova.");
       seen.add(run.round);
-      result.runs.push({ round: run.round, answers: [...run.answers] });
+      result.runs.push({ round: run.round, difficulty: mode, answers: [...run.answers] });
     }
     if (raw.active !== null) {
-      const a = raw.active;
-      if (!obj(a) || a.round !== raw.round || seen.has(a.round) || !int2(a.round, 1, 1e5) || !int2(a.cursor, 0, 9) || !Array.isArray(a.answers) || a.answers.length !== 10 || a.answers.some((v, i) => v !== null && !int2(v, 0, finalQuestions(a.round)[i].options.length - 1))) throw Error("Neispravan pokušaj završnog izazova.");
-      result.active = { round: a.round, cursor: a.cursor, answers: [...a.answers] };
+      const a = raw.active, mode = a?.difficulty ?? "moderate";
+      if (!obj(a) || !difficultyById(mode) || a.round !== raw.round || seen.has(a.round) || !int(a.round, 1, 1e5) || !int(a.cursor, 0, 9) || !Array.isArray(a.answers) || a.answers.length !== 10 || a.answers.some((v, i) => v !== null && !int(v, 0, finalQuestions(a.round, mode)[i].options.length - 1))) throw Error("Neispravan pokušaj završnog izazova.");
+      result.active = { round: a.round, difficulty: mode, cursor: a.cursor, answers: [...a.answers] };
     }
     const legacy = raw.legacy || {};
     if (!obj(legacy) || Object.keys(legacy).length > MECHANISMS.length) throw Error("Neispravna arhiva bilježaka.");
@@ -1109,6 +1252,12 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     const g = state.learning.game;
     if (t.area === "lab") return g.labs.includes(t.index) ? "" : "Najprije dovrši označene radnje laboratorija.";
     if (t.area === "mechanism") return g.mechanisms.includes(t.lesson + ":" + t.variant) ? "" : "Najprije prođi prikazani mehanizam do kraja.";
+    if (t.area === "extension") {
+      if (g.difficulty === "easy" || t.difficulty === "hard" && g.difficulty !== "hard") return "Za ovaj zadatak odaberi odgovarajuću višu težinu.";
+      if (!completedLesson(g, t.lesson)) return "Najprije prikupi osnovnih 100 XP ove misije.";
+      if (t.difficulty === "hard" && !solved(g, `c-${t.lesson}-apply`)) return "Najprije riješi primjenu za Moderate.";
+      return "";
+    }
     if (t.id.endsWith("-warm")) return "";
     if (!solved(g, `c-${t.lesson}-warm`)) return "Najprije riješi kratku provjeru u koraku Razumij.";
     if (t.id.endsWith("-order")) {
@@ -1129,8 +1278,12 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     if (block) throw Error(block === "Najprije dovrši označene radnje laboratorija." ? "Najprije dovrši označene radnje laboratorija." : block);
     if (solved(g, id)) return false;
     const r = g.answers[id] || blankAnswer();
-    if (!r.first) r.first = [...value];
+    if (!r.first) {
+      r.first = [...value];
+      r.firstMode = g.difficulty;
+    }
     r.last = [...value];
+    r.lastMode = g.difficulty;
     r.tries = Math.min(1e4, r.tries + 1);
     g.answers[id] = r;
     return correct(t, value);
@@ -1139,39 +1292,44 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     const t = taskById(id), g = state.learning.game;
     if (!t) throw Error("Nepoznat zadatak.");
     if (solved(g, id)) return;
+    if (g.difficulty === "hard" && ["course", "extension"].includes(t.area) && !g.answers[id]?.tries) throw Error("Na težini Hard najprije pokušaj samostalno.");
     g.answers[id] ||= blankAnswer();
     g.answers[id].help = true;
   }
   function startFinal(state) {
     const g = state.learning.game;
-    if (!finalUnlocked(g)) throw Error("Za završni izazov riješi svih osam misija.");
     if (g.active) {
       g.screen = "final";
       return;
     }
+    if (!finalUnlocked(g)) throw Error("Za završni izazov dovrši svih osam misija na odabranoj težini.");
     g.round++;
-    g.active = { round: g.round, cursor: 0, answers: Array(10).fill(null) };
+    g.active = { round: g.round, difficulty: g.difficulty, cursor: 0, answers: Array(10).fill(null) };
     g.screen = "final";
   }
   function answerFinal(state, index, value) {
     const a = state.learning.game.active;
-    if (!a || !int2(index, 0, 9) || !int2(value, 0, finalQuestions(a.round)[index].options.length - 1)) throw Error("Neispravan odgovor završnog izazova.");
+    if (!a || !int(index, 0, 9) || !int(value, 0, finalQuestions(a.round, a.difficulty)[index].options.length - 1)) throw Error("Neispravan odgovor završnog izazova.");
     a.answers[index] = value;
   }
   function finishFinal(state) {
     const g = state.learning.game, a = g.active;
     if (!a || a.answers.some((v) => v === null)) throw Error("Odgovori na svih deset pitanja prije predaje.");
     const score = runScore(a);
-    g.runs.push({ round: a.round, answers: [...a.answers] });
+    g.runs.push({ round: a.round, difficulty: a.difficulty, answers: [...a.answers] });
     g.active = null;
     if (g.runs.length > 20) {
-      const best = Math.max(...g.runs.map(runScore)), i = g.runs.findIndex((r, i2) => i2 < g.runs.length - 1 && runScore(r) < best);
-      g.runs.splice(i < 0 ? 0 : i, 1);
+      const keep = /* @__PURE__ */ new Set([g.runs.at(-1).round]);
+      for (const d of DIFFICULTIES) {
+        const runs = g.runs.filter((r) => r.difficulty === d.id);
+        if (runs.length) keep.add(runs.reduce((a2, b) => runScore(b) > runScore(a2) ? b : a2).round);
+      }
+      g.runs.splice(g.runs.findIndex((r) => !keep.has(r.round)), 1);
     }
     return score;
   }
   function gameStats(state) {
-    const g = state.learning.game, course = TASKS.filter((t) => t.area === "course" && solved(g, t.id)).reduce((s, t) => s + t.points, 0), lab = g.labs.length * 10 + TASKS.filter((t) => t.area === "lab" && solved(g, t.id)).reduce((s, t) => s + t.points, 0), mechanisms = TASKS.filter((t) => t.area === "mechanism" && solved(g, t.id)).reduce((s, t) => s + t.points, 0);
+    const g = state.learning.game, course = TASKS.filter((t) => ["course", "extension"].includes(t.area) && solved(g, t.id)).reduce((s, t) => s + t.points, 0), lab = g.labs.length * 10 + TASKS.filter((t) => t.area === "lab" && solved(g, t.id)).reduce((s, t) => s + t.points, 0), mechanisms = TASKS.filter((t) => t.area === "mechanism" && solved(g, t.id)).reduce((s, t) => s + t.points, 0);
     const net = state.learning.network.records.filter((r) => r.diagnosis !== null && r.diagnosis !== void 0 && r.diagnosis === NETWORK_DIAGNOSES[r.id]?.answer).length * 20, final = Math.max(0, ...g.runs.map(runScore)), total = course + lab + mechanisms + net + final;
     const attempted = Object.entries(g.answers).filter(([, r]) => r.tries > 0), first = attempted.filter(([id, r]) => !r.help && correct(taskById(id), r.first)).length, help = attempted.filter(([, r]) => r.help).length;
     const levels = [[0, "Početnik"], [150, "Istraživač"], [400, "Analitičar"], [700, "Poznavatelj sustava"], [1e3, "OS navigator"]];
@@ -1181,11 +1339,11 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
   function badges(state) {
     const g = state.learning.game, s = gameStats(state);
     return [
-      ["start", "Prvi korak", "Dovrši prvu misiju.", completedLesson(g, "hardware")],
-      ["basics", "Čvrsti temelji", "Dovrši svih šest osnovnih misija.", COURSE.filter((l) => l.group === "Osnove").every((l) => completedLesson(g, l.id))],
+      ["start", "Prvi korak", "Dovrši osnovnih 100 XP prve misije.", completedLesson(g, "hardware")],
+      ["basics", "Čvrsti temelji", "Riješi osnovne zadatke u svih šest početnih misija.", COURSE.filter((l) => l.group === "Osnove").every((l) => completedLesson(g, l.id))],
       ["compare", "Istraživač uvjeta", "Prođi svih 18 uvjeta u vođenim pokusima.", g.observed.length === courseKeys.length],
       ["retry", "Učim iz pogreške", "Ispravi barem jedan prethodno pogrešan odgovor.", Object.entries(g.answers).some(([id, r]) => r.first && !correct(taskById(id), r.first) && solved(g, id))],
-      ["sync", "Zajednički podatci", "Dovrši misije o dretvama i zastoju.", completedLesson(g, "threads") && completedLesson(g, "deadlock")],
+      ["sync", "Zajednički podatci", "Riješi osnovne zadatke o dretvama i zastoju.", completedLesson(g, "threads") && completedLesson(g, "deadlock")],
       ["lab", "Praktičar", "Dovrši radnje i zaključke u tri laboratorija.", g.labs.filter((i) => solved(g, "lab-" + i)).length >= 3],
       ["final", "Povezujem OS", "Ostvari najmanje 80/100 na završnom izazovu.", s.final >= 80]
     ].map(([id, title, description, earned]) => ({ id, title, description, earned }));
@@ -1201,23 +1359,130 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
   }
   function scoreReport(state, esc3) {
     const s = gameStats(state), g = state.learning.game, b = badges(state), answered = TASKS.filter((t) => g.answers[t.id]?.tries);
-    return `<h2>Automatski bodovi · ${s.total}/${s.max} XP</h2><p>Razina ${s.level}: ${esc3(s.title)}. Prvi odgovor točan bez pomoći: ${s.first}/${s.attempted} zadataka. Pomoć korištena u ${s.help} zadataka.</p><table><tr><th>Aktivnost</th><th>Bodovi</th></tr>${[["Vođene misije", s.course, 800], ["Laboratoriji", s.lab, 220], ["Detaljni mehanizmi", s.mechanisms, 140], ["Mrežni izazovi", s.net, 140], ["Završni izazov — najbolji rezultat", s.final, 100]].map(([a, n, m]) => `<tr><td>${a}</td><td>${n}/${m}</td></tr>`).join("")}</table><p>Značke: ${b.filter((b2) => b2.earned).map((b2) => esc3(b2.title)).join(", ") || "Još nema osvojenih znački."}</p><p class="report-note">XP označava riješene zadatke uz mogućnost ispravka. Završni izazov daje odvojeni rezultat bez pomoći unutar pokušaja. Bodovi se računaju lokalno iz odgovora i dokaza aktivnosti; nisu zaštićeni ispitni zapis. Mrežne dijagnoze nisu uključene u statistiku prvih odgovora.</p><table><tr><th>Misija</th><th>Napredak</th></tr>${COURSE.map((l) => `<tr><td>${esc3(l.title)}</td><td>${lessonXP(g, l.id)}/100 XP</td></tr>`).join("")}</table><h2>Automatska provjera odgovora</h2>${answered.map((t) => {
+    return `<h2>Automatski bodovi · ${s.total}/${s.max} XP</h2><p>Rang ${s.level}: ${esc3(s.title)}. Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} zadataka. Pomoć korištena u ${s.help} zadataka.</p><table><tr><th>Aktivnost</th><th>Bodovi</th></tr>${[["Misije i dodatni slučajevi", s.course, 1120], ["Laboratoriji", s.lab, 220], ["Detaljni mehanizmi", s.mechanisms, 140], ["Mrežni izazovi", s.net, 140], ["Završni izazov — najbolji rezultat", s.final, 100]].map(([a, n, m]) => `<tr><td>${a}</td><td>${n}/${m}</td></tr>`).join("")}</table><p>Značke: ${b.filter((b2) => b2.earned).map((b2) => esc3(b2.title)).join(", ") || "Još nema osvojenih znački."}</p><p class="report-note">XP označava riješene zadatke uz mogućnost ispravka. Završni izazov daje odvojeni rezultat bez pomoći unutar pokušaja. Bodovi se računaju lokalno iz odgovora i dokaza aktivnosti; nisu zaštićeni ispitni zapis. Mrežne dijagnoze nisu uključene u statistiku prvih odgovora. Easy sadrži ugrađeno vođenje; prvi odgovori na različitim težinama nisu izravno usporedivi.</p><table><tr><th>Misija</th><th>Napredak</th></tr>${COURSE.map((l) => `<tr><td>${esc3(l.title)}</td><td>${pathXP(g, l.id)}/${difficultyById(g.difficulty).target} XP · ${difficultyById(g.difficulty).label}</td></tr>`).join("")}</table><h2>Automatska provjera odgovora</h2>${answered.map((t) => {
       const r = g.answers[t.id];
-      return `<section class="report-lesson"><h3>${esc3(t.q)}</h3><p>Prvi odgovor: ${esc3(answerText(t, r.first))}</p><p>Zadnji odgovor: ${esc3(answerText(t, r.last))}</p><p><strong>${solved(g, t.id) ? "Točno" : "Još nije točno"} · ${solved(g, t.id) ? t.points : 0}/${t.points} XP.</strong> Pokušaji: ${r.tries} · pomoć: ${r.help ? "korištena" : "nije korištena"}.</p><p>${esc3(t.why)}</p></section>`;
-    }).join("") || "<p>Još nema predanih odgovora.</p>"}<h2>Završni izazov</h2>${g.active ? `<p>Pokušaj ${g.active.round} u tijeku: ${g.active.answers.filter((v) => v !== null).length}/10 odgovora. Rezultat se prikazuje nakon predaje.</p>` : ""}${g.runs.map((r) => `<p>Pokušaj ${r.round}: <strong>${runScore(r)}/100</strong>.</p>`).join("") || "<p>Još nema predanih pokušaja.</p>"}${g.runs.length ? finalQuestions(g.runs.at(-1).round).map((q, i) => `<section class="report-lesson"><h3>${esc3(q.q)}</h3><p>Odgovor: ${esc3(q.options[g.runs.at(-1).answers[i]])}. ${q.answer === g.runs.at(-1).answers[i] ? "Točno · 10 bodova." : "Netočno · 0 bodova."}</p><p>${esc3(q.why)}</p></section>`).join("") : ""}`;
+      return `<section class="report-lesson"><h3>${esc3(t.q)}</h3><p>Prvi odgovor: ${esc3(answerText(t, r.first))}</p><p>Zadnji odgovor: ${esc3(answerText(t, r.last))}</p><p><strong>${solved(g, t.id) ? "Točno" : "Još nije točno"} · ${solved(g, t.id) ? t.points : 0}/${t.points} XP.</strong> Pokušaji: ${r.tries} · težina prvog / zadnjeg: ${r.firstMode} / ${r.lastMode} · pomoć: ${r.help ? "korištena" : "nije korištena"}.</p><p>${esc3(t.why)}</p></section>`;
+    }).join("") || "<p>Još nema predanih odgovora.</p>"}<h2>Završni izazov</h2><p>Najbolji rezultati po težini: ${DIFFICULTIES.map((d) => d.label + ": " + bestFinal(g, d.id) + "/100").join(" · ")}. U XP ulazi jedan najbolji rezultat.</p>${g.active ? `<p>Pokušaj ${g.active.round} · ${g.active.difficulty} u tijeku: ${g.active.answers.filter((v) => v !== null).length}/10 odgovora. Rezultat se prikazuje nakon predaje.</p>` : ""}${g.runs.map((r) => `<p>Pokušaj ${r.round} · ${r.difficulty}: <strong>${runScore(r)}/100</strong>.</p>`).join("") || "<p>Još nema predanih pokušaja.</p>"}${g.runs.length ? finalQuestions(g.runs.at(-1).round, g.runs.at(-1).difficulty).map((q, i) => `<section class="report-lesson"><h3>${esc3(q.q)}</h3><p>Odgovor: ${esc3(q.options[g.runs.at(-1).answers[i]])}. ${q.answer === g.runs.at(-1).answers[i] ? "Točno · 10 bodova." : "Netočno · 0 bodova."}</p><p>${esc3(q.why)}</p></section>`).join("") : ""}`;
   }
   function scoreReportText(state) {
     const s = gameStats(state), g = state.learning.game;
     return `AUTOMATSKO BODOVANJE
 Ukupno: ${s.total}/${s.max} XP
-Razina ${s.level}: ${s.title}
-Misije: ${s.course}/800; laboratoriji: ${s.lab}/220; mehanizmi: ${s.mechanisms}/140; mreža: ${s.net}/140.
+Rang ${s.level}: ${s.title}
+Misije: ${s.course}/1120; laboratoriji: ${s.lab}/220; mehanizmi: ${s.mechanisms}/140; mreža: ${s.net}/140.
 Završni izazov (najbolji): ${s.final}/100
-Prvi odgovor točan bez pomoći: ${s.first}/${s.attempted} (bez mrežnih dijagnoza)
-` + COURSE.map((l) => l.title + ": " + lessonXP(g, l.id) + "/100 XP").join("\n") + "\n\nODGOVORI\n" + TASKS.filter((t) => g.answers[t.id]?.tries).map((t) => {
+Po težini: ${DIFFICULTIES.map((d) => d.label + ": " + bestFinal(g, d.id) + "/100").join(" · ")}
+Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrežnih dijagnoza)
+` + COURSE.map((l) => l.title + ": " + pathXP(g, l.id) + "/" + difficultyById(g.difficulty).target + " XP · " + difficultyById(g.difficulty).label).join("\n") + "\n\nODGOVORI\n" + TASKS.filter((t) => g.answers[t.id]?.tries).map((t) => {
       const r = g.answers[t.id];
-      return [t.q, "Prvi: " + answerText(t, r.first), "Zadnji: " + answerText(t, r.last), `${solved(g, t.id) ? t.points : 0}/${t.points} XP · pokušaji: ${r.tries} · pomoć: ${r.help ? "da" : "ne"}`, t.why].join("\n");
-    }).join("\n\n") + "\n\nZAVRŠNI POKUŠAJI\n" + g.runs.map((r) => `Pokušaj ${r.round}: ${runScore(r)}/100`).join("\n");
+      return [t.q, "Prvi: " + answerText(t, r.first), "Zadnji: " + answerText(t, r.last), `${solved(g, t.id) ? t.points : 0}/${t.points} XP · pokušaji: ${r.tries} · težina prvog / zadnjeg: ${r.firstMode} / ${r.lastMode} · pomoć: ${r.help ? "da" : "ne"}`, t.why].join("\n");
+    }).join("\n\n") + "\n\nZAVRŠNI POKUŠAJI\n" + g.runs.map((r) => `Pokušaj ${r.round} · ${r.difficulty}: ${runScore(r)}/100`).join("\n");
+  }
+
+  // public/orbit/course-model.js
+  var int2 = (n, min, max) => Number.isInteger(n) && n >= min && n <= max;
+  var object = (x) => x && typeof x === "object" && !Array.isArray(x);
+  var STAGES = ["Razumij", "Pogledaj primjer", "Isprobaj", "Provjeri"];
+  function defaultCourse() {
+    return { version: 1, lesson: COURSE[0].id, stage: 0, overview: true, records: {} };
+  }
+  function defaultRecord(lesson) {
+    return { example: 0, exampleSeen: 0, variant: lesson.experiment.variants[0].id, prediction: null, step: -1, answers: lesson.quiz.map(() => null), firstAnswers: lesson.quiz.map(() => null), attempts: lesson.quiz.map(() => 0), reflection: "", finished: false };
+  }
+  function courseRecord(course, lesson) {
+    return course.records[lesson.id] || defaultRecord(lesson);
+  }
+  function currentVariant(lesson, record) {
+    return lesson.experiment.variants.find((v) => v.id === record.variant);
+  }
+  function readyToFinish(lesson, r) {
+    return r.exampleSeen === lesson.example.steps.length - 1 && r.prediction !== null && r.step === currentVariant(lesson, r)?.steps.length - 1 && lesson.quiz.every((q, i) => r.answers[i] === q.answer) && r.reflection.trim().length > 0;
+  }
+  function validateCourse(raw) {
+    if (raw === void 0 || raw === null) return defaultCourse();
+    if (!object(raw) || raw.version !== 1 || !lessonById(raw.lesson) || !int2(raw.stage, 0, 3) || typeof raw.overview !== "boolean" || !object(raw.records) || Object.keys(raw.records).length > COURSE.length) throw new Error("Neispravan zapis vođenih lekcija.");
+    const result = { version: 1, lesson: raw.lesson, stage: raw.stage, overview: raw.overview, records: {} };
+    for (const [id, r] of Object.entries(raw.records)) {
+      const lesson = lessonById(id), variant = lesson && object(r) && currentVariant(lesson, r);
+      if (!lesson || !variant || !int2(r.example, 0, lesson.example.steps.length - 1) || !int2(r.exampleSeen, r.example, lesson.example.steps.length - 1) || !int2(r.step, -1, variant.steps.length - 1) || r.prediction !== null && !int2(r.prediction, 0, lesson.experiment.choices.length - 1) || r.step >= 0 && r.prediction === null || typeof r.reflection !== "string" || r.reflection.length > 3e3 || typeof r.finished !== "boolean") throw new Error("Neispravan napredak lekcije.");
+      for (const key of ["answers", "firstAnswers", "attempts"]) if (!Array.isArray(r[key]) || r[key].length !== lesson.quiz.length) throw new Error("Neispravna provjera razumijevanja.");
+      for (let i = 0; i < lesson.quiz.length; i++) {
+        const n = lesson.quiz[i].options.length - 1;
+        if (r.answers[i] !== null && !int2(r.answers[i], 0, n) || r.firstAnswers[i] !== null && !int2(r.firstAnswers[i], 0, n) || !int2(r.attempts[i], 0, 100) || r.answers[i] === null !== (r.firstAnswers[i] === null) || r.answers[i] === null !== (r.attempts[i] === 0)) throw new Error("Neispravni odgovori lekcije.");
+      }
+      if (r.finished && !readyToFinish(lesson, r)) throw new Error("Lekcija je označena dovršenom bez potrebnog rada.");
+      result.records[id] = { example: r.example, exampleSeen: r.exampleSeen, variant: r.variant, prediction: r.prediction, step: r.step, answers: [...r.answers], firstAnswers: [...r.firstAnswers], attempts: [...r.attempts], reflection: r.reflection, finished: r.finished };
+    }
+    return result;
+  }
+  function changeCourse(course, action) {
+    const next = validateCourse(course);
+    if (action.type === "overview") {
+      next.overview = true;
+      return next;
+    }
+    if (action.type === "open") {
+      if (!lessonById(action.id)) throw new Error("Nepoznata lekcija.");
+      if (next.lesson !== action.id) next.stage = 0;
+      next.lesson = action.id;
+      next.overview = false;
+      return next;
+    }
+    const l = lessonById(next.lesson), r = next.records[l.id] || defaultRecord(l);
+    next.records[l.id] = r;
+    if (action.type === "stage") {
+      if (!int2(action.value, 0, 3)) throw new Error("Nepoznat korak lekcije.");
+      next.stage = action.value;
+    } else if (action.type === "example") {
+      if (![-1, 1].includes(action.delta)) throw new Error("Neispravan pomak primjera.");
+      r.example = Math.max(0, Math.min(l.example.steps.length - 1, r.example + action.delta));
+      r.exampleSeen = Math.max(r.exampleSeen, r.example);
+    } else if (action.type === "variant") {
+      if (!l.experiment.variants.some((v) => v.id === action.id)) throw new Error("Nepoznat uvjet pokusa.");
+      r.variant = action.id;
+      r.prediction = null;
+      r.step = -1;
+      r.finished = false;
+    } else if (action.type === "predict") {
+      if (r.step >= 0) throw new Error("Za novo predviđanje prvo ponovi pokus.");
+      r.prediction = action.value;
+    } else if (action.type === "step") {
+      if (r.prediction === null) throw new Error("Prvo odaberi što očekuješ.");
+      r.step = Math.min(currentVariant(l, r).steps.length - 1, r.step + 1);
+    } else if (action.type === "replay") {
+      r.prediction = null;
+      r.step = -1;
+      r.finished = false;
+    } else if (action.type === "answer") {
+      const q = l.quiz[action.question];
+      if (!q || !int2(action.value, 0, q.options.length - 1)) throw new Error("Neispravan odgovor.");
+      const i = action.question;
+      if (r.firstAnswers[i] === null) r.firstAnswers[i] = action.value;
+      r.answers[i] = action.value;
+      r.attempts[i] = Math.min(100, r.attempts[i] + 1);
+      if (action.value !== q.answer) r.finished = false;
+    } else if (action.type === "reflect") {
+      r.reflection = action.value;
+      if (!r.reflection.trim()) r.finished = false;
+    } else if (action.type === "finish") {
+      if (!readyToFinish(l, r)) throw new Error("Dovrši primjer, pokus, provjere i svoje objašnjenje.");
+      r.finished = true;
+    } else throw new Error("Nepoznata radnja lekcije.");
+    return validateCourse(next);
+  }
+  function courseReport(course, esc3) {
+    course = validateCourse(course);
+    return `<h2>Učenje od početka</h2><p class="report-note">Dovršeno znači: pregledan primjer, završen jedan pokus s predviđanjem, riješene obje samoprovjere i upisano vlastito objašnjenje. Pogrešni odgovori mogu se ispraviti uz pomoć. Slobodno objašnjenje nije automatski ocijenjeno.</p>${COURSE.filter((l) => course.records[l.id]).map((l) => {
+      const r = course.records[l.id], v = currentVariant(l, r), done = r.step === v.steps.length - 1;
+      return `<section class="report-lesson"><h3>${esc3(l.title)} · ${r.finished ? "Dovršene aktivnosti" : "U tijeku"}</h3><p>Uvjet: ${esc3(v.label)}. Predviđanje: ${esc3(r.prediction === null ? "Nije odabrano" : l.experiment.choices[r.prediction])} · Pokus: ${done ? "Dovršen" : "Nije dovršen"}.</p>${done ? `<p>Ishod: ${esc3(v.conclusion)}</p>` : ""}<ul>${l.quiz.map((q, i) => `<li>${esc3(q.q)}<br>Prvi odgovor: ${esc3(r.firstAnswers[i] === null ? "Nije upisan" : q.options[r.firstAnswers[i]])} · Zadnji: ${esc3(r.answers[i] === null ? "Nije upisan" : q.options[r.answers[i]])} · Pokušaji: ${r.attempts[i]}.</li>`).join("")}</ul><p><strong>${esc3(l.reflection)}</strong></p><div class="answer">${esc3(r.reflection || "Objašnjenje još nije upisano.")}</div></section>`;
+    }).join("") || "<p>Vođene lekcije još nisu započete.</p>"}`;
+  }
+  function courseReportText(course) {
+    course = validateCourse(course);
+    return ["UČENJE OD POČETKA", "Samoprovjere dopuštaju ispravke. Slobodna objašnjenja nisu automatski ocijenjena.", ...COURSE.filter((l) => course.records[l.id]).flatMap((l) => {
+      const r = course.records[l.id], v = currentVariant(l, r);
+      return ["", l.title + " — " + (r.finished ? "dovršene aktivnosti" : "u tijeku"), "Uvjet: " + v.label, "Predviđanje: " + (r.prediction === null ? "nije odabrano" : l.experiment.choices[r.prediction]), "Pokus: " + (r.step === v.steps.length - 1 ? "dovršen" : "nije dovršen"), ...l.quiz.flatMap((q, i) => [q.q, "Prvi odgovor: " + (r.firstAnswers[i] === null ? "nije upisan" : q.options[r.firstAnswers[i]]), "Zadnji odgovor: " + (r.answers[i] === null ? "nije upisan" : q.options[r.answers[i]]) + "; pokušaji: " + r.attempts[i]]), l.reflection, r.reflection || "(nije upisano)"];
+    })].join("\n");
   }
 
   // public/orbit/game-ui.js
@@ -1232,17 +1497,24 @@ Prvi odgovor točan bez pomoći: ${s.first}/${s.attempted} (bez mrežnih dijagno
     }
     return a;
   }
+  function choiceIndices(t, mode, previous) {
+    const order2 = optionOrder(t.id, t.options.length);
+    if (mode !== "easy" || t.options.length < 3) return order2;
+    const other = previous !== void 0 && previous !== t.answer ? previous : order2.find((i) => i !== t.answer);
+    return order2.filter((i) => i === t.answer || i === other);
+  }
   function taskHTML(id, state, esc3) {
     const t = taskById(id), r = state.learning.game.answers[id] || blankAnswer(), done = solved(state.learning.game, id), block = taskBlock(state, t), values = r.last || [], disabled = done || !!block;
+    const mode = state.learning.game.difficulty, coached = mode === "easy" && t.area === "course", hard = mode === "hard" && ["course", "extension"].includes(t.area), hintLocked = hard && !r.tries;
     const name = (key) => esc3(id + "-" + key);
     let inputs;
-    if (t.type === "choice") inputs = `<div class="game-options">${optionOrder(id, t.options.length).map((i) => `<label><input type="radio" name="a0" value="${i}" ${values[0] === i ? "checked" : ""} ${disabled ? "disabled" : ""} required><span>${esc3(t.options[i])}</span></label>`).join("")}</div>`;
+    if (t.type === "choice") inputs = `<div class="game-options">${choiceIndices(t, coached ? "easy" : "moderate", values[0]).map((i) => `<label><input type="radio" name="a0" value="${i}" ${values[0] === i ? "checked" : ""} ${disabled ? "disabled" : ""} required><span>${esc3(t.options[i])}</span></label>`).join("")}</div>`;
     else {
       const fields = t.type === "order" ? t.items.map((_, i) => ({ label: `${i + 1}. događaj`, options: t.items })) : t.fields;
-      inputs = fields.map((f, i) => `<label class="game-field" for="${name(i)}">${esc3(f.label)}<select name="a${i}" id="${name(i)}" ${disabled ? "disabled" : ""} required><option value="">Odaberi…</option>${optionOrder(id + "-" + i, f.options.length).map((j) => `<option value="${j}" ${values[i] === j ? "selected" : ""}>${esc3(f.options[j])}</option>`).join("")}</select></label>`).join("");
+      inputs = fields.map((f, i) => `<label class="game-field" for="${name(i)}">${esc3(f.label)}<select name="a${i}" id="${name(i)}" ${disabled ? "disabled" : ""} required><option value="">Odaberi…</option>${optionOrder(id + "-" + i, f.options.length).map((j) => `<option value="${j}" ${(values[i] ?? (coached && t.type === "order" && i === 0 ? 0 : void 0)) === j ? "selected" : ""}>${esc3(f.options[j])}</option>`).join("")}</select>${t.type === "pair" ? `<span class="game-picked" data-picked>${values[i] !== void 0 ? esc3(f.options[values[i]]) : ""}</span>` : ""}</label>`).join("");
     }
-    const feedback = r.last ? t.feedback?.[r.last[0]] || t.why : "";
-    return `<section class="game-task ${done ? "game-solved" : ""}" data-task-card="${esc3(id)}"><div class="game-task-heading"><span>${t.type === "order" ? "SLOŽI REDOSLIJED" : t.type === "pair" ? "PRIMIJENI NA NOVI SLUČAJ" : "PROVJERI I POVEŽI"}</span><b>${done ? "✓ " : ""}${t.points} XP</b></div><h3>${esc3(t.q)}</h3>${t.type === "order" ? '<p class="game-help-text">Odaberi događaj za svako mjesto. Svaki se koristi jednom.</p>' : t.type === "pair" ? '<p class="game-help-text">Za bodove trebaju biti točna oba odabira.</p>' : ""}${block && !done ? `<p class="game-block">${esc3(block === "Najprije dovrši označene radnje laboratorija." ? "Najprije dovrši označene radnje laboratorija." : block)}</p>` : ""}<form data-score-task="${esc3(id)}">${inputs}<div class="game-actions"><button class="button primary" ${disabled ? "disabled" : ""}>${done ? "Riješeno" : r.last ? "Provjeri novi odgovor" : "Provjeri odgovor"}</button>${!done ? `<button type="button" class="button secondary" data-hint="${esc3(id)}" ${block ? "disabled" : ""}>${r.help ? "Pomoć je otvorena" : "Trebam pomoć"}</button>` : ""}</div></form>${r.help ? `<div class="game-hint"><strong>Trag za razmišljanje</strong><p>${esc3(t.hint)}</p></div>` : ""}${r.last ? `<div class="course-feedback ${done ? "correct" : "reconsider"}" role="status" tabindex="-1"><strong>${done ? `Točno · ${t.points} XP spremljeno.` : "Još nije točno · pokušaj ponovno."}</strong><p>${esc3(feedback)}</p>${!done && t.type === "pair" ? `<p>${t.fields.map((f, i) => esc3(f.label) + ": " + (r.last[i] === t.answer[i] ? "točno" : "provjeri ponovno")).join(" · ")}</p>` : ""}<small>Pokušaja: ${r.tries}${r.help ? " · uz pomoć" : ""}. Bodovi se ne dodaju ponovno za isti zadatak.</small></div>` : ""}</section>`;
+    const feedback = r.last ? hard && !done && !r.help ? "Usporedi svoj zaključak sa svim uvjetima slučaja. Možeš sada otvoriti trag za razmišljanje." : t.feedback?.[r.last[0]] || t.why : "";
+    return `<section class="game-task ${done ? "game-solved" : ""}" data-task-card="${esc3(id)}"><div class="game-task-heading"><span>${t.difficulty === "hard" ? "HARD · ISTRAŽI UZROK" : t.difficulty === "moderate" ? "MODERATE · PRIMIJENI" : t.type === "order" ? "SLOŽI REDOSLIJED" : t.type === "pair" ? "PRIMIJENI NA NOVI SLUČAJ" : "PROVJERI I POVEŽI"}</span><b>${done ? "✓ " : ""}${t.points} XP</b></div><h3>${esc3(t.q)}</h3>${coached && !done ? `<p class="game-coach"><strong>Vodič · Easy</strong> ${t.type === "order" ? "Prvi događaj je postavljen. Za svaki sljedeći provjeri što je već moralo završiti." : t.type === "pair" ? "Prvo odaberi što se dogodi. Zatim provjeri objašnjava li tvoj razlog baš taj ishod." : "Vrati se na pojam iz objašnjenja. Usporedi dva ponuđena odgovora i odaberi onaj koji vrijedi u opisanoj situaciji."}</p>` : ""}${t.type === "order" ? '<p class="game-help-text">Odaberi događaj za svako mjesto. Svaki se koristi jednom.</p>' : t.type === "pair" ? '<p class="game-help-text">Za bodove trebaju biti točni svi odabiri.</p>' : ""}${block && !done ? `<p class="game-block">${esc3(block === "Najprije dovrši označene radnje laboratorija." ? "Najprije dovrši označene radnje laboratorija." : block)}</p>` : ""}<form data-score-task="${esc3(id)}">${inputs}<div class="game-actions"><button class="button primary" ${disabled ? "disabled" : ""}>${done ? "Riješeno" : r.last ? "Provjeri novi odgovor" : "Provjeri odgovor"}</button>${!done ? `<button type="button" class="button secondary" data-hint="${esc3(id)}" ${block || hintLocked ? "disabled" : ""}>${hintLocked ? "Pomoć nakon prvog pokušaja" : r.help ? "Pomoć je otvorena" : "Trebam pomoć"}</button>` : ""}</div></form>${r.help ? `<div class="game-hint"><strong>Trag za razmišljanje</strong><p>${esc3(t.hint)}</p></div>` : ""}${r.last ? `<div class="course-feedback ${done ? "correct" : "reconsider"}" role="status" tabindex="-1"><strong>${done ? `Točno · ${t.points} XP spremljeno.` : "Još nije točno · pokušaj ponovno."}</strong><p>${esc3(feedback)}</p>${!done && t.type === "pair" && (!hard || r.help) ? `<p>${t.fields.map((f, i) => esc3(f.label) + ": " + (r.last[i] === t.answer[i] ? "točno" : "provjeri ponovno")).join(" · ")}</p>` : ""}<small>Pokušaja: ${r.tries}${r.help ? " · uz pomoć" : ""}. Bodovi se ne dodaju ponovno za isti zadatak.</small></div>` : ""}</section>`;
   }
   function bindTasks(root, { fs: fs2, esc: esc3, toast: toast2, refresh: refresh2, onUpdate }) {
     for (const form of root.querySelectorAll("[data-score-task]")) form.onsubmit = (e) => {
@@ -1262,6 +1534,10 @@ Prvi odgovor točan bez pomoći: ${s.first}/${s.attempted} (bez mrežnih dijagno
         toast2(err.message);
       }
     };
+    for (const select of root.querySelectorAll(".game-field select")) select.onchange = () => {
+      const preview = select.parentElement.querySelector("[data-picked]");
+      if (preview) preview.textContent = select.value === "" ? "" : select.selectedOptions[0].textContent;
+    };
     for (const button of root.querySelectorAll("[data-hint]")) button.onclick = () => {
       try {
         fs2.transact(() => revealHint(fs2.state, button.dataset.hint));
@@ -1274,16 +1550,17 @@ Prvi odgovor točan bez pomoći: ${s.first}/${s.attempted} (bez mrežnih dijagno
   }
   function scoreBar(state) {
     const s = gameStats(state);
-    return `<div class="game-scorebar"><div><span>RAZINA ${s.level}</span><strong>${s.title}</strong></div><div class="game-xp"><strong>${s.total}<small> / ${s.max} XP</small></strong><progress value="${s.total}" max="${s.max}" aria-label="Ukupni bodovi"></progress><span>${s.next ? `${s.next - s.total} XP do sljedeće razine` : "Najviša razina dosegnuta"}</span></div></div>`;
+    return `<div class="game-scorebar"><div><span>RANG ${s.level}</span><strong>${s.title}</strong></div><div class="game-xp"><strong>${s.total}<small> / ${s.max} XP</small></strong><progress value="${s.total}" max="${s.max}" aria-label="Ukupni bodovi"></progress><span>${s.next ? `${s.next - s.total} XP do sljedećeg ranga` : "Najviši rang dosegnut"}</span></div></div>`;
   }
   function badgeHTML(state, esc3) {
     return `<div class="game-badges">${badges(state).map((b) => `<div class="game-badge ${b.earned ? "earned" : ""}"><span aria-hidden="true">${b.earned ? "✦" : "◇"}</span><strong>${esc3(b.title)}</strong><small>${esc3(b.description)}</small><b>${b.earned ? "Osvojena" : "Još nije osvojena"}</b></div>`).join("")}</div>`;
   }
-  var rulesHTML = `<details class="game-rules"><summary>Kako dobivam bodove?</summary><p>XP su bodovi napretka. <strong>Svaka misija donosi 100 XP:</strong> kratka provjera 10, redoslijed 20, usporedba uvjeta 20, dvije provjere po 10 i primjena na novi slučaj 30. Bodove daje točno riješen zadatak, a ne samo otvaranje lekcije ili pritiskanje „Dalje”.</p><p>Pogreške i pomoć ne oduzimaju bodove. Pročitaj objašnjenje i pokušaj ponovno. Isti se zadatak boduje jednom; ponavljanje ne povećava zbroj. Posebno se bilježe prvi odgovori i korištena pomoć.</p><p>Laboratoriji daju 220 XP (radnje i zaključci), detaljni mehanizmi 140 XP, mrežni izazovi 140 XP, a završni izazov do 100 XP. Ukupno: <strong>1400 XP</strong>. U završnom izazovu nema pomoći ni prikaza točnosti do predaje; u ukupne bodove ulazi najbolji pokušaj.</p><p>Radi vlastitim tempom: nema odbrojavanja ni kazne za pauzu. XP je napredak u učenju, a ne školska ocjena. Sve radi lokalno i ne traži pregled nastavnika.</p></details>`;
+  var rulesHTML = `<details class="game-rules"><summary>Kako dobivam bodove?</summary><p>XP su bodovi napretka. <strong>Osnova svake misije donosi 100 XP:</strong> kratka provjera 10, redoslijed 20, usporedba uvjeta 20, dvije provjere po 10 i primjena na novi slučaj 30. Bodove daje točno riješen zadatak, a ne samo otvaranje lekcije ili pritiskanje „Dalje”.</p><p>Easy završava osnovnih 100 XP po misiji. Moderate dodaje primjenu od 20 XP (120 po misiji), a Hard i dijagnozu od 20 XP (140 po misiji). Osnovni se odgovori dijele između težina; promjena težine ne briše ni ponovno dodaje bodove. Ukupni zbroj ostaje isti i kad se vratiš na lakšu putanju.</p><p>Pogreške i pomoć ne oduzimaju bodove. Pročitaj objašnjenje i pokušaj ponovno. Isti se zadatak boduje jednom; ponavljanje ne povećava zbroj. Posebno se bilježe prvi odgovori, težina i zatražena pomoć. Easy uključuje vođenje, pa rezultate različitih težina uspoređuj odvojeno.</p><p>Laboratoriji daju 220 XP (radnje i zaključci), detaljni mehanizmi 140 XP, mrežni izazovi 140 XP, a završni izazov do 100 XP. Ukupno: <strong>1720 XP</strong> uz sve dodatne slučajeve. U završnom izazovu nema pomoći ni prikaza točnosti do predaje; u ukupne bodove ulazi najbolji pokušaj.</p><p>Radi vlastitim tempom: nema odbrojavanja ni kazne za pauzu. XP je napredak u učenju, a ne školska ocjena. Sve radi lokalno i ne traži pregled nastavnika.</p></details>`;
 
   // public/orbit/course.js
   function createCourse({ fs: fs2, esc: esc3, icon: icon2, openApp: openApp2, openMechanism, toast: toast2, refresh: refresh2 }) {
-    const state = () => fs2.state.learning.course, game = () => fs2.state.learning.game, $6 = (s, c) => c.querySelector(s);
+    const state = () => fs2.state.learning.course, game = () => fs2.state.learning.game, $6 = (s, c) => c.querySelector(s), difficulty = () => difficultyById(game().difficulty);
+    const difficultyCards = () => `<section class="game-difficulty" aria-labelledby="difficulty-title"><h2 id="difficulty-title">Odaberi težinu</h2><div class="game-difficulty-options">${DIFFICULTIES.map((d) => `<button type="button" data-difficulty="${d.id}" aria-pressed="${game().difficulty === d.id}"><span>${d.label}${game().difficulty === d.id ? " · ✓" : ""}</span><strong>${d.title}</strong><small>${d.description}</small><b>${d.target} XP po misiji</b></button>`).join("")}</div><p>Možeš promijeniti težinu u bilo kojem trenutku. Osvojeni bodovi i riješeni zajednički zadatci ostaju spremljeni.</p></section>`;
     function mutate(fn) {
       try {
         fs2.transact(fn);
@@ -1301,20 +1578,20 @@ Prvi odgovor točan bez pomoći: ${s.first}/${s.attempted} (bez mrežnih dijagno
       });
     }
     function outline(course2) {
-      return ["Osnove", "Proširenje"].map((group) => `<h3>${group === "Osnove" ? "Kreni redom" : "Poveži i produbi"}</h3>${COURSE.filter((l) => l.group === group).map((l) => `<button data-lesson="${l.id}" ${game().screen === "lessons" && !course2.overview && l.id === course2.lesson ? 'aria-current="step"' : ""}><span class="course-number ${completedLesson(game(), l.id) ? "is-done" : ""}">${completedLesson(game(), l.id) ? icon2("check") : COURSE.indexOf(l) + 1}</span><span>${esc3(l.title)}<small class="game-lesson-score">${lessonXP(game(), l.id)}/100 XP</small></span></button>`).join("")}`).join("");
+      return ["Osnove", "Proširenje"].map((group) => `<h3>${group === "Osnove" ? "Kreni redom" : "Poveži i produbi"}</h3>${COURSE.filter((l) => l.group === group).map((l) => `<button data-lesson="${l.id}" ${game().screen === "lessons" && !course2.overview && l.id === course2.lesson ? 'aria-current="step"' : ""}><span class="course-number ${pathCompleted(game(), l.id) ? "is-done" : ""}">${pathCompleted(game(), l.id) ? icon2("check") : COURSE.indexOf(l) + 1}</span><span>${esc3(l.title)}<small class="game-lesson-score">${pathXP(game(), l.id)}/${difficulty().target} XP</small></span></button>`).join("")}`).join("");
     }
     function scene(step, index, total) {
       return `<div class="course-scene" tabindex="-1"><div class="course-step-label">Korak ${index + 1} od ${total}</div><h3>${esc3(step[0])}</h3><p>${esc3(step[1])}</p><dl class="course-state">${step[2].map(([k, v]) => `<div><dt>${esc3(k)}</dt><dd>${esc3(v)}</dd></div>`).join("")}</dl></div>`;
     }
     function nextTask(id) {
-      return ["warm", "order", "compare", "q0", "q1", "transfer"].map((k) => taskById(`c-${id}-${k}`)).find((t) => !solved(game(), t.id));
+      return ["warm", "order", "compare", "q0", "q1", "transfer", ...game().difficulty !== "easy" ? ["apply"] : [], ...game().difficulty === "hard" ? ["challenge"] : []].map((k) => taskById(`c-${id}-${k}`)).find((t) => !solved(game(), t.id));
     }
     function lessonCard(l) {
-      return `<button class="course-lesson-card" data-lesson="${l.id}"><span class="course-number ${completedLesson(game(), l.id) ? "is-done" : ""}">${completedLesson(game(), l.id) ? icon2("check") : COURSE.indexOf(l) + 1}</span><span><strong>${esc3(l.title)}</strong><small>${esc3(l.question)}</small></span><span class="course-card-status game-lesson-score">${lessonXP(game(), l.id)}/100 XP</span></button>`;
+      return `<button class="course-lesson-card" data-lesson="${l.id}"><span class="course-number ${pathCompleted(game(), l.id) ? "is-done" : ""}">${pathCompleted(game(), l.id) ? icon2("check") : COURSE.indexOf(l) + 1}</span><span><strong>${esc3(l.title)}</strong><small>${esc3(l.question)}</small></span><span class="course-card-status game-lesson-score">${pathXP(game(), l.id)}/${difficulty().target} XP</span></button>`;
     }
     function overview() {
-      const next = COURSE.find((l) => !completedLesson(game(), l.id)), review = reviewTasks(game()).filter((t) => t.area === "course"), done = COURSE.filter((l) => completedLesson(game(), l.id)).length;
-      return `${scoreBar(fs2.state)}<div class="course-welcome"><div class="course-kicker">TVOJA PUTANJA · 8 MISIJA</div><h1>Od prvog klika<br>do razumijevanja OS-a.</h1><p class="course-lead">Otvoriš aplikaciju, napišeš bilješku i spremiš je. Što se događa u računalu? Nauči povezati dijelove, njihove uloge i redoslijed događaja.</p><p>Ne trebaš predznanje. Svaka misija prvo objašnjava pojmove, pokazuje primjer i vodi te do samostalnog rješenja.</p><button class="button primary course-start" ${next ? `data-lesson="${next.id}"` : "data-final"}>${next ? "Nastavi: " + esc3(next.title) : "Otvori završni izazov"} ${icon2("arrow")}</button><div class="course-route" aria-label="Kako učimo"><span><b>1</b> Razumij ideju</span><span><b>2</b> Složi događaje</span><span><b>3</b> Usporedi uvjete</span><span><b>4</b> Primijeni samostalno</span></div></div>${review.length ? `<div class="game-next-task"><strong>Vrijedi ponoviti · ${review.length} zadataka</strong><p>Vrati se na odgovor koji još nije točan. Objašnjenje i pomoć čekaju te uz zadatak.</p><button class="button secondary" data-review="${review[0].id}">Ponovi: ${esc3(lessonById(review[0].lesson).title)}</button></div>` : ""}<section class="course-lesson-list"><div class="course-list-title"><h2>Šest misija za temelj</h2><span>${done}/8 dovršeno</span></div><p>Kreni redom. Napredak ostaje spremljen i možeš se vraćati.</p>${COURSE.filter((l) => l.group === "Osnove").map(lessonCard).join("")}<h2>Poveži zajednički rad</h2><p>Nakon osnova istraži što se događa kada se izvođenja isprepletu.</p>${COURSE.filter((l) => l.group === "Proširenje").map(lessonCard).join("")}<section class="game-final-intro"><h2>Završni izazov</h2><p>10 pitanja koja povezuju svih osam misija. Bez pomoći tijekom pokušaja; objašnjenja i plan ponavljanja dobivaš nakon predaje.</p><button class="button primary" data-final>${finalUnlocked(game()) ? game().active ? "Nastavi završni izazov" : "Otvori završni izazov" : `Pogledaj uvjete · ${done}/8 misija`}</button></section><h2>Značke za postignuća</h2>${badgeHTML(fs2.state, esc3)}${rulesHTML}<p class="course-save-note">Odgovori i bodovi čuvaju se na ovom uređaju. Za prijenos i sigurnosnu kopiju otvori „Moj rad”.</p><div class="game-actions"><button class="button secondary" data-open="lab">Praktični laboratoriji · 220 XP</button><button class="button secondary" data-explore>Detaljni mehanizmi · 140 XP</button><button class="button secondary" data-open="network">Mrežni izazovi · 140 XP</button><button class="button secondary" data-report>Moji rezultati</button></div></section>`;
+      const next = COURSE.find((l) => !pathCompleted(game(), l.id)), review = reviewTasks(game()).filter((t) => ["course", "extension"].includes(t.area) && pathTasks(t.lesson, game().difficulty).some((a) => a.id === t.id)), done = COURSE.filter((l) => pathCompleted(game(), l.id)).length;
+      return `${scoreBar(fs2.state)}<div class="course-welcome"><div class="course-kicker">TVOJA PUTANJA · ${difficulty().label.toUpperCase()} · 8 MISIJA</div><h1>Od prvog klika<br>do razumijevanja <span class="keep-word">OS-a.</span></h1><p class="course-lead">Otvoriš aplikaciju, napišeš bilješku i spremiš je. Što se događa u računalu? Nauči povezati dijelove, njihove uloge i redoslijed događaja.</p><p>Ne trebaš predznanje. Svaka misija prvo objašnjava pojmove, pokazuje primjer i vodi te do samostalnog rješenja.</p>${difficultyCards()}<button class="button primary course-start" ${next ? `data-lesson="${next.id}"` : "data-final"}>${next ? "Nastavi: " + esc3(next.title) : "Otvori završni izazov"} ${icon2("arrow")}</button><div class="course-route" aria-label="Kako učimo"><span><b>1</b> Razumij ideju</span><span><b>2</b> Složi događaje</span><span><b>3</b> Usporedi uvjete</span><span><b>4</b> Primijeni samostalno</span></div></div>${review.length ? `<div class="game-next-task"><strong>Vrijedi ponoviti · ${review.length} zadataka</strong><p>Vrati se na odgovor koji još nije točan. Objašnjenje i pomoć čekaju te uz zadatak.</p><button class="button secondary" data-review="${review[0].id}">Ponovi: ${esc3(lessonById(review[0].lesson).title)}</button></div>` : ""}<section class="course-lesson-list"><div class="course-list-title"><h2>Šest misija za temelj</h2><span>${difficulty().label} · ${done}/8 dovršeno</span></div><p>Kreni redom. Napredak ostaje spremljen i možeš se vraćati.</p>${COURSE.filter((l) => l.group === "Osnove").map(lessonCard).join("")}<h2>Poveži zajednički rad</h2><p>Nakon osnova istraži što se događa kada se izvođenja isprepletu.</p>${COURSE.filter((l) => l.group === "Proširenje").map(lessonCard).join("")}<section class="game-final-intro"><h2>Završni izazov</h2><p>10 pitanja na težini ${difficulty().label} koja povezuju svih osam misija. Bez pomoći tijekom pokušaja; objašnjenja i plan ponavljanja dobivaš nakon predaje.</p><button class="button primary" data-final>${game().active ? "Nastavi završni izazov" : finalUnlocked(game()) ? "Otvori završni izazov" : `Pogledaj uvjete · ${done}/8 misija`}</button></section><h2>Značke za postignuća</h2>${badgeHTML(fs2.state, esc3)}${rulesHTML}<p class="course-save-note">Odgovori i bodovi čuvaju se na ovom uređaju. Za prijenos i sigurnosnu kopiju otvori „Moj rad”.</p><div class="game-actions"><button class="button secondary" data-open="lab">Praktični laboratoriji · 220 XP</button><button class="button secondary" data-explore>Detaljni mehanizmi · 140 XP</button><button class="button secondary" data-open="network">Mrežni izazovi · 140 XP</button><button class="button secondary" data-report>Moji rezultati</button></div></section>`;
     }
     const task = (l, key) => taskHTML(`c-${l.id}-${key}`, fs2.state, esc3);
     function onward(l, key, stage, label) {
@@ -1326,29 +1603,37 @@ Prvi odgovor točan bez pomoći: ${s.first}/${s.attempted} (bez mrežnih dijagno
       if (stage === 1) return `<section><p class="course-instruction">Prati jedan riješeni primjer. Nakon svakog koraka poveži uzrok s promjenom stanja, a zatim samostalno složi događaje.</p><h2 class="course-section-title">${esc3(l.example.title)}</h2>${scene(l.example.steps[r.example], r.example, l.example.steps.length)}<div class="course-actions"><button class="button secondary" data-example="-1" ${r.example === 0 ? "disabled" : ""}>Prethodni korak</button><button class="button primary" data-example="1" ${r.example === l.example.steps.length - 1 ? "disabled" : ""}>Sljedeći korak →</button></div>${task(l, "order")}${onward(l, "order", 2, "Sada isprobaj ti")}</section>`;
       if (stage === 2) {
         const x = l.experiment, v = currentVariant(l, r), done = r.step === v.steps.length - 1;
-        return `<section class="course-experiment"><p class="course-instruction">Promijeni jedan uvjet i usporedi posljedice. Prođi ${x.variants.length === 2 ? "oba uvjeta" : "sva tri uvjeta"}; predviđanje smije biti pogrešno. Boduje se zaključak nakon promatranja.</p><div class="game-comparison-log" aria-label="Promatrani uvjeti">${x.variants.map((v2) => `<span class="${game().observed.includes(l.id + ":" + v2.id) ? "done" : ""}">${game().observed.includes(l.id + ":" + v2.id) ? "✓" : "○"} ${esc3(v2.label)}</span>`).join("")}</div><label class="course-field" for="course-variant">1. Odaberi uvjet pokusa<select id="course-variant">${x.variants.map((item) => `<option value="${item.id}" ${item.id === r.variant ? "selected" : ""}>${esc3(item.label)}</option>`).join("")}</select></label><fieldset class="course-prediction"><legend>2. Predvidi ishod</legend><p>${esc3(x.prompt)}</p><div class="course-choices">${x.choices.map((choice, i) => `<button class="course-choice ${r.prediction === i ? "selected" : ""}" data-predict="${i}" aria-pressed="${r.prediction === i}" ${r.step >= 0 ? "disabled" : ""}><span>${String.fromCharCode(65 + i)}</span>${esc3(choice)}</button>`).join("")}</div></fieldset>${r.step < 0 ? `<p class="course-instruction">${r.prediction === null ? "Odaberi što očekuješ. Pogrešna pretpostavka dobar je početak za učenje." : "Predviđanje je spremljeno. Sada provjeri što se događa."}</p><button class="button primary" data-step ${r.prediction === null ? "disabled" : ""}>Pokreni pokus ${icon2("play")}</button>` : `<h3 class="course-section-title">3. Prati što se događa</h3><p class="course-instruction">${esc3(x.watch)}</p><div aria-live="polite">${scene(v.steps[r.step], r.step, v.steps.length)}</div>${done ? `<div class="course-feedback ${r.prediction === v.correct ? "correct" : "reconsider"}" role="status"><strong>${r.prediction === v.correct ? "Predviđanje se potvrdilo." : "Ishod se razlikuje od predviđanja."}</strong><p>${esc3(v.conclusion)}</p><p><b>Ishod:</b> ${esc3(x.choices[v.correct])}</p></div><div class="course-actions"><button class="button secondary" data-replay>Ponovi ovaj uvjet</button>${x.variants.find((item) => !game().observed.includes(l.id + ":" + item.id)) ? '<button class="button primary" data-other>Isprobaj sljedeći uvjet →</button>' : ""}</div>` : `<div class="course-actions"><button class="button primary" data-step>Sljedeći korak ${icon2("arrow")}</button></div>`}`}<details class="course-limit"><summary>Što smo pojednostavnili?</summary><p>${esc3(l.limit)}</p></details>${task(l, "compare")}${onward(l, "compare", 3, "Provjeri i primijeni")}</section>`;
+        return `<section class="course-experiment"><p class="course-instruction">Promijeni jedan uvjet i usporedi posljedice. Prođi ${x.variants.length === 2 ? "oba uvjeta" : "sva tri uvjeta"}; predviđanje smije biti pogrešno. Boduje se zaključak nakon promatranja.</p><div class="game-comparison-log" aria-label="Promatrani uvjeti">${x.variants.map((v2) => `<span class="${game().observed.includes(l.id + ":" + v2.id) ? "done" : ""}">${game().observed.includes(l.id + ":" + v2.id) ? "✓" : "○"} ${esc3(v2.label)}</span>`).join("")}</div><label class="course-field" for="course-variant">1. Odaberi uvjet pokusa<select id="course-variant">${x.variants.map((item) => `<option value="${item.id}" ${item.id === r.variant ? "selected" : ""}>${esc3(item.label)}</option>`).join("")}</select></label><fieldset class="course-prediction"><legend>2. Predvidi ishod</legend><p>${esc3(x.prompt)}</p><div class="course-choices">${x.choices.map((choice2, i) => `<button class="course-choice ${r.prediction === i ? "selected" : ""}" data-predict="${i}" aria-pressed="${r.prediction === i}" ${r.step >= 0 ? "disabled" : ""}><span>${String.fromCharCode(65 + i)}</span>${esc3(choice2)}</button>`).join("")}</div></fieldset>${r.step < 0 ? `<p class="course-instruction">${r.prediction === null ? "Odaberi što očekuješ. Pogrešna pretpostavka dobar je početak za učenje." : "Predviđanje je spremljeno. Sada provjeri što se događa."}</p><button class="button primary" data-step ${r.prediction === null ? "disabled" : ""}>Pokreni pokus ${icon2("play")}</button>` : `<h3 class="course-section-title">3. Prati što se događa</h3><p class="course-instruction">${esc3(x.watch)}</p><div aria-live="polite">${scene(v.steps[r.step], r.step, v.steps.length)}</div>${done ? `<div class="course-feedback ${r.prediction === v.correct ? "correct" : "reconsider"}" role="status"><strong>${r.prediction === v.correct ? "Predviđanje se potvrdilo." : "Ishod se razlikuje od predviđanja."}</strong><p>${esc3(v.conclusion)}</p><p><b>Ishod:</b> ${esc3(x.choices[v.correct])}</p></div><div class="course-actions"><button class="button secondary" data-replay>Ponovi ovaj uvjet</button>${x.variants.find((item) => !game().observed.includes(l.id + ":" + item.id)) ? '<button class="button primary" data-other>Isprobaj sljedeći uvjet →</button>' : ""}</div>` : `<div class="course-actions"><button class="button primary" data-step>Sljedeći korak ${icon2("arrow")}</button></div>`}`}<details class="course-limit"><summary>Što smo pojednostavnili?</summary><p>${esc3(l.limit)}</p></details>${task(l, "compare")}${onward(l, "compare", 3, "Provjeri i primijeni")}</section>`;
       }
-      return `<section class="course-check"><p class="course-instruction">Prvo provjeri dvije ključne ideje. Zatim ih primijeni na novi slučaj: poveži ishod i razlog. Sve odgovore provjerava aplikacija.</p>${task(l, "q0")}${task(l, "q1")}${task(l, "transfer")}${r.reflection ? `<details class="game-legacy"><summary>Tvoja bilješka iz ranije verzije</summary><p>${esc3(r.reflection)}</p><p>Sačuvana bilješka ne uvjetuje bodove u novim zadatcima.</p></details>` : ""}${completedLesson(game(), l.id) ? completion(l) : '<p class="course-prereq">Misija je dovršena kada prikupiš 100 XP. Točni odgovori i promatrani uvjeti ostaju zabilježeni.</p>'}</section>`;
+      return `<section class="course-check"><p class="course-instruction">Prvo provjeri dvije ključne ideje. Zatim ih primijeni na novi slučaj: poveži ishod i razlog. Sve odgovore provjerava aplikacija.</p>${task(l, "q0")}${task(l, "q1")}${task(l, "transfer")}${game().difficulty !== "easy" ? `<div class="game-extension-intro"><h2>Moderate · Prenesi pravilo</h2><p>Sada riješi drukčiju situaciju. Najprije utvrdi ishod, zatim razlog.</p></div>${task(l, "apply")}` : ""}${game().difficulty === "hard" ? `<div class="game-extension-intro"><h2>Hard · Obrazloži dijagnozu</h2><p>Provjeri sve uvjete. Poveži uzrok, posljedicu i odluku; trag možeš zatražiti nakon prvog pokušaja.</p></div>${task(l, "challenge")}` : ""}${r.reflection ? `<details class="game-legacy"><summary>Tvoja bilješka iz ranije verzije</summary><p>${esc3(r.reflection)}</p><p>Sačuvana bilješka ne uvjetuje bodove u novim zadatcima.</p></details>` : ""}${pathCompleted(game(), l.id) ? completion(l) : `<p class="course-prereq">Cilj za ${difficulty().label}: ${difficulty().target} XP. Točni odgovori i promatrani uvjeti ostaju zabilježeni.</p>`}</section>`;
     }
     function completion(l) {
       const next = COURSE[COURSE.indexOf(l) + 1];
-      return `<div class="game-course-finished" role="status"><div class="course-kicker">MISIJA DOVRŠENA · 100/100 XP</div><h3>${esc3(l.summary)}</h3><p>${esc3(l.next)}</p><div class="course-actions">${next ? `<button class="button primary" data-lesson="${next.id}">Sljedeća misija ${icon2("arrow")}</button>` : '<button class="button primary" data-final>Završni izazov →</button>'}<button class="button secondary" data-report>Moji rezultati</button></div>${l.advanced ? `<p class="course-advanced"><button class="course-text-button" data-advanced="${l.advanced}">Produbi ovu temu u detaljnom simulatoru →</button></p>` : ""}</div>`;
+      return `<div class="game-course-finished" role="status"><div class="course-kicker">MISIJA DOVRŠENA · ${difficulty().label.toUpperCase()} · ${difficulty().target}/${difficulty().target} XP</div><h3>${esc3(l.summary)}</h3><p>${esc3(l.next)}</p><div class="course-actions">${next ? `<button class="button primary" data-lesson="${next.id}">Sljedeća misija ${icon2("arrow")}</button>` : '<button class="button primary" data-final>Završni izazov →</button>'}<button class="button secondary" data-report>Moji rezultati</button></div>${l.advanced ? `<p class="course-advanced"><button class="course-text-button" data-advanced="${l.advanced}">Produbi ovu temu u detaljnom simulatoru →</button></p>` : ""}</div>`;
     }
     function finalBody() {
-      const g = game(), a = g.active, latest = g.runs.at(-1), done = COURSE.filter((l) => completedLesson(g, l.id)).length;
+      const g = game(), a = g.active, latest = g.runs.at(-1), done = COURSE.filter((l) => pathCompleted(g, l.id)).length;
       if (a) {
-        const qs = finalQuestions(a.round), q = qs[a.cursor], answered = a.answers.filter((v) => v !== null).length;
-        return `<div class="course-kicker">ZAVRŠNI IZAZOV · POKUŠAJ ${a.round}</div><h1 tabindex="-1">Poveži što si naučio.</h1><p class="course-instruction">Pitanje ${a.cursor + 1} od 10 · Odgovoreno ${answered}/10. Točnost i objašnjenja prikazat će se nakon predaje. Možeš se vraćati i mijenjati odgovore prije predaje.</p><section class="game-task"><h2>${esc3(q.q)}</h2><fieldset class="game-options"><legend class="sr-only">Odaberi odgovor</legend>${optionOrder(q.id, q.options.length).map((i) => `<label><input type="radio" name="final-answer" value="${i}" ${a.answers[a.cursor] === i ? "checked" : ""}><span>${esc3(q.options[i])}</span></label>`).join("")}</fieldset><div class="game-final-nav"><button class="button secondary" data-final-move="-1" ${a.cursor === 0 ? "disabled" : ""}>← Prethodno</button><span>${a.cursor + 1}/10</span><button class="button primary" data-final-move="1" ${a.cursor === 9 ? "disabled" : ""}>Sljedeće →</button></div></section><div class="game-actions"><button class="button primary" id="final-submit" ${answered < 10 ? "disabled" : ""}>Predaj svih 10 odgovora</button><button class="button secondary" data-overview>Spremi pauzu i vrati se na misije</button></div><p class="course-save-note" role="status">${answered < 10 ? `Još ${10 - answered} pitanja bez odgovora.` : "Svi odgovori su spremljeni. Predaj kada završiš provjeru."} Nema vremenskog ograničenja.</p>`;
+        const qs = finalQuestions(a.round, a.difficulty), q = qs[a.cursor], answered = a.answers.filter((v) => v !== null).length;
+        return `<div class="course-kicker">ZAVRŠNI IZAZOV · ${difficultyById(a.difficulty).label.toUpperCase()} · POKUŠAJ ${a.round}</div><h1 tabindex="-1">Poveži što si naučio.</h1><p class="course-instruction">Pitanje ${a.cursor + 1} od 10 · Odgovoreno ${answered}/10. Točnost i objašnjenja prikazat će se nakon predaje. Možeš se vraćati i mijenjati odgovore prije predaje. Težina ovog pokušaja ostaje ${difficultyById(a.difficulty).label}, i ako promijeniš težinu misija.</p><section class="game-task"><h2>${esc3(q.q)}</h2><fieldset class="game-options"><legend class="sr-only">Odaberi odgovor</legend>${choiceIndices(q, a.difficulty, a.answers[a.cursor] ?? void 0).map((i) => `<label><input type="radio" name="final-answer" value="${i}" ${a.answers[a.cursor] === i ? "checked" : ""}><span>${esc3(q.options[i])}</span></label>`).join("")}</fieldset><div class="game-final-nav"><button class="button secondary" data-final-move="-1" ${a.cursor === 0 ? "disabled" : ""}>← Prethodno</button><span>${a.cursor + 1}/10</span><button class="button primary" data-final-move="1" ${a.cursor === 9 ? "disabled" : ""}>Sljedeće →</button></div></section><div class="game-actions"><button class="button primary" id="final-submit" ${answered < 10 ? "disabled" : ""}>Predaj svih 10 odgovora</button><button class="button secondary" data-overview>Spremi pauzu i vrati se na misije</button></div><p class="course-save-note" role="status">${answered < 10 ? `Još ${10 - answered} pitanja bez odgovora.` : "Svi odgovori su spremljeni. Predaj kada završiš provjeru."} Nema vremenskog ograničenja.</p>`;
       }
-      return `${scoreBar(fs2.state)}<div class="course-kicker">ZAVRŠNI IZAZOV</div><h1 tabindex="-1">Možeš li povezati cijeli sustav?</h1><p>Deset pitanja, po 10 bodova. Tijekom pokušaja nema pomoći ni prikaza točnosti. Nakon predaje dobivaš objašnjenje svakog odgovora i prijedlog što ponoviti.</p><p>U ukupne XP bodove ulazi samo najbolji rezultat. Novi pokušaj donosi drugu od dvije inačice pitanja po temi; pitanja se poslije ponavljaju.</p><div class="game-final-intro">${finalUnlocked(g) ? `<button class="button primary" id="final-start">${latest ? "Pokušaj ponovno" : "Pokreni završni izazov"} ${icon2("arrow")}</button>` : `<h2>Još malo učenja prije izazova</h2><p>Dovrši svih osam misija do 100 XP. Trenutačno: ${done}/8.</p><button class="button primary" data-lesson="${COURSE.find((l) => !completedLesson(g, l.id)).id}">Nastavi sljedeću misiju →</button>`}</div>${latest ? finalReview(latest) : ""}`;
+      return `${scoreBar(fs2.state)}<div class="course-kicker">ZAVRŠNI IZAZOV · ${difficulty().label.toUpperCase()}</div><h1 tabindex="-1">Možeš li povezati cijeli sustav?</h1><p>Deset pitanja, po 10 bodova. Tijekom pokušaja nema pomoći ni prikaza točnosti. Nakon predaje dobivaš objašnjenje svakog odgovora i prijedlog što ponoviti.</p><p>U ukupne XP bodove ulazi jedan najbolji rezultat; postignuća po težini prikazuju se zasebno. Novi pokušaj donosi drugu od dvije inačice pitanja po temi; pitanja se poslije ponavljaju.</p><div class="game-final-bests">${DIFFICULTIES.map((d) => `<span><b>${d.label}</b> ${bestFinal(g, d.id)}/100${g.runs.some((r) => r.difficulty === d.id) ? "" : " · još nije predano"}</span>`).join("")}</div><div class="game-final-intro">${finalUnlocked(g) ? `<button class="button primary" id="final-start">${latest ? "Pokušaj ponovno" : "Pokreni završni izazov"} ${icon2("arrow")}</button>` : `<h2>Još malo učenja prije izazova</h2><p>Dovrši svih osam misija na težini ${difficulty().label}, do ${difficulty().target} XP po misiji. Trenutačno: ${done}/8.</p><button class="button primary" data-lesson="${COURSE.find((l) => !pathCompleted(g, l.id)).id}">Nastavi sljedeću misiju →</button>`}</div>${latest ? finalReview(latest) : ""}`;
     }
     function finalReview(run) {
-      const qs = finalQuestions(run.round), wrong = qs.filter((q, i) => q.answer !== run.answers[i]), topics = [...new Set(wrong.map((q) => q.topic === "link1" ? "read" : q.topic === "link2" ? q.id.endsWith("0") ? "process" : "os" : q.topic))];
-      return `<section class="game-final-results"><h2>Rezultat pokušaja ${run.round}</h2><div class="game-final-score">${runScore(run)}<small> / 100</small></div><p>${runScore(run) >= 80 ? "Uspješno povezuješ većinu ključnih ideja." : "Pogledaj objašnjenja i ponovi označene teme prije novog pokušaja."} Najbolji rezultat: ${Math.max(...game().runs.map(runScore))}/100.</p>${topics.length ? `<div class="game-next-task"><strong>Tvoj plan ponavljanja</strong><div class="game-actions">${topics.map((id) => `<button class="button secondary" data-lesson="${id}">${esc3(lessonById(id).title)}</button>`).join("")}</div></div>` : "<p>Sva su pitanja točno riješena. Isprobaj praktične laboratorije i primijeni znanje.</p>"}<div class="game-final-list">${qs.map((q, i) => `<article class="game-final-review ${q.answer === run.answers[i] ? "correct" : ""}"><h3>${i + 1}. ${esc3(q.q)}</h3><p><strong>${q.answer === run.answers[i] ? "Točno · 10 bodova" : "Netočno · 0 bodova"}</strong></p><p>Tvoj odgovor: ${esc3(q.options[run.answers[i]])}</p>${q.answer !== run.answers[i] ? `<p>Točan odgovor: ${esc3(q.options[q.answer])}</p>` : ""}<p>${esc3(q.why)}</p></article>`).join("")}</div></section>`;
+      const qs = finalQuestions(run.round, run.difficulty), wrong = qs.filter((q, i) => q.answer !== run.answers[i]), topics = [...new Set(wrong.flatMap((q) => q.id.startsWith("hard-link1") ? q.id.endsWith("0") ? ["memory", "cpu"] : ["os", "read"] : q.id.startsWith("hard-link2") ? q.id.endsWith("0") ? ["deadlock"] : ["threads", "hardware"] : q.topic === "link1" ? ["read"] : q.topic === "link2" ? [q.id.endsWith("0") ? "process" : "os"] : [q.topic]))];
+      return `<section class="game-final-results"><h2>Rezultat · ${difficultyById(run.difficulty).label} · pokušaj ${run.round}</h2><div class="game-final-score">${runScore(run)}<small> / 100</small></div><p>${runScore(run) >= 80 ? "Uspješno povezuješ većinu ključnih ideja." : "Pogledaj objašnjenja i ponovi označene teme prije novog pokušaja."} Najbolji na težini ${difficultyById(run.difficulty).label}: ${bestFinal(game(), run.difficulty)}/100.</p>${topics.length ? `<div class="game-next-task"><strong>Tvoj plan ponavljanja</strong><div class="game-actions">${topics.map((id) => `<button class="button secondary" data-lesson="${id}">${esc3(lessonById(id).title)}</button>`).join("")}</div></div>` : "<p>Sva su pitanja točno riješena. Isprobaj praktične laboratorije i primijeni znanje.</p>"}<div class="game-final-list">${qs.map((q, i) => `<article class="game-final-review ${q.answer === run.answers[i] ? "correct" : ""}"><h3>${i + 1}. ${esc3(q.q)}</h3><p><strong>${q.answer === run.answers[i] ? "Točno · 10 bodova" : "Netočno · 0 bodova"}</strong></p><p>Tvoj odgovor: ${esc3(q.options[run.answers[i]])}</p>${q.answer !== run.answers[i] ? `<p>Točan odgovor: ${esc3(q.options[q.answer])}</p>` : ""}<p>${esc3(q.why)}</p></article>`).join("")}</div></section>`;
     }
     function course(c, focus = false, keepScroll = false) {
-      const scroll = c.scrollTop, s = state(), g = game(), l = lessonById(s.lesson), r = courseRecord(s, l), count = COURSE.filter((l2) => completedLesson(g, l2.id)).length, isFinal = g.screen === "final", xp = lessonXP(g, l.id), next = nextTask(l.id);
-      c.innerHTML = `<div class="course-app ${s.overview || isFinal ? "course-is-overview" : ""}"><aside class="course-sidebar"><div class="course-side-brand">${icon2("guide")} Uči od početka</div><p>${count}/8 misija dovršeno</p><nav aria-label="Lekcije">${outline(s)}</nav><button class="button secondary" data-final>Završni izazov ${icon2("arrow")}</button><button class="button secondary" data-explore>Detaljni simulator ${icon2("arrow")}</button></aside><main class="course-main"><header class="course-top"><button class="course-text-button" data-overview>${icon2("guide")} Sve misije</button><span>${isFinal ? "Samostalna provjera" : s.overview ? "Uči vlastitim tempom" : `Misija ${COURSE.indexOf(l) + 1} od 8`}</span><\/header>${isFinal ? finalBody() : s.overview ? overview() : `${scoreBar(fs2.state)}<div class="course-lesson"><div class="course-kicker">${esc3(l.group)} · ${STAGES[s.stage]}</div><h1 tabindex="-1">${esc3(l.title)}</h1><div class="game-mission-progress"><span>Ova misija: <strong>${xp}/100 XP</strong></span><progress value="${xp}" max="100" aria-label="Bodovi ove misije"></progress></div><nav class="course-stages" aria-label="Koraci lekcije">${STAGES.map((title, i) => `<button data-stage="${i}" ${s.stage === i ? 'aria-current="step"' : ""}><span>${i + 1}</span>${title}</button>`).join("")}</nav><div class="course-stage-body">${lessonBody(l, r, s.stage)}</div>${next && next.stage !== s.stage ? `<div class="game-next-task"><strong>Sljedeći zadatak za ovu misiju</strong><p>${esc3(next.q)}</p><button class="button secondary" data-stage="${next.stage}">Idi na: ${STAGES[next.stage]}</button></div>` : ""}<footer class="course-bottom"><button class="course-text-button" ${s.stage === 0 ? "data-overview" : `data-stage="${s.stage - 1}"`}>← ${s.stage === 0 ? "Pregled misija" : STAGES[s.stage - 1]}</button><span>Možeš se vraćati i ponavljati.</span></footer></div>`}</main></div>`;
+      const scroll = c.scrollTop, s = state(), g = game(), l = lessonById(s.lesson), r = courseRecord(s, l), count = COURSE.filter((l2) => pathCompleted(g, l2.id)).length, isFinal = g.screen === "final", xp = pathXP(g, l.id), next = nextTask(l.id);
+      c.innerHTML = `<div class="course-app ${s.overview || isFinal ? "course-is-overview" : ""}"><aside class="course-sidebar"><div class="course-side-brand">${icon2("guide")} Uči od početka</div><p>${count}/8 misija dovršeno</p><nav aria-label="Lekcije">${outline(s)}</nav><button class="button secondary" data-final>Završni izazov ${icon2("arrow")}</button><button class="button secondary" data-explore>Detaljni simulator ${icon2("arrow")}</button></aside><main class="course-main"><header class="course-top"><button class="course-text-button" data-overview>${icon2("guide")} Sve misije</button><label class="game-difficulty-select">Težina <select data-difficulty-select aria-label="Težina igre">${DIFFICULTIES.map((d) => `<option value="${d.id}" ${d.id === g.difficulty ? "selected" : ""}>${d.label}</option>`).join("")}</select></label><span>${isFinal ? "Samostalna provjera" : s.overview ? "Uči vlastitim tempom" : `Misija ${COURSE.indexOf(l) + 1} od 8`}</span><\/header>${isFinal ? finalBody() : s.overview ? overview() : `<div class="course-lesson"><div class="course-kicker">${esc3(l.group)} · ${STAGES[s.stage]}</div><h1 tabindex="-1">${esc3(l.title)}</h1><div class="game-mission-progress"><span>Ova misija: <strong>${xp}/${difficulty().target} XP</strong></span><progress value="${xp}" max="${difficulty().target}" aria-label="Bodovi ove misije"></progress></div><p class="game-path-goal"><strong>${difficulty().label}:</strong> ${difficulty().goal}</p><nav class="course-stages" aria-label="Koraci lekcije">${STAGES.map((title, i) => `<button data-stage="${i}" ${s.stage === i ? 'aria-current="step"' : ""}><span>${i + 1}</span>${title}</button>`).join("")}</nav><div class="course-stage-body">${lessonBody(l, r, s.stage)}</div>${next && next.stage !== s.stage ? `<div class="game-next-task"><strong>Sljedeći zadatak za ovu misiju</strong><p>${esc3(next.q)}</p><button class="button secondary" data-stage="${next.stage}">Idi na: ${STAGES[next.stage]}</button></div>` : ""}<footer class="course-bottom"><button class="course-text-button" ${s.stage === 0 ? "data-overview" : `data-stage="${s.stage - 1}"`}>← ${s.stage === 0 ? "Pregled misija" : STAGES[s.stage - 1]}</button><span>Možeš se vraćati i ponavljati.</span></footer></div>`}</main></div>`;
+      const setDifficulty = (id) => {
+        if (mutate(() => chooseDifficulty(fs2.state, id))) {
+          course(c, false, true);
+          toast2("Težina: " + difficulty().label + ". Osvojeni bodovi ostaju spremljeni.");
+        }
+      };
+      c.querySelectorAll("[data-difficulty]").forEach((b) => b.onclick = () => setDifficulty(b.dataset.difficulty));
+      $6("[data-difficulty-select]", c).onchange = (e) => setDifficulty(e.target.value);
       c.querySelectorAll("[data-lesson]").forEach((b) => b.onclick = () => {
         if (save({ type: "open", id: b.dataset.lesson })) course(c, true);
       });
@@ -2235,7 +2520,7 @@ Prvi odgovor točan bez pomoći: ${s.first}/${s.attempted} (bez mrežnih dijagno
   function buildWorkReport({ lessons, checks, learning, date = (/* @__PURE__ */ new Date()).toLocaleString("hr-HR") }) {
     const progress = (group) => ({ done: COURSE.filter((l) => l.group === group && completedLesson(learning.game, l.id)).length, total: COURSE.filter((l) => l.group === group).length }), base = progress("Osnove"), extra = progress("Proširenje");
     const e = escapeReport, cpu = cpuRun(learning.cpu, learning.cpu.steps), summary = cpuSummary(cpu), mem = pageRun(learning.memory, learning.memory.steps), net = learning.network;
-    return `<article class="work-report"><div class="eyebrow">ORBIT OS · IZVJEŠTAJ O RADU · LOKALNO 0.10.0</div><h1>Od pokusa do objašnjenja.</h1><div class="report-meta"><div><span>Oznaka rada</span><strong>${e(learning.label || "Nije upisana")}</strong></div><div><span>Izvezeno</span>${e(date)}</div><div><span>Vođene lekcije</span>${base.done}/${base.total} osnova · ${extra.done}/${extra.total} proširenja</div><div><span>Praktične vježbe</span>${lessons.filter((_, i) => learning.game.labs.includes(i) && solved(learning.game, "lab-" + i)).length} / ${lessons.length}</div></div><p class="report-note">Radnje, strukturirani odgovori i završni izazov boduju se automatski. Ponavljanje služi učenju. XP pokazuje napredak; ne predstavlja školsku ocjenu ni dokaz samostalnosti.</p>${scoreReport({ learning }, e)}${Object.values(learning.course.records).some((r) => r.reflection || r.firstAnswers.some((a) => a !== null)) ? "<h2>Arhiva rada iz ranijih izdanja</h2>" + courseReport(learning.course, e) : ""}${learning.explorer.records.length ? explorerReport(learning.explorer, e) : ""}<h2>Praktične radnje i ranije bilješke</h2>${lessons.map((l, i) => `<section class="report-lesson"><h3>${String(i + 1).padStart(2, "0")} · ${e(l.title)}</h3><ul class="report-checks">${l.checks.map((label, j) => `<li>${checks[i][j] ? "Potvrđeno" : "Nije potvrđeno"} — ${e(label)}</li>`).join("")}</ul><p><strong>Pitanje:</strong> ${e(l.question)}</p><div class="answer ${learning.answers[l.id] ? "" : "report-empty"}">${e(learning.answers[l.id] || "Nema ranije bilješke; za bodove se rješava strukturirani zadatak.")}</div></section>`).join("")}<h2>Trenutačni CPU pokus</h2><p>Algoritam: <strong>${e({ fcfs: "FCFS", rr: "Round Robin", sjf: "SJF" }[learning.cpu.algorithm])}</strong> · kvant ${learning.cpu.quantum} · proteklo ${cpu.t} simuliranih jedinica.</p><table><thead><tr><th>Proces</th><th>Dolazak</th><th>CPU ukupno</th><th>I/O nakon / traje</th><th>Čekanje</th><th>Odziv</th><th>Obrtaj</th></tr></thead><tbody>${cpu.jobs.map((j) => `<tr><td>${e(j.name)}</td><td>${j.arrival}</td><td>${j.burst}</td><td>${j.ioAt} / ${j.ioFor}</td><td>${j.wait}</td><td>${j.first === null ? "—" : j.first - j.arrival}</td><td>${j.finish === null ? "—" : j.finish - j.arrival}</td></tr>`).join("")}</tbody></table><p>Prosječno čekanje: ${number(summary.waiting)} · prosječan odziv: ${number(summary.response)} · prosječan obrtaj: ${number(summary.turnaround)}.</p><h2>Trenutačni pokus memorije</h2><p>${e(learning.memory.algorithm.toUpperCase())} · ${learning.memory.frames} okvira · ${mem.step}/${mem.refs.length} pristupa.</p><p>Slijed: <code>${e(learning.memory.sequence)}</code></p><table><thead><tr><th>Pogoci</th><th>Promašaji</th><th>Upisi izmijenjenih stranica</th></tr></thead><tbody><tr><td>${mem.hits}</td><td>${mem.faults}</td><td>${mem.writebacks}</td></tr></tbody></table><h2>Mrežna dijagnostika</h2><p>Trenutačna konfiguracija: <code>${e(net.config.ip)}/${net.config.prefix}</code> · pristupnik <code>${e(net.config.gateway || "nije postavljen")}</code> · DNS <code>${e(net.config.dns || "nije postavljen")}</code>.</p><table><thead><tr><th>Izazov</th><th>Radnje</th></tr></thead><tbody>${NETWORK_CASES.map((t) => `<tr><td>${e(t.title)}</td><td>${net.completed.includes(t.id) ? "Ranije potvrđene" : "Još nisu potvrđene"}</td></tr>`).join("")}</tbody></table>${(net.records || []).map((r) => `<section class="report-lesson"><h3>${e(NETWORK_CASES.find((t) => t.id === r.id).title)}</h3><p class="report-note">Potvrđeno: ${e(new Date(r.at).toLocaleString("hr-HR"))} · pomoć: ${r.hint ? "otvorena" : "nije otvarana"}.</p><p>Automatska dijagnoza: ${e(NETWORK_DIAGNOSES[r.id]?.options[r.diagnosis] || "Nema dijagnoze iz nove provjere.")} · ${r.diagnosis === NETWORK_DIAGNOSES[r.id]?.answer ? 20 : 0}/20 XP.</p>${r.notes ? `<div class="answer">${e(r.notes)}</div>` : ""}</section>`).join("")}<h3>Ranija bilješka trenutačnog mrežnog pokusa</h3><div class="answer">${e(net.notes || "Nema ranije bilješke; za bodove se rješava strukturirani zadatak.")}</div><h3>Zadnjih osam provjera</h3><table><thead><tr><th>Naredba</th><th>Revizija</th><th>Ishod i objašnjenje</th></tr></thead><tbody>${net.history.slice(-8).map((h) => {
+    return `<article class="work-report"><div class="eyebrow">ORBIT OS · IZVJEŠTAJ O RADU · LOKALNO 0.11.0</div><h1>Od pokusa do objašnjenja.</h1><div class="report-meta"><div><span>Oznaka rada</span><strong>${e(learning.label || "Nije upisana")}</strong></div><div><span>Izvezeno</span>${e(date)}</div><div><span>Vođene lekcije</span>${base.done}/${base.total} osnova · ${extra.done}/${extra.total} proširenja</div><div><span>Praktične vježbe</span>${lessons.filter((_, i) => learning.game.labs.includes(i) && solved(learning.game, "lab-" + i)).length} / ${lessons.length}</div></div><p class="report-note">Radnje, strukturirani odgovori i završni izazov boduju se automatski. Ponavljanje služi učenju. XP pokazuje napredak; ne predstavlja školsku ocjenu ni dokaz samostalnosti.</p>${scoreReport({ learning }, e)}${Object.values(learning.course.records).some((r) => r.reflection || r.firstAnswers.some((a) => a !== null)) ? "<h2>Arhiva rada iz ranijih izdanja</h2>" + courseReport(learning.course, e) : ""}${learning.explorer.records.length ? explorerReport(learning.explorer, e) : ""}<h2>Praktične radnje i ranije bilješke</h2>${lessons.map((l, i) => `<section class="report-lesson"><h3>${String(i + 1).padStart(2, "0")} · ${e(l.title)}</h3><ul class="report-checks">${l.checks.map((label, j) => `<li>${checks[i][j] ? "Potvrđeno" : "Nije potvrđeno"} — ${e(label)}</li>`).join("")}</ul><p><strong>Pitanje:</strong> ${e(l.question)}</p><div class="answer ${learning.answers[l.id] ? "" : "report-empty"}">${e(learning.answers[l.id] || "Nema ranije bilješke; za bodove se rješava strukturirani zadatak.")}</div></section>`).join("")}<h2>Trenutačni CPU pokus</h2><p>Algoritam: <strong>${e({ fcfs: "FCFS", rr: "Round Robin", sjf: "SJF" }[learning.cpu.algorithm])}</strong> · kvant ${learning.cpu.quantum} · proteklo ${cpu.t} simuliranih jedinica.</p><table><thead><tr><th>Proces</th><th>Dolazak</th><th>CPU ukupno</th><th>I/O nakon / traje</th><th>Čekanje</th><th>Odziv</th><th>Obrtaj</th></tr></thead><tbody>${cpu.jobs.map((j) => `<tr><td>${e(j.name)}</td><td>${j.arrival}</td><td>${j.burst}</td><td>${j.ioAt} / ${j.ioFor}</td><td>${j.wait}</td><td>${j.first === null ? "—" : j.first - j.arrival}</td><td>${j.finish === null ? "—" : j.finish - j.arrival}</td></tr>`).join("")}</tbody></table><p>Prosječno čekanje: ${number(summary.waiting)} · prosječan odziv: ${number(summary.response)} · prosječan obrtaj: ${number(summary.turnaround)}.</p><h2>Trenutačni pokus memorije</h2><p>${e(learning.memory.algorithm.toUpperCase())} · ${learning.memory.frames} okvira · ${mem.step}/${mem.refs.length} pristupa.</p><p>Slijed: <code>${e(learning.memory.sequence)}</code></p><table><thead><tr><th>Pogoci</th><th>Promašaji</th><th>Upisi izmijenjenih stranica</th></tr></thead><tbody><tr><td>${mem.hits}</td><td>${mem.faults}</td><td>${mem.writebacks}</td></tr></tbody></table><h2>Mrežna dijagnostika</h2><p>Trenutačna konfiguracija: <code>${e(net.config.ip)}/${net.config.prefix}</code> · pristupnik <code>${e(net.config.gateway || "nije postavljen")}</code> · DNS <code>${e(net.config.dns || "nije postavljen")}</code>.</p><table><thead><tr><th>Izazov</th><th>Radnje</th></tr></thead><tbody>${NETWORK_CASES.map((t) => `<tr><td>${e(t.title)}</td><td>${net.completed.includes(t.id) ? "Ranije potvrđene" : "Još nisu potvrđene"}</td></tr>`).join("")}</tbody></table>${(net.records || []).map((r) => `<section class="report-lesson"><h3>${e(NETWORK_CASES.find((t) => t.id === r.id).title)}</h3><p class="report-note">Potvrđeno: ${e(new Date(r.at).toLocaleString("hr-HR"))} · pomoć: ${r.hint ? "otvorena" : "nije otvarana"}.</p><p>Automatska dijagnoza: ${e(NETWORK_DIAGNOSES[r.id]?.options[r.diagnosis] || "Nema dijagnoze iz nove provjere.")} · ${r.diagnosis === NETWORK_DIAGNOSES[r.id]?.answer ? 20 : 0}/20 XP.</p>${r.notes ? `<div class="answer">${e(r.notes)}</div>` : ""}</section>`).join("")}<h3>Ranija bilješka trenutačnog mrežnog pokusa</h3><div class="answer">${e(net.notes || "Nema ranije bilješke; za bodove se rješava strukturirani zadatak.")}</div><h3>Zadnjih osam provjera</h3><table><thead><tr><th>Naredba</th><th>Revizija</th><th>Ishod i objašnjenje</th></tr></thead><tbody>${net.history.slice(-8).map((h) => {
       const r = probeNetwork(h.config, h.kind, h.target);
       return `<tr><td><code>${h.kind} ${e(h.target)}</code></td><td>${h.revision}</td><td><strong>${r.ok ? "Uspjeh" : "Neuspjeh"}</strong><br>${e(r.message)}</td></tr>`;
     }).join("") || '<tr><td colspan="3">Nema zabilježenih mrežnih provjera.</td></tr>'}</tbody></table><p class="report-note">Povijesni rezultati odnose se na postavke tijekom provjere. Simulator ne šalje pakete. Izvještaj ne sadrži tekstove osobnih datoteka iz aplikacije Datoteke.</p></article>`;
@@ -2763,10 +3048,10 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
         } catch {
           const fallback = $3("#report-copy-fallback", c);
           fallback.hidden = false;
-          const field = $3("textarea", fallback);
-          field.value = text;
-          field.focus();
-          field.select();
+          const field2 = $3("textarea", fallback);
+          field2.value = text;
+          field2.focus();
+          field2.select();
           status.textContent = "Automatsko kopiranje nije dostupno. Tekst je označen za Kopiraj ili Ctrl+C.";
         }
       };
@@ -2983,13 +3268,13 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
         }
       };
       $4("#backup-copy-json", c).onclick = async () => {
-        const field = $4("#backup-text-output textarea", c);
+        const field2 = $4("#backup-text-output textarea", c);
         try {
-          await navigator.clipboard.writeText(field.value);
+          await navigator.clipboard.writeText(field2.value);
           toast2("JSON je kopiran. Spremi ga kao .json datoteku izvan preglednika.");
         } catch {
-          field.focus();
-          field.select();
+          field2.focus();
+          field2.select();
           toast2("Tekst je označen. Upotrijebi Kopiraj ili Ctrl+C.");
         }
       };
@@ -3585,7 +3870,17 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
   var local = connectLocal();
   var storageOK = true;
   var initialWarning = "";
-  var fs = new FileSystem(local.initial, (state) => local.persist(state));
+  var fs = new FileSystem(local.initial, (state) => {
+    local.persist(state);
+    updateGlobalScore(state);
+  });
+  function updateGlobalScore(state) {
+    const s = gameStats(state), b = $5("#global-score"), v = $5("#global-score-value"), value = s.total + " XP";
+    if (v.textContent !== value) v.textContent = value;
+    b.setAttribute("aria-label", "Bodovi: " + value + ". Otvori pregled misija.");
+    b.title = value + " / " + s.max + " · Rang " + s.level + " · Težina " + difficultyById(state.learning.game.difficulty).label;
+  }
+  updateGlobalScore(fs.state);
   var windows = /* @__PURE__ */ new Map();
   var zIndex = 10;
   var pid = 100;
@@ -3597,7 +3892,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
   var termCwd = "root";
   var terminalHistory = [];
   var historyIndex = 0;
-  var terminalLines = [{ text: "Orbit terminal 0.10.0 · lokalno", type: "banner" }, { text: "Mali terminal, tvoj virtualni disk. Upiši help za popis naredbi.\n", type: "" }];
+  var terminalLines = [{ text: "Orbit terminal 0.11.0 · lokalno", type: "banner" }, { text: "Mali terminal, tvoj virtualni disk. Upiši help za popis naredbi.\n", type: "" }];
   var toastTimer;
   var fileClipboard = null;
   var fileSearch = "";
@@ -3884,7 +4179,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
     for (const b of $$5("[data-open]", root)) b.onclick = () => openApp(b.dataset.open);
   }
   function homeView(c) {
-    c.innerHTML = `<div class="home-content"><div class="home-eyebrow"><span class="label">ORBIT · UČENJE OPERACIJSKIH SUSTAVA</span><span class="tag">LOKALNO · 0.10.0</span></div><div class="hero"><div><h1>Razumij sustav,<br><em>korak po korak.</em></h1><p>Kreni bez predznanja: upoznaj dijelove računala, razumij jedan primjer, isprobaj ga i provjeri razumijevanje.</p><div class="hero-actions"><button class="button primary" data-open="course">Uči od početka ${icon("arrow")}</button><button class="button subtle" data-open="lab">Praktične vježbe</button></div></div><div class="hero-art" aria-hidden="true"><div class="hero-orb"></div><span class="hero-star">✧</span></div></div><div class="section-line"><h2>Produbi razumijevanje pokusom</h2><span>Predvidi → promatraj → objasni.</span></div><div class="home-apps">${["cpu", "memory", "drive", "network"].map((id) => `<button class="home-app" data-open="${id}">${appIcon(id)}<strong>${APPS[id].title}</strong><small>${APPS[id].desc}</small></button>`).join("")}</div><div class="home-lab">${icon("guide")}<div><strong>Od dijelova do mehanizma.</strong><p>Šest osnovnih lekcija i dva proširenja pripremaju te za istraživanje detaljnih mehanizama.</p></div><button data-open="course" aria-label="Uči od početka">${icon("arrow")}</button></div><div class="home-bottom"><span><i class="status-dot"></i>Spremanje i prijenos rada: Moj rad</span><span>Nastavni simulator operacijskog sustava</span></div></div>`;
+    c.innerHTML = `<div class="home-content"><div class="home-eyebrow"><span class="label">ORBIT · UČENJE OPERACIJSKIH SUSTAVA</span><span class="tag">LOKALNO · 0.11.0</span></div><div class="hero"><div><h1>Razumij sustav,<br><em>korak po korak.</em></h1><p>Kreni bez predznanja: upoznaj dijelove računala, razumij jedan primjer, isprobaj ga i provjeri razumijevanje.</p><div class="hero-actions"><button class="button primary" data-open="course">Uči od početka ${icon("arrow")}</button><button class="button subtle" data-open="lab">Praktične vježbe</button></div></div><div class="hero-art" aria-hidden="true"><div class="hero-orb"></div><span class="hero-star">✧</span></div></div><div class="section-line"><h2>Produbi razumijevanje pokusom</h2><span>Predvidi → promatraj → objasni.</span></div><div class="home-apps">${["cpu", "memory", "drive", "network"].map((id) => `<button class="home-app" data-open="${id}">${appIcon(id)}<strong>${APPS[id].title}</strong><small>${APPS[id].desc}</small></button>`).join("")}</div><div class="home-lab">${icon("guide")}<div><strong>Od dijelova do mehanizma.</strong><p>Šest osnovnih lekcija i dva proširenja pripremaju te za istraživanje detaljnih mehanizama.</p></div><button data-open="course" aria-label="Uči od početka">${icon("arrow")}</button></div><div class="home-bottom"><span><i class="status-dot"></i>Spremanje i prijenos rada: Moj rad</span><span>Nastavni simulator operacijskog sustava</span></div></div>`;
     openButtons(c);
   }
   function breadcrumb(id) {
@@ -4365,7 +4660,7 @@ Slobodno: ${(32 - used) * 4} KiB`);
     for (const b of $$5("[data-end]", c)) b.onclick = () => closeApp(b.dataset.end, true);
   }
   function settingsView(c) {
-    c.innerHTML = `<div class="settings-app"><h2>Uredi svoj prostor.</h2><div class="setting-section"><h3>Pozadina</h3><div class="theme-grid">${[["dusk", "Sumrak"], ["sea", "Obala"], ["dawn", "Zora"]].map(([value, label]) => `<button class="theme-option ${fs.state.theme === value ? "selected" : ""}" data-theme="${value}" aria-pressed="${fs.state.theme === value}"><div class="theme-preview"></div><span>${label}</span></button>`).join("")}</div></div><div class="setting-section setting-line"><div><h3>Veći tekst bilježaka</h3><p>Ugodnije čitanje i pisanje u uređivaču.</p></div><button class="switch ${fs.state.large ? "on" : ""}" id="large-text" role="switch" aria-checked="${fs.state.large}" aria-label="Veći tekst bilježaka"><span></span></button></div><div class="setting-section"><h3>Sigurnosna kopija</h3><div class="setting-line"><p>Preuzmi sve mape, tekstove i postavke u jednu datoteku. Kopiju možeš vratiti ovdje ili u Orbitu na drugom uređaju.</p></div><div class="backup-actions"><button class="button secondary" id="backup-export">${icon("download")} Preuzmi kopiju</button><button class="button secondary" id="backup-import">${icon("upload")} Pregledaj i vrati kopiju</button></div></div><div class="settings-note"><strong>Rad se čuva lokalno u pregledniku.</strong><br>Prije izlaska provjeri status spremanja. U izborniku Moj rad izvezi JSON za nastavak na drugom računalu ili predaju nastavniku. HTML datoteka ne sadrži naknadno upisane odgovore. Radi u jednoj kartici; na zajedničkom računalu izvezi rad pa započni novi. Simulirani profili nisu stvarni računi.<br><br>Orbit je nastavni simulator strukture, funkcija i mehanizama OS-a. Terminal i model procesa ne upravljaju stvarnim OS-om, uređajima ili aplikacijama računala.</div><div class="settings-version">ORBIT OS · LOKALNO NASTAVNO IZDANJE 0.10.0</div></div>`;
+    c.innerHTML = `<div class="settings-app"><h2>Uredi svoj prostor.</h2><div class="setting-section"><h3>Pozadina</h3><div class="theme-grid">${[["dusk", "Sumrak"], ["sea", "Obala"], ["dawn", "Zora"]].map(([value, label]) => `<button class="theme-option ${fs.state.theme === value ? "selected" : ""}" data-theme="${value}" aria-pressed="${fs.state.theme === value}"><div class="theme-preview"></div><span>${label}</span></button>`).join("")}</div></div><div class="setting-section setting-line"><div><h3>Veći tekst bilježaka</h3><p>Ugodnije čitanje i pisanje u uređivaču.</p></div><button class="switch ${fs.state.large ? "on" : ""}" id="large-text" role="switch" aria-checked="${fs.state.large}" aria-label="Veći tekst bilježaka"><span></span></button></div><div class="setting-section"><h3>Sigurnosna kopija</h3><div class="setting-line"><p>Preuzmi sve mape, tekstove i postavke u jednu datoteku. Kopiju možeš vratiti ovdje ili u Orbitu na drugom uređaju.</p></div><div class="backup-actions"><button class="button secondary" id="backup-export">${icon("download")} Preuzmi kopiju</button><button class="button secondary" id="backup-import">${icon("upload")} Pregledaj i vrati kopiju</button></div></div><div class="settings-note"><strong>Rad se čuva lokalno u pregledniku.</strong><br>Prije izlaska provjeri status spremanja. U izborniku Moj rad izvezi JSON za nastavak na drugom računalu ili predaju nastavniku. HTML datoteka ne sadrži naknadno upisane odgovore. Radi u jednoj kartici; na zajedničkom računalu izvezi rad pa započni novi. Simulirani profili nisu stvarni računi.<br><br>Orbit je nastavni simulator strukture, funkcija i mehanizama OS-a. Terminal i model procesa ne upravljaju stvarnim OS-om, uređajima ili aplikacijama računala.</div><div class="settings-version">ORBIT OS · LOKALNO NASTAVNO IZDANJE 0.11.0</div></div>`;
     for (const b of $$5(".theme-option", c)) b.onclick = () => safe(() => {
       fs.transact(() => {
         fs.state.theme = b.dataset.theme;
@@ -4484,6 +4779,13 @@ Slobodno: ${(32 - used) * 4} KiB`);
   };
   $5("#app-search").oninput = (e) => launcherApps(e.target.value);
   $5("#brand").onclick = () => openApp("course");
+  $5("#global-score").onclick = () => {
+    fs.transact(() => {
+      fs.state.learning.course.overview = true;
+      fs.state.learning.game.screen = "lessons";
+    });
+    openApp("course");
+  };
   $5("#desktop-toggle").onclick = () => {
     for (const id of windows.keys()) minimize(id);
   };
@@ -4545,46 +4847,68 @@ Slobodno: ${(32 - used) * 4} KiB`);
   function mountMobile() {
     const button = document.createElement("button");
     button.id = "pwa-status-button";
-    button.textContent = "Provjera…";
-    button.setAttribute("aria-label", "Rad bez interneta i instalacija");
+    button.disabled = true;
+    button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 15v5h16v-5"/></svg>';
+    button.setAttribute("aria-label", "Pripremam offline preuzimanje");
+    button.title = "Pripremam offline preuzimanje";
     document.querySelector(".top-right").append(button);
+    const status = document.createElement("span");
+    status.className = "sr-only";
+    status.setAttribute("role", "status");
+    document.body.append(status);
     const dialog = document.createElement("dialog");
     dialog.id = "pwa-dialog";
     dialog.setAttribute("aria-labelledby", "pwa-title");
-    dialog.innerHTML = `<div class="local-dialog-heading"><h2 id="pwa-title">Orbit na mobitelu</h2><button class="button secondary" data-close>Zatvori</button></div><div class="pwa-state" role="status"><strong data-state>Provjeravam spremnost…</strong><p data-detail></p></div><p data-update hidden></p><button class="button primary" data-install hidden>Dodaj Orbit na uređaj</button><h3>iPhone · Safari</h3><p>Otvori izbornik Dijeli, odaberi <strong>Dodaj na početni zaslon</strong> i potvrdi. Ako se nudi, uključi Otvori kao web-aplikaciju.</p><h3>Android · Chrome</h3><p>U izborniku preglednika odaberi <strong>Dodaj na početni zaslon</strong> ili <strong>Instaliraj aplikaciju</strong>.</p><h3>Prije rada bez interneta</h3><p>Otvori Orbit s nove ikone dok imaš internet. Pričekaj oznaku <strong>Offline spreman</strong>. Zatim uključi zrakoplovni način, zatvori i ponovno otvori Orbit radi provjere na svom uređaju.</p><p class="pwa-footer">Moj rad → Spremi rad u JSON čuva zasebnu kopiju odgovora. Brisanje podataka preglednika ili uklanjanje aplikacije može ukloniti i rad i preuzetu aplikaciju. Safari i ikona na početnom zaslonu mogu imati odvojenu pohranu; rad prenesi JSON kopijom.</p>`;
+    dialog.innerHTML = `<div class="local-dialog-heading"><h2 id="pwa-title">Spremi za offline rad</h2><button class="button secondary" data-close>Zatvori</button></div><div class="pwa-state" role="status"><strong data-state></strong><p data-detail></p></div><p data-update hidden></p><a class="button primary pwa-download" href="./downloads/Orbit-OS.html" download="Orbit-OS.html" data-download>Spremi aplikaciju (.html)</a><p>Za računalo: spremi datoteku pa je otvori dvoklikom u pregledniku. Sadrži sve lekcije i pokuse; server i internet nisu potrebni.</p><button class="button primary" data-install hidden>Dodaj aplikaciju na uređaj</button><h3>iPhone ili iPad</h3><p>Za rad na mobitelu u Safariju otvori <strong>Dijeli → Dodaj na početni zaslon</strong>. Ako se nudi, uključi <strong>Otvori kao web-aplikaciju</strong> i potvrdi Dodaj.</p><h3>Android</h3><p>Upotrijebi gumb za dodavanje ako je ponuđen ili u izborniku Chromea odaberi <strong>Dodaj na početni zaslon / Instaliraj aplikaciju</strong>.</p><p>Otvori aplikaciju s nove ikone dok imaš internet i pričekaj zelenu ikonu preuzimanja. Zatim provjeri ponovno otvaranje u zrakoplovnom načinu.</p><p class="pwa-footer">Aplikacija i tvoji odgovori spremaju se odvojeno. Za prijenos bodova na drugi uređaj ili u preuzetu HTML aplikaciju spremi i uvezi JSON kroz „Moj rad”.</p><button class="button secondary" data-save-work>Otvori spremanje mojeg rada</button>`;
     document.body.append(dialog);
-    button.onclick = () => dialog.showModal();
-    dialog.querySelector("[data-close]").onclick = () => dialog.close();
     let installPrompt = null, registration = null, ready = false;
-    const installButton = dialog.querySelector("[data-install]");
+    const installButton = dialog.querySelector("[data-install]"), download2 = dialog.querySelector("[data-download]");
+    button.onclick = () => {
+      if (ready) dialog.showModal();
+    };
+    dialog.querySelector("[data-close]").onclick = () => dialog.close();
+    dialog.querySelector("[data-save-work]").onclick = () => {
+      dialog.close();
+      document.querySelector(".local-work-button").click();
+    };
+    download2.onclick = (event) => {
+      if (!ready) event.preventDefault();
+    };
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       installPrompt = event;
-      installButton.hidden = false;
+      installButton.hidden = !ready;
     });
     installButton.onclick = async () => {
-      if (!installPrompt) return;
+      if (!installPrompt || !ready) return;
       const prompt = installPrompt;
       installPrompt = null;
       installButton.hidden = true;
       try {
         await prompt.prompt();
       } catch {
+        dialog.querySelector("[data-detail]").textContent = "Dodavanje nije dovršeno. Možeš upotrijebiti izbornik preglednika.";
       }
     };
     window.addEventListener("appinstalled", () => {
       installPrompt = null;
       installButton.hidden = true;
     });
-    function show(short, title, detail, ok = false) {
+    function show(title, detail, ok = false) {
       ready = ok;
-      button.textContent = short;
+      button.disabled = !ok;
       button.dataset.ready = String(ok);
+      button.title = ok ? "Spremno · spremi za offline rad" : title;
+      button.setAttribute("aria-label", ok ? "Spremno · spremi za offline rad" : title);
+      status.textContent = title;
+      installButton.hidden = !ok || !installPrompt;
+      download2.setAttribute("aria-disabled", String(!ok));
+      download2.tabIndex = ok ? 0 : -1;
       dialog.querySelector("[data-state]").textContent = title;
       dialog.querySelector("[data-detail]").textContent = detail;
     }
     if (!window.isSecureContext || !("serviceWorker" in navigator)) {
-      show("Treba HTTPS", "Offline kopija nije pripremljena.", "Za prvo preuzimanje otvori HTTPS poveznicu u novijem Safariju ili Chromeu. Otvaranje mobilnog paketa kao lokalne datoteke ne instalira offline aplikaciju.");
+      show("Offline preuzimanje nije dostupno.", "Za pripremu mobilne aplikacije otvori HTTPS poveznicu u novijem pregledniku.");
       return;
     }
     function showUpdate() {
@@ -4595,19 +4919,22 @@ Slobodno: ${(32 - used) * 4} KiB`);
     let query = 0;
     async function check() {
       const id = ++query, worker = navigator.serviceWorker.controller;
-      if (!worker) return;
+      if (!worker) {
+        show("Pripremam offline preuzimanje…", "Ostani na internetu dok ikona ne postane zelena.");
+        return;
+      }
       const channel = new MessageChannel();
       const timer = setTimeout(() => {
         channel.port1.close();
-        if (id === query && !ready) show("Provjeri offline", "Spremnost još nije potvrđena.", "Ostani na internetu i ponovno otvori aplikaciju.");
+        if (id === query) show("Spremnost preuzimanja još nije potvrđena.", "Ostani na internetu i ponovno otvori aplikaciju.");
       }, 8e3);
       channel.port1.onmessage = (event) => {
         clearTimeout(timer);
         channel.port1.close();
         if (id !== query) return;
         const data = event.data;
-        if (data?.type === "ORBIT_OFFLINE_STATUS" && data.ready) show("Offline spreman", "Aplikacija je spremljena za rad bez interneta.", "Ugrađene lekcije i pokusi dostupni su na ovom uređaju. Vanjske poveznice trebaju internet.", true);
-        else show("Nije spremno", "Preuzeta kopija nije potpuna.", "Poveži se na internet i ponovno otvori Orbit. Ako problem ostane, izvezi JSON prije brisanja podataka aplikacije.");
+        if (data?.type === "ORBIT_OFFLINE_STATUS" && data.ready && data.downloadReady) show("Spremno za preuzimanje i offline rad.", "Sve lekcije, pokusi i HTML datoteka za preuzimanje spremljeni su na ovom uređaju.", true);
+        else show("Offline preuzimanje još nije spremno.", "Poveži se na internet. Ako je preuzeto novo izdanje, zatvori sve prozore Orbita pa ponovno otvori aplikaciju.");
       };
       worker.postMessage({ type: "ORBIT_OFFLINE_STATUS" }, [channel.port2]);
     }
@@ -4615,7 +4942,8 @@ Slobodno: ${(32 - used) * 4} KiB`);
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) check();
     });
-    show("Preuzimanje…", "Pripremam rad bez interneta.", "Ostani na internetu dok se ne pojavi oznaka Offline spreman.");
+    window.addEventListener("online", check);
+    show("Pripremam offline preuzimanje…", "Ostani na internetu dok ikona ne postane zelena.");
     check();
     navigator.serviceWorker.register("./sw.js", { scope: "./", updateViaCache: "none" }).then((reg) => {
       registration = reg;
@@ -4625,7 +4953,7 @@ Slobodno: ${(32 - used) * 4} KiB`);
         worker.addEventListener("statechange", () => {
           showUpdate();
           if (worker.state === "activated") check();
-          if (worker.state === "redundant" && !ready) show("Nije preuzeto", "Preuzimanje nije uspjelo.", "Provjeri vezu i slobodan prostor pa ponovno otvori Orbit.");
+          if (worker.state === "redundant" && !ready) show("Preuzimanje nije uspjelo.", "Provjeri vezu i slobodan prostor pa ponovno otvori Orbit.");
         });
       };
       watch(reg.installing);
@@ -4633,7 +4961,7 @@ Slobodno: ${(32 - used) * 4} KiB`);
       check();
       navigator.serviceWorker.ready.then(check);
     }).catch(() => {
-      if (!ready) show("Nije preuzeto", "Offline preuzimanje nije potvrđeno.", "Provjeri internetsku vezu, HTTPS adresu i postavke preglednika pa ponovno otvori Orbit.");
+      if (!ready) show("Offline preuzimanje nije potvrđeno.", "Provjeri internetsku vezu, HTTPS adresu i postavke preglednika pa ponovno otvori Orbit.");
     });
   }
 

@@ -1,5 +1,6 @@
 import {COURSE} from './course-data.js';
 import {MECHANISMS} from './mechanisms-model.js';
+import {EXTENSION_TASKS} from './difficulty-data.js';
 
 // Questions build on the explanation and worked example, never on unstated prerequisites.
 const single=(q,options,answer,why,hint)=>({type:'choice',q,options,answer,why,hint:hint||why});
@@ -16,7 +17,7 @@ export const SUPPORT={
  deadlock:{bridge:'Lokot omogućuje isključiv pristup. Sada prati što se događa kad proces drži jedan lokot, a čeka drugi.',pitfall:'Samo čekanje nije dokaz zastoja. Traži zatvoreni krug koji onemogućuje napredak.',warm:single('P1 radi i ne čeka nijedan dodatni resurs; P2 čeka njegov lokot. Je li to samo po sebi zastoj?',['Da, svako je čekanje zastoj.','Ne, P1 može završiti i otpustiti lokot.','Da, samo postojanje dvaju procesa stvara zastoj.'],1,'Postoji put do napretka: P1 može završiti i omogućiti P2 nastavak.'),compare:single('Zašto zajedničko pravilo R1 pa R2 uklanja prikazani krug?',['Time nestaje svako čekanje na lokot.','Time procesi dobivaju lokote u suprotnom redoslijedu.','P2 ne drži R2 dok čeka R1, pa P1 može završiti.'],2,'P2 čeka bez R2. Zato resurs koji treba P1 ostaje dostupan.'),order:order('Oba procesa traže R1 pa R2; P1 prvi dobije R1. Složi opisani slučaj.',['P1 zauzme R1.','P2 čeka R1, ne držeći R2.','P1 zauzme R2, dovrši posao i otpusti oba lokota.','P2 zauzme potrebne resurse i dovrši posao.'],'P2 može čekati, ali ne blokira resurs koji P1 treba za završetak.'),transfer:pair('P1 drži A i čeka B. P2 drži B i čeka A. Nitko ne odustaje ni prisilno otpušta resurs.',[{label:'Stanje',options:['Zastoj.','Normalan završetak oba procesa.','Privremeno čekanje koje se nužno samo razrješava.']},{label:'Koje pravilo sprječava taj obrazac?',options:['Oba prvo traže bilo koji slobodan resurs.','Svi uvijek traže A pa B.','Svaki proces prvo uzima svoj uobičajeni resurs.']}],[0,1],'Zajednički redoslijed sprječava da procesi uzajamno drže drugi potrebni resurs.')}
 };
 
-export const TASKS=[];
+export const TASKS=[...EXTENSION_TASKS];
 for(const l of COURSE){const s=SUPPORT[l.id];for(const [key,points,stage]of [['warm',10,0],['order',20,1],['compare',20,2],['transfer',30,3]])TASKS.push({...s[key],id:`c-${l.id}-${key}`,lesson:l.id,area:'course',stage,points});l.quiz.forEach((q,i)=>TASKS.push({...q,type:'choice',why:q.feedback[q.answer],hint:l.summary,id:`c-${l.id}-q${i}`,lesson:l.id,area:'course',stage:3,points:10}));}
 
 // One objective conclusion per existing laboratory; actions are verified separately.

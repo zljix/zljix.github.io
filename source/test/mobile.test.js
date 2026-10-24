@@ -62,3 +62,9 @@ test('an installed update does not activate itself or erase a running version',a
   await w.dispatch('install');assert.equal(stores.has(old),true);assert.equal(w.claims(),0);
   assert.ok(!/\.skipWaiting\s*\(/.test(source));
 });
+
+test('offline download is ready only when the standalone HTML is cached and is served without network',async()=>{
+ const w=worker();await w.dispatch('install');assert.equal((await w.status()).downloadReady,true);const url=scope+'downloads/Orbit-OS.html';
+ const result=await w.dispatch('fetch',{request:{url,method:'GET',mode:'navigate'}});assert.equal(result.body,'cached '+url);assert.equal(w.network.length,0);
+ w.stores.get('orbit-mobile:'+scope+':new').delete(url);assert.equal((await w.status()).ready,false);assert.equal((await w.status()).downloadReady,false);
+});

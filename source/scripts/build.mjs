@@ -29,16 +29,18 @@ async function makeHTML(entry,mobile=false){
 await mkdir(path.join(root,'dist/mobitel'),{recursive:true});
 const desktop=await makeHTML('app.js');
 await writeFile(path.join(root,'dist/Orbit-OS.html'),desktop);
+await mkdir(path.join(root,'dist/mobitel/downloads'),{recursive:true});
+await writeFile(path.join(root,'dist/mobitel/downloads/Orbit-OS.html'),desktop);
 const mobile=await makeHTML('mobile-entry.js',true);
 const manifest={id:'./',name:'Orbit OS — učenje operacijskih sustava',short_name:'Orbit OS',description:'Struktura, funkcije i mehanizmi operacijskog sustava. Pokusi i odgovori na tvom uređaju.',lang:'hr',start_url:'./index.html',scope:'./',display:'standalone',background_color:'#28233b',theme_color:'#28233b',icons:[{src:'icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'},{src:'icon-512.png',sizes:'512x512',type:'image/png',purpose:'any maskable'}]};
 const manifestText=JSON.stringify(manifest,null,2)+'\n';
 const workerTemplate=await readFile(path.join(source,'sw-template.js'),'utf8');
-const hash=createHash('sha256').update(mobile).update(manifestText).update(workerTemplate);
+const hash=createHash('sha256').update(mobile).update(desktop).update(manifestText).update(workerTemplate);
 for(const icon of ['icon-192.png','icon-512.png','apple-touch-icon.png']){
   hash.update(await readFile(path.join(source,'icons',icon)));
   await copyFile(path.join(source,'icons',icon),path.join(root,'dist/mobitel',icon));
 }
-const worker=workerTemplate.replace('__ORBIT_BUILD__','0.10.0-'+hash.digest('hex').slice(0,16));
+const worker=workerTemplate.replace('__ORBIT_BUILD__','0.11.0-'+hash.digest('hex').slice(0,16));
 await writeFile(path.join(root,'dist/mobitel/index.html'),mobile);
 await writeFile(path.join(root,'dist/mobitel/manifest.webmanifest'),manifestText);
 await writeFile(path.join(root,'dist/mobitel/sw.js'),worker);

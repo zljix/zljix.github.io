@@ -1,41 +1,50 @@
 export function mountMobile(){
-  const button=document.createElement('button');button.id='pwa-status-button';button.textContent='Provjera…';button.setAttribute('aria-label','Rad bez interneta i instalacija');
+  const button=document.createElement('button');button.id='pwa-status-button';button.disabled=true;
+  button.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 15v5h16v-5"/></svg>';
+  button.setAttribute('aria-label','Pripremam offline preuzimanje');button.title='Pripremam offline preuzimanje';
   document.querySelector('.top-right').append(button);
+  const status=document.createElement('span');status.className='sr-only';status.setAttribute('role','status');document.body.append(status);
   const dialog=document.createElement('dialog');dialog.id='pwa-dialog';dialog.setAttribute('aria-labelledby','pwa-title');
-  dialog.innerHTML=`<div class="local-dialog-heading"><h2 id="pwa-title">Orbit na mobitelu</h2><button class="button secondary" data-close>Zatvori</button></div><div class="pwa-state" role="status"><strong data-state>Provjeravam spremnost…</strong><p data-detail></p></div><p data-update hidden></p><button class="button primary" data-install hidden>Dodaj Orbit na uređaj</button><h3>iPhone · Safari</h3><p>Otvori izbornik Dijeli, odaberi <strong>Dodaj na početni zaslon</strong> i potvrdi. Ako se nudi, uključi Otvori kao web-aplikaciju.</p><h3>Android · Chrome</h3><p>U izborniku preglednika odaberi <strong>Dodaj na početni zaslon</strong> ili <strong>Instaliraj aplikaciju</strong>.</p><h3>Prije rada bez interneta</h3><p>Otvori Orbit s nove ikone dok imaš internet. Pričekaj oznaku <strong>Offline spreman</strong>. Zatim uključi zrakoplovni način, zatvori i ponovno otvori Orbit radi provjere na svom uređaju.</p><p class="pwa-footer">Moj rad → Spremi rad u JSON čuva zasebnu kopiju odgovora. Brisanje podataka preglednika ili uklanjanje aplikacije može ukloniti i rad i preuzetu aplikaciju. Safari i ikona na početnom zaslonu mogu imati odvojenu pohranu; rad prenesi JSON kopijom.</p>`;
+  dialog.innerHTML=`<div class="local-dialog-heading"><h2 id="pwa-title">Spremi za offline rad</h2><button class="button secondary" data-close>Zatvori</button></div><div class="pwa-state" role="status"><strong data-state></strong><p data-detail></p></div><p data-update hidden></p><a class="button primary pwa-download" href="./downloads/Orbit-OS.html" download="Orbit-OS.html" data-download>Spremi aplikaciju (.html)</a><p>Za računalo: spremi datoteku pa je otvori dvoklikom u pregledniku. Sadrži sve lekcije i pokuse; server i internet nisu potrebni.</p><button class="button primary" data-install hidden>Dodaj aplikaciju na uređaj</button><h3>iPhone ili iPad</h3><p>Za rad na mobitelu u Safariju otvori <strong>Dijeli → Dodaj na početni zaslon</strong>. Ako se nudi, uključi <strong>Otvori kao web-aplikaciju</strong> i potvrdi Dodaj.</p><h3>Android</h3><p>Upotrijebi gumb za dodavanje ako je ponuđen ili u izborniku Chromea odaberi <strong>Dodaj na početni zaslon / Instaliraj aplikaciju</strong>.</p><p>Otvori aplikaciju s nove ikone dok imaš internet i pričekaj zelenu ikonu preuzimanja. Zatim provjeri ponovno otvaranje u zrakoplovnom načinu.</p><p class="pwa-footer">Aplikacija i tvoji odgovori spremaju se odvojeno. Za prijenos bodova na drugi uređaj ili u preuzetu HTML aplikaciju spremi i uvezi JSON kroz „Moj rad”.</p><button class="button secondary" data-save-work>Otvori spremanje mojeg rada</button>`;
   document.body.append(dialog);
-  button.onclick=()=>dialog.showModal();dialog.querySelector('[data-close]').onclick=()=>dialog.close();
   let installPrompt=null,registration=null,ready=false;
-  const installButton=dialog.querySelector('[data-install]');
-  window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;installButton.hidden=false;});
-  installButton.onclick=async()=>{if(!installPrompt)return;const prompt=installPrompt;installPrompt=null;installButton.hidden=true;try{await prompt.prompt();}catch{}};
+  const installButton=dialog.querySelector('[data-install]'),download=dialog.querySelector('[data-download]');
+  button.onclick=()=>{if(ready)dialog.showModal();};dialog.querySelector('[data-close]').onclick=()=>dialog.close();
+  dialog.querySelector('[data-save-work]').onclick=()=>{dialog.close();document.querySelector('.local-work-button').click();};
+  download.onclick=event=>{if(!ready)event.preventDefault();};
+  window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;installButton.hidden=!ready;});
+  installButton.onclick=async()=>{if(!installPrompt||!ready)return;const prompt=installPrompt;installPrompt=null;installButton.hidden=true;try{await prompt.prompt();}catch{dialog.querySelector('[data-detail]').textContent='Dodavanje nije dovršeno. Možeš upotrijebiti izbornik preglednika.';}};
   window.addEventListener('appinstalled',()=>{installPrompt=null;installButton.hidden=true;});
-  function show(short,title,detail,ok=false){ready=ok;button.textContent=short;button.dataset.ready=String(ok);dialog.querySelector('[data-state]').textContent=title;dialog.querySelector('[data-detail]').textContent=detail;}
+  function show(title,detail,ok=false){
+    ready=ok;button.disabled=!ok;button.dataset.ready=String(ok);button.title=ok?'Spremno · spremi za offline rad':title;
+    button.setAttribute('aria-label',ok?'Spremno · spremi za offline rad':title);status.textContent=title;
+    installButton.hidden=!ok||!installPrompt;download.setAttribute('aria-disabled',String(!ok));download.tabIndex=ok?0:-1;
+    dialog.querySelector('[data-state]').textContent=title;dialog.querySelector('[data-detail]').textContent=detail;
+  }
   if(!window.isSecureContext||!('serviceWorker' in navigator)){
-    show('Treba HTTPS','Offline kopija nije pripremljena.','Za prvo preuzimanje otvori HTTPS poveznicu u novijem Safariju ili Chromeu. Otvaranje mobilnog paketa kao lokalne datoteke ne instalira offline aplikaciju.');return;
+    show('Offline preuzimanje nije dostupno.','Za pripremu mobilne aplikacije otvori HTTPS poveznicu u novijem pregledniku.');return;
   }
   function showUpdate(){const el=dialog.querySelector('[data-update]');el.hidden=!registration?.waiting;el.textContent='Novo izdanje je preuzeto. Spremi svoj rad, zatvori sve prozore Orbita i ponovno ga otvori. Ažuriranje neće prekidati pokus.';}
   let query=0;
   async function check(){
     const id=++query,worker=navigator.serviceWorker.controller;
-    if(!worker)return;
+    if(!worker){show('Pripremam offline preuzimanje…','Ostani na internetu dok ikona ne postane zelena.');return;}
     const channel=new MessageChannel();
-    const timer=setTimeout(()=>{channel.port1.close();if(id===query&&!ready)show('Provjeri offline','Spremnost još nije potvrđena.','Ostani na internetu i ponovno otvori aplikaciju.');},8000);
+    const timer=setTimeout(()=>{channel.port1.close();if(id===query)show('Spremnost preuzimanja još nije potvrđena.','Ostani na internetu i ponovno otvori aplikaciju.');},8000);
     channel.port1.onmessage=event=>{clearTimeout(timer);channel.port1.close();if(id!==query)return;const data=event.data;
-      if(data?.type==='ORBIT_OFFLINE_STATUS'&&data.ready)show('Offline spreman','Aplikacija je spremljena za rad bez interneta.','Ugrađene lekcije i pokusi dostupni su na ovom uređaju. Vanjske poveznice trebaju internet.',true);
-      else show('Nije spremno','Preuzeta kopija nije potpuna.','Poveži se na internet i ponovno otvori Orbit. Ako problem ostane, izvezi JSON prije brisanja podataka aplikacije.');
+      if(data?.type==='ORBIT_OFFLINE_STATUS'&&data.ready&&data.downloadReady)show('Spremno za preuzimanje i offline rad.','Sve lekcije, pokusi i HTML datoteka za preuzimanje spremljeni su na ovom uređaju.',true);
+      else show('Offline preuzimanje još nije spremno.','Poveži se na internet. Ako je preuzeto novo izdanje, zatvori sve prozore Orbita pa ponovno otvori aplikaciju.');
     };
     worker.postMessage({type:'ORBIT_OFFLINE_STATUS'},[channel.port2]);
   }
   navigator.serviceWorker.addEventListener('controllerchange',check);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)check();});
-  show('Preuzimanje…','Pripremam rad bez interneta.','Ostani na internetu dok se ne pojavi oznaka Offline spreman.');
-  // Check an existing controller even if the update request fails while offline.
+  window.addEventListener('online',check);
+  show('Pripremam offline preuzimanje…','Ostani na internetu dok ikona ne postane zelena.');
   check();
   navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'}).then(reg=>{
     registration=reg;showUpdate();
-    const watch=worker=>{if(!worker)return;worker.addEventListener('statechange',()=>{showUpdate();if(worker.state==='activated')check();if(worker.state==='redundant'&&!ready)show('Nije preuzeto','Preuzimanje nije uspjelo.','Provjeri vezu i slobodan prostor pa ponovno otvori Orbit.');});};
-    watch(reg.installing);reg.addEventListener('updatefound',()=>watch(reg.installing));check();
-    navigator.serviceWorker.ready.then(check);
-  }).catch(()=>{if(!ready)show('Nije preuzeto','Offline preuzimanje nije potvrđeno.','Provjeri internetsku vezu, HTTPS adresu i postavke preglednika pa ponovno otvori Orbit.');});
+    const watch=worker=>{if(!worker)return;worker.addEventListener('statechange',()=>{showUpdate();if(worker.state==='activated')check();if(worker.state==='redundant'&&!ready)show('Preuzimanje nije uspjelo.','Provjeri vezu i slobodan prostor pa ponovno otvori Orbit.');});};
+    watch(reg.installing);reg.addEventListener('updatefound',()=>watch(reg.installing));check();navigator.serviceWorker.ready.then(check);
+  }).catch(()=>{if(!ready)show('Offline preuzimanje nije potvrđeno.','Provjeri internetsku vezu, HTTPS adresu i postavke preglednika pa ponovno otvori Orbit.');});
 }

@@ -1,7 +1,15 @@
 /* Last stylesheet: touch controls and narrow-screen reading. */
-#pwa-status-button{font:inherit;font-size:12px;gap:6px;white-space:nowrap;padding:7px 10px;border:1px solid #ffffff50;border-radius:8px;min-height:32px}
-#pwa-status-button::before{content:'';width:7px;height:7px;border-radius:50%;background:#ffc987;flex:none}
-#pwa-status-button[data-ready=true]::before{background:#99e5cb}
+/* The score belongs to the shell, so every app and scroll position shares it. */
+.topbar{position:fixed;top:0;left:0;right:0}
+#global-score{flex:none;gap:7px;padding:6px 10px;border:1px solid #e0c38180;border-radius:9px;background:#352e45;color:#ffe1a3;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+#global-score svg{height:18px;width:18px;fill:none;stroke:currentColor;stroke-width:1.7}
+#pwa-status-button{flex:none;justify-content:center;width:38px;height:34px;padding:6px;border:1px solid #ffffff40;border-radius:9px;color:#c4bfcb;background:#ffffff0a}
+#pwa-status-button svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8}
+#pwa-status-button:disabled{opacity:.55;cursor:default}
+#pwa-status-button[data-ready=true]{color:#c4ffe1;background:#175d47;border-color:#71dba7}
+#pwa-status-button[data-ready=true]:hover{background:#217956}
+.pwa-download{display:flex;width:100%;justify-content:center;margin-top:16px;text-decoration:none}
+@media(max-width:1100px){#clock{display:none}.topbar{gap:10px}.top-right{gap:8px}}
 #pwa-dialog{color:#423652;background:#fcfaff;width:min(540px,94vw);max-height:90dvh;overflow:auto;border:1px solid #ddd4ec;border-radius:20px;padding:24px;font-size:15px;line-height:1.6}
 #pwa-dialog::backdrop{background:#20172c99;backdrop-filter:blur(5px)}
 #pwa-dialog h2{font-size:25px;line-height:1.25;margin:10px 0 18px}
@@ -21,7 +29,10 @@
   .local-work-button{font-size:13px!important;padding:7px 10px!important;min-height:44px}
   .local-badge{max-width:100px;font-size:10px}
   html[data-distribution=pwa] .local-badge{display:none!important}
-  #pwa-status-button{font-size:11px;padding:7px 8px;min-height:44px}
+  #pwa-status-button{width:44px;min-width:44px;height:44px;padding:9px}
+  #global-score{font-size:13px;padding:6px 9px;min-height:44px}
+  #global-score svg{width:16px;height:16px}
+  .topbar .local-badge{display:none!important}
   #desktop{top:var(--phone-top);left:env(safe-area-inset-left);right:env(safe-area-inset-right)}
   .window,.window.maximized{left:0!important;top:0!important;width:100%!important;height:calc(100% - var(--phone-bottom))!important;border-radius:0;border-left:0;border-right:0}
   .window-header{height:48px;min-height:48px;padding:0 10px;touch-action:auto}
