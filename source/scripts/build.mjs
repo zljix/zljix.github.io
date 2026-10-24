@@ -38,7 +38,7 @@ for(const icon of ['icon-192.png','icon-512.png','apple-touch-icon.png']){
   hash.update(await readFile(path.join(source,'icons',icon)));
   await copyFile(path.join(source,'icons',icon),path.join(root,'dist/mobitel',icon));
 }
-const worker=workerTemplate.replace('__ORBIT_BUILD__','0.9.0-'+hash.digest('hex').slice(0,16));
+const worker=workerTemplate.replace('__ORBIT_BUILD__','0.10.0-'+hash.digest('hex').slice(0,16));
 await writeFile(path.join(root,'dist/mobitel/index.html'),mobile);
 await writeFile(path.join(root,'dist/mobitel/manifest.webmanifest'),manifestText);
 await writeFile(path.join(root,'dist/mobitel/sw.js'),worker);

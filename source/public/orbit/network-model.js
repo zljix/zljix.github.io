@@ -10,7 +10,16 @@ export const NETWORK_CASES = [
   {id:'icmp',title:'Nema pinga, ali portal radi',symptom:'Dokaži da HTTP usluga radi iako poslužitelj ne odgovara na ICMP. Zadrži uključeno blokiranje ICMP-a.',patch:{blockIcmp:true},hint:'Pokreni ping pa HTTP zahtjev. Blokiran ICMP sam po sebi ne znači nedostupnost web-usluge.'}
 ];
 export function defaultNetworkConfig(){return {connected:true,mode:'dhcp',ip:'192.168.10.20',prefix:24,gateway:NET.gateway,dns:NET.dns,blockIcmp:false,blockHttp:false,webRunning:true};}
-export function defaultNetwork(){return {config:defaultNetworkConfig(),revision:0,scenario:'',history:[],notes:'',hint:false,completed:[],records:[]};}
+export const NETWORK_DIAGNOSES={
+ cable:{q:'Zašto je lokalna povratna adresa odgovarala, a susjed nije?',options:['Mrežni priključak bio je odspojen; lokalni slog ipak može raditi.','DNS je sprječavao izravan ping na IP adresu susjeda.','Za lokalni ping obvezno je pokrenuti HTTP uslugu.'],answer:0,why:'127.0.0.1 provjerava vlastiti mrežni slog. Za susjeda je potrebna i fizička povezanost modela.'},
+ dns:{q:'Što objašnjava da IP adresa radi, a naziv ne?',options:['Svaki je udaljeni poslužitelj ugašen.','Bio je zadan pogrešan DNS poslužitelj.','Zadani pristupnik bio je neispravan, pa IP također ne bi trebao raditi.'],answer:1,why:'DNS prevodi naziv u IP adresu. Izravni pristup IP adresi ne traži tu pretvorbu.'},
+ gateway:{q:'Zašto je susjed dostupan, a udaljeni portal nije?',options:['Samo HTTP usluga bila je ugašena, zato ne radi ni udaljeni ping.','DNS je potreban za svaki ping na izravnu IP adresu.','Neispravan je pristupnik za izlaz u drugu mrežu.'],answer:2,why:'Lokalni promet može ostati u podmreži. Za udaljeni cilj u ovom modelu potreban je ispravan pristupnik.'},
+ service:{q:'Ping prolazi, a HTTP veza je odbijena. Koji je bio uzrok?',options:['HTTP usluga nije bila pokrenuta.','Svaki ICMP odgovor dokazuje da web radi.','Računalo nema IP adresu.'],answer:0,why:'ICMP i HTTP su različite provjere. Odgovor uređaja na ping ne potvrđuje rad HTTP usluge.'},
+ firewall:{q:'Koje je pravilo sprječavalo otvaranje portala?',options:['Blokiranje ICMP-a, koje nužno zaustavlja i HTTP.','Blokiranje TCP priključka 80.','Provjera vlasnika lokalne datoteke.'],answer:1,why:'Pravilo za TCP 80 blokira HTTP u ovom modelu, dok DNS i ICMP mogu raditi.'},
+ mask:{q:'Kako je maska /28 stvarala problem u učioničkoj mreži /24?',options:['Sama je promijenila IP adrese svih susjednih uređaja.','Onemogućila je svaki lokalni odgovor.','Pogrešno je razvrstala pristupnik i DNS izvan lokalne podmreže.'],answer:2,why:'S /28 adrese .20 i .30 jesu zajedno, ali .1 i .53 nisu. Ispravna /24 obuhvaća sve te uređaje.'},
+ icmp:{q:'Kako portal može raditi dok ping ne prolazi?',options:['ICMP je blokiran, ali HTTP promet nije.','HTTP i ping uvijek su ista provjera.','Uspješan HTTP znači da ICMP sigurno nije blokiran.'],answer:0,why:'Pravila za ICMP i TCP 80 neovisna su. Sam neuspješan ping ne dokazuje nedostupnost web-usluge.'}
+};
+export function defaultNetwork(){return {config:defaultNetworkConfig(),revision:0,scenario:'',history:[],notes:'',diagnosis:null,hint:false,completed:[],records:[]};}
 export function ipv4(value){
   if(typeof value!=='string'||! /^(0|[1-9]\d{0,2})(\.(0|[1-9]\d{0,2})){3}$/.test(value))throw new Error('IP adresu upiši kao četiri broja 0–255, npr. 192.168.10.20.');
   const octets=value.split('.').map(Number);if(octets.some(n=>n>255))throw new Error('Svaki dio IP adrese mora biti između 0 i 255.');return octets.reduce((n,b)=>n*256+b,0)>>>0;
@@ -92,7 +101,7 @@ export function probeNetwork(raw,kind,target){
 
 export function startNetworkCase(state,id){
   const task=NETWORK_CASES.find(s=>s.id===id);if(!task)throw new Error('Nepoznat mrežni izazov.');
-  return {...defaultNetwork(),config:{...defaultNetworkConfig(),...task.patch},scenario:id,completed:[...state.completed],records:[...(state.records||[])]};
+  return {...defaultNetwork(),config:{...defaultNetworkConfig(),...task.patch},scenario:id,notes:state.records?.find(r=>r.id===id)?.notes||'',completed:[...state.completed],records:[...(state.records||[])]};
 }
 export function recordNetworkProbe(state,kind,target,origin='ui'){
   const normalized=normalizeTarget(kind,target),clean=kind==='curl'?'http://'+normalized:normalized,result=probeNetwork(state.config,kind,clean);
@@ -106,9 +115,9 @@ export function networkCaseChecks(state){
   const observed=before.some(h=>(beforeCode[id]||[]).includes(h.result.code));
   const http=current.some(h=>h.kind==='curl'&&normalizeTarget(h.kind,h.target)===NET.host&&h.result.ok);
   const extra=id==='dns'||id==='mask'?current.some(h=>h.kind==='nslookup'&&normalizeTarget(h.kind,h.target)===NET.host&&h.result.ok):id==='cable'||id==='gateway'?current.some(h=>h.kind==='ping'&&h.target===NET.peer&&h.result.ok):id==='icmp'?state.config.blockIcmp&&current.some(h=>h.result.code==='icmp'):current.some(h=>h.kind==='ping'&&h.target===NET.web&&h.result.ok);
-  return [observed,http&&extra,state.notes.trim().length>=20];
+  return [observed,http&&extra,!!NETWORK_DIAGNOSES[id]&&state.diagnosis===NETWORK_DIAGNOSES[id].answer];
 }
-export function completeNetworkCase(state){if(!state.scenario||!networkCaseChecks(state).every(Boolean))throw new Error('Najprije zabilježi početni kvar, provedenu provjeru i osvrt od barem 20 znakova.');if(!state.completed.includes(state.scenario))state.completed.push(state.scenario);state.records=(state.records||[]).filter(r=>r.id!==state.scenario);state.records.push({id:state.scenario,notes:state.notes,hint:state.hint,at:new Date().toISOString()});}
+export function completeNetworkCase(state){if(!state.scenario||!networkCaseChecks(state).every(Boolean))throw new Error('Zabilježi početni kvar, ponovi tražene provjere i odaberi točno objašnjenje uzroka.');if(!state.completed.includes(state.scenario))state.completed.push(state.scenario);const previous=state.records?.find(r=>r.id===state.scenario);state.records=(state.records||[]).filter(r=>r.id!==state.scenario);state.records.push({id:state.scenario,notes:state.notes||previous?.notes||'',diagnosis:state.diagnosis,hint:state.hint,at:new Date().toISOString()});}
 export function validateNetwork(raw){
   if(raw===undefined)return defaultNetwork();
   if(!raw||!Number.isInteger(raw.revision)||raw.revision<0||raw.revision>100000||typeof raw.notes!=='string'||raw.notes.length>3000||typeof raw.hint!=='boolean'||!Array.isArray(raw.history)||raw.history.length>24||!Array.isArray(raw.completed)||raw.completed.length>NETWORK_CASES.length||!['',...NETWORK_CASES.map(s=>s.id)].includes(raw.scenario))throw new Error('Neispravan zapis mrežnog laboratorija.');
@@ -116,5 +125,7 @@ export function validateNetwork(raw){
   const history=raw.history.map(h=>{if(!h||!Number.isInteger(h.revision)||h.revision<0||h.revision>raw.revision||!['ui','terminal'].includes(h.origin)||typeof h.at!=='string'||Number.isNaN(Date.parse(h.at)))throw new Error('Neispravna povijest mrežnih pokusa.');normalizeTarget(h.kind,h.target);return {kind:h.kind,target:h.target,config:validateNetworkConfig(h.config),revision:h.revision,at:h.at,origin:h.origin};});
   const completed=[...new Set(raw.completed)];if(completed.some(id=>!NETWORK_CASES.some(s=>s.id===id)))throw new Error('Nepoznata mrežna vježba.');
   const records=raw.records||[];if(!Array.isArray(records)||records.length>NETWORK_CASES.length||new Set(records.map(r=>r?.id)).size!==records.length||records.some(r=>!r||!completed.includes(r.id)||typeof r.notes!=='string'||r.notes.length>3000||typeof r.hint!=='boolean'||typeof r.at!=='string'||Number.isNaN(Date.parse(r.at))))throw new Error('Neispravan spremljeni osvrt mrežnog izazova.');
-  return {config,history,revision:raw.revision,scenario:raw.scenario,notes:raw.notes,hint:raw.hint,completed,records:records.map(r=>({id:r.id,notes:r.notes,hint:r.hint,at:r.at}))};
+  const validDiagnosis=(id,value)=>value===undefined||value===null||(!!NETWORK_DIAGNOSES[id]&&Number.isInteger(value)&&value>=0&&value<NETWORK_DIAGNOSES[id].options.length);
+  if(!validDiagnosis(raw.scenario,raw.diagnosis)||records.some(r=>!validDiagnosis(r.id,r.diagnosis)))throw new Error('Neispravna dijagnoza mrežnog izazova.');
+  return {config,history,revision:raw.revision,scenario:raw.scenario,notes:raw.notes,diagnosis:raw.diagnosis??null,hint:raw.hint,completed,records:records.map(r=>({id:r.id,notes:r.notes,diagnosis:r.diagnosis??null,hint:r.hint,at:r.at}))};
 }

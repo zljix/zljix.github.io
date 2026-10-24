@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {NET,NETWORK_CASES,defaultNetworkConfig,defaultNetwork,ipv4,sameSubnet,subnetInfo,probeNetwork,renewNetwork,startNetworkCase,recordNetworkProbe,networkCaseChecks,completeNetworkCase,validateNetwork} from '../public/orbit/network-model.js';
+import {NET,NETWORK_CASES,NETWORK_DIAGNOSES,defaultNetworkConfig,defaultNetwork,ipv4,sameSubnet,subnetInfo,probeNetwork,renewNetwork,startNetworkCase,recordNetworkProbe,networkCaseChecks,completeNetworkCase,validateNetwork} from '../public/orbit/network-model.js';
 import {FileSystem,seed,validateState} from '../public/orbit/core.js';
 import {defaultLearning} from '../public/orbit/models.js';
 import {buildWorkReport,reportDocument} from '../public/orbit/reports.js';
@@ -47,7 +47,7 @@ test('All seven challenges require before/after evidence and preserve completed 
   assert.equal(networkCaseChecks(state)[0],true,t.id+' baseline must detect failure');
   if(t.id!=='icmp'){state.config=defaultNetworkConfig();state.revision++;}
   recordNetworkProbe(state,'ping',NET.peer);recordNetworkProbe(state,'ping',NET.web);recordNetworkProbe(state,'nslookup',NET.host);recordNetworkProbe(state,'curl','http://'+NET.host);
-  state.notes='Početni simptom provjeren je, a završne provjere potvrđuju rezultat.';
+  state.notes='Početni simptom provjeren je, a završne provjere potvrđuju rezultat.';assert.equal(networkCaseChecks(state)[2],false,'Free text is never proof of understanding');assert.throws(()=>completeNetworkCase(state));state.diagnosis=NETWORK_DIAGNOSES[t.id].answer;
   assert.deepEqual(networkCaseChecks(state),[true,true,true],t.id);completeNetworkCase(state);state=validateNetwork(state);
  }
  assert.equal(state.completed.length,7);assert.equal(state.records.length,7);assert.equal(state.records[0].id,'cable');
@@ -55,7 +55,7 @@ test('All seven challenges require before/after evidence and preserve completed 
 test('History snapshots survive edits and stale successful probes do not finish a challenge',()=>{
  const state=startNetworkCase(defaultNetwork(),'dns');recordNetworkProbe(state,'nslookup',NET.host);state.config.dns=NET.dns;state.revision++;recordNetworkProbe(state,'nslookup',NET.host);recordNetworkProbe(state,'curl','http://'+NET.host);
  assert.equal(probeNetwork(state.history[0].config,state.history[0].kind,state.history[0].target).ok,false);
- state.notes='DNS adresa je ispravljena i provjerena.';assert.deepEqual(networkCaseChecks(state),[true,true,true]);state.revision++;assert.equal(networkCaseChecks(state)[1],false);
+ state.notes='DNS adresa je ispravljena i provjerena.';state.diagnosis=NETWORK_DIAGNOSES.dns.answer;assert.deepEqual(networkCaseChecks(state),[true,true,true]);state.revision++;assert.equal(networkCaseChecks(state)[1],false);
 });
 test('Older workspaces migrate additively and invalid network imports roll back',()=>{
  const old=seed();delete old.learning.network;old.learning.answers.basics='Stari osvrt';old.learning.evidence.cpu_fcfs=true;
@@ -70,3 +70,5 @@ test('Printable reports escape student text and present partial experiments hone
  assert.ok(html.includes('&lt;script&gt;alert(1)&lt;/script&gt;'));assert.ok(html.includes('&lt;img'));assert.ok(!html.includes('<script>'));assert.ok(!html.includes('<img'));
  assert.ok(html.includes('Nije potvrđeno'));assert.ok(html.includes('Pokus nije dovršen'));assert.ok(html.includes('0/11 pristupa'));assert.ok(html.includes('lang="hr"'));
 });
+
+test('Regrading an old challenge preserves its existing written reflection',()=>{const n=defaultNetwork();n.completed=['dns'];n.records=[{id:'dns',notes:'Izvorna učenikova bilješka.',hint:false,at:new Date().toISOString()}];const migrated=validateNetwork(n),again=startNetworkCase(migrated,'dns');assert.equal(again.notes,n.records[0].notes);assert.equal(again.records[0].diagnosis,null);recordNetworkProbe(again,'nslookup',NET.host);renewNetwork(again);recordNetworkProbe(again,'nslookup',NET.host);recordNetworkProbe(again,'curl','http://'+NET.host);again.diagnosis=NETWORK_DIAGNOSES.dns.answer;completeNetworkCase(again);assert.equal(again.records[0].notes,n.records[0].notes);assert.equal(again.records[0].diagnosis,NETWORK_DIAGNOSES.dns.answer);});

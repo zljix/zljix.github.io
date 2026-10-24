@@ -1,84 +1,57 @@
-# Orbit OS 0.9 — nastavni koncept
+# Orbit OS 0.10 — samostalno učenje i automatska provjera
 
-Središnja je namjena razumjeti od kojih se dijelova operacijski sustav sastoji, koje probleme rješava i kojim mehanizmima to postiže. Radna površina omogućuje pristup pokusima i datotekama; početna točka učeniku je **Uči od početka**. **Istraži OS** slijedi kao detaljni prikaz.
+Cilj je povezati **strukturu** (dijelovi i odnosi), **funkciju** (problem koji OS rješava) i **mehanizam** (redoslijed događaja i promjena stanja). Polazi se od pisanja bilješke i spremanja, a zatim postupno uvode procesi, raspoređivanje, virtualna memorija, I/O i sinkronizacija.
 
-## Prvo učenje bez predznanja
+## Metodički slijed svake misije
 
-Učenik prolazi šest osnovnih lekcija: dijelovi računala, uloga OS-a, program i proces, dijeljenje CPU-a, memorija i čitanje datoteke. Dretve i zastoj dva su dodatna proširenja. U svakoj lekciji novi pojmovi dolaze uz svakodnevni primjer.
+1. **Razumij:** veza s poznatim primjerom, cilj učenja, objašnjenje, rječnik i česta zabluda. Kratki objektivni zadatak provjerava temeljnu ideju prije napredovanja.
+2. **Pogledaj primjer:** učenik prati riješen slučaj, jedan događaj i posljedicu po prikazu. Nakon cijelog primjera sam slaže uzročno smislen redoslijed. Nije dovoljno samo klikati Dalje.
+3. **Isprobaj:** predvidi, promatraj i usporedi sve uvjete. Dva uvjeta u šest misija, tri u memoriji i čitanju datoteke. Pogrešna pretpostavka nije pogreška koja oduzima bodove. Zaključak nakon usporedbe zasebno se provjerava.
+4. **Provjeri:** dvije kratke provjere pa novi slučaj s dva odabira — ishod i razlog. Točni moraju biti oba. Time se ista ideja prenosi, primjerice, s bilješke na crtež ili s dva na tri procesa.
 
-1. **Razumij:** kratko objašnjenje i izravne definicije novih pojmova.
-2. **Pogledaj primjer:** riješen slučaj, jedan korak i njegova posljedica u svakom prikazu.
-3. **Isprobaj:** učenik odabire uvjet, predviđa ishod i prolazi događaje uz objašnjenje. Pogrešno predviđanje ne sprječava nastavak.
-4. **Provjeri:** dvije samoprovjere s obrazloženjem svake opcije te učenikovo objašnjenje svojim riječima.
+Netočan odgovor dobiva objašnjenje. Učenik može zatražiti trag ili se vratiti na lekciju i pokušati ponovno. Pregled misija izdvaja još netočne zadatke. Završni izazov nakon predaje daje preporuku tema za ponavljanje. Odgovori se prikazuju u stabilno izmiješanom redoslijedu.
 
-Dovršavanje zahtijeva pregled primjera, završen pokus, ispravljene samoprovjere i ne-prazan osvrt. To nije automatska ocjena znanja. Izvještaj čuva prvi i zadnji odgovor te broj pokušaja. Trenutačna varijanta pokusa može se ponoviti; izmjena uvjeta traži novo predviđanje i novo dovršavanje. Prethodni uvjeti početničkog pokusa ne arhiviraju se. Za trajnu usporedbu više uvjeta služi detaljni simulator.
+## Ciljevi i tipične zablude
 
-Nastavnik može nakon osnova tražiti prijenos na novi primjer: umjesto bilješke, učenik neka objasni otvaranje slike ili reprodukciju glazbe. Prijelaz na detaljni simulator treba slijediti tek kada može imenovati sudionike i obrazložiti osnovne promjene.
-
-## Tri cjeline detaljnog simulatora
-
-| Cjelina | Pitanje učenika | Što učenik radi |
+| Misija | Učenik može… | Zabluda koju razrješava |
 | --- | --- | --- |
-| Struktura | Od kojih je dijelova sastavljen sustav i kako su povezani? | Odabire dio karte, čita njegovu ulogu i primjer pa otvara povezani mehanizam. |
-| Funkcije | Koji problem rješava OS? | Povezuje upravljanje resursima, zaštitu i usluge s konkretnim mehanizmom. |
-| Mehanizmi | Što se dogodi, kojim redoslijedom i zašto? | Predviđa ishod, mijenja uvjete, prolazi događaje i obrazlaže promjene stanja. |
+| Dijelovi računala | Razlikovati CPU, RAM i pohranu | Vidljiv tekst već je spremljen. |
+| Uloga OS-a | Povezati zahtjev aplikacije, zaštitu i upravljački program | Jezgra OS-a isto je što i procesorska jezgra. |
+| Program i proces | Razlikovati zapis programa i pojedino izvođenje | Završetak procesa briše program. |
+| Dijeljenje CPU-a | Objasniti raspoređivanje i kontekst | Svaki prekid mora promijeniti proces. |
+| Memorija | Razlikovati adresni prostor, dostupnost i pravo pristupa | Svaka iznimka stranice znači pogrešan program. |
+| Čitanje datoteke | Povezati dozvolu, predmemoriju, uređaj i čekanje | Svako čitanje sadržaja zahtijeva disk. |
+| Dretve | Pratiti čitanje, računanje i upis zajedničkog podatka | Dva povećanja uvijek daju zbroj dva. |
+| Zastoj | Razlikovati privremeno i kružno čekanje | Svako čekanje je zastoj. |
 
-Karta je logički prikaz, ne fizička blok-shema ni točan model svih operacijskih sustava. CPU izvršava i aplikacijski i jezgreni kod. Privilegirani način rada procesora razlikuje se od korisničke uloge ili administratorskog računa.
+## Igrifikacija koja prati učenje
 
-## Rad u detaljnom simulatoru
+Svaka misija ima 100 XP: temelj 10, redoslijed 20, usporedba 20, dvije provjere 20, prijenos 30. Sve aktivnosti zajedno donose 1400 XP: misije 800, laboratoriji 220, detaljni mehanizmi 140, mrežni izazovi 140 i završni izazov 100.
 
-Nakon početničkih lekcija zajednički pregledajte Strukturu i Funkcije. Učenici trebaju razumjeti što su aplikacija, jezgra, resurs, sistemski poziv i korisnički/jezgreni način rada prije samostalnog praćenja događaja.
+Pet razina: Početnik (0), Istraživač (150), Analitičar (400), Poznavatelj sustava (700), OS navigator (1000). Sedam znački: prva misija, šest osnova, svih 18 uvjeta, ispravljena pogreška, dretve i zastoj, tri laboratorija, završni rezultat najmanje 80/100.
 
-Potom slijedi šest pokusa. Zadnji je proširenje koje pretpostavlja razumijevanje dretve, resursa i lokota.
+Bodovi se izvode iz odgovora i potvrđenih radnji, ne iz spremljenog zbroja ili vremena provedenog u aplikaciji. Pogreške i pomoć ne smanjuju osvojive bodove. Točan zadatak zaključava se i više ne donosi bodove. Ponavljanje uvjeta ne briše ranije postignuće. Nema rangiranja učenika, odbrojavanja, niza obveznih dnevnih dolazaka ni kazne za pauzu.
 
-| Pokus | Varijante | Pitanje na koje učenik treba moći odgovoriti |
-| --- | --- | --- |
-| Program i proces | Jedna / dvije instance | Zašto isti program može imati više procesa i zašto završetak jednog ne briše program? |
-| Čitanje datoteke | Disk / predmemorija / odbijen pristup | Koji dijelovi sustava sudjeluju i kada zaista trebaju disk i čekanje? |
-| Prekid i kontekst | P2 spreman / nema drugog spremnog procesa | Zašto prijelaz u jezgreni način ne znači nužno promjenu procesa? |
-| Virtualna memorija | Prisutna / neprisutna valjana stranica / nedopuštena adresa | Kada se pristup može nastaviti nakon obrade iznimke, a kada se odbija? |
-| Dretve i povećanje | Bez mutexa / cijeli odsječak pod mutexom | Kako dva povećanja mogu dati 1 umjesto 2 i što mora štititi isti lokot? |
-| Kružno čekanje | Različit / isti redoslijed resursa | Koja je razlika između privremenog čekanja i zastoja? |
+## Automatski laboratoriji
 
-## Metoda: predvidi, promatraj, objasni
+Praktični laboratorij daje 10 XP za izvršene radnje i 10 za točan strukturirani zaključak. Neki dokazi provjeravaju stanje datoteke, drugi potvrđenu radnju u simulatoru. Pokretanje izvoza potvrđuje samo da je aplikacija pokrenula preuzimanje; ne dokazuje da je korisnik spremio datoteku na uređaj.
 
-1. Pročitajte cilj i pojmove. Nove pojmove objasnite na primjeru prije očekivanja samostalne uporabe.
-2. Odaberite uvjete. Učenik svojim riječima zapisuje ishod koji očekuje i razlog. Nije cilj pogoditi odgovor.
-3. Pokrećite po jedan događaj. Prije sljedećega pitajte: tko radi, tko čeka i koji je resurs promijenjen?
-4. Učenik zapisuje objašnjenje i uspoređuje rezultat s predviđanjem. Pokus se može zabilježiti kada su provedeni svi koraci i oba odgovora su upisana.
-5. Ponovite drugu varijantu istog pokusa. Zabilježene varijante ostaju jedna uz drugu u usporedbi.
-6. Otvorite Izvještaj. Kopiranje za Word uključuje uvjete, početno predviđanje, ishod modela i objašnjenje učenika.
+Detaljni mehanizmi imaju ukupno 14 uvjeta. Po dovršenom tragu događaja učenik odabire ishod (5 XP) i razlog (5 XP). Prije pokusa bira predviđanje bez bodovanja.
 
-Predviđanje se tijekom pokušaja zaključava. Povratak na početak omogućuje njegovu promjenu, pa zapis nije neizmjenjiv dokaz prvotnog mišljenja. Za istu varijantu čuva se najnoviji zabilježeni pokus; ponovno bilježenje ažurira taj zapis. Promjena uvjeta upozorava ako bi zamijenila pokušaj koji još nije zabilježen. Korak i odgovori ostaju u korisnikovu prostoru i nakon ponovnog učitavanja.
+Mrežni izazov daje 20 XP tek nakon početnog neuspjeha, potrebnih provjera s aktualnim postavkama i točnog odabira uzroka. Dovoljno dugačak slobodan tekst ne potvrđuje razumijevanje. Svih sedam izazova može se riješiti bez intervencije nastavnika.
 
-Oznake dovršenja potvrđuju prolazak postupka. Ne provjeravaju stručnu točnost, samostalnost ni autorstvo. Nastavnik provjerava objašnjenje, razliku među varijantama i primjenu na novi primjer. Nastavnički portal zasad ne preuzima izvještaje učenika automatski.
+## Završna provjera i izvještaj
 
-## Povezivanje s postojećim laboratorijima
+Završni izazov otključava se nakon svih osam misija. Sadrži deset pitanja iz osam tema i dva povezivanja tema. Svako vrijedi 10 bodova. Nema pomoći ili informacije o točnosti prije predaje; nakon predaje svaki odgovor dobiva objašnjenje. U XP ulazi najbolji rezultat. Pokušaj se može pauzirati i nastaviti. Dvije inačice po temi izmjenjuju se; zato ponovljeni pokušaji nisu neovisni standardizirani ispiti.
 
-Nakon objašnjenja mehanizma učenik mijenja ulaze u odgovarajućem laboratoriju: trajanja i algoritam CPU-a, broj okvira i niz pristupa memoriji, raspored blokova diska, prava pristupa ili mrežnu postavku. To daje prijelaz od razumijevanja događaja prema samostalnom pokusu.
+Izvještaj razdvaja XP ostvaren uz ispravke od točnosti prvih odgovora bez pomoći. Mrežne dijagnoze imaju zaseban rezultat bez statistike prvog odgovora. Prikazuje se povijest završnih rezultata i pregled zadnjeg pokušaja.
 
-Datoteke, Bilješke, Terminal, Oporavak i ostale postojeće aplikacije zadržane su. Njihove operacije služe praktičnim vježbama. Povezani laboratorij ne dijeli automatski ulazne podatke s novim vođenim pokusom; to su različiti, jasno označeni modeli.
+Arhivirani slobodni osvrti iz ranijih izdanja ostaju sačuvani, ali nisu obvezni za napredovanje i ne ocjenjuju se prema duljini. Aplikacija ne tvrdi da automatski razumije proizvoljan učenički tekst. XP nije službena školska ocjena niti dokaz tko je rješavao: lokalni zapis može se izmijeniti, a pomoć izvan aplikacije nije moguće nadzirati.
 
-## Granice
+## Upotreba i granice
 
-- Prikaz događaja nije stvarna jezgra, emulator instrukcijskog skupa ili mjerenje računala. Nema izvršavanja korisničkih naredbi na stvarnom računalu. Lokalno izdanje ne treba poslužitelj.
-- Koraci predstavljaju događaje različitih stvarnih trajanja. Jednaki vizualni razmaci ne znače jednako vrijeme.
-- CPU pokus koristi jednu logičku jezgru i po jednu dretvu procesa. Pokus dretvi prikazuje zadano ispreplitanje apstraktnih operacija, bez detaljnog prikaza svakog prebacivanja CPU-a i implementacije lokota.
-- Memorijski pokus izostavlja TLB. Kod jedne neprisutne valjane stranice odabrani je okvir izmijenjen pa treba zapis prije učitavanja. To nije univerzalan tijek svake iznimke stranice.
-- Čitanje je blokirajuće, s metapodacima već u RAM-u. Provjera dozvole pri otvaranju modelirana je nalik UNIX-u.
-- Model otvorenih aplikacija pojednostavljeno povezuje aplikaciju s jednim procesom. U stvarnom OS-u odnos prozora, programa, procesa i dretvi može biti mnogo složeniji.
-- Ova nadogradnja nije tvrdnja da je pokriven cijeli kurikulum OS-a. Primjerice, detaljan boot, IPC, višestruke jezgre, posebne arhitekture jezgri i unutarnji format konkretnog datotečnog sustava nisu potpuni zasebni simulatori.
+Učenik počinje u **Uči od početka**, a zatim ide u **Istraži OS** i praktične laboratorije. Na kraju izvozi JSON kroz **Moj rad**. Na zajedničkom računalu svaki učenik čuva vlastitu kopiju; simulirani profili služe učenju dozvola i ne odvajaju stvarne korisnike.
 
-## Stručna provjera i izvori
+Modeli jasno označavaju pojednostavljenja: jedan logički CPU, unaprijed zadani događaji, odabrani mehanizmi. Nisu mjerenje ponašanja stvarnog računala. Ugrađeni sadržaj radi offline nakon preuzimanja; vanjski izvori trebaju mrežu.
 
-Objašnjenja i kod pokusa izvorno su oblikovani za Orbit. Ključne razlike provjerene su prema primarnim obrazovnim i tehničkim izvorima (pristup 24. listopada 2026.):
-
-- [OSTEP — procesi](https://pages.cs.wisc.edu/~remzi/OSTEP/cpu-intro.pdf)
-- [OSTEP — prijenos kontrole, načini rada i kontekst](https://pages.cs.wisc.edu/~remzi/OSTEP/cpu-mechanisms.pdf)
-- [OSTEP — memorija izvan RAM-a](https://pages.cs.wisc.edu/~remzi/OSTEP/vm-beyondphys.pdf)
-- [OSTEP — I/O uređaji](https://pages.cs.wisc.edu/~remzi/OSTEP/file-devices.pdf)
-- [OSTEP — dretve](https://pages.cs.wisc.edu/~remzi/OSTEP/threads-intro.pdf)
-- [OSTEP — lokoti](https://pages.cs.wisc.edu/~remzi/OSTEP/threads-locks.pdf)
-- [OSTEP — zastoji i druge poteškoće konkurentnosti](https://pages.cs.wisc.edu/~remzi/OSTEP/threads-bugs.pdf)
-- [Linux man-pages — open](https://man7.org/linux/man-pages/man2/open.2.html)
-- [seL4 Foundation — uvod u mikrokernel](https://sel4.systems/About/seL4-whitepaper.pdf)
+Temeljna literatura: [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/) — procesi, ograničeno izravno izvođenje, raspoređivanje, memorija, I/O, dretve i lokoti; [GNU dozvole](https://www.gnu.org/software/coreutils/manual/html_node/Mode-Structure.html); Microsoftove upute za ping, ipconfig i nslookup povezane su uz mrežni model. Pitanja i pojednostavljeni pokusi napisani su za Orbit.

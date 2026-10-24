@@ -1,27 +1,40 @@
-# Orbit OS 0.9.0
+# Orbit OS 0.10.0
 
-Aplikacija na hrvatskom za učenje strukture, funkcija i mehanizama operacijskih sustava. Radi u pregledniku, bez korisničkog računa i aplikacijskog poslužitelja.
+Aplikacija na hrvatskom za samostalno učenje strukture, funkcija i mehanizama operacijskih sustava. Radi u pregledniku, bez računa i aplikacijskog poslužitelja. Objavljena na https://zljix.github.io/.
 
-## Odakle krenuti
+## Vođeno učenje i igrifikacija
 
-Otvara se **Uči od početka**: šest osnovnih lekcija (dijelovi računala, uloga OS-a, program i proces, raspoređivanje CPU-a, memorija i čitanje datoteke) te dva proširenja (dretve i zastoj).
+**Uči od početka** vodi kroz osam misija: dijelovi računala, uloga OS-a, procesi, CPU, memorija, čitanje datoteke, dretve i zastoj. Svaka povezuje ranije znanje, cilj, jednostavne definicije, čestu zabludu, riješeni primjer, promjenu uvjeta pokusa i primjenu na novi slučaj.
 
-U svakoj lekciji učenik prolazi četiri faze: **Razumij → Pogledaj primjer → Isprobaj → Provjeri**. Prvo upoznaje pojmove i riješeni primjer; zatim odabire uvjet, predviđa ishod i korak po korak promatra posljedice. Samoprovjere daju objašnjenje svakog odgovora. Na kraju učenik upisuje zaključak svojim riječima.
+Svaka misija donosi **100 XP**: kratka provjera 10, redoslijed 20, usporedba uvjeta 20, dvije provjere po 10 i samostalna primjena 30. Za usporedbu treba proći sve uvjete (dva ili tri). Predviđanja se ne kažnjavaju. Zadnji zadatak traži i ishod i razlog.
 
-Detaljni prikaz **Istraži OS** i prethodni laboratoriji dostupni su za produbljivanje. Simulator pojednostavljuje stvarni OS; pretpostavke su navedene uz svaki pokus.
+| Aktivnost | Najviše XP |
+| --- | ---: |
+| Osam misija | 800 |
+| Jedanaest praktičnih laboratorija | 220 |
+| Četrnaest uvjeta detaljnih mehanizama | 140 |
+| Sedam mrežnih izazova | 140 |
+| Završni izazov — najbolji rezultat | 100 |
+| **Ukupno** | **1400** |
+
+Pet razina i sedam znački prate postignuća. Pogreška otvara objašnjenje, pomoć i ponavljanje. Svaki zadatak boduje se jednom; ponavljanje ne gomila XP. Posebno se čuvaju prvi odgovor, zadnji odgovor, broj pokušaja i pomoć. Mrežne dijagnoze nisu uključene u statistiku prvih odgovora.
+
+Nakon osam dovršenih misija otključava se završni izazov: deset pitanja, bez pomoći i povratne informacije o točnosti do predaje. Nakon predaje slijede rezultat, objašnjenja i plan ponavljanja. Dvije inačice svakog pitanja izmjenjuju se među pokušajima. Čuva se najviše 20 pokušaja, uključujući najbolji i najnoviji. Nema vremenskog ograničenja.
+
+Sve radnje i strukturirani odgovori boduju se automatski, bez nastavničke intervencije. Stare slobodne bilješke ostaju arhivirane; ne pretvaraju se automatski u dokaz znanja. XP je napredak u učenju uz dostupnu pomoć, a ne školska ocjena niti zaštićen ispitni zapis.
 
 ## Spremanje i offline rad
 
-- Napredak i odgovori čuvaju se lokalno u pregledniku. **Moj rad** prikazuje stanje spremanja i omogućuje JSON kopiju za prijenos na drugi uređaj.
-- Dovršena lekcija znači dovršene aktivnosti, a ne automatsku ocjenu znanja. Izvještaj uključuje početne i ispravljene odgovore, broj pokušaja, predviđanje i slobodno objašnjenje.
-- Stari radovi učitavaju se bez brisanja prethodnih datoteka, pokusa ili osvrta. Verzija 0.9.0 dodaje zaseban zapis vođenih lekcija.
-- Na mobitelu otvori stranicu preko HTTPS-a i provjeri oznaku spremnosti za rad bez interneta. Upute za dodavanje na početni zaslon nalaze se u aplikaciji. Za prvi dohvat potreban je internet.
-- Nakon ažuriranja zatvori sve otvorene prozore/kartice Orbita pa ga ponovno otvori. Nova offline verzija preuzima se bez zamjene verzije usred rada.
-- Za računalo je dostupno samostalno izdanje [Orbit-OS.html](downloads/Orbit-OS.html). Spremi HTML na računalo i otvori ga preglednikom. Učenikov rad prenosi se zasebnom JSON kopijom.
+- Napredak, bodovi, pokušaji i datoteke spremaju se lokalno. **Moj rad** omogućuje JSON kopiju za prijenos na drugi uređaj.
+- Nadogradnja čuva stare datoteke, pokuse, osvrte i nedovršene nacrte. Novi zadatci imaju zaseban zapis bodovanja.
+- Za prvo otvaranje na mobitelu potreban je internet. Nakon oznake **Offline spreman** aplikacija može raditi bez veze. Upute za početni zaslon nalaze se u aplikaciji.
+- Poslije nadogradnje zatvori sve kartice/prozore Orbita i ponovno otvori aplikaciju; nova offline verzija ne zamjenjuje aktivnu lekciju usred rada.
+- Za računalo preuzmi [Orbit-OS.html](downloads/Orbit-OS.html) i otvori ga preglednikom bez lokalnog poslužitelja. Rad prenosi zasebnom JSON kopijom.
+- **Izvještaj** prikazuje automatske bodove, odgovore, pokušaje i potvrđene radnje. Može se kopirati, ispisati ili izvesti; nikome se ne šalje automatski.
 
-## Razvoj
+## Razvoj i objava
 
-Izvorni kod, testovi i skripte nalaze se u `source/`. U toj mapi, uz Node.js i npm:
+Izvorni kod, testovi i skripte su u `source/`. Uz Node.js i npm:
 
 ```sh
 npm install
@@ -30,8 +43,6 @@ npm run build
 npm run check:artifact
 ```
 
-Izgradnja stvara `dist/Orbit-OS.html` za lokalno otvaranje i `dist/mobitel/` za statični HTTPS hosting. Objavljeni korijen repozitorija sadrži mobilno izdanje; nakon izmjena treba ponovno izgraditi i prenijeti svih šest datoteka iz `dist/mobitel/`. `sw.js` dobiva novu oznaku iz sadržaja izdanja. GitHub Pages koristi granu `main`, mapu `/`.
+Izgradnja stvara `dist/Orbit-OS.html` i šest datoteka u `dist/mobitel/`. GitHub Pages koristi `main`, mapu `/`; mobilne datoteke objavljuju se u korijenu, a desktop HTML u `downloads/`. Ne objavljuju se QA datoteke, učenički radovi ni `node_modules`.
 
-## Provjere izdanja 0.9.0
-
-69 automatiziranih testova; provjera samostalnog HTML-a, mobilnog manifesta i offline workera. Provjereni su prvi prolaz kroz lekciju, pogrešni i ispravljeni odgovori, nastavak nakon osvježavanja, izvještaj i uski prikazi u Chromiumu. Nije provedeno testiranje na fizičkim iPhone/Android uređajima ni s razredom učenika.
+Verzija 0.10.0 ima 81 automatizirani test. Provjereni su početnička misija do 100 XP, ispravci, nastavak nakon osvježavanja, oba završna pokušaja, praktični zaključak, detaljni mehanizam, mrežna dijagnostika i širine 320, 375 i 414 px u Chromiumu. Test na fizičkim iPhone/Android uređajima ni evaluacija s razredom nisu provedeni.

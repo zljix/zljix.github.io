@@ -1,18 +1,25 @@
-# Orbit OS 0.9.0 — razvoj
+# Orbit OS 0.10.0 — razvoj
 
-Moduli su u `public/orbit/`, a deterministički testovi u `test/`. Izgradnja (`npm run build`, esbuild 0.28.0) stvara samostalni `dist/Orbit-OS.html` i šest datoteka u `dist/mobitel/`. Računalno izdanje ne treba poslužitelj. Mobilno izdanje koristi statični HTTPS hosting i scoped service worker za offline pokretanje.
+Samostalni desktop HTML i mobilni PWA nastaju iz `public/orbit/` pomoću `scripts/build.mjs` i esbuilda 0.28.0. Nema aplikacijskog poslužitelja niti udaljenog bodovanja.
 
-## Vođeno učenje
+## Moduli i kompatibilnost
 
-- `course-data.js`: osam lekcija s objašnjenjima, riješenim primjerima, 18 uvjeta pokusa i povratnim informacijama na svaku opciju samoprovjere.
-- `course-model.js`: validacija, promjene napretka, kriterij dovršavanja te HTML/TXT zapis za nastavnika.
-- `course.js` i `course.css`: početni prikaz Uči od početka, prilagođen uskom zaslonu. CSS se učitava nakon općeg mobilnog stila.
-- `models.js`: dodaje `learning.course`; stari rad bez tog polja dobiva prazan tečaj, a prethodna polja ostaju sačuvana.
-- `app.js`: otvara vođene lekcije pri pokretanju i povezuje ih s postojećim simulatorom.
+- `course-data.js`: osam lekcija, primjeri i 18 uvjeta pokusa.
+- `course-model.js`: zadržan format navigacije i povijesnih odgovora verzije 0.9. Stari kriterij `finished` ostaje samo radi čitanja prethodnog zapisa; novo dovršavanje izvodi se iz bodovanih zadataka.
+- `game-data.js`: 87 objektivnih zadataka (48 za misije, 11 za laboratorije, 28 za mehanizme) i 20 pitanja banke završnog izazova. Pravilne opcije imaju stabilne kanonske indekse.
+- `game-model.js`: validacija, preduvjeti, evidencija aktivnosti, prvi/zadnji odgovor, pomoć, XP, razine, značke, završni pokušaji i izvještaj.
+- `game-ui.js`: zajednički obrasci izbora, redoslijeda i para ishod–razlog. Opcije se deterministički miješaju samo u prikazu.
+- `game.css`, `course.js`: mapa misija, četiri faze učenja, povratna informacija, ponavljanje, završni izazov i prilagodba mobitelu.
+- `network-model.js`: objektivna dijagnoza uz provjerene pokuse; stari tekst ostaje arhiviran i pri ponovnom rješavanju.
+- `teaching.js`, `explorer.js`: postojeći laboratoriji i mehanizmi koriste isto automatsko bodovanje.
 
-Ključ lokalne pohrane ostaje `orbit-os.offline.workspace.v1`. JSON kopije sadrže i novi napredak. `FileSystem.transact()` validira cijeli prostor i vraća prethodno stanje ako promjena ne uspije. Prvi i zadnji odgovori samoprovjere čuvaju se odvojeno; slobodan tekst uvijek se escapira. Dovršenost nije dokaz samostalnosti niti ocjena slobodnog odgovora.
+`learning.game` je aditivno proširenje radnog prostora. Odsutno polje inicijalizira prazne rezultate i čuva kopiju ranijih nacrta mehanizama u `legacy`. Datoteke, stare lekcije, bilješke, mrežni zapisi i spremljene verzije zadržavaju se. Lokalni ključ ostaje `orbit-os.offline.workspace.v1`.
 
-## Izgradnja i provjera
+`FileSystem.transact()` validira stanje, dopunjuje dokaze aktivnosti, sprema i vraća prethodno stanje ako operacija ne uspije. Milestones su monotoni; nova inačica pokusa ne briše ranije potvrđenu aktivnost. XP i značke računaju se iz provjerenih oblika odgovora i evidencija; uvezeni proizvoljni zbroj XP-a se ignorira. To nije zaštita od izmjene klijentskog koda ili smisleno krivotvorenog lokalnog zapisa.
+
+Završna provjera sprema kanonske odgovore i broj pokušaja. Nepotpun pokušaj nema rezultat. Ukupni XP uzima najbolji rezultat, a povijest je ograničena na 20, uz očuvanje najboljeg i najnovijeg. Prikaz aktivnog pokušaja ne otkriva ključ ni točnost.
+
+## Provjere
 
 ```sh
 npm install
@@ -21,12 +28,12 @@ npm run build
 npm run check:artifact
 ```
 
-69 testova pokriva ranije funkcionalnosti i novi tijek učenja, migraciju, zaključavanje predviđanja, promjenu uvjeta, validaciju uvoza, lokalni nastavak i JSON round-trip. Provjere gotovih artefakata obuhvaćaju jednu valjanu inline skriptu, ugrađene stilove, odsutnost mrežnih API poziva iz desktop izdanja, manifest, ikone i offline worker.
+81 test pokriva postojeće modele, postupke oporavka, migraciju, ograničenja bodovanja, sve kategorije do 1400 XP, neponavljanje bodova, sve uvjete usporedbe, pogrešne i nepotpune odgovore, čuvanje pomoći i prvog odgovora, završne pokušaje, ograničenje povijesti, uvoz/izvoz i očuvanje ranijih mrežnih bilježaka. Provjera artefakta traži jednu valjanu ugrađenu skriptu, ugrađene stilove, desktop bez mrežnih API poziva, valjan manifest i offline worker.
 
-UI provjera u Chromiumu uključuje početnu lekciju od primjera do izvještaja, pogrešne i ispravljene odgovore, nastavak nakon osvježavanja te prikaze 320, 375 i 414 px. Test na fizičkim iOS/Android uređajima i razredu učenika nije proveden. Desktop `file:` pokretanje ovisi i o pravilima korisnikova preglednika; JSON izvoz ostaje način prijenosa odgovora.
+UI provjera u Chromiumu: misija do 100 XP s pogreškom i ispravkom; nastavak nakon osvježavanja; završni rezultati 40/100 i 100/100 s obnovom aktivnog pokušaja; laboratorijski zaključak; svih sedam koraka jednog detaljnog mehanizma; mrežni DNS izazov prije/poslije popravka; širine 320, 375 i 414 px. Fizički iPhone/Android i rad s razredom nisu testirani.
 
 ## Objava
 
-Korijen GitHub repozitorija sadrži mobilno izdanje. Kopiraj svih šest izgrađenih mobilnih datoteka u korijen, a desktop HTML u `downloads/`. Izvorna mapa u repozitoriju zove se `source/`. Ne objavljuj `node_modules`, učeničke JSON kopije ni QA datoteke.
+Korijen GitHub repozitorija sadrži šest mobilnih datoteka. Desktop HTML je u `downloads/`, izvor u `source/`. Ne objavljuj učeničke JSON kopije, testne radne prostore, QA HTML ni `node_modules`.
 
-Worker ime predmemorije izvodi iz verzije i sadržaja HTML-a, manifesta, ikona i predloška workera. Instalacija nove predmemorije je cjelovita; neuspješan pokušaj ne briše staru. Ažuriranje ne poziva `skipWaiting`, nego čeka zatvaranje prozora prethodne verzije. Podatci učenika nalaze se u localStorage, odvojeno od predmemorije programa.
+Worker dobiva oznaku iz verzije i hashiranog sadržaja izdanja. Nova predmemorija instalira se cjelovito, bez brisanja stare pri pogrešci. Ne koristi `skipWaiting`; nadogradnja čeka zatvaranje prethodnih prozora aplikacije. Učenički podatci u localStorage odvojeni su od predmemorije aplikacije.

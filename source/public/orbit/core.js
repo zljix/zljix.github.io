@@ -1,4 +1,5 @@
 import {defaultLearning,validateLearning} from './models.js';
+import {syncGameEvidence} from './game-model.js';
 let idCounter=0;
 export const uid=()=>globalThis.crypto?.randomUUID?.()||`n-${Date.now().toString(36)}-${(++idCounter).toString(36)}-${Math.random().toString(36).slice(2,12)}`;
 export const clone=x=>JSON.parse(JSON.stringify(x));
@@ -49,11 +50,11 @@ export function validateState(data){
   return {version:2,nodes,users,activeUser:userIds.has(data.activeUser)?data.activeUser:'ucenik',archive,versions:normalizeVersions(data.versions,users),events,learning:validateLearning(data.learning),theme:['dusk','sea','dawn'].includes(data.theme)?data.theme:'dusk',large:!!data.large,lesson:{minimized:!!data.lesson?.minimized,ended:!!data.lesson?.ended}};
 }
 export class FileSystem{
-  constructor(state,persist=()=>{}){this.state=validateState(state);this.persist=persist;}
+  constructor(state,persist=()=>{}){this.state=validateState(state);syncGameEvidence(this.state);this.persist=persist;}
   get user(){return this.state.users.find(u=>u.id===this.state.activeUser);}
   get(id){return this.state.nodes.find(n=>n.id===id);}
   children(id){return this.state.nodes.filter(n=>n.parent===id).sort((a,b)=>a.type!==b.type?(a.type==='dir'?-1:1):a.name.localeCompare(b.name,'hr'));}
-  transact(fn){const previous=clone(this.state);try{const result=fn();this.state=validateState(this.state);this.persist(this.state);return result;}catch(e){this.state=previous;throw e;}}
+  transact(fn){const previous=clone(this.state);try{const result=fn();this.state=validateState(this.state);syncGameEvidence(this.state);this.persist(this.state);return result;}catch(e){this.state=previous;throw e;}}
   event(kind,text){this.state.events.push({at:new Date().toISOString(),user:this.user.id,kind,text:String(text).slice(0,300)});this.state.events=this.state.events.slice(-80);}
   record(kind,text){this.transact(()=>this.event(kind,text));}
   evidence(key){this.transact(()=>{this.state.learning.evidence[key]=true;});}
