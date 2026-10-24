@@ -1,7 +1,7 @@
 import {COURSE} from './course-data.js';
 
 export const DIFFICULTIES=[
-  {id:'easy',label:'Easy',title:'Upoznaj i razumij',description:'Za prvi susret s OS-om. Dva izbora, početak redoslijeda i vodič uz svaki korak.',goal:'Prepoznaj dio sustava, opiši njegovu ulogu i prati jednostavan mehanizam.',target:100},
+  {id:'easy',label:'Easy',title:'Upoznaj i razumij',description:'Za prvi susret s OS-om. Dva izbora u kratkim provjerama, početak redoslijeda i vodič uz zadatke.',goal:'Prepoznaj dio sustava, opiši njegovu ulogu i prati jednostavan mehanizam.',target:100},
   {id:'moderate',label:'Moderate',title:'Primijeni znanje',description:'Svi izbori, pomoć na zahtjev i dodatni slučaj iz svakodnevnog rada.',goal:'Prenesi pravilo na novu situaciju i poveži ishod s razlogom.',target:120},
   {id:'hard',label:'Hard',title:'Istraži uzrok',description:'Primjena i dodatna dijagnoza: poveži tri odluke. Pomoć nakon prvog pokušaja.',goal:'Razlikuj moguća objašnjenja, predvidi posljedicu i odaberi opravdan popravak.',target:140}
 ];
