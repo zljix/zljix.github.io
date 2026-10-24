@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import vm from 'node:vm';
+const html=await readFile(new URL('../dist/Orbit-OS.html',import.meta.url),'utf8');
+const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script\s*>/gi)];
+assert.equal(scripts.length,1,'Exactly one classic inline script is expected');
+new vm.Script(scripts[0][1]);
+assert.ok(scripts[0][1].includes('querySelectorAll'));
+assert.ok(!/<script\b[^>]*\bsrc=|<link\b[^>]*rel="stylesheet"|<script\b[^>]*type="module"/i.test(html));
+assert.ok(!/\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|importScripts)\s*\(/.test(scripts[0][1]));
+assert.ok(!/\bimport\s*\(/.test(scripts[0][1]));
+assert.ok(html.includes("connect-src 'none'"));
+assert.ok(!/https?:\/\/[^\s"')]+/i.test([...html.matchAll(/<style>([\s\S]*?)<\/style>/g)].map(x=>x[1]).join('')));
+console.log('Standalone artifact verified: one valid inline script, embedded styles, no network API calls or module imports.');

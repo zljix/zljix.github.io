@@ -179,19 +179,483 @@ body.large .editor-text{font-size:16px;line-height:1.9}
 @media(max-width:380px){#workspace-search-button{display:none!important}}
 @media(max-height:500px) and (max-width:1000px){.launcher{max-height:70dvh;overflow:auto}.window{min-height:0}}
 
+</style><style>
+/* A quiet, readable path for the learner; the OS workbench remains available. */
+.icon-course{--icon-a:#9b9ad5;--icon-b:#5c599f}
+.window[data-app=course]{container-type:inline-size;background:#fcfbf8}
+.window[data-app=course] .window-content{background:#fcfbf8}
+.course-app{display:grid;grid-template-columns:224px minmax(0,1fr);min-height:100%;font-size:15px;line-height:1.65;color:#302f3c}
+.course-app button,.course-app select,.course-app textarea{font:inherit}
+.course-sidebar{padding:28px 16px;background:#f0eef4;border-right:1px solid #e2dee9}
+.course-side-brand{display:flex;gap:8px;align-items:center;font-size:16px;font-weight:700;color:#504876}
+.course-sidebar>p{font-size:12px;color:#686273;margin:9px 0 26px}
+.course-sidebar h3{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#746d7f;margin:23px 10px 8px}
+.course-sidebar nav button{border:0;background:transparent;border-radius:9px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 9px;font-size:13px;line-height:1.4;min-height:48px}
+.course-sidebar nav button:hover{background:#e6e1ee}
+.course-sidebar nav button[aria-current]{background:#fff;box-shadow:0 2px 6px #32274208;color:#4f427e;font-weight:650}
+.course-number{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:29px;height:29px;background:#e3dfeb;color:#625876;border-radius:9px;font-size:12px;font-weight:700}
+.course-number.is-done{background:#e0eee7;color:#286445}.course-number svg{width:17px;height:17px}
+.course-sidebar>.button{margin-top:28px;width:100%;font-size:12px;min-height:44px}
+.course-main{min-width:0;padding:0 40px 30px;max-width:940px;width:100%;margin:0 auto}
+.course-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 0;border-bottom:1px solid #e7e3dd;margin-bottom:30px;font-size:12px;color:#77717d}
+.course-text-button{display:inline-flex;align-items:center;gap:7px;background:none;border:0;color:#5b5088;padding:5px 0;text-align:left;text-decoration:underline;text-decoration-color:#b2a8c9;text-underline-offset:4px;min-height:40px;font-size:14px!important;line-height:1.45}
+.course-text-button svg{width:17px;height:17px}
+.course-kicker{font-size:10px;font-weight:700;letter-spacing:1.6px;color:#70618f;margin-bottom:12px}
+.course-app h1{font-size:clamp(28px,3.3vw,38px);line-height:1.17;letter-spacing:-1px;font-weight:650;margin:0 0 23px;max-width:660px}
+.course-app h1:focus{outline:0}.course-app h2{font-size:21px;line-height:1.3}.course-app h3{line-height:1.4}
+.course-app p{margin:12px 0 18px;max-width:70ch}.course-app .button{min-height:44px;font-size:14px;padding:11px 17px;border-radius:8px;line-height:1.35}
+.course-app .button.primary{background:#5c508e}.course-app .button.primary:hover{background:#4d427a}
+.course-app button:disabled{opacity:.6}
+.course-welcome{padding-bottom:20px}.course-lead{font-size:18px;color:#635b6f;line-height:1.65}.course-start{margin:6px 0 20px;text-align:left;max-width:100%}
+.course-route{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:#6b6375;border-top:1px solid #e7e3dd;padding-top:20px;margin-top:10px}
+.course-route span{display:flex;gap:10px;align-items:center}.course-route b{border:1px solid #d5cddd;border-radius:50%;width:23px;height:23px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#746188}
+.course-list-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}.course-list-title h2{margin:0}.course-list-title>span{font-size:12px;color:#6d6477;white-space:nowrap}
+.course-lesson-list>p{font-size:13px;color:#706977}.course-lesson-card{display:flex;align-items:center;gap:17px;width:100%;border:1px solid #e5e0e9;background:white;border-radius:11px;margin-bottom:10px;padding:17px;text-align:left;line-height:1.45!important;color:#3f374d}
+.course-lesson-card:hover{border-color:#b3a4c8;background:#fdfaff}.course-lesson-card strong{display:block;font-size:15px;font-weight:650}.course-lesson-card small{display:block;font-size:12px;color:#766d81;margin-top:5px}.course-card-status{margin-left:auto;font-size:11px;color:#706182;flex-shrink:0}
+.course-extensions{padding:15px 0;border-bottom:1px solid #e7e3dd;margin-bottom:18px}.course-extensions summary{font-size:14px;color:#5d4f78;cursor:pointer;min-height:44px;display:list-item;padding-top:8px}.course-extensions>p{font-size:13px}
+.course-stages{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 28px;padding:0 0 20px;border-bottom:1px solid #e7e3dd}
+.course-stages button{border:0;background:transparent;display:flex;align-items:center;justify-content:flex-start;gap:7px;font-size:12px;border-radius:8px;line-height:1.4;min-height:44px;padding:7px;color:#736b7f;text-align:left}
+.course-stages button span{font-size:11px;border-radius:50%;border:1px solid #d5cede;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.course-stages button[aria-current]{background:#ebe6f4;color:#514174;font-weight:650}.course-stages button[aria-current] span{background:#6e5c99;border-color:#6e5c99;color:white}
+.course-question{font-size:21px;font-weight:600;line-height:1.45;margin-bottom:18px;color:#4c4162}
+.course-terms{margin:25px 0;padding:22px 25px;background:#f1eee7;border-radius:12px;border:1px solid #e6e0d5}
+.course-terms h3{font-size:14px;margin:0 0 17px;color:#65584a}.course-terms dl{margin:0;display:grid;gap:16px}.course-terms dt{font-weight:700;color:#554c41;font-size:14px}.course-terms dd{margin:3px 0 0;color:#675f55;font-size:14px}
+.course-takeaway{border-left:3px solid #9e8cb6;padding:2px 0 2px 18px;margin:25px 0}.course-takeaway strong{font-size:12px;color:#776089}.course-takeaway p{margin:5px 0}
+.course-actions{display:flex;flex-wrap:wrap;gap:10px;margin:25px 0 10px;align-items:center}.course-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid #e7e3dd;margin-top:35px;padding-top:18px}.course-bottom>span{font-size:11px;color:#7b7284}
+.course-instruction{color:#73677d;font-size:14px}.course-section-title{font-size:19px!important;margin:15px 0 20px}
+.course-scene{padding:26px;background:white;border:1px solid #dcd4e7;border-radius:14px;box-shadow:0 5px 18px #3f254a05;scroll-margin:12px}
+.course-step-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:#867397}.course-scene h3{font-size:24px;letter-spacing:-.4px;margin:12px 0}.course-scene>p{margin-bottom:24px}
+.course-state{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0;padding-top:18px;border-top:1px dashed #d9d0e3}.course-state>div{border-radius:9px;background:#f3eff8;padding:14px 16px}.course-state dt{font-size:12px;color:#77668a}.course-state dd{font-size:17px;line-height:1.45;font-weight:650;margin:6px 0 0;color:#4e3c68;overflow-wrap:anywhere}
+.course-field{display:block;font-weight:650;margin-bottom:26px}.course-field select{display:block;width:100%;margin-top:10px;padding:13px 10px;border:1px solid #cfc4dc;border-radius:8px;background:white;color:#40354f;font-size:14px;min-height:48px}
+.course-prediction,.course-quiz{border:0;padding:0;margin:0 0 30px;min-width:0}.course-prediction legend,.course-quiz legend{font-weight:650;padding:0;font-size:16px;line-height:1.5;max-width:100%}.course-prediction>p{font-size:14px;color:#685d74}
+.course-choices{display:grid;gap:9px;margin-top:14px}.course-choice{border:1px solid #ddd5e6;border-radius:9px;background:white;display:flex;gap:12px;align-items:center;padding:13px 15px;min-height:49px;text-align:left;font-size:14px!important;line-height:1.5!important;color:#584965;width:100%}
+.course-choice>span{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:24px;height:24px;border-radius:6px;border:1px solid #d7cfe2;color:#8c7ba0;font-size:11px}
+.course-choice.selected{background:#eeE8f7;border-color:#9580b5;color:#48345f}.course-choice.selected>span{background:#77618f;border-color:#77618f;color:white}.course-choice:hover:not(:disabled){border-color:#9681af}.course-app .course-choice:disabled{opacity:1;cursor:default}.course-choices:has(.selected:disabled) .course-choice:not(.selected){color:#7b7182;background:#f9f7f8}
+.course-feedback{padding:17px 20px;margin:18px 0;border-radius:9px;font-size:14px;scroll-margin:15px}.course-feedback p{margin:8px 0 0}.course-feedback.correct{background:#e9f2e9;border:1px solid #c7dec8;color:#345b3d}.course-feedback.reconsider{background:#faf0dd;border:1px solid #e5cf9e;color:#795a2c}
+.course-save-note{font-size:12px!important;color:#7b7183;line-height:1.7}.course-limit{border-top:1px solid #e6dfea;margin-top:28px;padding-top:12px;font-size:12px;color:#7a6d85}.course-limit summary{min-height:38px;cursor:pointer;padding:5px 0}
+.course-reflection{border-top:1px solid #e5ddea;padding-top:20px}.course-reflection label{display:block}.course-reflection label strong{display:block;margin-bottom:9px}.course-reflection label span{display:block;font-size:14px;color:#63536e}.course-reflection textarea{display:block;width:100%;border:1px solid #cdc1d9;border-radius:9px;background:#fff;padding:14px;resize:vertical;min-height:130px;line-height:1.6;margin:12px 0 0;font-size:15px;color:#3e334b}
+.course-prereq{font-size:13px;color:#76657f}.course-complete{margin:25px 0 0;padding:26px;border-radius:12px;background:#f0ebf6;border:1px solid #ded3ea}.course-complete h3{font-size:22px;font-weight:600;margin:0 0 13px}.course-complete p{font-size:14px}.course-advanced{margin-top:23px!important;margin-bottom:0!important}
+.course-return{display:flex;align-items:center;justify-content:space-between;gap:15px;background:#eee8f6;border-bottom:1px solid #ded3eb;padding:10px 20px;font-size:12px;color:#5e4f77}.course-return .button{min-height:40px;flex-shrink:0}
+@container(max-width:900px){.course-sidebar{display:none}.course-app{grid-template-columns:minmax(0,1fr)}.course-main{max-width:800px;padding:0 28px 26px}}
+@media(max-width:700px){.course-sidebar{display:none}.course-app{display:block;font-size:16px}.course-main{padding:0 20px 24px}.course-top{margin-bottom:24px;padding:12px 0;font-size:11px;gap:7px}.course-app h1{font-size:28px}.course-top .course-text-button{font-size:12px!important}.course-lead{font-size:17px}.course-app .button{font-size:14px;min-height:46px}.course-stages{gap:3px;margin-bottom:24px;padding-bottom:15px}.course-stages button{flex-direction:column;align-items:flex-start;font-size:11px;padding:7px 5px;gap:6px;min-height:65px}.course-question{font-size:20px}.course-terms{padding:20px}.course-terms dd{font-size:15px}.course-scene{padding:20px}.course-scene h3{font-size:22px}.course-state{grid-template-columns:minmax(0,1fr)}.course-state>div{padding:11px 14px}.course-state dd{font-size:16px}.course-choice{padding:12px;font-size:14px!important}.course-field select{font-size:13px}.course-list-title{align-items:flex-start}.course-list-title h2{font-size:19px}.course-list-title>span{font-size:10px}.course-lesson-card{gap:10px;padding:14px 12px}.course-card-status{display:none}.course-lesson-card strong{font-size:14px}.course-lesson-card small{font-size:12px}.course-route{font-size:11px;gap:12px}.course-complete{padding:21px}.course-bottom>span{display:none}.course-return{align-items:flex-start;padding:10px 14px}.course-return>span{display:none}}
+@media(prefers-reduced-motion:reduce){.course-app *{scroll-behavior:auto}}
+
 </style>
 <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Orbit OS"></head>
 <body data-theme="dusk">
   <div class="wallpaper" aria-hidden="true"><div class="planet"></div><div class="orbit-line one"></div><div class="orbit-line two"></div><div class="wall-glow"></div><div class="wall-word">orbit<span>Otkrij kako sustav radi.</span></div></div>
   <header class="topbar"><button id="brand" aria-label="Orbit — početna"><span class="brand-symbol">◌</span><strong>orbit<span> OS</span></strong></button><span class="top-divider"></span><span id="active-app">Radna površina</span><div class="top-right"><span class="local-badge"><i></i> Otvaranje lokalnog rada…</span><button id="desktop-toggle" title="Prikaži radnu površinu" aria-label="Prikaži radnu površinu"></button><time id="clock"></time></div></header>
   <main id="desktop" aria-label="Radna površina"><nav id="shortcuts" aria-label="Aplikacije na radnoj površini"></nav><div id="windows"></div><div class="desktop-caption"><span class="tiny-pill">UČENJE OPERACIJSKIH SUSTAVA</span><span>Struktura. Funkcije. Mehanizmi.</span></div></main>
-  <div id="launcher" class="launcher" hidden><div class="launcher-heading"><strong>Tvoje aplikacije</strong><span>ORBIT OS · 0.8.2</span></div><label class="search"><span id="search-icon"></span><input id="app-search" placeholder="Pronađi aplikaciju…" aria-label="Pronađi aplikaciju"></label><div id="launcher-grid"></div><div class="launcher-footer"><span class="avatar">U</span><div><strong>Lokalni rad</strong><small>Spremi JSON kroz Moj rad</small></div></div></div>
+  <div id="launcher" class="launcher" hidden><div class="launcher-heading"><strong>Tvoje aplikacije</strong><span>ORBIT OS · 0.9.0</span></div><label class="search"><span id="search-icon"></span><input id="app-search" placeholder="Pronađi aplikaciju…" aria-label="Pronađi aplikaciju"></label><div id="launcher-grid"></div><div class="launcher-footer"><span class="avatar">U</span><div><strong>Lokalni rad</strong><small>Spremi JSON kroz Moj rad</small></div></div></div>
   <footer class="dock" aria-label="Traka aplikacija"><button class="dock-launch" id="launcher-button" aria-label="Otvori izbornik aplikacija" aria-expanded="false"></button><span class="dock-divider"></span><div id="dock-apps"></div></footer>
   <div id="toast" role="status" aria-live="polite" hidden></div>
   <dialog id="dialog"><form id="dialog-form"><div class="dialog-symbol" id="dialog-icon"></div><h2 id="dialog-title"></h2><p id="dialog-description"></p><label id="dialog-label">Naziv<input id="dialog-input" autocomplete="off" maxlength="100"></label><p id="dialog-error" class="error" role="alert"></p><div class="dialog-actions"><button type="button" class="button secondary" id="dialog-cancel">Odustani</button><button type="submit" class="button primary" id="dialog-submit">Spremi</button></div></form></dialog>
   <noscript>Za Orbit OS potrebno je omogućiti JavaScript u pregledniku.</noscript>
 <script>
 (() => {
+  // public/orbit/course-data.js
+  var COURSE = [
+    {
+      id: "hardware",
+      title: "Što je u računalu?",
+      question: "Gdje je tvoja bilješka dok pišeš, a gdje nakon spremanja?",
+      group: "Osnove",
+      goal: "Razlikovati procesor, radnu memoriju i trajnu pohranu.",
+      intro: ["Zamisli da pišeš bilješku na računalu. Tipkovnicom unosiš slova, na zaslonu vidiš tekst, a računalo izvršava upute programa za pisanje. Za taj posao koristi nekoliko različitih dijelova.", "Procesor izvršava upute. Radna memorija drži podatke potrebne tijekom rada. SSD ili tvrdi disk čuva spremljene podatke i nakon isključivanja računala. Te tri uloge nisu iste."],
+      terms: [["Hardver", "Fizički dijelovi računala: procesor, memorija, tipkovnica, zaslon i drugi uređaji."], ["Procesor (CPU)", "Dio računala koji izvršava programske upute, primjerice izračun ili usporedbu."], ["Radna memorija (RAM)", "Prostor za podatke i upute potrebne tijekom rada. Uobičajeni RAM gubi sadržaj bez napajanja."], ["Trajna pohrana", "SSD ili tvrdi disk na kojem spremljene datoteke ostaju i nakon isključivanja. „Trajna” ne znači neuništiva: disk se može pokvariti."]],
+      example: { title: "Pišemo i spremamo rečenicu", steps: [
+        ["Pišeš: Danas učim.", "Program obrađuje unos. Tekst koji trenutačno uređuješ nalazi se u radnoj memoriji. Još nije spremljen u datoteku.", [["CPU", "Izvršava upute programa"], ["RAM", "Danas učim."], ["SSD", "Nema spremljene bilješke"]]],
+        ["Odabereš Spremi", "Program traži spremanje. Nakon uspješnog dovršetka zapisa tekst postoji i u datoteci na SSD-u.", [["CPU", "Obrađuje zahtjev"], ["RAM", "Danas učim."], ["SSD", "biljeska.txt: Danas učim."]]],
+        ["Isključiš računalo", "Sadržaj RAM-a se gubi. Spremljena datoteka ostaje na SSD-u i može se učitati pri sljedećem radu.", [["CPU", "Ne radi"], ["RAM", "Sadržaj izgubljen"], ["SSD", "biljeska.txt ostaje"]]]
+      ] },
+      experiment: { prompt: "U ovom primjeru nema automatskog spremanja. Što će ostati nakon gubitka napajanja?", watch: "Prati samo redak SSD. Njegov sadržaj pokazuje postoji li spremljena kopija.", choices: ["Nova rečenica ostaje u datoteci.", "Nova rečenica nije sačuvana."], variants: [
+        { id: "unsaved", label: "Piši bez spremanja", correct: 1, steps: [["Nova rečenica je napisana", "U RAM-u je novi tekst. Spremanje još nije dovršeno.", [["RAM", "Nova rečenica"], ["SSD", "Nema nove rečenice"]]], ["Napajanje se gubi", "RAM ne zadržava novi tekst. U ovoj vježbi nema druge kopije.", [["RAM", "Sadržaj izgubljen"], ["SSD", "Nema nove rečenice"]]]], conclusion: "Unos teksta nije isto što i spremanje. U ovom slučaju novi tekst nije stigao u trajnu pohranu." },
+        { id: "saved", label: "Piši i uspješno spremi", correct: 0, steps: [["Spremanje je dovršeno", "Datoteka s novim tekstom zapisana je na SSD.", [["RAM", "Nova rečenica"], ["SSD", "Nova rečenica"]]], ["Napajanje se gubi", "Radna kopija nestaje iz RAM-a, ali uspješno spremljena datoteka ostaje.", [["RAM", "Sadržaj izgubljen"], ["SSD", "Nova rečenica ostaje"]]]], conclusion: "Pohrana omogućuje čuvanje podataka nakon prestanka rada programa i računala." }
+      ] },
+      quiz: [{ q: "Koji dio izvršava programske upute?", options: ["RAM", "Procesor (CPU)", "SSD"], answer: 1, feedback: ["RAM drži upute i podatke, ali ih sam ne izvršava.", "Tako je. CPU izvršava upute, koristeći podatke iz memorije.", "SSD čuva podatke. Izvršavanje uputa posao je CPU-a."] }, { q: "Bilješka je uspješno spremljena na SSD. Zašto je možemo otvoriti nakon gašenja računala?", options: ["RAM je čuva dok je računalo ugašeno.", "Zaslon pamti prikazani tekst.", "Spremljena datoteka ostaje u trajnoj pohrani."], answer: 2, feedback: ["Uobičajeni RAM gubi sadržaj bez napajanja.", "Zaslon prikazuje podatke; nije pohrana dokumenta.", "Tako je. Pri ponovnom otvaranju podatak se učitava iz pohrane."] }],
+      reflection: "Svojim riječima objasni razliku između RAM-a i SSD-a na primjeru pisanja bilješke.",
+      summary: "CPU izvršava, RAM privremeno drži, SSD čuva spremljeno.",
+      next: "Sada znaš dijelove računala. Slijedi: tko organizira njihov rad?",
+      limit: "U ovom primjeru nema automatskog spremanja ni oporavka nakon pada. Ne isključuj stvarno računalo tijekom rada."
+    },
+    {
+      id: "os",
+      title: "Čemu služi operacijski sustav?",
+      question: "Zašto aplikacija ne upravlja svim dijelovima računala sama?",
+      group: "Osnove",
+      goal: "Povezati dijelove OS-a s njihovim zadatcima.",
+      intro: ["Aplikacija je program kojim obavljaš zadatak: pišeš, crtaš ili slušaš glazbu. Windows, Linux, Android i iOS primjeri su operacijskih sustava. Oni organiziraju korištenje računala i pružaju usluge aplikacijama.", "Kad aplikacija sprema bilješku, traži uslugu OS-a. OS provjerava smije li pisati na odabrano mjesto i surađuje s uređajem za pohranu. Aplikacija zato ne mora poznavati svaki model SSD-a.", "Resurs je nešto što programu treba za rad, primjerice vrijeme procesora, memorija ili datoteka. OS raspodjeljuje resurse i provjerava pristup. Ne izvršava se svaka uputa aplikacije kroz OS: običan izračun CPU može izvesti izravno."],
+      terms: [["Operacijski sustav (OS)", "Skup programa koji upravlja resursima računala i pruža usluge aplikacijama."], ["Jezgra", "Središnji, zaštićeni dio OS-a koji upravlja osnovnim resursima i pristupom njima."], ["Sistemski poziv", "Način na koji program zatraži uslugu jezgre, primjerice otvaranje datoteke."], ["Upravljački program", "Program koji omogućuje OS-u rad s određenom vrstom uređaja. Često se naziva driver."]],
+      example: { title: "Od zahtjeva do spremljene datoteke", steps: [
+        ["Aplikacija traži spremanje", "Aplikacija priprema podatke i zahtijeva uslugu OS-a. Učenik ne mora poznavati naredbe uređaja.", [["Aplikacija", "Što želim napraviti? Spremiti tekst."], ["OS", "Treba obraditi zahtjev"], ["SSD", "Čeka zahtjev"]]],
+        ["OS provjerava i organizira", "Jezgra provjerava dozvolu. Datotečni sustav, dio OS-a za organizaciju datoteka, određuje gdje i kako se podatci zapisuju.", [["Aplikacija", "Čeka ishod"], ["OS", "Dozvola je odobrena"], ["SSD", "Priprema zapis"]]],
+        ["Uređaj obavlja zapis", "Upravljački program omogućuje komunikaciju s uređajem. Nakon dovršetka aplikacija može javiti da je bilješka spremljena.", [["Aplikacija", "Dobiva potvrdu"], ["OS", "Zahtjev dovršen"], ["SSD", "Datoteka je zapisana"]]]
+      ] },
+      experiment: { prompt: "Aplikacija želi spremiti bilješku u odabranu mapu. Što će biti rezultat provjere dozvole u ovom modelu?", watch: "Prati odluku OS-a prije zapisa na SSD.", choices: ["Zapis će biti dopušten.", "Zapis će biti odbijen."], variants: [
+        { id: "allowed", label: "Korisnik ima dozvolu pisanja", correct: 0, steps: [["Zahtjev za zapis", "Dozvola određuje smije li korisnik mijenjati sadržaj na tom mjestu.", [["Aplikacija", "Želi spremiti tekst"], ["Dozvola", "Pisanje dopušteno"]]], ["OS dopušta zapis", "U ovom pojednostavljenom primjeru nema drugih pogrešaka pa se zapis uspješno dovršava.", [["OS", "Odobreno"], ["SSD", "Nova datoteka"]]]], conclusion: "Jedna je funkcija OS-a omogućiti spremanje, a druga provjeriti tko to smije učiniti." },
+        { id: "denied", label: "Korisnik nema dozvolu pisanja", correct: 1, steps: [["Zahtjev za zapis", "Aplikacija traži istu uslugu, ali korisnik nema pravo pisanja u tu mapu.", [["Aplikacija", "Želi spremiti tekst"], ["Dozvola", "Pisanje nije dopušteno"]]], ["OS odbija zapis", "Aplikacija dobiva poruku o odbijenom pristupu. Sadržaj SSD-a nije promijenjen tim zahtjevom.", [["OS", "Pristup odbijen"], ["SSD", "Bez nove datoteke"]]]], conclusion: "OS ne ispunjava svaki zahtjev. Pravila pristupa štite podatke od nedopuštenih promjena." }
+      ] },
+      quiz: [{ q: "Koji je primjer funkcije operacijskog sustava?", options: ["Napisati sastav umjesto učenika.", "Raspodijeliti procesorsko vrijeme i provjeriti pristup datotekama.", "Biti fizički čip za pohranu."], answer: 1, feedback: ["Sadržaj sastava stvaramo u aplikaciji. OS pruža usluge potrebne za njezin rad.", "Tako je. To opisuje što OS omogućuje i nadzire.", "Fizički čip pripada hardveru; OS je programska podrška."] }, { q: "Koja je veza točna?", options: ["Jezgra je zaštićeni dio OS-a; upravljački program pomaže u radu s uređajem.", "Jezgra je isto što i SSD.", "Aplikacija i operacijski sustav uvijek su isti program."], answer: 0, feedback: ["Tako je. Govorimo o različitim ulogama unutar programske podrške.", "SSD je fizički uređaj. Jezgra je programski dio OS-a.", "Aplikacija rješava korisnički zadatak i koristi usluge OS-a."] }],
+      reflection: "U primjeru spremanja bilješke navedi zadatak aplikacije, zadatak OS-a i zadatak uređaja.",
+      summary: "Struktura: od kojih je dijelova sustav sastavljen. Funkcija: što omogućuje. Mehanizam: kako to izvodi.",
+      next: "Slijedi razlika između spremljenog programa i programa koji se izvodi.",
+      limit: "Prikaz naglašava uloge, a ne točan unutarnji raspored određenog OS-a. Upravljački programi nisu u svim sustavima smješteni jednako."
+    },
+    {
+      id: "process",
+      title: "Program i proces nisu isto",
+      question: "Što nastaje kada pokreneš program?",
+      group: "Osnove",
+      goal: "Razlikovati spremljeni program od njegova izvođenja.",
+      intro: ["Program je skup uputa i podataka koji može biti spremljen na disku. Dok nije pokrenut, ne izvršava svoj zadatak. Pokretanjem nastaje proces: izvođenje programa s podatcima i resursima koje OS prati.", "Isti program može se pokrenuti više puta. U našem modelu svako pokretanje Bilježaka stvara zaseban proces, označen P1 ili P2. Oznake služe razlikovanju procesa; nisu različiti programi.", "Završetak procesa oslobađa njegove resurse. Time se ne briše datoteka programa s diska. Možeš ga ponovno pokrenuti. Broj prozora u stvarnoj aplikaciji nije pouzdan pokazatelj broja procesa."],
+      terms: [["Program", "Spremljene upute i podatci koji se mogu izvršavati."], ["Proces", "Jedno izvođenje programa s vlastitim stanjem i dodijeljenim resursima."], ["PID", "Identifikacijski broj kojim OS razlikuje procese. Ovdje ih radi jednostavnosti označavamo P1 i P2."]],
+      example: { title: "Jedne Bilješke, jedno pokretanje", steps: [["Prije pokretanja", "Program je spremljen, ali još nema njegova aktivnog procesa.", [["Program na disku", "1"], ["Aktivni procesi", "0"]]], ["Pokretanje", "OS priprema proces i resurse potrebne za njegov rad.", [["Program na disku", "1"], ["Aktivni procesi", "1 — P1"]]], ["Završetak procesa", "Proces završava. Spremljeni program ostaje dostupan za sljedeće pokretanje.", [["Program na disku", "1"], ["Aktivni procesi", "0"]]]] },
+      experiment: { prompt: "Prije završetka pokrenut ćemo odabrani broj procesa. Zatim završava samo P1. Koliko će procesa Bilježaka ostati?", watch: "Usporedi broj programa na disku s brojem aktivnih procesa.", choices: ["Nijedan.", "Jedan."], variants: [
+        { id: "one", label: "Pokreni samo P1", correct: 0, steps: [["Pokrenut je P1", "Jedno pokretanje stvara jedan proces.", [["Program na disku", "1"], ["Aktivni procesi", "P1"]]], ["P1 završava", "Nema drugog procesa Bilježaka. Program ostaje spremljen.", [["Program na disku", "1"], ["Aktivni procesi", "0"]]]], conclusion: "Završilo je izvođenje programa, a ne postojanje njegova zapisa na disku." },
+        { id: "two", label: "Pokreni P1 i P2", correct: 1, steps: [["Pokrenut je P1", "Prvi proces koristi program Bilješke.", [["Program na disku", "1"], ["Aktivni procesi", "P1"]]], ["Pokrenut je P2", "Drugo pokretanje u ovom modelu stvara još jedan proces istog programa.", [["Program na disku", "1"], ["Aktivni procesi", "P1 i P2"]]], ["P1 završava", "P2 nastavlja neovisno. Program nije izbrisan.", [["Program na disku", "1"], ["Aktivni procesi", "P2"]]]], conclusion: "Jedan spremljeni program može imati više procesa. Završetak jednog ne mora zaustaviti drugi." }
+      ] },
+      quiz: [{ q: "Bilješke su instalirane, ali nijednom nisu pokrenute. Što postoji u ovom primjeru?", options: ["Spremljeni program, bez njegova aktivnog procesa.", "Aktivan proces bez programa.", "Dva procesa zato što ikona ima dvije boje."], answer: 0, feedback: ["Tako je. Pohranjene upute same se ne izvršavaju.", "Proces nastaje pokretanjem programa.", "Izgled ikone ne govori koliko se procesa izvodi."] }, { q: "Zašto nakon završetka P1 možemo ponovno pokrenuti Bilješke?", options: ["P1 se nikada ne može zaustaviti.", "CPU trajno pamti cijeli program.", "Datoteka programa ostala je u pohrani."], answer: 2, feedback: ["P1 može završiti i njegovi se resursi mogu osloboditi.", "Trajna pohrana čuva program; CPU izvršava upute.", "Tako je. Novo pokretanje može stvoriti novi proces."] }],
+      reflection: "Objasni kako mogu postojati jedan program i dva procesa te što se događa nakon završetka jednoga.",
+      summary: "Program je ono što je pohranjeno; proces je jedno njegovo izvođenje.",
+      next: "Ako je više procesa spremno, tko dobiva procesor?",
+      limit: "U stvarnim aplikacijama jedno pokretanje može stvoriti više procesa ili koristiti postojeći proces. Ovdje namjerno vrijedi jednostavno pravilo: jedno pokretanje — jedan novi proces.",
+      advanced: "process"
+    },
+    {
+      id: "cpu",
+      title: "Kako procesi dijele procesor?",
+      question: "Kako slušamo glazbu i pišemo bilješku na istom računalu?",
+      group: "Osnove",
+      goal: "Objasniti izmjenjivanje procesa i čuvanje mjesta nastavka.",
+      intro: ["Zamisli dva procesa koja su spremna raditi: P1 obrađuje tekst, a P2 obrađuje glazbu. Promatramo pojednostavljeno računalo koje u jednom trenutku može izvršavati upute samo jednoga procesa.", "OS brzo izmjenjuje procese. Korisniku zato može izgledati da rade istodobno. Dio OS-a koji bira sljedeći spremni proces zove se raspoređivač. Računala s više procesorskih jezgri mogu doista izvoditi više tokova istodobno. Procesorska jezgra je izvršni dio CPU-a; nije isto što i jezgra operacijskog sustava.", "Prije prelaska s P1 na P2 treba sačuvati gdje je P1 stao i podatke potrebne za nastavak. To stanje zove se kontekst. Kada P1 ponovno dođe na red, nastavlja od sačuvanog mjesta, a ne svaki put od početka."],
+      terms: [["Spreman proces", "Proces koji bi mogao nastaviti raditi kada dobije CPU. Proces koji čeka podatke s uređaja nije spreman za nastavak tog rada."], ["Raspoređivač", "Dio OS-a koji bira sljedeći spremni tok izvođenja. U ovoj vježbi svaki proces ima jedan takav tok."], ["Kontekst", "Stanje potrebno za nastavak izvođenja, uključujući mjesto na kojem je proces stao."], ["Vremenski odsječak", "Dio vremena procesora dodijeljen procesu. Naziva se i kvant."]],
+      example: { title: "Zabilježi mjesto pa prepusti red", steps: [["P1 radi", "P2 je spreman, ali trenutačno nema CPU.", [["CPU", "P1"], ["P2", "Čeka red"]]], ["Vrijeme za izmjenu", "Vremenski prekid je hardverski događaj koji predaje kontrolu OS-u. OS sačuva stanje P1.", [["CPU", "OS obrađuje prekid"], ["P1", "Mjesto nastavka sačuvano"]]], ["P2 dobiva red", "Raspoređivač bira P2. P1 je i dalje spreman i može nastaviti kasnije.", [["CPU", "P2"], ["P1", "Spreman za kasniji nastavak"]]]] },
+      experiment: { prompt: "Istječe vremenski odsječak P1. Mora li OS u ovom primjeru odabrati drugi proces?", watch: "Prati postoji li drugi spremni proces. Sam istek vremena ne stvara novi proces.", choices: ["Da, P2 će dobiti CPU.", "Ne, nastavit će P1."], variants: [
+        { id: "ready", label: "P2 je spreman za rad", correct: 0, steps: [["P1 radi", "P2 čeka samo svoj red za CPU.", [["CPU", "P1"], ["Drugi spremni proces", "P2"]]], ["OS sačuva stanje P1", "Mjesto nastavka se pamti, pa se već obavljen posao ne mora ponavljati.", [["CPU", "OS"], ["P1", "Kontekst sačuvan"]]], ["P2 dobiva CPU", "U našem pravilu izmjene sada je red na P2.", [["CPU", "P2"], ["P1", "Spreman"]]]], conclusion: "Kada postoji drugi spremni proces, ovo pravilo raspoređivanja daje mu sljedeći odsječak." },
+        { id: "alone", label: "Nema drugog spremnog procesa", correct: 1, steps: [["P1 radi", "Nijedan drugi proces ne može preuzeti ovaj red.", [["CPU", "P1"], ["Drugi spremni proces", "Nema ga"]]], ["OS obrađuje istek vremena", "OS dobiva kontrolu i provjerava koga može odabrati.", [["CPU", "OS"], ["Drugi spremni proces", "Nema ga"]]], ["P1 nastavlja", "P1 ponovno dobiva CPU. Obrada prekida nije značila prelazak na drugi proces.", [["CPU", "P1"], ["Mjesto nastavka", "Sačuvano mjesto P1"]]]], conclusion: "Ulazak u OS i promjena procesa nisu isto. OS se može vratiti istom procesu." }
+      ] },
+      quiz: [{ q: "Zašto se prije prelaska na drugi proces čuva kontekst?", options: ["Da se izbriše datoteka programa.", "Da proces kasnije može nastaviti s mjesta na kojem je stao.", "Da proces više nikada ne dobije CPU."], answer: 1, feedback: ["Brisanje programa nije dio obične izmjene procesa.", "Tako je. Čuva se stanje potrebno za nastavak.", "Proces može ponovno doći na red."] }, { q: "U ovom modelu vremenski odsječak je istekao, ali samo P1 je spreman. Što je moguće?", options: ["P1 nastavlja nakon obrade događaja u OS-u.", "OS mora stvoriti P2.", "P1 se mora obrisati."], answer: 0, feedback: ["Tako je. Prekid ne zahtijeva promjenu procesa.", "Raspoređivanje ne mora stvarati nove procese.", "Istek odsječka nije završetak procesa."] }],
+      reflection: "Zašto proces koji ponovno dobije CPU ne mora svaki put početi iz početka?",
+      summary: "OS bira tko radi; sačuvani kontekst omogućuje nastavak.",
+      next: "Procesima nije potreban samo CPU. Trebaju i prostor za podatke.",
+      limit: "Promatramo jedan logički CPU i po jedan tok izvođenja u procesu. Koraci pokazuju redoslijed događaja, ne stvarno trajanje.",
+      advanced: "cpu"
+    },
+    {
+      id: "memory",
+      title: "Gdje proces drži svoje podatke?",
+      question: "Zašto dva programa ne bi smjela slučajno pisati preko istih podataka?",
+      group: "Osnove",
+      goal: "Razumjeti odvojene adresne prostore i razliku između nedostupnog i nedopuštenog podatka.",
+      intro: ["Prisjeti se: RAM drži podatke potrebne tijekom rada. Više procesa koristi isti fizički RAM, ali OS uz pomoć hardvera uređuje njihov pristup. Proces obično radi s vlastitim adresnim prostorom.", "Adresa označava mjesto podatka. Adrese koje koristi program zovemo virtualnima. Hardver ih uz podatke koje priprema OS prevodi u mjesta u fizičkoj memoriji. Zato ista virtualna adresa u dva procesa može označavati različite podatke.", "Dopušten podatak ne mora upravo biti u RAM-u. U našem primjeru njegova kopija može biti na disku, pa je treba učitati. To je drukčije od pokušaja pristupa adresi koju procesu nije dopušteno koristiti."],
+      terms: [["Adresni prostor", "Skup adresa s kojima proces može raditi, uz pravila koja određuju dopušten pristup."], ["Virtualna adresa", "Adresa koju koristi program; nije nužno ista kao mjesto u fizičkom RAM-u."], ["Stranica", "Jednako velik dio virtualne memorije. OS upravlja memorijom i po takvim dijelovima."], ["Iznimka stranice", "Događaj pri pristupu koji se ne može odmah dovršiti. OS provjerava je li pristup dopušten i kako ga obraditi."]],
+      example: { title: "Dopušten podatak trenutačno nije u RAM-u", steps: [["Proces traži podatak", "Pristup je dopušten, ali odgovarajuća stranica trenutačno nije u RAM-u.", [["Pravo pristupa", "Dopušteno"], ["Traženi podatak", "Kopija je na disku"]]], ["OS obrađuje iznimku", "U ovom primjeru OS organizira učitavanje s diska. Proces čeka podatak.", [["Proces", "Čeka"], ["RAM", "Učitavanje stranice"]]], ["Pristup se ponavlja", "Kad su podatci dostupni, proces može ponoviti pristup i nastaviti rad.", [["Proces", "Može nastaviti"], ["RAM", "Stranica dostupna"]]]] },
+      experiment: { prompt: "Što će se dogoditi s pristupom podatku u odabranom slučaju?", watch: "Odvoji dva pitanja: smije li proces pristupiti i je li podatak već u RAM-u?", choices: ["Pristup se dovršava bez učitavanja s diska.", "Podatak se najprije učitava s diska.", "Pristup se odbija."], variants: [
+        { id: "hit", label: "Dopušten pristup; podatak u RAM-u", correct: 0, steps: [["Provjera pristupa", "Pristup je dopušten, a potrebna stranica je prisutna.", [["Pravo", "Dopušteno"], ["Stranica", "U RAM-u"]]], ["Podatak je dostupan", "U ovom slučaju ne treba čitati s diska.", [["Ishod", "Pristup dovršen"], ["Disk", "Nije potreban za ovaj pristup"]]]], conclusion: "Za uobičajen pristup prisutnoj stranici hardver obavlja prevođenje bez posebnog ulaska u jezgru." },
+        { id: "missing", label: "Dopušten pristup; kopija na disku", correct: 1, steps: [["Stranica nedostaje u RAM-u", "Pristup je dopušten. OS može organizirati učitavanje postojeće kopije.", [["Pravo", "Dopušteno"], ["Stranica", "Na disku"]]], ["Učitavanje", "Proces mora pričekati podatak.", [["Proces", "Čeka"], ["Disk", "Čita stranicu"]]], ["Ponovni pristup", "Stranica je dostupna u RAM-u, pa se pristup može dovršiti.", [["Proces", "Nastavlja"], ["Stranica", "U RAM-u"]]]], conclusion: "Ova iznimka nije pogreška programa: dopušteni podatak trebalo je učiniti dostupnim." },
+        { id: "invalid", label: "Nedopuštena adresa", correct: 2, steps: [["Zahtjev za nedopuštenu adresu", "Proces nema pravo pristupa tom području.", [["Pravo", "Nije dopušteno"], ["Zahtjev", "Provjerava se"]]], ["Pristup je odbijen", "Učitavanje ne bi dalo pravo pristupa. U ovom modelu proces završava zbog pogreške.", [["Ishod", "Pogreška pristupa"], ["Proces", "Zaustavljen"]]]], conclusion: "Nedopušten pristup ne rješava se običnim učitavanjem podatka." }
+      ] },
+      quiz: [{ q: "Dva procesa koriste istu virtualnu adresu. Znači li to nužno da koriste isti fizički podatak?", options: ["Da, uvijek.", "Ne. Njihova preslikavanja mogu voditi na različita mjesta u RAM-u.", "Da, jer RAM ima mjesta samo za jedan proces."], answer: 1, feedback: ["Virtualna adresa vrijedi u kontekstu određenog adresnog prostora.", "Tako je. OS i hardver omogućuju odvojene prostore i kontrolirano dijeljenje.", "Fizički RAM može sadržavati podatke više procesa."] }, { q: "Svaka iznimka stranice znači da je program pogrešno napisan.", options: ["Točno.", "Netočno: dopuštena stranica možda samo nije u RAM-u.", "Točno, jer su RAM i disk isti uređaj."], answer: 1, feedback: ["Pogledaj primjer učitavanja: dopušten pristup može izazvati iznimku.", "Tako je. OS razlikuje slučaj koji može riješiti od nedopuštenog pristupa.", "RAM i disk imaju različite uloge."] }],
+      reflection: "Objasni razliku između dopuštenog podatka izvan RAM-a i nedopuštene adrese.",
+      summary: "„Nije trenutačno dostupno” nije isto što i „nije dopušteno”.",
+      next: "Slijedi kako aplikacija dolazi do teksta spremljenog u datoteci.",
+      limit: "Pojednostavljeni prikaz izostavlja izračun adresa i izbor stranice za zamjenu. Nisu sve iznimke povezane s čitanjem diska; ovdje je to izričito zadani slučaj.",
+      advanced: "memory"
+    },
+    {
+      id: "read",
+      title: "Kako aplikacija čita datoteku?",
+      question: "Mora li svaki klik na Otvori pokrenuti čitanje s diska?",
+      group: "Osnove",
+      goal: "Povezati zahtjev aplikacije, dozvolu, predmemoriju i čekanje na uređaj.",
+      intro: ["Datoteka je imenovani skup podataka, primjerice biljeska.txt. Datotečni sustav organizira datoteke i mape te podatke potrebne da ih OS pronađe. Aplikacija traži pristup preko usluga OS-a.", "Prije otvaranja provjerava se dozvola. Ako je pristup dopušten, aplikacija može tražiti sadržaj. Ponekad je kopija traženih podataka već u RAM-u, u predmemoriji. Tada za taj sadržaj ne treba novi pristup disku.", "Ako je potreban disk, proces koji traži podatak može pričekati. Za to vrijeme CPU može izvršavati drugi spremni proces. Nakon dovršetka čitanja prvi proces postaje spreman; CPU ne mora dobiti istog trenutka."],
+      terms: [["Datoteka", "Imenovani skup podataka, primjerice tekst ili slika."], ["Datotečni sustav", "Način organizacije datoteka i mapa te programska podrška koja njima upravlja."], ["Predmemorija", "Kopija podataka zadržana u bržoj memoriji radi bržeg ponovnog pristupa. Ovdje je u RAM-u."], ["Ulaz/izlaz (I/O)", "Razmjena podataka s uređajima. Čitanje podataka s diska jedan je primjer."]],
+      example: { title: "Prvo čitanje s diska", steps: [["Aplikacija traži tekst", "OS provjerava pristup. U ovom slučaju čitanje je dopušteno.", [["Zahtjev", "Pročitaj biljeska.txt"], ["Dozvola", "Odobrena"]]], ["Potreban je uređaj", "Podatak nije u predmemoriji. Proces čeka čitanje s diska; drugi spremni proces može koristiti CPU.", [["P1", "Čeka podatak"], ["Disk", "Čita"]]], ["Podatak je stigao", "Kopija je u RAM-u. P1 postaje spreman i nastavlja kada dobije CPU.", [["P1", "Spreman za nastavak"], ["RAM", "Sadrži traženi tekst"]]]] },
+      experiment: { prompt: "Hoće li za traženi sadržaj u ovom slučaju biti potrebno čitanje s diska?", watch: "Prvo pogledaj dozvolu, a zatim gdje se nalazi traženi podatak.", choices: ["Da, proces će čekati čitanje s diska.", "Ne, podatak je već u predmemoriji.", "Ne, zahtjev će biti odbijen."], variants: [
+        { id: "disk", label: "Dopušteno; sadržaj samo na disku", correct: 0, steps: [["Provjera prava", "Pristup datoteci dopušten je.", [["Dozvola", "Da"], ["Predmemorija", "Nema sadržaja"]]], ["Čitanje s diska", "Proces čeka traženi sadržaj.", [["Proces", "Čeka"], ["Disk", "Čita"]]], ["Nastavak", "Sadržaj je dostupan u RAM-u. Proces se može vratiti radu.", [["Ishod", "Tekst dostupan"], ["Disk", "Čitanje dovršeno"]]]], conclusion: "Dozvoljen pristup može zahtijevati čekanje na uređaj." },
+        { id: "cache", label: "Dopušteno; sadržaj u predmemoriji", correct: 1, steps: [["Provjera prava", "Pristup je dopušten, a kopija sadržaja već postoji u RAM-u.", [["Dozvola", "Da"], ["Predmemorija", "Sadrži tekst"]]], ["Povrat sadržaja", "OS koristi kopiju iz predmemorije. Za taj sadržaj ne treba novi pristup disku.", [["Ishod", "Tekst dostupan"], ["Disk", "Nije čitan"]]]], conclusion: "Uspješno čitanje datoteke ne dokazuje da je pri tom zahtjevu korišten disk." },
+        { id: "denied", label: "Nema dozvole čitanja", correct: 2, steps: [["Provjera prava", "Korisnik nema pravo čitanja odabrane datoteke.", [["Dozvola", "Ne"], ["Zahtjev", "Zaustavlja se"]]], ["Pogreška pristupa", "Sadržaj se ne daje aplikaciji.", [["Ishod", "Pristup odbijen"], ["Disk", "Nije čitan za ovaj sadržaj"]]]], conclusion: "Postojanje podatka nije isto što i pravo da ga čitamo." }
+      ] },
+      quiz: [{ q: "Tekst je već u predmemoriji i pristup je dopušten. Što vrijedi za naš primjer?", options: ["OS mora ponovno čitati isti sadržaj s diska.", "OS može vratiti sadržaj iz RAM-a.", "Korisnik mora ponovno instalirati program."], answer: 1, feedback: ["Predmemorija upravo omogućuje izbjegavanje tog dodatnog čitanja.", "Tako je. Dostupna kopija može ubrzati pristup.", "Instalacija programa nije potrebna za ovaj slučaj."] }, { q: "P1 čeka podatke s diska. Mora li CPU za to vrijeme mirovati?", options: ["Da, dok god postoji bilo koji proces koji čeka.", "Ne, može izvršavati drugi spremni proces.", "Ne, jer disk preuzima ulogu CPU-a."], answer: 1, feedback: ["Čekanje jednog procesa ne mora zaustaviti druge spremne procese.", "Tako je. Raspoređivač može odabrati proces koji može raditi.", "Disk ne zamjenjuje CPU; drugi proces može koristiti CPU."] }],
+      reflection: "Objasni zašto uspješno otvaranje i čitanje datoteke ne znači nužno novo čitanje s diska.",
+      summary: "Zahtjev, dozvola i dostupnost podatka tri su odvojena pitanja.",
+      next: "Osnove su povezane. U sljedećem proširenju promatramo zajednički podatak unutar procesa.",
+      limit: "U ovom primjeru podatci o nazivu i dozvoli već su u RAM-u. Promatramo samo treba li čitati traženi sadržaj, ne svaki mogući pristup uređaju.",
+      advanced: "read"
+    },
+    {
+      id: "threads",
+      title: "Kada dva zadatka mijenjaju isti podatak",
+      question: "Kako dva povećanja broja mogu dati samo jedno povećanje?",
+      group: "Proširenje",
+      goal: "Objasniti izgubljeno povećanje i ulogu zajedničkog lokota.",
+      intro: ["Proces može imati više dretvi. Dretva je jedan tok izvođenja unutar procesa. Dretve istog procesa dijele njegov adresni prostor, pa mogu pristupati istom podatku.", "Zamisli zajednički brojač x koji počinje s 0. Dvije dretve žele ga povećati za 1. U našem modelu to nisu jedna, nego tri radnje: pročitati vrijednost, izračunati novu i upisati je natrag.", "Ako obje pročitaju 0 prije ijednog upisa, obje izračunaju 1 i obje upišu 1. Jedno povećanje izgubljeno je. Zajednički lokot može zaštititi cijeli postupak tako da ga u jednom trenutku obavlja samo jedna dretva."],
+      terms: [["Dretva", "Jedan tok izvođenja u procesu. Dretve istog procesa mogu raditi nad zajedničkim podatcima."], ["Utrka nad podatkom", "Neusklađeni pristupi zajedničkom podatku, od kojih barem jedan mijenja podatak."], ["Kritični odsječak", "Dio programa čije pristupe zajedničkom resursu treba uskladiti."], ["Mutex", "Lokot za međusobno isključivanje. Samo jedna dretva može držati taj lokot."]],
+      example: { title: "Povećanja obavljena jedno nakon drugoga", steps: [["Početno x = 0", "T1 pročita 0, izračuna 1 i upiše 1.", [["T1", "Povećanje završeno"], ["Zajednički x", "1"]]], ["Zatim radi T2", "T2 sada pročita 1, izračuna 2 i upiše 2.", [["T2", "Povećanje završeno"], ["Zajednički x", "2"]]]] },
+      experiment: { prompt: "Obje dretve povećavaju x za 1. Koji rezultat očekuješ uz odabrani redoslijed?", watch: "Razlikuj privatno pročitani broj od zajedničkog x. Sam izračun još ne mijenja x.", choices: ["Završni x bit će 1.", "Završni x bit će 2."], variants: [
+        { id: "race", label: "Bez lokota; obje prvo čitaju 0", correct: 0, steps: [["Obje čitaju", "T1 pročita 0. Zatim T2 također pročita 0, jer još nitko nije upisao novu vrijednost.", [["T1 je pročitala", "0"], ["T2 je pročitala", "0"], ["Zajednički x", "0"]]], ["Obje računaju", "Svaka iz svoje pročitane vrijednosti izračuna 1.", [["T1 će upisati", "1"], ["T2 će upisati", "1"], ["Zajednički x", "0"]]], ["Obje upisuju", "T1 upiše 1, a T2 zatim opet upiše 1.", [["Zajednički x", "1"], ["Povećanja koja su ostala", "Jedno"]]]], conclusion: "Dobiven je 1 jer je drugo upisivanje prebrisalo učinak prvoga. To je zadani redoslijed, ne jedini mogući ishod bez lokota." },
+        { id: "mutex", label: "Isti lokot štiti cijelo povećanje", correct: 1, steps: [["T1 drži lokot", "T2 čeka. T1 čita 0, računa 1 i upisuje 1.", [["Lokot", "Drži ga T1"], ["Zajednički x", "1"]]], ["T1 otpušta, T2 zauzima", "Tek sada T2 čita aktualni zajednički podatak: 1.", [["Lokot", "Drži ga T2"], ["T2 je pročitala", "1"]]], ["T2 završava", "T2 računa 2, upisuje 2 i otpušta lokot.", [["Lokot", "Slobodan"], ["Zajednički x", "2"]]]], conclusion: "Isti lokot štiti sve tri radnje zajedno. Druga dretva čita vrijednost nakon dovršenog prvog povećanja." }
+      ] },
+      quiz: [{ q: "Zašto u prikazanom slučaju bez lokota dobivamo 1?", options: ["Obje dretve pročitaju staru vrijednost 0 i upišu 1.", "Procesor ne zna zbrajati do 2.", "RAM uvijek zabranjuje broj 2."], answer: 0, feedback: ["Tako je. Problem je redoslijed pristupa zajedničkom podatku.", "Zbrajanje radi ispravno, ali obje dretve računaju iz stare vrijednosti.", "Vrijednost 2 nije zabranjena."] }, { q: "Što treba zaštititi istim lokotom?", options: ["Samo prikaz broja na zaslonu.", "Čitanje, izračun i upis kao cjelinu.", "Samo naziv programa."], answer: 1, feedback: ["Problem nastaje prije prikaza, pri izmjeni zajedničkog podatka.", "Tako je. Druga dretva ne smije se ubaciti usred tog postupka.", "Naziv programa ne uređuje pristup brojaču."] }],
+      reflection: "Objasni kako dvije ispravno izračunate jedinice mogu dati pogrešan konačni broj i kako lokot pomaže.",
+      summary: "Važan je redoslijed zajedničkog čitanja i pisanja, ne samo računanje.",
+      next: "Lokoti pomažu, ali čekanje više lokota može stvoriti novi problem.",
+      limit: "Ovo je model radnji čitaj–izračunaj–upiši. Ne izvršava se stvarni višedretveni kôd i ne prikazuju se svi mogući redoslijedi.",
+      advanced: "threads"
+    },
+    {
+      id: "deadlock",
+      title: "Kad svi čekaju jedni druge",
+      question: "Je li svako čekanje zastoj?",
+      group: "Proširenje",
+      goal: "Prepoznati kružno čekanje i razumjeti jedno pravilo sprječavanja.",
+      intro: ["U prethodnoj lekciji dretva je čekala lokot koji će druga dretva nakon rada otpustiti. Takvo čekanje može normalno završiti. No zamisli dva procesa kojima trebaju dva resursa, R1 i R2. Svaki resurs može zauzeti samo jedan proces.", "P1 drži R1 i čeka R2. P2 drži R2 i čeka R1. Ako nitko ne otpušta ono što drži dok ne dobije i drugi resurs, nijedan ne može nastaviti. To je zastoj, odnosno deadlock.", "Jedno rješenje za ovaj primjer jest da oba procesa uvijek traže resurse istim redoslijedom: prvo R1, zatim R2. Drugi tada čeka već na R1, ne držeći R2, pa prvi može završiti i osloboditi oba."],
+      terms: [["Isključivo zauzet resurs", "Resurs koji trenutačno može koristiti samo jedan vlasnik. Ovdje pristup predstavljamo lokotom."], ["Kružno čekanje", "Zatvoreni krug: prvi čeka drugoga, a drugi prvoga, neposredno ili preko više sudionika."], ["Zastoj (deadlock)", "Stanje u kojem sudionici ne mogu nastaviti jer čekaju resurse koje jedni drugima zadržavaju."]],
+      example: { title: "Obično čekanje može završiti", steps: [["P1 drži jedini potreban lokot", "P2 čeka. P1 ne čeka nikakav dodatni resurs.", [["P1", "Radi"], ["P2", "Čeka P1"]]], ["P1 dovršava posao", "P1 otpušta lokot.", [["P1", "Gotov"], ["Lokot", "Slobodan"]]], ["P2 nastavlja", "P2 može zauzeti lokot i obaviti svoj posao.", [["P2", "Radi"], ["Ishod", "Nema zastoja"]]]] },
+      experiment: { prompt: "U oba slučaja procesi trebaju R1 i R2. Mogu li dovršiti posao uz odabrano pravilo?", watch: "Prati tko već drži resurs i što još čeka. Nitko ne odustaje i lokoti se ne oduzimaju prisilno.", choices: ["Nastat će zastoj.", "Oba procesa mogu završiti redom."], variants: [
+        { id: "cycle", label: "P1 prvo R1; P2 prvo R2", correct: 0, steps: [["Svaki zauzima prvi resurs", "P1 dobiva R1, a P2 dobiva R2.", [["R1", "Drži P1"], ["R2", "Drži P2"]]], ["Svaki traži drugi resurs", "Oba zadržavaju prvi dok čekaju drugi.", [["P1", "Drži R1, čeka R2"], ["P2", "Drži R2, čeka R1"]]], ["Krug se ne prekida", "Nijedan ne dolazi do završetka i otpuštanja lokota.", [["P1", "Čeka P2"], ["P2", "Čeka P1"], ["Ishod", "Zastoj"]]]], conclusion: "Problem nije samo čekanje, nego krug u kojem se nitko ne može pomaknuti." },
+        { id: "ordered", label: "Oba traže R1 pa R2", correct: 1, steps: [["P1 prvi zauzima R1", "P2 čeka R1 i još ne drži R2.", [["R1", "Drži P1"], ["R2", "Slobodan"], ["P2", "Čeka bez resursa"]]], ["P1 zauzima R2 i završava", "R2 je slobodan pa P1 dobiva sve potrebno, radi i zatim otpušta oba resursa.", [["P1", "Gotov"], ["R1 i R2", "Slobodni"]]], ["P2 nastavlja istim redom", "P2 zauzima R1 pa R2 i također završava.", [["P2", "Gotov"], ["Ishod", "Krug nije nastao"]]]], conclusion: "Jednak redoslijed uklonio je ovaj krug. Čekanje P2 imalo je izlaz jer P1 nije bio blokiran njime." }
+      ] },
+      quiz: [{ q: "P1 radi s lokotom, a P2 čeka da ga P1 otpusti. Je li to samo po sebi dokaz zastoja?", options: ["Da, svako čekanje je zastoj.", "Ne, P1 može završiti i otpustiti lokot.", "Da, dva procesa nikad ne mogu dijeliti računalo."], answer: 1, feedback: ["Čekanje može biti normalno i konačno. Tražimo krug koji sprječava napredak.", "Tako je. U prikazanom primjeru P1 ima put do završetka.", "Procesi mogu koristiti resurse redom."] }, { q: "Zašto pravilo R1 pa R2 pomaže u našem primjeru?", options: ["CPU postaje brži.", "Procesi više ne trebaju podatke.", "P2 ne drži R2 dok čeka R1, pa P1 može završiti."], answer: 2, feedback: ["Brzina CPU-a ne uklanja krug čekanja.", "Procesi i dalje trebaju oba resursa.", "Tako je. Uklanja se obrazac uzajamnog zadržavanja resursa."] }],
+      reflection: "U čemu je razlika između normalnog čekanja na lokot i prikazanog zastoja?",
+      summary: "Čekanje nije nužno zastoj; zatvoreni krug čekanja može zaustaviti napredak.",
+      next: "Povezao/la si osnovne dijelove, funkcije i šest mehanizama. Detaljni simulator sada može poslužiti za produbljivanje.",
+      limit: "Dva procesa i dva lokota pojednostavljeni su primjer. Pravilo redoslijeda sprječava prikazani krug; samo po sebi ne jamči pravednu raspodjelu vremena.",
+      advanced: "deadlock"
+    }
+  ];
+  var lessonById = (id) => COURSE.find((l) => l.id === id);
+
+  // public/orbit/course-model.js
+  var int = (n, min, max) => Number.isInteger(n) && n >= min && n <= max;
+  var object = (x) => x && typeof x === "object" && !Array.isArray(x);
+  var STAGES = ["Razumij", "Pogledaj primjer", "Isprobaj", "Provjeri"];
+  function defaultCourse() {
+    return { version: 1, lesson: COURSE[0].id, stage: 0, overview: true, records: {} };
+  }
+  function defaultRecord(lesson) {
+    return { example: 0, exampleSeen: 0, variant: lesson.experiment.variants[0].id, prediction: null, step: -1, answers: lesson.quiz.map(() => null), firstAnswers: lesson.quiz.map(() => null), attempts: lesson.quiz.map(() => 0), reflection: "", finished: false };
+  }
+  function courseRecord(course, lesson) {
+    return course.records[lesson.id] || defaultRecord(lesson);
+  }
+  function currentVariant(lesson, record) {
+    return lesson.experiment.variants.find((v) => v.id === record.variant);
+  }
+  function readyToFinish(lesson, r) {
+    return r.exampleSeen === lesson.example.steps.length - 1 && r.prediction !== null && r.step === currentVariant(lesson, r)?.steps.length - 1 && lesson.quiz.every((q, i) => r.answers[i] === q.answer) && r.reflection.trim().length > 0;
+  }
+  function courseProgress(course, group = "Osnove") {
+    const lessons = COURSE.filter((l) => l.group === group);
+    return { done: lessons.filter((l) => course.records[l.id]?.finished).length, total: lessons.length };
+  }
+  function validateCourse(raw) {
+    if (raw === void 0 || raw === null) return defaultCourse();
+    if (!object(raw) || raw.version !== 1 || !lessonById(raw.lesson) || !int(raw.stage, 0, 3) || typeof raw.overview !== "boolean" || !object(raw.records) || Object.keys(raw.records).length > COURSE.length) throw new Error("Neispravan zapis vođenih lekcija.");
+    const result = { version: 1, lesson: raw.lesson, stage: raw.stage, overview: raw.overview, records: {} };
+    for (const [id, r] of Object.entries(raw.records)) {
+      const lesson = lessonById(id), variant = lesson && object(r) && currentVariant(lesson, r);
+      if (!lesson || !variant || !int(r.example, 0, lesson.example.steps.length - 1) || !int(r.exampleSeen, r.example, lesson.example.steps.length - 1) || !int(r.step, -1, variant.steps.length - 1) || r.prediction !== null && !int(r.prediction, 0, lesson.experiment.choices.length - 1) || r.step >= 0 && r.prediction === null || typeof r.reflection !== "string" || r.reflection.length > 3e3 || typeof r.finished !== "boolean") throw new Error("Neispravan napredak lekcije.");
+      for (const key of ["answers", "firstAnswers", "attempts"]) if (!Array.isArray(r[key]) || r[key].length !== lesson.quiz.length) throw new Error("Neispravna provjera razumijevanja.");
+      for (let i = 0; i < lesson.quiz.length; i++) {
+        const n = lesson.quiz[i].options.length - 1;
+        if (r.answers[i] !== null && !int(r.answers[i], 0, n) || r.firstAnswers[i] !== null && !int(r.firstAnswers[i], 0, n) || !int(r.attempts[i], 0, 100) || r.answers[i] === null !== (r.firstAnswers[i] === null) || r.answers[i] === null !== (r.attempts[i] === 0)) throw new Error("Neispravni odgovori lekcije.");
+      }
+      if (r.finished && !readyToFinish(lesson, r)) throw new Error("Lekcija je označena dovršenom bez potrebnog rada.");
+      result.records[id] = { example: r.example, exampleSeen: r.exampleSeen, variant: r.variant, prediction: r.prediction, step: r.step, answers: [...r.answers], firstAnswers: [...r.firstAnswers], attempts: [...r.attempts], reflection: r.reflection, finished: r.finished };
+    }
+    return result;
+  }
+  function changeCourse(course, action) {
+    const next = validateCourse(course);
+    if (action.type === "overview") {
+      next.overview = true;
+      return next;
+    }
+    if (action.type === "open") {
+      if (!lessonById(action.id)) throw new Error("Nepoznata lekcija.");
+      if (next.lesson !== action.id) next.stage = 0;
+      next.lesson = action.id;
+      next.overview = false;
+      return next;
+    }
+    const l = lessonById(next.lesson), r = next.records[l.id] || defaultRecord(l);
+    next.records[l.id] = r;
+    if (action.type === "stage") {
+      if (!int(action.value, 0, 3)) throw new Error("Nepoznat korak lekcije.");
+      next.stage = action.value;
+    } else if (action.type === "example") {
+      if (![-1, 1].includes(action.delta)) throw new Error("Neispravan pomak primjera.");
+      r.example = Math.max(0, Math.min(l.example.steps.length - 1, r.example + action.delta));
+      r.exampleSeen = Math.max(r.exampleSeen, r.example);
+    } else if (action.type === "variant") {
+      if (!l.experiment.variants.some((v) => v.id === action.id)) throw new Error("Nepoznat uvjet pokusa.");
+      r.variant = action.id;
+      r.prediction = null;
+      r.step = -1;
+      r.finished = false;
+    } else if (action.type === "predict") {
+      if (r.step >= 0) throw new Error("Za novo predviđanje prvo ponovi pokus.");
+      r.prediction = action.value;
+    } else if (action.type === "step") {
+      if (r.prediction === null) throw new Error("Prvo odaberi što očekuješ.");
+      r.step = Math.min(currentVariant(l, r).steps.length - 1, r.step + 1);
+    } else if (action.type === "replay") {
+      r.prediction = null;
+      r.step = -1;
+      r.finished = false;
+    } else if (action.type === "answer") {
+      const q = l.quiz[action.question];
+      if (!q || !int(action.value, 0, q.options.length - 1)) throw new Error("Neispravan odgovor.");
+      const i = action.question;
+      if (r.firstAnswers[i] === null) r.firstAnswers[i] = action.value;
+      r.answers[i] = action.value;
+      r.attempts[i] = Math.min(100, r.attempts[i] + 1);
+      if (action.value !== q.answer) r.finished = false;
+    } else if (action.type === "reflect") {
+      r.reflection = action.value;
+      if (!r.reflection.trim()) r.finished = false;
+    } else if (action.type === "finish") {
+      if (!readyToFinish(l, r)) throw new Error("Dovrši primjer, pokus, provjere i svoje objašnjenje.");
+      r.finished = true;
+    } else throw new Error("Nepoznata radnja lekcije.");
+    return validateCourse(next);
+  }
+  function courseReport(course, esc3) {
+    course = validateCourse(course);
+    return `<h2>Učenje od početka</h2><p class="report-note">Dovršeno znači: pregledan primjer, završen jedan pokus s predviđanjem, riješene obje samoprovjere i upisano vlastito objašnjenje. Pogrešni odgovori mogu se ispraviti uz pomoć. Slobodno objašnjenje nije automatski ocijenjeno.</p>${COURSE.filter((l) => course.records[l.id]).map((l) => {
+      const r = course.records[l.id], v = currentVariant(l, r), done = r.step === v.steps.length - 1;
+      return `<section class="report-lesson"><h3>${esc3(l.title)} · ${r.finished ? "Dovršene aktivnosti" : "U tijeku"}</h3><p>Uvjet: ${esc3(v.label)}. Predviđanje: ${esc3(r.prediction === null ? "Nije odabrano" : l.experiment.choices[r.prediction])} · Pokus: ${done ? "Dovršen" : "Nije dovršen"}.</p>${done ? `<p>Ishod: ${esc3(v.conclusion)}</p>` : ""}<ul>${l.quiz.map((q, i) => `<li>${esc3(q.q)}<br>Prvi odgovor: ${esc3(r.firstAnswers[i] === null ? "Nije upisan" : q.options[r.firstAnswers[i]])} · Zadnji: ${esc3(r.answers[i] === null ? "Nije upisan" : q.options[r.answers[i]])} · Pokušaji: ${r.attempts[i]}.</li>`).join("")}</ul><p><strong>${esc3(l.reflection)}</strong></p><div class="answer">${esc3(r.reflection || "Objašnjenje još nije upisano.")}</div></section>`;
+    }).join("") || "<p>Vođene lekcije još nisu započete.</p>"}`;
+  }
+  function courseReportText(course) {
+    course = validateCourse(course);
+    return ["UČENJE OD POČETKA", "Samoprovjere dopuštaju ispravke. Slobodna objašnjenja nisu automatski ocijenjena.", ...COURSE.filter((l) => course.records[l.id]).flatMap((l) => {
+      const r = course.records[l.id], v = currentVariant(l, r);
+      return ["", l.title + " — " + (r.finished ? "dovršene aktivnosti" : "u tijeku"), "Uvjet: " + v.label, "Predviđanje: " + (r.prediction === null ? "nije odabrano" : l.experiment.choices[r.prediction]), "Pokus: " + (r.step === v.steps.length - 1 ? "dovršen" : "nije dovršen"), ...l.quiz.flatMap((q, i) => [q.q, "Prvi odgovor: " + (r.firstAnswers[i] === null ? "nije upisan" : q.options[r.firstAnswers[i]]), "Zadnji odgovor: " + (r.answers[i] === null ? "nije upisan" : q.options[r.answers[i]]) + "; pokušaji: " + r.attempts[i]]), l.reflection, r.reflection || "(nije upisano)"];
+    })].join("\n");
+  }
+
+  // public/orbit/course.js
+  function createCourse({ fs: fs2, esc: esc3, icon: icon2, openApp: openApp2, openMechanism, toast: toast2, refresh: refresh2 }) {
+    const state = () => fs2.state.learning.course;
+    const $6 = (s, c) => c.querySelector(s);
+    function save(action) {
+      try {
+        fs2.transact(() => {
+          fs2.state.learning.course = changeCourse(state(), action);
+        });
+        refresh2("report");
+        return true;
+      } catch (e) {
+        toast2(e.message);
+        return false;
+      }
+    }
+    function outline(course2) {
+      return ["Osnove", "Proširenje"].map((group) => `<h3>${group === "Osnove" ? "Kreni redom" : "Kad usvojiš osnove"}</h3>${COURSE.filter((l) => l.group === group).map((l) => `<button data-lesson="${l.id}" ${!course2.overview && l.id === course2.lesson ? 'aria-current="step"' : ""}><span class="course-number ${course2.records[l.id]?.finished ? "is-done" : ""}">${course2.records[l.id]?.finished ? icon2("check") : COURSE.indexOf(l) + 1}</span><span>${esc3(l.title)}</span></button>`).join("")}`).join("");
+    }
+    function scene(step, index, total) {
+      return `<div class="course-scene" tabindex="-1"><div class="course-step-label">Korak ${index + 1} od ${total}</div><h3>${esc3(step[0])}</h3><p>${esc3(step[1])}</p><dl class="course-state">${step[2].map(([k, v]) => `<div><dt>${esc3(k)}</dt><dd>${esc3(v)}</dd></div>`).join("")}</dl></div>`;
+    }
+    function overview(course2) {
+      const base = courseProgress(course2), extra = courseProgress(course2, "Proširenje"), started = Object.keys(course2.records).length > 0;
+      return `<div class="course-welcome"><div class="course-kicker">ORBIT · UČI OD POČETKA</div><h1>Kako računalo obavi<br>ono što tražiš?</h1><p class="course-lead">Otvoriš aplikaciju, napišeš bilješku i spremiš je. Što se za to vrijeme događa u računalu? Ovdje ćemo to povezati, korak po korak.</p><p>Ne trebaš prethodno znanje o operacijskim sustavima. Počinjemo s tri dijela računala i svakodnevnim primjerom.</p><button class="button primary course-start" data-lesson="${started ? course2.lesson : "hardware"}">${started ? "Nastavi: " + esc3(lessonById(course2.lesson).title) : "Kreni od prve lekcije"} ${icon2("arrow")}</button><div class="course-route" aria-label="Kako učimo"><span><b>1</b> Kratko objašnjenje</span><span><b>2</b> Riješeni primjer</span><span><b>3</b> Tvoj pokus</span><span><b>4</b> Provjera i osvrt</span></div></div><section class="course-lesson-list"><div class="course-list-title"><h2>Šest lekcija za temelj</h2><span>${base.done} / ${base.total} dovršeno</span></div><p>Preporučen je ovaj redoslijed. Svaku lekciju možeš ponovno otvoriti.</p>${COURSE.filter((l) => l.group === "Osnove").map((l) => lessonCard(l, course2)).join("")}<details class="course-extensions"><summary>Dvije dodatne lekcije · dretve i zastoj (${extra.done}/2)</summary><p>Nastavi nakon osnovnih lekcija.</p>${COURSE.filter((l) => l.group === "Proširenje").map((l) => lessonCard(l, course2)).join("")}</details><p class="course-save-note">Napredak i odgovori spremaju se na ovom uređaju. Za prijenos ili sigurnosnu kopiju otvori „Moj rad”. Dovršene aktivnosti nisu ocjena znanja.</p><button class="button secondary" data-explore>Već poznajem osnove — otvori simulator ${icon2("arrow")}</button></section>`;
+    }
+    function lessonCard(l, course2) {
+      return `<button class="course-lesson-card" data-lesson="${l.id}"><span class="course-number ${course2.records[l.id]?.finished ? "is-done" : ""}">${course2.records[l.id]?.finished ? icon2("check") : COURSE.indexOf(l) + 1}</span><span><strong>${esc3(l.title)}</strong><small>${esc3(l.question)}</small></span><span class="course-card-status">${course2.records[l.id]?.finished ? "Dovršeno" : course2.records[l.id] ? "U tijeku" : icon2("arrow")}</span></button>`;
+    }
+    function lessonBody(l, r, stage) {
+      if (stage === 0) return `<section class="course-reading"><div class="course-question">${esc3(l.question)}</div>${l.intro.map((p) => `<p>${esc3(p)}</p>`).join("")}<div class="course-terms"><h3>Novi pojmovi, jednostavno</h3><dl>${l.terms.map(([term, definition]) => `<div><dt>${esc3(term)}</dt><dd>${esc3(definition)}</dd></div>`).join("")}</dl></div><div class="course-takeaway"><strong>Što ćeš moći objasniti</strong><p>${esc3(l.goal)}</p></div><div class="course-actions"><button class="button primary" data-stage="1">Pogledaj primjer ${icon2("arrow")}</button></div></section>`;
+      if (stage === 1) return `<section><p class="course-instruction">Najprije prođi riješeni primjer. Nakon svakog koraka pogledaj što se promijenilo.</p><h2 class="course-section-title">${esc3(l.example.title)}</h2>${scene(l.example.steps[r.example], r.example, l.example.steps.length)}<div class="course-actions"><button class="button secondary" data-example="-1" ${r.example === 0 ? "disabled" : ""}>Prethodni korak</button>${r.example < l.example.steps.length - 1 ? '<button class="button primary" data-example="1">Sljedeći korak →</button>' : '<button class="button primary" data-stage="2">Sada isprobaj ti →</button>'}</div></section>`;
+      if (stage === 2) {
+        const x = l.experiment, v = currentVariant(l, r), done = r.step === v.steps.length - 1;
+        return `<section class="course-experiment"><label class="course-field" for="course-variant">1. Odaberi uvjet pokusa<select id="course-variant">${x.variants.map((item) => `<option value="${item.id}" ${item.id === r.variant ? "selected" : ""}>${esc3(item.label)}</option>`).join("")}</select></label><fieldset class="course-prediction"><legend>2. Predvidi ishod</legend><p>${esc3(x.prompt)}</p><div class="course-choices">${x.choices.map((choice, i) => `<button class="course-choice ${r.prediction === i ? "selected" : ""}" data-predict="${i}" aria-pressed="${r.prediction === i}" ${r.step >= 0 ? "disabled" : ""}><span>${String.fromCharCode(65 + i)}</span>${esc3(choice)}</button>`).join("")}</div></fieldset>${r.step < 0 ? `<p class="course-instruction">${r.prediction === null ? "Odaberi što očekuješ. Pogrešna pretpostavka dobar je početak za učenje." : "Predviđanje je spremljeno. Sada provjeri što se događa."}</p><button class="button primary" data-step ${r.prediction === null ? "disabled" : ""}>Pokreni pokus ${icon2("play")}</button>` : `<h3 class="course-section-title">3. Prati što se događa</h3><p class="course-instruction">${esc3(x.watch)}</p><div aria-live="polite">${scene(v.steps[r.step], r.step, v.steps.length)}</div>${done ? `<div class="course-feedback ${r.prediction === v.correct ? "correct" : "reconsider"}" role="status"><strong>${r.prediction === v.correct ? "Predviđanje se potvrdilo." : "Ishod se razlikuje od predviđanja."}</strong><p>${esc3(v.conclusion)}</p><p><b>Odgovor:</b> ${esc3(x.choices[v.correct])}</p></div><div class="course-actions"><button class="button secondary" data-replay>Ponovi pokus</button><button class="button primary" data-stage="3">Provjeri razumijevanje ${icon2("arrow")}</button></div><p class="course-save-note">Možeš promijeniti uvjet i usporediti drugi slučaj. Za nastavak je dovoljan jedan dovršen pokus.</p>` : `<div class="course-actions"><button class="button primary" data-step>Sljedeći korak ${icon2("arrow")}</button></div>`}`}<details class="course-limit"><summary>Što smo pojednostavnili?</summary><p>${esc3(l.limit)}</p></details></section>`;
+      }
+      const understood = l.quiz.every((q, i) => r.answers[i] === q.answer), complete = readyToFinish(l, r);
+      return `<section class="course-check"><p class="course-instruction">Odgovori pa pročitaj objašnjenje. Ako pogriješiš, pokušaj ponovno.</p>${l.quiz.map((q, i) => `<fieldset class="course-quiz"><legend>${i + 1}. ${esc3(q.q)}</legend><div class="course-choices">${q.options.map((answer, j) => `<button class="course-choice ${r.answers[i] === j ? "selected" : ""}" data-question="${i}" data-answer="${j}" aria-pressed="${r.answers[i] === j}" ${r.answers[i] === q.answer ? "disabled" : ""}><span>${String.fromCharCode(65 + j)}</span>${esc3(answer)}</button>`).join("")}</div>${r.answers[i] !== null ? `<div class="course-feedback ${r.answers[i] === q.answer ? "correct" : "reconsider"}" role="status" tabindex="-1"><strong>${r.answers[i] === q.answer ? "Točno." : "Razmisli još jednom."}</strong> ${esc3(q.feedback[r.answers[i]])}${r.answers[i] !== q.answer ? "<p>Možeš se vratiti na objašnjenje ili odabrati drugi odgovor.</p>" : ""}</div>` : ""}</fieldset>`).join("")}<div class="course-reflection"><label for="course-reflection"><strong>Objasni svojim riječima</strong><span>${esc3(l.reflection)}</span></label><textarea id="course-reflection" rows="4" maxlength="3000" placeholder="Dovoljne su dvije ili tri jasne rečenice.">${esc3(r.reflection)}</textarea><p class="course-save-note">Odgovor ostaje u tvom radu i izvještaju. Ne ocjenjuje se automatski; možeš ga usporediti s objašnjenjem ili razgovarati s nastavnikom.</p></div>${!understood ? '<p class="course-prereq">Za dovršetak ispravi obje samoprovjere.</p>' : ""}${r.exampleSeen < l.example.steps.length - 1 ? '<p class="course-prereq">Još trebaš proći primjer. <button class="course-text-button" data-stage="1">Vrati se na primjer</button></p>' : ""}${r.step !== currentVariant(l, r).steps.length - 1 ? '<p class="course-prereq">Još trebaš dovršiti pokus. <button class="course-text-button" data-stage="2">Vrati se na pokus</button></p>' : ""}<div class="course-actions"><button class="button primary" id="course-finish" ${!complete ? "disabled" : ""}>${r.finished ? "Aktivnosti su dovršene" : "Dovrši lekciju"} ${icon2("check")}</button></div><div id="course-completion">${r.finished ? completion(l) : ""}</div></section>`;
+    }
+    function completion(l) {
+      const next = COURSE[COURSE.indexOf(l) + 1];
+      return `<div class="course-complete"><div class="course-kicker">ZADRŽI OVU IDEJU</div><h3>${esc3(l.summary)}</h3><p>${esc3(l.next)}</p><div class="course-actions">${next ? `<button class="button primary" data-next="${next.id}">${next.group !== l.group ? "Otvori dodatnu lekciju" : "Sljedeća lekcija"} ${icon2("arrow")}</button>` : '<button class="button primary" data-overview>Pregled lekcija</button>'}<button class="button secondary" data-report>Otvori moj izvještaj</button></div>${l.advanced ? `<p class="course-advanced"><button class="course-text-button" data-advanced="${l.advanced}">Produbi ovu temu u detaljnom simulatoru →</button></p>` : ""}</div>`;
+    }
+    function course(c, focus = false, keepScroll = false) {
+      const scroll = c.scrollTop, s = state(), l = lessonById(s.lesson), r = courseRecord(s, l), progress = courseProgress(s);
+      c.innerHTML = `<div class="course-app ${s.overview ? "course-is-overview" : ""}"><aside class="course-sidebar"><div class="course-side-brand">${icon2("guide")} Uči od početka</div><p>${progress.done}/${progress.total} osnovnih lekcija dovršeno</p><nav aria-label="Lekcije">${outline(s)}</nav><button class="button secondary" data-explore>Detaljni simulator ${icon2("arrow")}</button></aside><main class="course-main"><header class="course-top"><button class="course-text-button" data-overview>${icon2("guide")} Sve lekcije</button><span>${s.overview ? "6 osnova + 2 proširenja" : `Lekcija ${COURSE.indexOf(l) + 1} od ${COURSE.length} · ${l.group}`}</span><\/header>${s.overview ? overview(s) : `<div class="course-lesson"><div class="course-kicker">${esc3(l.group)} · ${STAGES[s.stage]}</div><h1 tabindex="-1">${esc3(l.title)}</h1><nav class="course-stages" aria-label="Koraci lekcije">${STAGES.map((title, i) => `<button data-stage="${i}" ${s.stage === i ? 'aria-current="step"' : ""}><span>${i + 1}</span>${title}</button>`).join("")}</nav><div class="course-stage-body">${lessonBody(l, r, s.stage)}</div><footer class="course-bottom"><button class="course-text-button" ${s.stage === 0 ? "data-overview" : `data-stage="${s.stage - 1}"`}>← ${s.stage === 0 ? "Pregled lekcija" : STAGES[s.stage - 1]}</button><span>Možeš se vraćati i ponavljati.</span></footer></div>`}</main></div>`;
+      c.querySelectorAll("[data-lesson],[data-next]").forEach((b) => b.onclick = () => {
+        if (save({ type: "open", id: b.dataset.lesson || b.dataset.next })) course(c, true);
+      });
+      c.querySelectorAll("[data-overview]").forEach((b) => b.onclick = () => {
+        if (save({ type: "overview" })) course(c);
+      });
+      c.querySelectorAll("[data-stage]").forEach((b) => b.onclick = () => {
+        if (save({ type: "stage", value: Number(b.dataset.stage) })) course(c, true);
+      });
+      c.querySelectorAll("[data-explore]").forEach((b) => b.onclick = () => openApp2("explorer"));
+      c.querySelectorAll("[data-advanced]").forEach((b) => b.onclick = () => openMechanism(b.dataset.advanced));
+      c.querySelectorAll("[data-report]").forEach((b) => b.onclick = () => openApp2("report"));
+      c.querySelectorAll("[data-example]").forEach((b) => b.onclick = () => {
+        if (save({ type: "example", delta: Number(b.dataset.example) })) {
+          course(c, false, true);
+          $6(".course-scene", c)?.focus({ preventScroll: true });
+        }
+      });
+      c.querySelectorAll("[data-predict]").forEach((b) => b.onclick = () => {
+        const value = b.dataset.predict;
+        if (save({ type: "predict", value: Number(value) })) {
+          course(c, false, true);
+          $6('[data-predict="' + value + '"]', c)?.focus({ preventScroll: true });
+        }
+      });
+      c.querySelectorAll("[data-step]").forEach((b) => b.onclick = () => {
+        if (save({ type: "step" })) {
+          course(c, false, true);
+          $6(".course-scene", c)?.focus({ preventScroll: true });
+          $6(".course-scene", c)?.scrollIntoView({ block: "nearest" });
+        }
+      });
+      c.querySelectorAll("[data-replay]").forEach((b) => b.onclick = () => {
+        if (save({ type: "replay" })) course(c, true);
+      });
+      c.querySelectorAll("[data-question]").forEach((b) => b.onclick = () => {
+        if (save({ type: "answer", question: Number(b.dataset.question), value: Number(b.dataset.answer) })) {
+          course(c, false, true);
+          const feedback = c.querySelectorAll(".course-quiz")[Number(b.dataset.question)].querySelector(".course-feedback");
+          feedback?.focus({ preventScroll: true });
+          feedback?.scrollIntoView({ block: "nearest" });
+        }
+      });
+      const select = $6("#course-variant", c);
+      if (select) select.onchange = () => {
+        if (save({ type: "variant", id: select.value })) {
+          course(c, false, true);
+          $6("#course-variant", c)?.focus({ preventScroll: true });
+        }
+      };
+      const reflection = $6("#course-reflection", c);
+      if (reflection) reflection.oninput = () => {
+        if (save({ type: "reflect", value: reflection.value })) {
+          const updated = courseRecord(state(), l);
+          $6("#course-finish", c).disabled = !readyToFinish(l, updated);
+          if (!updated.finished) {
+            $6("#course-completion", c).innerHTML = "";
+            $6("#course-finish", c).innerHTML = "Dovrši lekciju " + icon2("check");
+          }
+        }
+      };
+      const finish = $6("#course-finish", c);
+      if (finish) finish.onclick = () => {
+        if (save({ type: "finish" })) {
+          course(c, false, true);
+          $6("#course-completion", c)?.scrollIntoView({ block: "nearest" });
+        }
+      };
+      c.scrollTop = keepScroll ? scroll : 0;
+      if (focus) $6("h1", c)?.focus({ preventScroll: true });
+    }
+    return { course };
+  }
+
   // public/orbit/mechanisms-model.js
   var MECHANISMS = [
     {
@@ -593,7 +1057,7 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
 
   // public/orbit/models.js
   var copy2 = (x) => JSON.parse(JSON.stringify(x));
-  var int = (n, min, max) => Number.isInteger(n) && n >= min && n <= max;
+  var int2 = (n, min, max) => Number.isInteger(n) && n >= min && n <= max;
   var CPU_EXAMPLES = {
     basic: [{ name: "P1", arrival: 0, burst: 6, ioAt: 0, ioFor: 0 }, { name: "P2", arrival: 0, burst: 3, ioAt: 0, ioFor: 0 }, { name: "P3", arrival: 0, burst: 2, ioAt: 0, ioFor: 0 }],
     arrivals: [{ name: "P1", arrival: 0, burst: 7, ioAt: 0, ioFor: 0 }, { name: "P2", arrival: 2, burst: 2, ioAt: 0, ioFor: 0 }, { name: "P3", arrival: 4, burst: 3, ioAt: 0, ioFor: 0 }],
@@ -603,14 +1067,14 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     if (!Array.isArray(jobs) || jobs.length < 1 || jobs.length > 8) throw new Error("Unesi od 1 do 8 procesa.");
     const names = /* @__PURE__ */ new Set();
     for (const j of jobs) {
-      if (!j || typeof j.name !== "string" || !/^\w{1,12}$/.test(j.name) || names.has(j.name) || !int(j.arrival, 0, 30) || !int(j.burst, 1, 20) || !int(j.ioAt, 0, j.burst - 1) || !int(j.ioFor, 0, 20) || j.ioAt === 0 !== (j.ioFor === 0)) throw new Error("Provjeri procese: jedinstven naziv, dolazak 0–30, CPU 1–20; I/O je 0/0 ili prekid prije završetka.");
+      if (!j || typeof j.name !== "string" || !/^\w{1,12}$/.test(j.name) || names.has(j.name) || !int2(j.arrival, 0, 30) || !int2(j.burst, 1, 20) || !int2(j.ioAt, 0, j.burst - 1) || !int2(j.ioFor, 0, 20) || j.ioAt === 0 !== (j.ioFor === 0)) throw new Error("Provjeri procese: jedinstven naziv, dolazak 0–30, CPU 1–20; I/O je 0/0 ili prekid prije završetka.");
       names.add(j.name);
     }
     return copy2(jobs);
   }
   function scheduler(config) {
     const jobs = checkJobs(config.jobs);
-    if (!["fcfs", "rr", "sjf"].includes(config.algorithm) || !int(config.quantum, 1, 10)) throw new Error("Neispravan algoritam ili kvant.");
+    if (!["fcfs", "rr", "sjf"].includes(config.algorithm) || !int2(config.quantum, 1, 10)) throw new Error("Neispravan algoritam ili kvant.");
     const s = { algorithm: config.algorithm, quantum: config.quantum, t: 0, current: null, queue: [], slice: 0, timeline: [], last: null, jobs: jobs.map((j, id) => ({ ...j, id, used: 0, wait: 0, first: null, finish: null, wake: null, ioDone: false, state: "new" })) };
     admit(s);
     return s;
@@ -680,7 +1144,7 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     return tokens.map((t) => ({ page: Number(t[0]), write: t.length > 1 }));
   }
   function pager(config) {
-    if (!["fifo", "lru"].includes(config.algorithm) || !int(config.frames, 2, 5)) throw new Error("Odaberi FIFO ili LRU te 2–5 okvira.");
+    if (!["fifo", "lru"].includes(config.algorithm) || !int2(config.frames, 2, 5)) throw new Error("Odaberi FIFO ili LRU te 2–5 okvira.");
     const refs = parseReferences(config.sequence);
     return { algorithm: config.algorithm, frames: Array(config.frames).fill(null), refs, step: 0, faults: 0, hits: 0, writebacks: 0, history: [] };
   }
@@ -716,7 +1180,7 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     return s;
   }
   function translateAddress(s, address) {
-    if (!int(address, 0, 8191)) throw new Error("Virtualna adresa mora biti između 0 i 8191.");
+    if (!int2(address, 0, 8191)) throw new Error("Virtualna adresa mora biti između 0 i 8191.");
     const page = Math.floor(address / 1024), offset = address % 1024, frame = s.frames.findIndex((f) => f?.page === page);
     return { page, offset, frame: frame < 0 ? null : frame, physical: frame < 0 ? null : frame * 1024 + offset };
   }
@@ -724,14 +1188,14 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     return { files: [], next: 1 };
   }
   function validateDisk(d) {
-    if (!d || !Array.isArray(d.files) || d.files.length > 32 || !int(d.next, 1, 1e5)) throw new Error("Neispravan pokusni disk.");
+    if (!d || !Array.isArray(d.files) || d.files.length > 32 || !int2(d.next, 1, 1e5)) throw new Error("Neispravan pokusni disk.");
     const used = /* @__PURE__ */ new Set(), names = /* @__PURE__ */ new Set(), ids = /* @__PURE__ */ new Set();
     for (const f of d.files) {
       if (!f || typeof f.id !== "string" || !/^D\d+$/.test(f.id) || ids.has(f.id) || typeof f.name !== "string" || f.name.length < 1 || f.name.length > 30 || names.has(f.name) || !Array.isArray(f.blocks) || f.blocks.length < 1) throw new Error("Neispravan zapis na pokusnom disku.");
       names.add(f.name);
       ids.add(f.id);
       for (const n of f.blocks) {
-        if (!int(n, 0, 31) || used.has(n)) throw new Error("Dva zapisa zauzimaju isti blok diska.");
+        if (!int2(n, 0, 31) || used.has(n)) throw new Error("Dva zapisa zauzimaju isti blok diska.");
         used.add(n);
       }
     }
@@ -739,7 +1203,7 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
   }
   function allocate(d, name, count, contiguous = false) {
     if (!name.trim() || name.length > 30 || d.files.some((f) => f.name === name.trim())) throw new Error("Unesi jedinstven naziv do 30 znakova.");
-    if (!int(count, 1, 32)) throw new Error("Veličina mora biti 1–32 bloka.");
+    if (!int2(count, 1, 32)) throw new Error("Veličina mora biti 1–32 bloka.");
     const used = new Set(d.files.flatMap((f) => f.blocks));
     const free = Array.from({ length: 32 }, (_, i) => i).filter((i) => !used.has(i));
     if (free.length < count) throw new Error("Nema dovoljno slobodnih blokova.");
@@ -777,7 +1241,7 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     return d;
   }
   function defaultLearning() {
-    return { cpu: { algorithm: "fcfs", quantum: 2, jobs: copy2(CPU_EXAMPLES.basic), steps: 0 }, memory: { algorithm: "fifo", frames: 3, sequence: "0 1w 2 0 3 0 4 1 2 3 4", steps: 0 }, disk: emptyDisk(), network: defaultNetwork(), explorer: defaultExplorer(), evidence: {}, answers: {}, label: "" };
+    return { cpu: { algorithm: "fcfs", quantum: 2, jobs: copy2(CPU_EXAMPLES.basic), steps: 0 }, memory: { algorithm: "fifo", frames: 3, sequence: "0 1w 2 0 3 0 4 1 2 3 4", steps: 0 }, disk: emptyDisk(), network: defaultNetwork(), explorer: defaultExplorer(), course: defaultCourse(), evidence: {}, answers: {}, label: "" };
   }
   function validateLearning(raw) {
     const d = defaultLearning();
@@ -785,10 +1249,10 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     const cpu = raw.cpu || d.cpu;
     checkJobs(cpu.jobs);
     scheduler(cpu);
-    if (!int(cpu.steps, 0, 400)) throw new Error("Neispravan korak CPU modela.");
+    if (!int2(cpu.steps, 0, 400)) throw new Error("Neispravan korak CPU modela.");
     const memory = raw.memory || d.memory;
     pager(memory);
-    if (!int(memory.steps, 0, 30)) throw new Error("Neispravan korak memorije.");
+    if (!int2(memory.steps, 0, 30)) throw new Error("Neispravan korak memorije.");
     const evidence = {};
     for (const [k, v] of Object.entries(raw.evidence || {})) {
       if (/^[a-zA-Z0-9_-]{1,50}$/.test(k) && typeof v === "boolean") evidence[k] = v;
@@ -798,7 +1262,7 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
       if (/^[a-zA-Z0-9_-]{1,50}$/.test(k) && typeof v === "string" && v.length <= 3e3) answers[k] = v;
     }
     if (Object.keys(answers).length > 40 || Object.keys(evidence).length > 80) throw new Error("Prevelik zapis vježbi.");
-    return { cpu: { algorithm: cpu.algorithm, quantum: cpu.quantum, jobs: copy2(cpu.jobs), steps: cpu.steps }, memory: { algorithm: memory.algorithm, frames: memory.frames, sequence: memory.sequence, steps: memory.steps }, disk: validateDisk(raw.disk || d.disk), network: validateNetwork(raw.network), explorer: validateExplorer(raw.explorer), evidence, answers, label: typeof raw.label === "string" ? raw.label.slice(0, 80) : "" };
+    return { cpu: { algorithm: cpu.algorithm, quantum: cpu.quantum, jobs: copy2(cpu.jobs), steps: cpu.steps }, memory: { algorithm: memory.algorithm, frames: memory.frames, sequence: memory.sequence, steps: memory.steps }, disk: validateDisk(raw.disk || d.disk), network: validateNetwork(raw.network), explorer: validateExplorer(raw.explorer), course: validateCourse(raw.course), evidence, answers, label: typeof raw.label === "string" ? raw.label.slice(0, 80) : "" };
   }
 
   // public/orbit/core.js
@@ -1285,7 +1749,8 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
       for (const b of $$("[data-part]", c)) b.onclick = () => handler(b.dataset.part);
     }
     function explorer(c) {
-      c.innerHTML = `<div class="os-explorer"><header class="os-heading"><span class="label">ORBIT · UČENJE OPERACIJSKIH SUSTAVA</span><h1>Što se događa ispod površine?</h1><p>Istraži dijelove sustava, otkrij čemu služe i prati kako zajedno izvršavaju zadatak.</p><\/header><nav class="os-tabs" aria-label="Cjeline učenja">${[["structure", "1", "Struktura"], ["functions", "2", "Funkcije"], ["mechanisms", "3", "Mehanizmi"]].map(([id, n, title]) => `<button data-os-tab="${id}" aria-current="${tab === id ? "page" : "false"}"><span>${n}</span>${title}</button>`).join("")}</nav><div class="os-body"></div></div>`;
+      c.innerHTML = `<div class="course-return"><span>Ovdje možeš detaljnije istraživati. Za objašnjenja od početka otvori lekcije.</span><button class="button secondary" data-course-return>${icon2("guide")} Uči od početka</button></div><div class="os-explorer"><header class="os-heading"><span class="label">ORBIT · UČENJE OPERACIJSKIH SUSTAVA</span><h1>Što se događa ispod površine?</h1><p>Istraži dijelove sustava, otkrij čemu služe i prati kako zajedno izvršavaju zadatak.</p><\/header><nav class="os-tabs" aria-label="Cjeline učenja">${[["structure", "1", "Struktura"], ["functions", "2", "Funkcije"], ["mechanisms", "3", "Mehanizmi"]].map(([id, n, title]) => `<button data-os-tab="${id}" aria-current="${tab === id ? "page" : "false"}"><span>${n}</span>${title}</button>`).join("")}</nav><div class="os-body"></div></div>`;
+      c.querySelector("[data-course-return]").onclick = () => openApp2("course");
       for (const b of $$("[data-os-tab]", c)) b.onclick = () => {
         tab = b.dataset.osTab;
         explorer(c);
@@ -1403,8 +1868,9 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
   var REPORT_CSS = `.work-report{color:#262436;background:#fff;font:14px/1.7 Arial,sans-serif;padding:30px;max-width:950px;margin:auto}.work-report h1{font-size:30px;line-height:1.2;color:#493b76;margin:8px 0 18px}.work-report h2{font-size:20px;color:#493b76;margin:32px 0 12px}.work-report h3{font-size:16px;margin:20px 0 8px}.work-report .eyebrow{font-size:10px;letter-spacing:2px;color:#65578b}.work-report .report-meta{display:flex;gap:25px;flex-wrap:wrap;padding:14px 0;border-top:2px solid #7763b1;border-bottom:1px solid #ddd}.work-report .report-meta span{display:block;font-size:11px;color:#777}.work-report table{border-collapse:collapse;width:100%;font-size:12px;margin:12px 0 20px}.work-report th,.work-report td{border:1px solid #d9d4e3;padding:8px;text-align:left;vertical-align:top;overflow-wrap:anywhere}.work-report th{background:#f1edf7}.work-report .answer{white-space:pre-wrap;padding:12px 16px;background:#f7f5fb;border-left:3px solid #9b8abc}.work-report .report-note{font-size:12px;color:#635a70}.work-report .report-lesson{break-inside:avoid;padding-bottom:16px;border-bottom:1px solid #e7e2ed}.work-report .report-checks{padding-left:20px}.work-report .report-checks li{margin:3px 0}.work-report code{font:12px ui-monospace,monospace;overflow-wrap:anywhere}.work-report p{margin:9px 0}.work-report .report-empty{color:#817789;font-style:italic}@media(max-width:600px){.work-report{padding:18px;font-size:13px}.work-report h1{font-size:25px}.work-report table{font-size:10px}.work-report th,.work-report td{padding:5px}}@media print{@page{size:A4;margin:16mm}.work-report{padding:0;max-width:none;font-size:10pt}.work-report h1{font-size:22pt}.work-report h2{font-size:15pt}.work-report table{font-size:9pt}.work-report .report-note{font-size:9pt}}`;
   var number = (n) => n === null ? "Pokus nije dovršen" : Number.isInteger(n) ? String(n) : n.toLocaleString("hr-HR", { maximumFractionDigits: 2 });
   function buildWorkReport({ lessons, checks, learning, date = (/* @__PURE__ */ new Date()).toLocaleString("hr-HR") }) {
+    const base = courseProgress(learning.course), extra = courseProgress(learning.course, "Proširenje");
     const e = escapeReport, cpu = cpuRun(learning.cpu, learning.cpu.steps), summary = cpuSummary(cpu), mem = pageRun(learning.memory, learning.memory.steps), net = learning.network;
-    return `<article class="work-report"><div class="eyebrow">ORBIT OS · IZVJEŠTAJ O RADU · LOKALNO 0.8.2</div><h1>Od pokusa do objašnjenja.</h1><div class="report-meta"><div><span>Oznaka rada</span><strong>${e(learning.label || "Nije upisana")}</strong></div><div><span>Izvezeno</span>${e(date)}</div><div><span>Provjerene radnje vježbi</span>${checks.filter((c) => c.every(Boolean)).length} / ${lessons.length}</div></div><p class="report-note">Zapis nastavnih simulacija iz korisnikova radnog prostora. Oznake potvrđuju izvedene radnje, ne točnost objašnjenja ni samostalnost rada. Nema automatske ocjene. Sadržaj pregledava nastavnik.</p>${explorerReport(learning.explorer, e)}<h2>Vježbe i osvrti</h2>${lessons.map((l, i) => `<section class="report-lesson"><h3>${String(i + 1).padStart(2, "0")} · ${e(l.title)}</h3><ul class="report-checks">${l.checks.map((label, j) => `<li>${checks[i][j] ? "Potvrđeno" : "Nije potvrđeno"} — ${e(label)}</li>`).join("")}</ul><p><strong>Pitanje:</strong> ${e(l.question)}</p><div class="answer ${learning.answers[l.id] ? "" : "report-empty"}">${e(learning.answers[l.id] || "Osvrt još nije upisan.")}</div></section>`).join("")}<h2>Trenutačni CPU pokus</h2><p>Algoritam: <strong>${e({ fcfs: "FCFS", rr: "Round Robin", sjf: "SJF" }[learning.cpu.algorithm])}</strong> · kvant ${learning.cpu.quantum} · proteklo ${cpu.t} simuliranih jedinica.</p><table><thead><tr><th>Proces</th><th>Dolazak</th><th>CPU ukupno</th><th>I/O nakon / traje</th><th>Čekanje</th><th>Odziv</th><th>Obrtaj</th></tr></thead><tbody>${cpu.jobs.map((j) => `<tr><td>${e(j.name)}</td><td>${j.arrival}</td><td>${j.burst}</td><td>${j.ioAt} / ${j.ioFor}</td><td>${j.wait}</td><td>${j.first === null ? "—" : j.first - j.arrival}</td><td>${j.finish === null ? "—" : j.finish - j.arrival}</td></tr>`).join("")}</tbody></table><p>Prosječno čekanje: ${number(summary.waiting)} · prosječan odziv: ${number(summary.response)} · prosječan obrtaj: ${number(summary.turnaround)}.</p><h2>Trenutačni pokus memorije</h2><p>${e(learning.memory.algorithm.toUpperCase())} · ${learning.memory.frames} okvira · ${mem.step}/${mem.refs.length} pristupa.</p><p>Slijed: <code>${e(learning.memory.sequence)}</code></p><table><thead><tr><th>Pogoci</th><th>Promašaji</th><th>Upisi izmijenjenih stranica</th></tr></thead><tbody><tr><td>${mem.hits}</td><td>${mem.faults}</td><td>${mem.writebacks}</td></tr></tbody></table><h2>Mrežna dijagnostika</h2><p>Trenutačna konfiguracija: <code>${e(net.config.ip)}/${net.config.prefix}</code> · pristupnik <code>${e(net.config.gateway || "nije postavljen")}</code> · DNS <code>${e(net.config.dns || "nije postavljen")}</code>.</p><table><thead><tr><th>Izazov</th><th>Radnje</th></tr></thead><tbody>${NETWORK_CASES.map((t) => `<tr><td>${e(t.title)}</td><td>${net.completed.includes(t.id) ? "Ranije potvrđene" : "Još nisu potvrđene"}</td></tr>`).join("")}</tbody></table>${(net.records || []).map((r) => `<section class="report-lesson"><h3>${e(NETWORK_CASES.find((t) => t.id === r.id).title)}</h3><p class="report-note">Potvrđeno: ${e(new Date(r.at).toLocaleString("hr-HR"))} · pomoć: ${r.hint ? "otvorena" : "nije otvarana"}.</p><div class="answer">${e(r.notes)}</div></section>`).join("")}<h3>Osvrt trenutačnog mrežnog pokusa</h3><div class="answer">${e(net.notes || "Osvrt još nije upisan.")}</div><h3>Zadnjih osam provjera</h3><table><thead><tr><th>Naredba</th><th>Revizija</th><th>Ishod i objašnjenje</th></tr></thead><tbody>${net.history.slice(-8).map((h) => {
+    return `<article class="work-report"><div class="eyebrow">ORBIT OS · IZVJEŠTAJ O RADU · LOKALNO 0.9.0</div><h1>Od pokusa do objašnjenja.</h1><div class="report-meta"><div><span>Oznaka rada</span><strong>${e(learning.label || "Nije upisana")}</strong></div><div><span>Izvezeno</span>${e(date)}</div><div><span>Vođene lekcije</span>${base.done}/${base.total} osnova · ${extra.done}/${extra.total} proširenja</div><div><span>Praktične vježbe</span>${checks.filter((c) => c.every(Boolean)).length} / ${lessons.length}</div></div><p class="report-note">Zapis nastavnih simulacija iz korisnikova radnog prostora. Oznake potvrđuju izvedene radnje, ne točnost objašnjenja ni samostalnost rada. Nema automatske ocjene. Sadržaj pregledava nastavnik.</p>${courseReport(learning.course, e)}${explorerReport(learning.explorer, e)}<h2>Vježbe i osvrti</h2>${lessons.map((l, i) => `<section class="report-lesson"><h3>${String(i + 1).padStart(2, "0")} · ${e(l.title)}</h3><ul class="report-checks">${l.checks.map((label, j) => `<li>${checks[i][j] ? "Potvrđeno" : "Nije potvrđeno"} — ${e(label)}</li>`).join("")}</ul><p><strong>Pitanje:</strong> ${e(l.question)}</p><div class="answer ${learning.answers[l.id] ? "" : "report-empty"}">${e(learning.answers[l.id] || "Osvrt još nije upisan.")}</div></section>`).join("")}<h2>Trenutačni CPU pokus</h2><p>Algoritam: <strong>${e({ fcfs: "FCFS", rr: "Round Robin", sjf: "SJF" }[learning.cpu.algorithm])}</strong> · kvant ${learning.cpu.quantum} · proteklo ${cpu.t} simuliranih jedinica.</p><table><thead><tr><th>Proces</th><th>Dolazak</th><th>CPU ukupno</th><th>I/O nakon / traje</th><th>Čekanje</th><th>Odziv</th><th>Obrtaj</th></tr></thead><tbody>${cpu.jobs.map((j) => `<tr><td>${e(j.name)}</td><td>${j.arrival}</td><td>${j.burst}</td><td>${j.ioAt} / ${j.ioFor}</td><td>${j.wait}</td><td>${j.first === null ? "—" : j.first - j.arrival}</td><td>${j.finish === null ? "—" : j.finish - j.arrival}</td></tr>`).join("")}</tbody></table><p>Prosječno čekanje: ${number(summary.waiting)} · prosječan odziv: ${number(summary.response)} · prosječan obrtaj: ${number(summary.turnaround)}.</p><h2>Trenutačni pokus memorije</h2><p>${e(learning.memory.algorithm.toUpperCase())} · ${learning.memory.frames} okvira · ${mem.step}/${mem.refs.length} pristupa.</p><p>Slijed: <code>${e(learning.memory.sequence)}</code></p><table><thead><tr><th>Pogoci</th><th>Promašaji</th><th>Upisi izmijenjenih stranica</th></tr></thead><tbody><tr><td>${mem.hits}</td><td>${mem.faults}</td><td>${mem.writebacks}</td></tr></tbody></table><h2>Mrežna dijagnostika</h2><p>Trenutačna konfiguracija: <code>${e(net.config.ip)}/${net.config.prefix}</code> · pristupnik <code>${e(net.config.gateway || "nije postavljen")}</code> · DNS <code>${e(net.config.dns || "nije postavljen")}</code>.</p><table><thead><tr><th>Izazov</th><th>Radnje</th></tr></thead><tbody>${NETWORK_CASES.map((t) => `<tr><td>${e(t.title)}</td><td>${net.completed.includes(t.id) ? "Ranije potvrđene" : "Još nisu potvrđene"}</td></tr>`).join("")}</tbody></table>${(net.records || []).map((r) => `<section class="report-lesson"><h3>${e(NETWORK_CASES.find((t) => t.id === r.id).title)}</h3><p class="report-note">Potvrđeno: ${e(new Date(r.at).toLocaleString("hr-HR"))} · pomoć: ${r.hint ? "otvorena" : "nije otvarana"}.</p><div class="answer">${e(r.notes)}</div></section>`).join("")}<h3>Osvrt trenutačnog mrežnog pokusa</h3><div class="answer">${e(net.notes || "Osvrt još nije upisan.")}</div><h3>Zadnjih osam provjera</h3><table><thead><tr><th>Naredba</th><th>Revizija</th><th>Ishod i objašnjenje</th></tr></thead><tbody>${net.history.slice(-8).map((h) => {
       const r = probeNetwork(h.config, h.kind, h.target);
       return `<tr><td><code>${h.kind} ${e(h.target)}</code></td><td>${h.revision}</td><td><strong>${r.ok ? "Uspjeh" : "Neuspjeh"}</strong><br>${e(r.message)}</td></tr>`;
     }).join("") || '<tr><td colspan="3">Nema zabilježenih mrežnih provjera.</td></tr>'}</tbody></table><p class="report-note">Povijesni rezultati odnose se na postavke tijekom provjere. Simulator ne šalje pakete. Izvještaj ne sadrži tekstove osobnih datoteka iz aplikacije Datoteke.</p></article>`;
@@ -1943,7 +2409,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
     }
     function exportReport() {
       const all = checks();
-      const text = ["ORBIT OS — IZVJEŠTAJ O RADU", "Oznaka rada: " + (fs2.state.learning.label || "(nije upisana)"), (/* @__PURE__ */ new Date()).toLocaleString("hr-HR"), "Samoprovjera radnji; nije automatska ocjena znanja.", "", ...lessons.flatMap((l, i) => [`${i + 1}. ${l.title}`, ...l.checks.map((s, j) => `${all[i][j] ? "[DA]" : "[NE]"} ${s}`), "Pitanje: " + l.question, "Osvrt: " + (fs2.state.learning.answers[l.id] || "(nije upisan)"), ""]), explorerReportText(fs2.state.learning.explorer), "", "TRENUTAČNI CPU POKUS", JSON.stringify(fs2.state.learning.cpu, null, 2), "TRENUTAČNI POKUS MEMORIJE", JSON.stringify(fs2.state.learning.memory, null, 2), "", networkLogText(fs2.state.learning.network), ...fs2.state.learning.network.records.map((r) => "Spremljeni osvrt (" + r.id + "): " + r.notes)].join("\n");
+      const text = ["ORBIT OS — IZVJEŠTAJ O RADU", "Oznaka rada: " + (fs2.state.learning.label || "(nije upisana)"), (/* @__PURE__ */ new Date()).toLocaleString("hr-HR"), "Samoprovjera radnji; nije automatska ocjena znanja.", "", ...lessons.flatMap((l, i) => [`${i + 1}. ${l.title}`, ...l.checks.map((s, j) => `${all[i][j] ? "[DA]" : "[NE]"} ${s}`), "Pitanje: " + l.question, "Osvrt: " + (fs2.state.learning.answers[l.id] || "(nije upisan)"), ""]), courseReportText(fs2.state.learning.course), explorerReportText(fs2.state.learning.explorer), "", "TRENUTAČNI CPU POKUS", JSON.stringify(fs2.state.learning.cpu, null, 2), "TRENUTAČNI POKUS MEMORIJE", JSON.stringify(fs2.state.learning.memory, null, 2), "", networkLogText(fs2.state.learning.network), ...fs2.state.learning.network.records.map((r) => "Spremljeni osvrt (" + r.id + "): " + r.notes)].join("\n");
       download2("Orbit-izvjestaj-o-radu.txt", text);
     }
     function report(c) {
@@ -2769,10 +3235,12 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
     desktop: '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/>',
     save: '<path d="M4 3h13l4 4v14H3V3ZM7 3v6h9V3M7 21v-8h10v8"/>'
   };
+  paths.course = paths.guide;
   var icon = (name, cls = "") => `<svg viewBox="0 0 24 24" aria-hidden="true" class="${cls}">${paths[name] || paths.file}</svg>`;
   var appIcon = (name) => `<span class="app-icon icon-${name}">${icon(name)}</span>`;
   var APPS = { home: { title: "Početna", desc: "Upoznaj svoj prostor", w: 790, h: 600, ram: 32 }, files: { title: "Datoteke", desc: "Sve na svome mjestu", w: 710, h: 490, ram: 48 }, editor: { title: "Bilješke", desc: "Mjesto za tvoje ideje", w: 650, h: 520, ram: 40 }, terminal: { title: "Terminal", desc: "Naredba po naredba", w: 660, h: 440, ram: 24 }, monitor: { title: "Procesi", desc: "Pogled ispod površine", w: 660, h: 550, ram: 32 }, lab: { title: "Laboratorij", desc: "Isprobaj. Otkrij. Nauči.", w: 640, h: 590, ram: 32 }, settings: { title: "Postavke", desc: "Uredi svoj prostor", w: 560, h: 590, ram: 24 } };
   Object.assign(APPS, {
+    course: { title: "Uči od početka", desc: "Objašnjenje, primjer, pokus i provjera", w: 1160, h: 850, ram: 32 },
     explorer: { title: "Istraži OS", desc: "Struktura, funkcije i mehanizmi", w: 1120, h: 790, ram: 32 },
     search: { title: "Pretraživanje", desc: "Pronađi naziv ili dio teksta", w: 850, h: 700, ram: 24 },
     recovery: { title: "Oporavak", desc: "Verzije i sigurnosne kopije", w: 970, h: 740, ram: 24 },
@@ -2805,12 +3273,13 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
   var termCwd = "root";
   var terminalHistory = [];
   var historyIndex = 0;
-  var terminalLines = [{ text: "Orbit terminal 0.8.2 · lokalno", type: "banner" }, { text: "Mali terminal, tvoj virtualni disk. Upiši help za popis naredbi.\n", type: "" }];
+  var terminalLines = [{ text: "Orbit terminal 0.9.0 · lokalno", type: "banner" }, { text: "Mali terminal, tvoj virtualni disk. Upiši help za popis naredbi.\n", type: "" }];
   var toastTimer;
   var fileClipboard = null;
   var fileSearch = "";
   var teaching = createTeaching({ fs, esc: esc2, icon, openApp, toast, ask, download, refresh, changed: dataChanged, permissionsChanged, switchUser, dirty: () => editorDirty, appTitle: (id) => APPS[id].title });
   var exploring = createExplorer({ fs, esc: esc2, icon, openApp, toast, ask, refresh });
+  var learningCourse = createCourse({ fs, esc: esc2, icon, openApp, openMechanism: exploring.openLesson, toast, refresh });
   var networking = createNetworking({ fs, esc: esc2, icon, openApp, toast, ask, download, refresh });
   var recovery = createRecovery({ fs, esc: esc2, icon, openApp, openFile, openFolder: (id) => {
     navigateFolder(id);
@@ -3083,14 +3552,14 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
   }
   function render(w) {
     const c = $5(".window-content", w.el);
-    const renderers = { home: homeView, files: filesView, editor: editorView, terminal: terminalView, monitor: monitorView, settings: settingsView, ...teaching, explorer: exploring.explorer, network: networking.network, recovery: recovery.recovery, search: searching.search };
+    const renderers = { home: homeView, files: filesView, editor: editorView, terminal: terminalView, monitor: monitorView, settings: settingsView, ...teaching, course: learningCourse.course, explorer: exploring.explorer, network: networking.network, recovery: recovery.recovery, search: searching.search };
     renderers[w.id](c);
   }
   function openButtons(root) {
     for (const b of $$5("[data-open]", root)) b.onclick = () => openApp(b.dataset.open);
   }
   function homeView(c) {
-    c.innerHTML = `<div class="home-content"><div class="home-eyebrow"><span class="label">ORBIT · UČENJE OPERACIJSKIH SUSTAVA</span><span class="tag">LOKALNO · 0.8.2</span></div><div class="hero"><div><h1>Razumij sustav,<br><em>korak po korak.</em></h1><p>Istraži strukturu OS-a, otkrij njegove funkcije i prati mehanizme koji povezuju aplikacije, jezgru i hardver.</p><div class="hero-actions"><button class="button primary" data-open="explorer">Istraži OS ${icon("arrow")}</button><button class="button subtle" data-open="lab">Praktične vježbe</button></div></div><div class="hero-art" aria-hidden="true"><div class="hero-orb"></div><span class="hero-star">✧</span></div></div><div class="section-line"><h2>Produbi razumijevanje pokusom</h2><span>Predvidi → promatraj → objasni.</span></div><div class="home-apps">${["cpu", "memory", "drive", "network"].map((id) => `<button class="home-app" data-open="${id}">${appIcon(id)}<strong>${APPS[id].title}</strong><small>${APPS[id].desc}</small></button>`).join("")}</div><div class="home-lab">${icon("guide")}<div><strong>Od dijelova do mehanizma.</strong><p>Šest vođenih pokusa s različitim uvjetima, tragom događaja i usporedbom objašnjenja.</p></div><button data-open="explorer" aria-label="Otvori Istraži OS">${icon("arrow")}</button></div><div class="home-bottom"><span><i class="status-dot"></i>Spremanje i prijenos rada: Moj rad</span><span>Nastavni simulator operacijskog sustava</span></div></div>`;
+    c.innerHTML = `<div class="home-content"><div class="home-eyebrow"><span class="label">ORBIT · UČENJE OPERACIJSKIH SUSTAVA</span><span class="tag">LOKALNO · 0.9.0</span></div><div class="hero"><div><h1>Razumij sustav,<br><em>korak po korak.</em></h1><p>Kreni bez predznanja: upoznaj dijelove računala, razumij jedan primjer, isprobaj ga i objasni svojim riječima.</p><div class="hero-actions"><button class="button primary" data-open="course">Uči od početka ${icon("arrow")}</button><button class="button subtle" data-open="lab">Praktične vježbe</button></div></div><div class="hero-art" aria-hidden="true"><div class="hero-orb"></div><span class="hero-star">✧</span></div></div><div class="section-line"><h2>Produbi razumijevanje pokusom</h2><span>Predvidi → promatraj → objasni.</span></div><div class="home-apps">${["cpu", "memory", "drive", "network"].map((id) => `<button class="home-app" data-open="${id}">${appIcon(id)}<strong>${APPS[id].title}</strong><small>${APPS[id].desc}</small></button>`).join("")}</div><div class="home-lab">${icon("guide")}<div><strong>Od dijelova do mehanizma.</strong><p>Šest osnovnih lekcija i dva proširenja pripremaju te za istraživanje detaljnih mehanizama.</p></div><button data-open="course" aria-label="Uči od početka">${icon("arrow")}</button></div><div class="home-bottom"><span><i class="status-dot"></i>Spremanje i prijenos rada: Moj rad</span><span>Nastavni simulator operacijskog sustava</span></div></div>`;
     openButtons(c);
   }
   function breadcrumb(id) {
@@ -3571,7 +4040,7 @@ Slobodno: ${(32 - used) * 4} KiB`);
     for (const b of $$5("[data-end]", c)) b.onclick = () => closeApp(b.dataset.end, true);
   }
   function settingsView(c) {
-    c.innerHTML = `<div class="settings-app"><h2>Uredi svoj prostor.</h2><div class="setting-section"><h3>Pozadina</h3><div class="theme-grid">${[["dusk", "Sumrak"], ["sea", "Obala"], ["dawn", "Zora"]].map(([value, label]) => `<button class="theme-option ${fs.state.theme === value ? "selected" : ""}" data-theme="${value}" aria-pressed="${fs.state.theme === value}"><div class="theme-preview"></div><span>${label}</span></button>`).join("")}</div></div><div class="setting-section setting-line"><div><h3>Veći tekst bilježaka</h3><p>Ugodnije čitanje i pisanje u uređivaču.</p></div><button class="switch ${fs.state.large ? "on" : ""}" id="large-text" role="switch" aria-checked="${fs.state.large}" aria-label="Veći tekst bilježaka"><span></span></button></div><div class="setting-section"><h3>Sigurnosna kopija</h3><div class="setting-line"><p>Preuzmi sve mape, tekstove i postavke u jednu datoteku. Kopiju možeš vratiti ovdje ili u Orbitu na drugom uređaju.</p></div><div class="backup-actions"><button class="button secondary" id="backup-export">${icon("download")} Preuzmi kopiju</button><button class="button secondary" id="backup-import">${icon("upload")} Pregledaj i vrati kopiju</button></div></div><div class="settings-note"><strong>Rad se čuva lokalno u pregledniku.</strong><br>Prije izlaska provjeri status spremanja. U izborniku Moj rad izvezi JSON za nastavak na drugom računalu ili predaju nastavniku. HTML datoteka ne sadrži naknadno upisane odgovore. Radi u jednoj kartici; na zajedničkom računalu izvezi rad pa započni novi. Simulirani profili nisu stvarni računi.<br><br>Orbit je nastavni simulator strukture, funkcija i mehanizama OS-a. Terminal i model procesa ne upravljaju stvarnim OS-om, uređajima ili aplikacijama računala.</div><div class="settings-version">ORBIT OS · LOKALNO NASTAVNO IZDANJE 0.8.2</div></div>`;
+    c.innerHTML = `<div class="settings-app"><h2>Uredi svoj prostor.</h2><div class="setting-section"><h3>Pozadina</h3><div class="theme-grid">${[["dusk", "Sumrak"], ["sea", "Obala"], ["dawn", "Zora"]].map(([value, label]) => `<button class="theme-option ${fs.state.theme === value ? "selected" : ""}" data-theme="${value}" aria-pressed="${fs.state.theme === value}"><div class="theme-preview"></div><span>${label}</span></button>`).join("")}</div></div><div class="setting-section setting-line"><div><h3>Veći tekst bilježaka</h3><p>Ugodnije čitanje i pisanje u uređivaču.</p></div><button class="switch ${fs.state.large ? "on" : ""}" id="large-text" role="switch" aria-checked="${fs.state.large}" aria-label="Veći tekst bilježaka"><span></span></button></div><div class="setting-section"><h3>Sigurnosna kopija</h3><div class="setting-line"><p>Preuzmi sve mape, tekstove i postavke u jednu datoteku. Kopiju možeš vratiti ovdje ili u Orbitu na drugom uređaju.</p></div><div class="backup-actions"><button class="button secondary" id="backup-export">${icon("download")} Preuzmi kopiju</button><button class="button secondary" id="backup-import">${icon("upload")} Pregledaj i vrati kopiju</button></div></div><div class="settings-note"><strong>Rad se čuva lokalno u pregledniku.</strong><br>Prije izlaska provjeri status spremanja. U izborniku Moj rad izvezi JSON za nastavak na drugom računalu ili predaju nastavniku. HTML datoteka ne sadrži naknadno upisane odgovore. Radi u jednoj kartici; na zajedničkom računalu izvezi rad pa započni novi. Simulirani profili nisu stvarni računi.<br><br>Orbit je nastavni simulator strukture, funkcija i mehanizama OS-a. Terminal i model procesa ne upravljaju stvarnim OS-om, uređajima ili aplikacijama računala.</div><div class="settings-version">ORBIT OS · LOKALNO NASTAVNO IZDANJE 0.9.0</div></div>`;
     for (const b of $$5(".theme-option", c)) b.onclick = () => safe(() => {
       fs.transact(() => {
         fs.state.theme = b.dataset.theme;
@@ -3655,9 +4124,9 @@ Slobodno: ${(32 - used) * 4} KiB`);
     $5("#launcher-grid").innerHTML = apps.map(([id, a]) => `<button class="launcher-app" data-open="${id}">${appIcon(id)}<span>${a.title}</span></button>`).join("") || '<p class="muted">Nema rezultata.</p>';
     openButtons($5("#launcher-grid"));
   }
-  $5("#shortcuts").innerHTML = ["explorer", "cpu", "memory", "users", "network", "lab"].map((id) => `<button class="shortcut" data-open="${id}">${appIcon(id)}<span>${APPS[id].title}</span></button>`).join("");
+  $5("#shortcuts").innerHTML = ["course", "explorer", "lab"].map((id) => `<button class="shortcut" data-open="${id}">${appIcon(id)}<span>${APPS[id].title}</span></button>`).join("");
   openButtons($5("#shortcuts"));
-  $5("#dock-apps").innerHTML = ["explorer", "files", "terminal", "cpu", "lab", "settings"].map((id) => `<button data-app="${id}" aria-label="${APPS[id].title}">${appIcon(id)}</button>`).join("");
+  $5("#dock-apps").innerHTML = ["course", "explorer", "files", "lab", "report", "settings"].map((id) => `<button data-app="${id}" aria-label="${APPS[id].title}">${appIcon(id)}</button>`).join("");
   for (const b of $$5("#dock-apps button")) b.onclick = () => {
     const w = windows.get(b.dataset.app);
     if (w && active === w.id && !w.min) minimize(w.id);
@@ -3689,7 +4158,7 @@ Slobodno: ${(32 - used) * 4} KiB`);
     }
   };
   $5("#app-search").oninput = (e) => launcherApps(e.target.value);
-  $5("#brand").onclick = () => openApp("home");
+  $5("#brand").onclick = () => openApp("course");
   $5("#desktop-toggle").onclick = () => {
     for (const id of windows.keys()) minimize(id);
   };
@@ -3743,7 +4212,8 @@ Slobodno: ${(32 - used) * 4} KiB`);
     });
     refresh("report");
   } });
-  openApp("explorer");
+  var firstCourse = openApp("course");
+  if (innerWidth > 700) maximize(firstCourse);
   if (initialWarning) setTimeout(() => toast(initialWarning), 800);
 
   // public/orbit/pwa.js

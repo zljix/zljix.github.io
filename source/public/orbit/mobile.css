@@ -1,0 +1,84 @@
+/* Last stylesheet: touch controls and narrow-screen reading. */
+#pwa-status-button{font:inherit;font-size:12px;gap:6px;white-space:nowrap;padding:7px 10px;border:1px solid #ffffff50;border-radius:8px;min-height:32px}
+#pwa-status-button::before{content:'';width:7px;height:7px;border-radius:50%;background:#ffc987;flex:none}
+#pwa-status-button[data-ready=true]::before{background:#99e5cb}
+#pwa-dialog{color:#423652;background:#fcfaff;width:min(540px,94vw);max-height:90dvh;overflow:auto;border:1px solid #ddd4ec;border-radius:20px;padding:24px;font-size:15px;line-height:1.6}
+#pwa-dialog::backdrop{background:#20172c99;backdrop-filter:blur(5px)}
+#pwa-dialog h2{font-size:25px;line-height:1.25;margin:10px 0 18px}
+#pwa-dialog h3{font-size:16px;margin:22px 0 7px}
+#pwa-dialog p{margin:8px 0}
+#pwa-dialog .pwa-state{border:1px solid #dbd3ed;border-radius:12px;background:#eee9fa;padding:15px}
+#pwa-dialog [data-install][hidden]{display:none}
+#pwa-dialog .pwa-footer{font-size:13px;color:#71657e;border-top:1px solid #e6dff0;padding-top:16px;margin-top:22px}
+@media(max-width:700px){
+  :root{--phone-top:calc(56px + env(safe-area-inset-top));--phone-bottom:calc(76px + env(safe-area-inset-bottom))}
+  body{font-size:14px}
+  .topbar{height:var(--phone-top);padding:env(safe-area-inset-top) max(10px,env(safe-area-inset-right)) 0 max(10px,env(safe-area-inset-left));gap:8px}
+  .top-divider,#active-app,#clock,#profile-button{display:none!important}
+  .topbar button{min-height:44px}
+  .top-right{gap:6px!important;min-width:0}
+  #workspace-search-button{min-width:44px}
+  .local-work-button{font-size:13px!important;padding:7px 10px!important;min-height:44px}
+  .local-badge{max-width:100px;font-size:10px}
+  html[data-distribution=pwa] .local-badge{display:none!important}
+  #pwa-status-button{font-size:11px;padding:7px 8px;min-height:44px}
+  #desktop{top:var(--phone-top);left:env(safe-area-inset-left);right:env(safe-area-inset-right)}
+  .window,.window.maximized{left:0!important;top:0!important;width:100%!important;height:calc(100% - var(--phone-bottom))!important;border-radius:0;border-left:0;border-right:0}
+  .window-header{height:48px;min-height:48px;padding:0 10px;touch-action:auto}
+  .window-title{font-size:14px}
+  .window-controls{gap:3px}
+  .window-controls button{height:44px;width:44px}
+  .window-controls [data-window=max]{display:none}
+  .window-controls svg{height:18px;width:18px}
+  .window-content{overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .dock{bottom:env(safe-area-inset-bottom);height:70px;width:100%;max-width:100%;padding:9px max(8px,env(safe-area-inset-right)) 9px max(8px,env(safe-area-inset-left));gap:6px;border-radius:0;background:#322d46e8;border-width:1px 0 0;box-shadow:none}
+  .dock-launch{width:44px!important;height:44px!important;flex:none}
+  #dock-apps{min-width:0;overflow-x:auto;overscroll-behavior-x:contain;gap:4px;scrollbar-width:none;padding:0 1px 5px}
+  #dock-apps button{min-width:44px;min-height:44px;flex:none}
+  .dock .app-icon{width:38px;height:38px}
+  .dock-divider{flex:none}
+  .launcher{bottom:var(--phone-bottom);max-height:calc(100dvh - var(--phone-top) - var(--phone-bottom) - 12px);overflow:auto;padding:18px;max-width:calc(100vw - 16px);border-radius:14px}
+  .launcher-heading>span{font-size:9px}
+  .launcher-app{font-size:12px;min-height:66px;line-height:1.4}
+  .launcher-footer strong,.launcher-footer small{font-size:12px}
+  #app-search{font-size:16px;min-height:44px}
+  .button,.file-toolbar .button,.file-selection .button,.editor-toolbar .button,.process-table button,.backup-actions .button,.lesson .button{min-height:44px;min-width:44px;font-size:14px;line-height:1.4;padding:10px 12px}
+  input:not([type=checkbox]):not([type=radio]),textarea,select{font-size:16px!important;min-height:44px;max-width:100%}
+  input[type=checkbox],input[type=radio]{width:20px;height:20px}
+  summary{min-height:44px;padding-top:10px;padding-bottom:10px;line-height:1.5}
+  .os-explorer{font-size:15px}
+  .os-heading{padding:22px 16px 18px}
+  .os-heading h1{font-size:28px;line-height:1.2}
+  .os-heading p,.os-intro p,.os-functions p,.os-goal,.os-event p,.os-example p,.os-summary p,.os-details>p{font-size:15px;line-height:1.65}
+  .os-tabs{padding:8px;gap:3px}
+  .os-tabs button{min-height:44px;padding:8px 7px;font-size:12px;gap:4px;justify-content:center;flex:1}
+  .os-tabs button span{width:20px;height:20px;flex:none;font-size:11px}
+  .os-map button{font-size:14px;min-height:48px}
+  .os-map span,.os-note,.os-terms dt,.os-terms dd,.os-field,.os-state dd,.os-trace li,.os-trace p,.os-save-row>span,.os-next-lab{font-size:14px}
+  .os-map{padding:12px}
+  .os-lessons>button{font-size:13px;min-height:68px;padding:10px 7px;gap:6px}
+  .os-lessons>button small{font-size:12px}
+  .os-lessons>.button,.os-controls>.button,.os-save-row>.button,.os-next-lab .button,.os-part .button,.os-functions .button{font-size:14px;min-height:44px}
+  .os-field small,.os-state dt,.os-controls>span{font-size:12px}
+  .os-field textarea,.os-field select{font-size:16px;line-height:1.6}
+  .os-state-note{font-size:12px!important}
+  .os-body{padding:20px 16px 28px}
+  .os-part p{font-size:15px}
+  .os-state{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .table-scroll{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+  #local-work-dialog,#pwa-dialog{padding:20px 16px;width:calc(100vw - 18px);max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));border-radius:16px}
+  .local-dialog-heading{gap:10px}
+  .local-dialog-heading .label{font-size:9px;letter-spacing:1px}
+  .local-lead,.local-storage-note p,.local-import>p,#local-work-dialog details p,#local-work-dialog details,.local-field{font-size:14px}
+  .local-help{font-size:13px}
+  .local-actions>.button{flex:1 1 150px}
+  .local-warning{top:var(--phone-top);max-height:45dvh;overflow:auto;font-size:14px}
+  .local-warning button{min-height:44px}
+  #toast{bottom:calc(var(--phone-bottom) + 8px);max-width:calc(100vw - 24px);font-size:14px}
+  #dialog{max-height:calc(100dvh - 30px);overflow:auto}
+  #dialog-description{font-size:14px;line-height:1.6}
+  .dialog-actions .button{font-size:14px}
+}
+@media(max-width:350px){#brand strong{font-size:16px}#brand .brand-symbol{font-size:25px}.topbar{gap:4px}.local-work-button{padding:6px!important}.os-tabs button{font-size:11px;padding:8px 3px}.os-tabs button span{display:none}}
+@media(max-width:380px){#workspace-search-button{display:none!important}}
+@media(max-height:500px) and (max-width:1000px){.launcher{max-height:70dvh;overflow:auto}.window{min-height:0}}
