@@ -1,4 +1,4 @@
-# Orbit OS 0.11.0
+# Orbit OS 0.11.1
 
 Aplikacija na hrvatskom za samostalno učenje strukture, funkcija i mehanizama operacijskih sustava. Radi u pregledniku, bez računa i aplikacijskog poslužitelja. Objavljena na https://zljix.github.io/.
 
@@ -47,4 +47,4 @@ npm run check:artifact
 
 Izgradnja stvara `dist/Orbit-OS.html` i mobilni paket u `dist/mobitel/`, uključujući `downloads/Orbit-OS.html`. GitHub Pages koristi `main`, mapu `/`; mobilne datoteke objavljuju se u korijenu, a desktop HTML u `downloads/`. Ne objavljuju se QA datoteke, učenički radovi ni `node_modules`.
 
-Verzija 0.11.0 ima 88 automatiziranih testova. Provjereni su prijelaz prve misije kroz 100/120/140 XP, pomoć na Hard, trajna traka bodova, očuvanje težine i ranijih rezultata, početnička misija do 100 XP, ispravci, nastavak nakon osvježavanja, oba završna pokušaja, praktični zaključak, detaljni mehanizam, mrežna dijagnostika i širine 320, 375 i 414 px u Chromiumu. Test na fizičkim iPhone/Android uređajima ni evaluacija s razredom nisu provedeni.
+Verzija 0.11.1 ima 90 automatiziranih testova. Provjereni su prijelaz prve misije kroz 100/120/140 XP, pomoć na Hard, trajna traka bodova, očuvanje težine i ranijih rezultata, početnička misija do 100 XP, ispravci, nastavak nakon osvježavanja, oba završna pokušaja, praktični zaključak, detaljni mehanizam, mrežna dijagnostika i širine 320, 375 i 414 px u Chromiumu. Test na fizičkim iPhone/Android uređajima ni evaluacija s razredom nisu provedeni.

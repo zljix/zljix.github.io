@@ -1,4 +1,4 @@
-# Orbit OS 0.11.0 — razvoj
+# Orbit OS 0.11.1 — razvoj
 
 Samostalni desktop HTML i mobilni PWA nastaju iz `public/orbit/` pomoću `scripts/build.mjs` i esbuilda 0.28.0. Nema aplikacijskog poslužitelja niti udaljenog bodovanja.
 
@@ -29,7 +29,7 @@ npm run build
 npm run check:artifact
 ```
 
-88 testova pokriva postojeće modele, postupke oporavka, migraciju, ograničenja bodovanja, sve kategorije do 1720 XP, neponavljanje bodova, sve uvjete usporedbe, pogrešne i nepotpune odgovore, čuvanje pomoći i prvog odgovora, završne pokušaje, ograničenje povijesti, uvoz/izvoz i očuvanje ranijih mrežnih bilježaka. Provjera artefakta traži jednu valjanu ugrađenu skriptu, ugrađene stilove, desktop bez mrežnih API poziva, valjan manifest i offline worker.
+90 testova pokriva postojeće modele, postupke oporavka, migraciju, ograničenja bodovanja, sve kategorije do 1720 XP, neponavljanje bodova, sve uvjete usporedbe, pogrešne i nepotpune odgovore, čuvanje pomoći i prvog odgovora, završne pokušaje, ograničenje povijesti, uvoz/izvoz i očuvanje ranijih mrežnih bilježaka. Provjera artefakta traži jednu valjanu ugrađenu skriptu, ugrađene stilove, desktop bez mrežnih API poziva, valjan manifest i offline worker.
 
 Ranija UI provjera u Chromiumu: misija do 100 XP s pogreškom i ispravkom; nastavak nakon osvježavanja; završni rezultati 40/100 i 100/100 s obnovom aktivnog pokušaja; laboratorijski zaključak; svih sedam koraka jednog detaljnog mehanizma; mrežni DNS izazov prije/poslije popravka; širine 320, 375 i 414 px. Provjera 0.11: prva misija 100 → 120 → 140 XP, pogrešna Hard dijagnoza, pomoć i ispravak; promjena težine bez gubitka XP-a i ponovno otvaranje; trajna traka i prikaz 320/375/414 px. Fizički iPhone/Android i rad s razredom nisu testirani.
 
@@ -37,4 +37,4 @@ Ranija UI provjera u Chromiumu: misija do 100 XP s pogreškom i ispravkom; nasta
 
 Korijen GitHub repozitorija sadrži šest mobilnih datoteka. Desktop HTML je u `downloads/`, izvor u `source/`. Ne objavljuj učeničke JSON kopije, testne radne prostore, QA HTML ni `node_modules`.
 
-Worker provjerava šest predmemoriranih resursa: mobilni HTML, manifest, tri ikone i `downloads/Orbit-OS.html`. Spremnost ikone zahtijeva potvrđene `ready` i `downloadReady`; ikona je inače onemogućena. Stari worker ne može pogrešno potvrditi novi paket. Gumb otvara dijalog s HTML preuzimanjem, instalacijom kad preglednik nudi događaj i uputama za mobilne preglednike. Desktop preuzimanje radi i iz offline predmemorije. Worker dobiva oznaku iz verzije i hashiranog sadržaja oba HTML-a, manifesta, workera i ikona. Nova predmemorija instalira se cjelovito, bez brisanja stare pri pogrešci. Ne koristi `skipWaiting`; nadogradnja čeka zatvaranje prethodnih prozora aplikacije. Učenički podatci u localStorage odvojeni su od predmemorije aplikacije.
+Worker provjerava šest predmemoriranih resursa: mobilni HTML, manifest, tri ikone i `downloads/Orbit-OS.html`. Spremnost ikone zahtijeva potvrđene `ready` i `downloadReady` te uspješno pripremljen neprazan HTML Blob. Eksplicitni `fetch` prolazi kroz worker i preuzima datoteku u memoriju prije zelene ikone; klik sprema Blob bez novog mrežnog zahtjeva. To pokriva preglednike čije nativno preuzimanje ne prolazi kroz worker; ikona je inače onemogućena. Stari worker ne može pogrešno potvrditi novi paket. Gumb otvara dijalog s HTML preuzimanjem, instalacijom kad preglednik nudi događaj i uputama za mobilne preglednike. Desktop preuzimanje radi i iz offline predmemorije. Worker dobiva oznaku iz verzije i hashiranog sadržaja oba HTML-a, manifesta, workera i ikona. Nova predmemorija instalira se cjelovito, bez brisanja stare pri pogrešci. Ne koristi `skipWaiting`; nadogradnja čeka zatvaranje prethodnih prozora aplikacije. Učenički podatci u localStorage odvojeni su od predmemorije aplikacije.

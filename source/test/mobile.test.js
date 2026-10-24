@@ -68,3 +68,14 @@ test('offline download is ready only when the standalone HTML is cached and is s
  const result=await w.dispatch('fetch',{request:{url,method:'GET',mode:'navigate'}});assert.equal(result.body,'cached '+url);assert.equal(w.network.length,0);
  w.stores.get('orbit-mobile:'+scope+':new').delete(url);assert.equal((await w.status()).ready,false);assert.equal((await w.status()).downloadReady,false);
 });
+
+const {prepareOfflineDownload}=await import('../public/orbit/pwa.js');
+test('prepared offline download uses an explicit fetch and returns actual HTML bytes',async()=>{
+ let called=false;const blob=await prepareOfflineDownload(async(url,options)=>{called=true;assert.equal(url,'./downloads/Orbit-OS.html');assert.equal(options.signal.aborted,false);return new Response('<!doctype html><title>Orbit</title>');});
+ assert.equal(called,true);assert.equal(blob.type,'text/html;charset=utf-8');assert.equal(await blob.text(),'<!doctype html><title>Orbit</title>');
+});
+test('an error, empty response or stalled file never becomes a ready download',async()=>{
+ await assert.rejects(prepareOfflineDownload(async()=>new Response('Not found',{status:404})),/uspjelo/);
+ await assert.rejects(prepareOfflineDownload(async()=>new Response('')),/Prazna/);
+ await assert.rejects(prepareOfflineDownload(async(url,{signal})=>new Promise((resolve,reject)=>signal.addEventListener('abort',()=>reject(Error('aborted')))),5),/aborted/);
+});
