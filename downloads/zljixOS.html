@@ -346,9 +346,9 @@ body.large .editor-text{font-size:16px;line-height:1.9}
 </head>
 <body data-theme="dusk">
   <div class="wallpaper" aria-hidden="true"><div class="planet"></div><div class="orbit-line one"></div><div class="orbit-line two"></div><div class="wall-glow"></div><div class="wall-word">zljixOS<span>Otkrij kako sustav radi.</span></div></div>
-  <header class="topbar"><button id="brand" aria-label="zljixOS — početna"><span class="brand-symbol">◌</span><strong>zljix<span>OS</span><small class="app-version">v0.15.2</small></strong></button><span class="top-divider"></span><span id="active-app">Radna površina</span><button id="global-score" title="Ukupni bodovi" aria-label="Bodovi: 0 XP. Otvori pregled misija."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L2.2 9.4l6.1-.9Z"/></svg><span id="global-score-value" role="status" aria-live="polite" aria-atomic="true">0 XP</span></button><div class="top-right"><span class="local-badge"><i></i> Otvaranje lokalnog rada…</span><button id="desktop-toggle" title="Prikaži radnu površinu" aria-label="Prikaži radnu površinu"></button><time id="clock"></time></div></header>
+  <header class="topbar"><button id="brand" aria-label="zljixOS — početna"><span class="brand-symbol">◌</span><strong>zljix<span>OS</span><small class="app-version">v0.16.0</small></strong></button><span class="top-divider"></span><span id="active-app">Radna površina</span><button id="global-score" title="Ukupni bodovi" aria-label="Bodovi: 0 XP. Otvori pregled misija."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L2.2 9.4l6.1-.9Z"/></svg><span id="global-score-value" role="status" aria-live="polite" aria-atomic="true">0 XP</span></button><div class="top-right"><span class="local-badge"><i></i> Otvaranje lokalnog rada…</span><button id="desktop-toggle" title="Prikaži radnu površinu" aria-label="Prikaži radnu površinu"></button><time id="clock"></time></div></header>
   <main id="desktop" aria-label="Radna površina"><nav id="shortcuts" aria-label="Aplikacije na radnoj površini"></nav><div id="windows"></div><div class="desktop-caption"><span class="tiny-pill">UČENJE OPERACIJSKIH SUSTAVA</span><span>Struktura. Funkcije. Mehanizmi.</span></div></main>
-  <div id="launcher" class="launcher" hidden><div class="launcher-heading"><strong>Tvoje aplikacije</strong><span>zljixOS · 0.15.2</span></div><label class="search"><span id="search-icon"></span><input id="app-search" placeholder="Pronađi aplikaciju…" aria-label="Pronađi aplikaciju"></label><div id="launcher-grid"></div><div class="launcher-footer"><span class="avatar">U</span><div><strong>Lokalni rad</strong><small>Spremi JSON kroz Moj rad</small></div></div></div>
+  <div id="launcher" class="launcher" hidden><div class="launcher-heading"><strong>Tvoje aplikacije</strong><span>zljixOS · 0.16.0</span></div><label class="search"><span id="search-icon"></span><input id="app-search" placeholder="Pronađi aplikaciju…" aria-label="Pronađi aplikaciju"></label><div id="launcher-grid"></div><div class="launcher-footer"><span class="avatar">U</span><div><strong>Lokalni rad</strong><small>Spremi JSON kroz Moj rad</small></div></div></div>
   <footer class="dock" aria-label="Traka aplikacija"><button class="dock-launch" id="launcher-button" aria-label="Otvori izbornik aplikacija" aria-expanded="false"></button><span class="dock-divider"></span><div id="dock-apps"></div></footer>
   <div id="toast" role="status" aria-live="polite" hidden></div>
   <dialog id="dialog"><form id="dialog-form"><div class="dialog-symbol" id="dialog-icon"></div><h2 id="dialog-title"></h2><p id="dialog-description"></p><label id="dialog-label">Naziv<input id="dialog-input" autocomplete="off" maxlength="100"></label><p id="dialog-error" class="error" role="alert"></p><div class="dialog-actions"><button type="button" class="button secondary" id="dialog-cancel">Odustani</button><button type="submit" class="button primary" id="dialog-submit">Spremi</button></div></form></dialog>
@@ -387,7 +387,7 @@ body.large .editor-text{font-size:16px;line-height:1.9}
       const dialog = document.createElement("dialog");
       dialog.id = "student-dialog";
       dialog.setAttribute("aria-labelledby", "student-title");
-      dialog.innerHTML = `<form id="student-form" autocomplete="off"><span class="label">zljixOS 0.15.2 · TVOJ PROSTOR ZA UČENJE</span><h1 id="student-title">Prije početka<br>upoznajmo se.</h1><p>Unesi svoje ime i prezime. Uz njih se spremaju tvoji bodovi, vježbe i izvještaji.</p><label>Ime<input id="student-first" name="firstName" required maxlength="50" autocomplete="off" autocapitalize="words"></label><label>Prezime<input id="student-last" name="lastName" required maxlength="50" autocomplete="off" autocapitalize="words"></label><p id="student-error" class="error" role="alert"></p><button class="button primary" type="submit">Otvori moj rad →</button><p class="student-note">Na zajedničkom računalu svaki put upiši svoje ime. Postojeći rad pod tim imenom nastavlja se, a novo ime otvara prazan napredak. Ime ostaje u ovom pregledniku i u kopijama koje samostalno spremiš.</p></form>`;
+      dialog.innerHTML = `<form id="student-form" autocomplete="off"><span class="label">zljixOS 0.16.0 · TVOJ PROSTOR ZA UČENJE</span><h1 id="student-title">Prije početka<br>upoznajmo se.</h1><p>Unesi svoje ime i prezime. Uz njih se spremaju tvoji bodovi, vježbe i izvještaji.</p><label>Ime<input id="student-first" name="firstName" required maxlength="50" autocomplete="off" autocapitalize="words"></label><label>Prezime<input id="student-last" name="lastName" required maxlength="50" autocomplete="off" autocapitalize="words"></label><p id="student-error" class="error" role="alert"></p><button class="button primary" type="submit">Otvori moj rad →</button><p class="student-note">Na zajedničkom računalu svaki put upiši svoje ime. Postojeći rad pod tim imenom nastavlja se, a novo ime otvara prazan napredak. Ime ostaje u ovom pregledniku i u kopijama koje samostalno spremiš.</p></form>`;
       dialog.oncancel = (e) => e.preventDefault();
       document.body.append(dialog);
       dialog.showModal();
@@ -410,9 +410,9 @@ body.large .editor-text{font-size:16px;line-height:1.9}
   var aliases = { pwd: "get-location", gl: "get-location", cd: "set-location", sl: "set-location", dir: "get-childitem", ls: "get-childitem", gci: "get-childitem", cat: "get-content", type: "get-content", gc: "get-content", copy: "copy-item", cp: "copy-item", cpi: "copy-item", move: "move-item", mv: "move-item", mi: "move-item", ren: "rename-item", rni: "rename-item", del: "remove-item", rm: "remove-item", ri: "remove-item", select: "select-object", sort: "sort-object", measure: "measure-object", sls: "select-string", echo: "write-output", cls: "clear-host", clear: "clear-host", help: "get-help" };
   function psProperty(item, name) {
     if (item === null || typeof item !== "object") throw Error("Očekuje se objekt sa svojstvom " + name + ".");
-    const key2 = Object.keys(item).find((k) => k.toLowerCase() === name.toLowerCase());
-    if (!key2) throw Error("Objekt nema svojstvo " + name + ". Provjeri Name, Length, Extension ili Line.");
-    return item[key2];
+    const key3 = Object.keys(item).find((k) => k.toLowerCase() === name.toLowerCase());
+    if (!key3) throw Error("Objekt nema svojstvo " + name + ". Provjeri Name, Length, Extension ili Line.");
+    return item[key3];
   }
   function formatPowerShell(items) {
     if (!items.length) return "";
@@ -427,26 +427,26 @@ body.large .editor-text{font-size:16px;line-height:1.9}
     for (let i = 0; i < tokens.length; i++) {
       const t = tokens[i], v = t.value;
       if (!t.quoted && /^-[a-z]/i.test(v)) {
-        const key2 = v.slice(1).toLowerCase();
-        if (!Object.hasOwn(schema, key2)) throw Error("Nepodržan parametar " + v + ". Pogledaj primjer ili Get-Help.");
-        if (Object.hasOwn(result, key2)) throw Error("Parametar " + v + " naveden je dvaput.");
-        if (schema[key2] === "switch") result[key2] = true;
+        const key3 = v.slice(1).toLowerCase();
+        if (!Object.hasOwn(schema, key3)) throw Error("Nepodržan parametar " + v + ". Pogledaj primjer ili Get-Help.");
+        if (Object.hasOwn(result, key3)) throw Error("Parametar " + v + " naveden je dvaput.");
+        if (schema[key3] === "switch") result[key3] = true;
         else {
           const next = tokens[++i];
           if (!next || !next.quoted && /^-[a-z]/i.test(next.value)) throw Error("Nedostaje vrijednost parametra " + v + ".");
-          result[key2] = next.value;
+          result[key3] = next.value;
         }
       } else free.push(v);
     }
     for (const value of free) {
-      const key2 = positional.find((k) => !Object.hasOwn(result, k));
-      if (!key2) throw Error("Previše argumenata. Tekst s razmacima stavi u navodnike.");
-      result[key2] = value;
+      const key3 = positional.find((k) => !Object.hasOwn(result, k));
+      if (!key3) throw Error("Previše argumenata. Tekst s razmacima stavi u navodnike.");
+      result[key3] = value;
     }
     return result;
   }
   function powerShellCommand(state, tokens, input, piped, api) {
-    const { requireNode: requireNode2, write: write2, destination: destination2, resolveShellPath: resolveShellPath2, shellPath: shellPath2, shellHome: shellHome2, shellNode: shellNode2, key: key2, parentPath: parentPath2, basename: basename2 } = api;
+    const { requireNode: requireNode2, write: write2, destination: destination2, resolveShellPath: resolveShellPath2, shellPath: shellPath2, shellHome: shellHome2, shellNode: shellNode2, key: key3, parentPath: parentPath2, basename: basename2 } = api;
     const name = tokens[0].value.toLowerCase(), cmd = aliases[name] || name, rest = tokens.slice(1), events = [];
     const event = (action3, path, extra = {}) => events.push({ action: action3, path, ...extra });
     const done = (items = []) => ({ items, output: formatPowerShell(items), events, code: 0 });
@@ -482,7 +482,7 @@ body.large .editor-text{font-size:16px;line-height:1.9}
     if (cmd === "get-childitem") {
       const p = params({ path: "value", file: "switch", directory: "switch" }, ["path"]);
       if (p.file && p.directory) throw Error("Odaberi -File ili -Directory.");
-      const n = requireNode2(state, p.path ?? "."), nodes = n.type === "dir" ? state.nodes.filter((x) => x.path !== "/" && key2(state, parentPath2(x.path)) === key2(state, n.path)) : [n];
+      const n = requireNode2(state, p.path ?? "."), nodes = n.type === "dir" ? state.nodes.filter((x) => x.path !== "/" && key3(state, parentPath2(x.path)) === key3(state, n.path)) : [n];
       const items = nodes.filter((x) => (!p.file || x.type === "file") && (!p.directory || x.type === "dir")).sort((a, b) => a.path.localeCompare(b.path)).map(fileObject);
       event("list", n.path, { files: !!p.file });
       return done(items);
@@ -525,7 +525,7 @@ body.large .editor-text{font-size:16px;line-height:1.9}
       if (rename && /[\\/:]/.test(dest)) throw Error("-NewName mijenja samo naziv; za novu mapu koristi Move-Item.");
       let path = rename ? parentPath2(n.path) + "/" + dest : resolveShellPath2(state, dest);
       if (!rename && shellNode2(state, path)?.type === "dir") path = shellNode2(state, path).path + "/" + basename2(n.path);
-      if (key2(state, path) === key2(state, n.path)) throw Error("Izvor i odredište su ista datoteka.");
+      if (key3(state, path) === key3(state, n.path)) throw Error("Izvor i odredište su ista datoteka.");
       if (cmd !== "copy-item" && shellNode2(state, path)) throw Error("Odredište već postoji. Odaberi slobodan naziv.");
       const old = n.path, result = write2(state, path, n.content);
       if (cmd !== "copy-item") state.nodes = state.nodes.filter((x) => x !== n);
@@ -1692,7 +1692,7 @@ body.large .editor-text{font-size:16px;line-height:1.9}
     for (const [id, r] of Object.entries(raw.records)) {
       const lesson2 = lessonById(id), variant = lesson2 && object2(r) && currentVariant(lesson2, r);
       if (!lesson2 || !variant || !int(r.example, 0, lesson2.example.steps.length - 1) || !int(r.exampleSeen, r.example, lesson2.example.steps.length - 1) || !int(r.step, -1, variant.steps.length - 1) || r.prediction !== null && !int(r.prediction, 0, lesson2.experiment.choices.length - 1) || r.step >= 0 && r.prediction === null || typeof r.reflection !== "string" || r.reflection.length > 3e3 || typeof r.finished !== "boolean") throw new Error("Neispravan napredak lekcije.");
-      for (const key2 of ["answers", "firstAnswers", "attempts"]) if (!Array.isArray(r[key2]) || r[key2].length !== lesson2.quiz.length) throw new Error("Neispravna provjera razumijevanja.");
+      for (const key3 of ["answers", "firstAnswers", "attempts"]) if (!Array.isArray(r[key3]) || r[key3].length !== lesson2.quiz.length) throw new Error("Neispravna provjera razumijevanja.");
       for (let i = 0; i < lesson2.quiz.length; i++) {
         const n = lesson2.quiz[i].options.length - 1;
         if (r.answers[i] !== null && !int(r.answers[i], 0, n) || r.firstAnswers[i] !== null && !int(r.firstAnswers[i], 0, n) || !int(r.attempts[i], 0, 100) || r.answers[i] === null !== (r.firstAnswers[i] === null) || r.answers[i] === null !== (r.attempts[i] === 0)) throw new Error("Neispravni odgovori lekcije.");
@@ -1854,9 +1854,9 @@ body.large .editor-text{font-size:16px;line-height:1.9}
     if (!lesson2?.variants.some((v) => v[0] === variant)) throw Error("Nepoznat mehanizam ili inačica pokusa.");
     let state = { mode: "Korisnički", cpu: "—", process: "—", memory: "—", io: "Nema zahtjeva", result: "Još nema ishoda" };
     const steps = [];
-    const add2 = (key2, actor, title, why, patch = {}) => {
+    const add2 = (key3, actor, title, why, patch = {}) => {
       state = { ...state, ...patch };
-      steps.push({ key: key2, actor, title, why, state: copy3(state) });
+      steps.push({ key: key3, actor, title, why, state: copy3(state) });
     };
     if (id === "process") {
       const count = variant === "two" ? 2 : 1;
@@ -1987,9 +1987,9 @@ body.large .editor-text{font-size:16px;line-height:1.9}
     }
     for (const r of raw.records) {
       validate(r?.id, r);
-      const key2 = r.id + ":" + r.variant;
-      if (seen.has(key2) || typeof r.at !== "string" || r.at.length > 100 || !Number.isFinite(Date.parse(r.at))) throw Error("Neispravan spremljeni pokus.");
-      seen.add(key2);
+      const key3 = r.id + ":" + r.variant;
+      if (seen.has(key3) || typeof r.at !== "string" || r.at.length > 100 || !Number.isFinite(Date.parse(r.at))) throw Error("Neispravan spremljeni pokus.");
+      seen.add(key3);
       records.push({ id: r.id, variant: r.variant, prediction: r.prediction, reflection: r.reflection, at: r.at });
     }
     return { drafts, records };
@@ -2039,11 +2039,11 @@ body.large .editor-text{font-size:16px;line-height:1.9}
   }
   function validateNetworkConfig(raw) {
     if (!raw || !["dhcp", "manual"].includes(raw.mode)) throw new Error("Neispravan način mrežne konfiguracije.");
-    for (const key2 of ["connected", "blockIcmp", "blockHttp", "webRunning"]) if (typeof raw[key2] !== "boolean") throw new Error("Neispravno stanje mrežne simulacije.");
+    for (const key3 of ["connected", "blockIcmp", "blockHttp", "webRunning"]) if (typeof raw[key3] !== "boolean") throw new Error("Neispravno stanje mrežne simulacije.");
     ipv4(raw.ip);
     maskFor(raw.prefix);
-    for (const key2 of ["gateway", "dns"]) if (raw[key2] !== "") ipv4(raw[key2]);
-    return Object.fromEntries(Object.keys(defaultNetworkConfig()).map((key2) => [key2, raw[key2]]));
+    for (const key3 of ["gateway", "dns"]) if (raw[key3] !== "") ipv4(raw[key3]);
+    return Object.fromEntries(Object.keys(defaultNetworkConfig()).map((key3) => [key3, raw[key3]]));
   }
   function normalizeTarget(kind, target) {
     if (!["ping", "nslookup", "curl"].includes(kind) || typeof target !== "string") throw new Error("Odaberi ping, nslookup ili curl.");
@@ -2405,22 +2405,22 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     const next = defaultLabProof();
     const cpuKeys = ["fcfs", "rr2", "rr1", "rr6", "comparison", "ioFcfs", "ioSjf", "ioBlocked"];
     const memoryKeys = ["fifo", "lru", "comparison", "translation"];
-    for (const [key2, v] of Object.entries(raw.cpu)) {
-      if (!cpuKeys.includes(key2) || !object3(v) || !Number.isInteger(v.steps) || v.steps < 0 || v.steps > 400) throw Error("Neispravan CPU pokus.");
+    for (const [key3, v] of Object.entries(raw.cpu)) {
+      if (!cpuKeys.includes(key3) || !object3(v) || !Number.isInteger(v.steps) || v.steps < 0 || v.steps > 400) throw Error("Neispravan CPU pokus.");
       const c = { algorithm: v.algorithm, quantum: v.quantum, jobs: checkJobs(v.jobs), steps: v.steps };
       const run = cpuRun(c, c.steps);
-      next.cpu[key2] = { ...c, result: cpuSummary(run) };
+      next.cpu[key3] = { ...c, result: cpuSummary(run) };
     }
-    for (const [key2, v] of Object.entries(raw.memory)) {
-      if (!memoryKeys.includes(key2) || !object3(v) || !Number.isInteger(v.steps) || v.steps < 0 || v.steps > 30) throw Error("Neispravan memorijski pokus.");
+    for (const [key3, v] of Object.entries(raw.memory)) {
+      if (!memoryKeys.includes(key3) || !object3(v) || !Number.isInteger(v.steps) || v.steps < 0 || v.steps > 30) throw Error("Neispravan memorijski pokus.");
       const c = { algorithm: v.algorithm, frames: v.frames, sequence: v.sequence, steps: v.steps };
       const run = pageRun(c, c.steps);
-      next.memory[key2] = { ...c, result: { faults: run.faults, hits: run.hits, writebacks: run.writebacks } };
-      if (key2 === "translation") {
+      next.memory[key3] = { ...c, result: { faults: run.faults, hits: run.hits, writebacks: run.writebacks } };
+      if (key3 === "translation") {
         const t = translateAddress(run, v.address);
         if (!object3(v.answer) || v.answer.page !== t.page || v.answer.offset !== t.offset || v.answer.physical !== t.physical) throw Error("Prijevod adrese nije potvrđen točnim odgovorom.");
-        next.memory[key2].address = v.address;
-        next.memory[key2].answer = { page: t.page, offset: t.offset, physical: t.physical };
+        next.memory[key3].address = v.address;
+        next.memory[key3].answer = { page: t.page, offset: t.offset, physical: t.physical };
       }
     }
     return next;
@@ -2451,13 +2451,13 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
   }
   function labEvidenceChecks(learning) {
     const p = learning.labProof || defaultLabProof();
-    const cpu = (key2, algorithm, kind = "basic", quantum) => {
-      const c = p.cpu[key2];
+    const cpu = (key3, algorithm, kind = "basic", quantum) => {
+      const c = p.cpu[key3];
       return !!c && sameJobs(c.jobs, kind) && c.algorithm === algorithm && (quantum === void 0 || c.quantum === quantum) && cpuSummary(cpuRun(c, c.steps)).done;
     };
     const blocked = p.cpu.ioBlocked;
-    const memory = (key2, algorithm) => {
-      const c = p.memory[key2];
+    const memory = (key3, algorithm) => {
+      const c = p.memory[key3];
       if (!c || !sameMemory(c) || algorithm && c.algorithm !== algorithm) return false;
       const s = pageRun(c, c.steps);
       return s.step === s.refs.length;
@@ -2474,8 +2474,8 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
     return [
       "DOKAZI LABORATORIJSKIH POKUSA",
       ...old.length ? ["Ranije priznati bodovi ostaju sačuvani. Za vježbe " + old.map((i) => i + 1).join(", ") + " nisu još prikupljeni svi dokazi novog postupka."] : [],
-      ...Object.entries(p.cpu).map(([key2, c]) => `CPU ${key2}: ${c.algorithm}, kvant ${c.quantum}, procesi ${c.jobs.map((j) => `${j.name}(dolazak ${j.arrival}, CPU ${j.burst}, I/O ${j.ioAt}/${j.ioFor})`).join("; ")}; korak ${c.steps}; odziv ${c.result.response ?? "—"}, čekanje ${c.result.waiting ?? "—"}.`),
-      ...Object.entries(p.memory).map(([key2, c]) => `Memorija ${key2}: ${c.algorithm}, ${c.frames} okvira, slijed ${c.sequence}; korak ${c.steps}; promašaji ${c.result.faults}, upisi ${c.result.writebacks}.${c.answer ? ` Adresa ${c.address}: stranica ${c.answer.page}, pomak ${c.answer.offset}, fizička ${c.answer.physical ?? "nije prisutna"}.` : ""}`)
+      ...Object.entries(p.cpu).map(([key3, c]) => `CPU ${key3}: ${c.algorithm}, kvant ${c.quantum}, procesi ${c.jobs.map((j) => `${j.name}(dolazak ${j.arrival}, CPU ${j.burst}, I/O ${j.ioAt}/${j.ioFor})`).join("; ")}; korak ${c.steps}; odziv ${c.result.response ?? "—"}, čekanje ${c.result.waiting ?? "—"}.`),
+      ...Object.entries(p.memory).map(([key3, c]) => `Memorija ${key3}: ${c.algorithm}, ${c.frames} okvira, slijed ${c.sequence}; korak ${c.steps}; promašaji ${c.result.faults}, upisi ${c.result.writebacks}.${c.answer ? ` Adresa ${c.address}: stranica ${c.answer.page}, pomak ${c.answer.offset}, fizička ${c.answer.physical ?? "nije prisutna"}.` : ""}`)
     ].join("\n");
   }
 
@@ -2707,7 +2707,7 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
   var TASKS = [...EXTENSION_TASKS];
   for (const l of COURSE) {
     const s = SUPPORT[l.id];
-    for (const [key2, points, stage] of [["warm", 10, 0], ["order", 20, 1], ["compare", 20, 2], ["transfer", 30, 3]]) TASKS.push({ ...s[key2], id: `c-${l.id}-${key2}`, lesson: l.id, area: "course", stage, points });
+    for (const [key3, points, stage] of [["warm", 10, 0], ["order", 20, 1], ["compare", 20, 2], ["transfer", 30, 3]]) TASKS.push({ ...s[key3], id: `c-${l.id}-${key3}`, lesson: l.id, area: "course", stage, points });
     l.quiz.forEach((q, i) => TASKS.push({ ...q, type: "choice", why: q.feedback[q.answer], hint: l.summary, id: `c-${l.id}-q${i}`, lesson: l.id, area: "course", stage: 3, points: 10 }));
   }
   var labs = [
@@ -2866,8 +2866,8 @@ ICMP je dostupan; stanje HTTP usluge ovime nije provjereno.`);
   }
   function syncGameEvidence(state) {
     const g = state.learning.game;
-    const add2 = (key2, value) => {
-      if (!g[key2].includes(value)) g[key2].push(value);
+    const add2 = (key3, value) => {
+      if (!g[key3].includes(value)) g[key3].push(value);
     };
     for (const l of COURSE) {
       const r = state.learning.course.records[l.id], v = r && l.experiment.variants.find((v2) => v2.id === r.variant);
@@ -3310,7 +3310,7 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
   function taskHTML(id, state, esc3) {
     const t = taskById(id), r = state.learning.game.answers[id] || blankAnswer(), done = solved(state.learning.game, id), block = taskBlock(state, t), values = r.last || [], disabled = done || !!block;
     const mode = state.learning.game.difficulty, coached = mode === "easy" && t.area === "course", hard = mode === "hard" && ["course", "extension"].includes(t.area), hintLocked = hard && !r.tries;
-    const name = (key2) => esc3(id + "-" + key2);
+    const name = (key3) => esc3(id + "-" + key3);
     let inputs;
     if (t.type === "choice") inputs = `<div class="game-options">${choiceIndices(t, coached ? "easy" : "moderate", values[0]).map((i) => `<label><input type="radio" name="a0" value="${i}" ${values[0] === i ? "checked" : ""} ${disabled ? "disabled" : ""} required><span>${esc3(t.options[i])}</span></label>`).join("")}</div>`;
     else {
@@ -3323,8 +3323,8 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
   function bindTasks(root, { fs, esc: esc3, toast, refresh, onUpdate }) {
     for (const form of root.querySelectorAll("[data-score-task]")) form.onsubmit = (e) => {
       e.preventDefault();
-      const id = form.dataset.scoreTask, t = taskById(id), count = t.type === "choice" ? 1 : t.type === "pair" ? t.fields.length : t.items.length, data = new FormData(form), values = Array.from({ length: count }, (_, i) => {
-        const v = data.get("a" + i);
+      const id = form.dataset.scoreTask, t = taskById(id), count = t.type === "choice" ? 1 : t.type === "pair" ? t.fields.length : t.items.length, data2 = new FormData(form), values = Array.from({ length: count }, (_, i) => {
+        const v = data2.get("a" + i);
         return v === null || v === "" ? null : Number(v);
       });
       try {
@@ -3401,9 +3401,9 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
     }
     function overview() {
       const next = COURSE.find((l) => !pathCompleted(game(), l.id)), review = reviewTasks(game()).filter((t) => ["course", "extension"].includes(t.area) && pathTasks(t.lesson, game().difficulty).some((a) => a.id === t.id)), done = COURSE.filter((l) => pathCompleted(game(), l.id)).length;
-      return `<div class="course-resume"><button class="button primary course-start" ${next ? `data-lesson="${next.id}"` : "data-final"}>${next ? "Nastavi: " + esc3(next.title) : "Otvori završni izazov"} ${icon2("arrow")}</button><p>Sljedeći korak na tvojoj putanji. Bodovi se čuvaju nakon svake potvrđene radnje.</p></div><div class="release-note"><strong>zljixOS 0.15.2 · Jasniji dokazi učenja</strong><p>Odvojena evidencija pomoći, provjereni pokusi i novi završni slučajevi. U pokusu s dretvama sam biraš sljedeću radnju.</p></div>${scoreBar(fs.state)}<div class="course-welcome"><div class="course-kicker">TVOJA PUTANJA · ${difficulty().label.toUpperCase()} · 8 MISIJA</div><h1>Od prvog klika<br>do razumijevanja <span class="keep-word">OS-a.</span></h1><p class="course-lead">Otvoriš aplikaciju, napišeš bilješku i spremiš je. Što se događa u računalu? Nauči povezati dijelove, njihove uloge i redoslijed događaja.</p><p>Ne trebaš predznanje. Svaka misija prvo objašnjava pojmove, pokazuje primjer i vodi te do samostalnog rješenja.</p><section class="learning-route"><h2>Odakle krenuti?</h2><ol><li><b>Prvi susret s OS-om:</b> odaberi Easy i kreni od misije „Što je u računalu?”.<small>Pojmovi su objašnjeni prije zadatka. Za pogrešan pokušaj ne gubiš bodove.</small></li><li><b>Nakon razumijevanja:</b> Moderate donosi novu primjenu, Hard traži dijagnozu uzroka.<small>Težinu možeš promijeniti; osvojeni bodovi ostaju.</small></li><li><b>Nakon osnova:</b> isprobaj laboratorije ili jednu putanju terminala.<small>DOS/CMD, Linux i PowerShell odvojene su putanje. Nije potrebno učiti sve tri istodobno.</small></li></ol></section>${difficultyCards()}<div class="course-route" aria-label="Kako učimo"><span><b>1</b> Razumij ideju</span><span><b>2</b> Složi događaje</span><span><b>3</b> Usporedi uvjete</span><span><b>4</b> Primijeni samostalno</span></div></div>${review.length ? `<div class="game-next-task"><strong>Vrijedi ponoviti · ${review.length} zadataka</strong><p>Vrati se na odgovor koji još nije točan. Objašnjenje i pomoć čekaju te uz zadatak.</p><button class="button secondary" data-review="${review[0].id}">Ponovi: ${esc3(lessonById(review[0].lesson).title)}</button></div>` : ""}<section class="course-lesson-list"><div class="course-list-title"><h2>Šest misija za temelj</h2><span>${difficulty().label} · ${done}/8 dovršeno</span></div><p>Kreni redom. Napredak ostaje spremljen i možeš se vraćati.</p>${COURSE.filter((l) => l.group === "Osnove").map(lessonCard).join("")}<h2>Poveži zajednički rad</h2><p>Nakon osnova istraži što se događa kada se izvođenja isprepletu.</p>${COURSE.filter((l) => l.group === "Proširenje").map(lessonCard).join("")}<section class="game-final-intro"><h2>Završni izazov</h2><p>10 pitanja na težini ${difficulty().label} koja povezuju svih osam misija. Bez pomoći tijekom pokušaja; objašnjenja i plan ponavljanja dobivaš nakon predaje.</p><button class="button primary" data-final>${game().active ? "Nastavi završni izazov" : finalUnlocked(game()) ? "Otvori završni izazov" : `Pogledaj uvjete · ${done}/8 misija`}</button></section><h2>Značke za postignuća</h2>${badgeHTML(fs.state, esc3)}${rulesHTML}<p class="course-save-note">Odgovori i bodovi čuvaju se na ovom uređaju. Za prijenos i sigurnosnu kopiju otvori „Moj rad”.</p><div class="game-actions"><button class="button primary" data-open="shell">DOS/CMD, Linux i PowerShell · 18 razina · 1800 XP</button><button class="button secondary" data-open="lab">Praktični laboratoriji · 220 XP</button><button class="button secondary" data-explore>Detaljni mehanizmi · 140 XP</button><button class="button secondary" data-open="network">Mrežni izazovi · 140 XP</button><button class="button secondary" data-report>Moji rezultati</button></div></section>`;
+      return `<div class="course-resume"><button class="button primary course-start" ${next ? `data-lesson="${next.id}"` : "data-final"}>${next ? "Nastavi: " + esc3(next.title) : "Otvori završni izazov"} ${icon2("arrow")}</button><p>Sljedeći korak na tvojoj putanji. Bodovi se čuvaju nakon svake potvrđene radnje.</p></div><div class="release-note"><strong>zljixOS 0.16.0 · Provjera spremljenog rada</strong><p>Nove JSON kopije imaju kontrolni potpis za ime, prezime i rezultate. Za prijenos izvezi novi JSON kroz „Moj rad”.</p></div>${scoreBar(fs.state)}<div class="course-welcome"><div class="course-kicker">TVOJA PUTANJA · ${difficulty().label.toUpperCase()} · 8 MISIJA</div><h1>Od prvog klika<br>do razumijevanja <span class="keep-word">OS-a.</span></h1><p class="course-lead">Otvoriš aplikaciju, napišeš bilješku i spremiš je. Što se događa u računalu? Nauči povezati dijelove, njihove uloge i redoslijed događaja.</p><p>Ne trebaš predznanje. Svaka misija prvo objašnjava pojmove, pokazuje primjer i vodi te do samostalnog rješenja.</p><section class="learning-route"><h2>Odakle krenuti?</h2><ol><li><b>Prvi susret s OS-om:</b> odaberi Easy i kreni od misije „Što je u računalu?”.<small>Pojmovi su objašnjeni prije zadatka. Za pogrešan pokušaj ne gubiš bodove.</small></li><li><b>Nakon razumijevanja:</b> Moderate donosi novu primjenu, Hard traži dijagnozu uzroka.<small>Težinu možeš promijeniti; osvojeni bodovi ostaju.</small></li><li><b>Nakon osnova:</b> isprobaj laboratorije ili jednu putanju terminala.<small>DOS/CMD, Linux i PowerShell odvojene su putanje. Nije potrebno učiti sve tri istodobno.</small></li></ol></section>${difficultyCards()}<div class="course-route" aria-label="Kako učimo"><span><b>1</b> Razumij ideju</span><span><b>2</b> Složi događaje</span><span><b>3</b> Usporedi uvjete</span><span><b>4</b> Primijeni samostalno</span></div></div>${review.length ? `<div class="game-next-task"><strong>Vrijedi ponoviti · ${review.length} zadataka</strong><p>Vrati se na odgovor koji još nije točan. Objašnjenje i pomoć čekaju te uz zadatak.</p><button class="button secondary" data-review="${review[0].id}">Ponovi: ${esc3(lessonById(review[0].lesson).title)}</button></div>` : ""}<section class="course-lesson-list"><div class="course-list-title"><h2>Šest misija za temelj</h2><span>${difficulty().label} · ${done}/8 dovršeno</span></div><p>Kreni redom. Napredak ostaje spremljen i možeš se vraćati.</p>${COURSE.filter((l) => l.group === "Osnove").map(lessonCard).join("")}<h2>Poveži zajednički rad</h2><p>Nakon osnova istraži što se događa kada se izvođenja isprepletu.</p>${COURSE.filter((l) => l.group === "Proširenje").map(lessonCard).join("")}<section class="game-final-intro"><h2>Završni izazov</h2><p>10 pitanja na težini ${difficulty().label} koja povezuju svih osam misija. Bez pomoći tijekom pokušaja; objašnjenja i plan ponavljanja dobivaš nakon predaje.</p><button class="button primary" data-final>${game().active ? "Nastavi završni izazov" : finalUnlocked(game()) ? "Otvori završni izazov" : `Pogledaj uvjete · ${done}/8 misija`}</button></section><h2>Značke za postignuća</h2>${badgeHTML(fs.state, esc3)}${rulesHTML}<p class="course-save-note">Odgovori i bodovi čuvaju se na ovom uređaju. Za prijenos i sigurnosnu kopiju otvori „Moj rad”.</p><div class="game-actions"><button class="button primary" data-open="shell">DOS/CMD, Linux i PowerShell · 18 razina · 1800 XP</button><button class="button secondary" data-open="lab">Praktični laboratoriji · 220 XP</button><button class="button secondary" data-explore>Detaljni mehanizmi · 140 XP</button><button class="button secondary" data-open="network">Mrežni izazovi · 140 XP</button><button class="button secondary" data-report>Moji rezultati</button></div></section>`;
     }
-    const task = (l, key2) => taskHTML(`c-${l.id}-${key2}`, fs.state, esc3);
+    const task = (l, key3) => taskHTML(`c-${l.id}-${key3}`, fs.state, esc3);
     function prerequisite(l) {
       const missing = nextTask(l.id);
       if (!missing || missing.stage === 3) return "";
@@ -3411,7 +3411,7 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
     }
     function independentPractice(l) {
       const keys = ["q0", "q1", "transfer", ...game().difficulty !== "easy" ? ["apply"] : [], ...game().difficulty === "hard" ? ["challenge"] : []];
-      const list = keys.map((key2) => taskById(`c-${l.id}-${key2}`)), first = list.find((t) => !solved(game(), t.id));
+      const list = keys.map((key3) => taskById(`c-${l.id}-${key3}`)), first = list.find((t) => !solved(game(), t.id));
       const done = list.filter((t) => solved(game(), t.id));
       const selected = list.find((t) => t.id === practiceFocus[l.id]);
       const current = selected && (!first || list.indexOf(selected) <= list.indexOf(first)) ? selected : first;
@@ -3422,8 +3422,8 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
     function comparison(l) {
       return `<section class="learning-comparison"><h3>Usporedi što si opazio/la</h3>${l.experiment.variants.map((v) => `<article><b>${esc3(v.label)}</b>${game().observed.includes(l.id + ":" + v.id) ? `<p><strong>Ishod:</strong> ${esc3(l.experiment.choices[v.correct])}</p><p>${esc3(v.conclusion)}</p>` : '<p class="unseen">Ovaj uvjet još nije promatran. Odaberi ga i prođi pokus.</p>'}</article>`).join("")}</section>`;
     }
-    function onward(l, key2, stage, label) {
-      return `<div class="course-actions"><button class="button primary" data-stage="${stage}" ${!solved(game(), `c-${l.id}-${key2}`) ? "disabled" : ""}>${label} ${icon2("arrow")}</button></div>`;
+    function onward(l, key3, stage, label) {
+      return `<div class="course-actions"><button class="button primary" data-stage="${stage}" ${!solved(game(), `c-${l.id}-${key3}`) ? "disabled" : ""}>${label} ${icon2("arrow")}</button></div>`;
     }
     function lessonBody(l, r, stage) {
       const support = SUPPORT[l.id];
@@ -3581,9 +3581,9 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
     for (const n of result) {
       if (n.id === rootId) continue;
       if (map.get(n.parent)?.type !== "dir") throw new Error("Datoteka ima nepostojeću mapu.");
-      const key2 = n.parent + "\0" + n.name.toLocaleLowerCase("hr");
-      if (names.has(key2)) throw new Error("U mapi postoje jednaki nazivi.");
-      names.add(key2);
+      const key3 = n.parent + "\0" + n.name.toLocaleLowerCase("hr");
+      if (names.has(key3)) throw new Error("U mapi postoje jednaki nazivi.");
+      names.add(key3);
       let current = n;
       const seen = /* @__PURE__ */ new Set();
       while (current.id !== rootId) {
@@ -3608,9 +3608,9 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
       return { id: v.id, nodeId: v.nodeId, name: v.name, path: v.path, content: v.content, label: v.label, by: v.by, at: v.at };
     });
   }
-  function validateState(data) {
-    if (!data || ![1, 2].includes(data.version) || JSON.stringify(data).length > 25e5) throw new Error("Ovo nije podržana sigurnosna kopija zljixOS-a ili je prevelika.");
-    const users = data.version === 1 ? defaultUsers() : clone(data.users || defaultUsers());
+  function validateState(data2) {
+    if (!data2 || ![1, 2].includes(data2.version) || JSON.stringify(data2).length > 25e5) throw new Error("Ovo nije podržana sigurnosna kopija zljixOS-a ili je prevelika.");
+    const users = data2.version === 1 ? defaultUsers() : clone(data2.users || defaultUsers());
     if (!Array.isArray(users) || users.length < 4 || users.length > 20) throw new Error("Neispravan popis simuliranih korisnika.");
     const userIds = /* @__PURE__ */ new Set();
     for (const u of users) {
@@ -3619,14 +3619,14 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
     }
     for (const u of defaultUsers()) if (!userIds.has(u.id)) throw new Error("Nedostaje osnovni korisnički profil.");
     if (!users.find((u) => u.id === "nastavnik").admin) throw new Error("Nedostaje administrator modela.");
-    const nodes = normalizeNodes(data.nodes, users);
+    const nodes = normalizeNodes(data2.nodes, users);
     const map = new Map(nodes.map((n) => [n.id, n]));
     if (map.get("root").type !== "dir") throw new Error("Korijen mora biti mapa.");
     for (const [id, name] of [["docs", "Dokumenti"], ["labs", "Vjezbe"]]) if (map.get(id)?.type !== "dir" || map.get(id)?.parent !== "root" || map.get(id)?.name !== name) throw new Error("Nedostaju osnovne mape Dokumenti i Vjezbe.");
-    if (!Array.isArray(data.archive || []) || (data.archive || []).length > 100) throw new Error("Neispravan koš.");
+    if (!Array.isArray(data2.archive || []) || (data2.archive || []).length > 100) throw new Error("Neispravan koš.");
     const allIds = new Set(nodes.map((n) => n.id)), archive = [];
     const archiveKeys = /* @__PURE__ */ new Set();
-    for (const entry of data.archive || []) {
+    for (const entry of data2.archive || []) {
       if (!entry || typeof entry.key !== "string" || !/^[\w-]{1,100}$/.test(entry.key) || archiveKeys.has(entry.key) || typeof entry.from !== "string" || !userIds.has(entry.by) || typeof entry.at !== "string") throw new Error("Neispravan zapis koša.");
       archiveKeys.add(entry.key);
       const parts = normalizeNodes(entry.nodes, users, entry.rootId);
@@ -3637,8 +3637,8 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
       archive.push({ key: entry.key, from: entry.from, by: entry.by, at: entry.at, rootId: entry.rootId, nodes: parts });
     }
     if (allIds.size > 1e3) throw new Error("Prostor podržava najviše 1 000 stavki, zajedno s košem.");
-    const events = (Array.isArray(data.events) ? data.events : []).slice(-80).filter((e) => e && typeof e.text === "string" && e.text.length <= 300 && typeof e.kind === "string" && typeof e.at === "string" && typeof e.user === "string").map((e) => ({ at: e.at, kind: e.kind.slice(0, 30), user: e.user.slice(0, 24), text: e.text }));
-    return { version: 2, student: validateStudent(data.student), nodes, users, activeUser: userIds.has(data.activeUser) ? data.activeUser : "ucenik", archive, versions: normalizeVersions(data.versions, users), events, learning: validateLearning(data.learning), theme: ["dusk", "sea", "dawn"].includes(data.theme) ? data.theme : "dusk", large: !!data.large, lesson: { minimized: !!data.lesson?.minimized, ended: !!data.lesson?.ended } };
+    const events = (Array.isArray(data2.events) ? data2.events : []).slice(-80).filter((e) => e && typeof e.text === "string" && e.text.length <= 300 && typeof e.kind === "string" && typeof e.at === "string" && typeof e.user === "string").map((e) => ({ at: e.at, kind: e.kind.slice(0, 30), user: e.user.slice(0, 24), text: e.text }));
+    return { version: 2, student: validateStudent(data2.student), nodes, users, activeUser: userIds.has(data2.activeUser) ? data2.activeUser : "ucenik", archive, versions: normalizeVersions(data2.versions, users), events, learning: validateLearning(data2.learning), theme: ["dusk", "sea", "dawn"].includes(data2.theme) ? data2.theme : "dusk", large: !!data2.large, lesson: { minimized: !!data2.lesson?.minimized, ended: !!data2.lesson?.ended } };
   }
   var FileSystem = class {
     constructor(state, persist = () => {
@@ -3676,9 +3676,9 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
     record(kind, text) {
       this.transact(() => this.event(kind, text));
     }
-    evidence(key2) {
+    evidence(key3) {
       this.transact(() => {
-        this.state.learning.evidence[key2] = true;
+        this.state.learning.evidence[key3] = true;
       });
     }
     ownBits(n, user = this.user) {
@@ -3879,8 +3879,8 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
       });
       return entry.key;
     }
-    restore(key2) {
-      const entry = this.state.archive.find((e) => e.key === key2);
+    restore(key3) {
+      const entry = this.state.archive.find((e) => e.key === key3);
       if (!entry) throw new Error("Stavka nije u Košu.");
       if (!this.user.admin && entry.by !== this.user.id) throw new Error("Stavku vraća korisnik koji ju je obrisao ili Nastavnik.");
       const parent = this.get(entry.from)?.type === "dir" ? entry.from : "docs";
@@ -3890,7 +3890,7 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
       root.parent = parent;
       this.transact(() => {
         this.state.nodes.push(...nodes);
-        this.state.archive = this.state.archive.filter((e) => e.key !== key2);
+        this.state.archive = this.state.archive.filter((e) => e.key !== key3);
         this.event("obnova", this.path(root.id));
         this.state.learning.evidence.restored = true;
       });
@@ -4079,7 +4079,7 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
     function mechanisms(c) {
       const l = mechanism(chosen), x = fs.state.learning.explorer, d = explorerDraft(x, chosen), trace = traceMechanism(chosen, d.variant), current = trace.steps[d.step - 1], previous = trace.steps[d.step - 2], finished = d.step === trace.steps.length;
       const records = x.records.filter((r) => r.id === chosen), choices = COURSE.find((l2) => l2.id === chosen).experiment.choices, legacy = fs.state.learning.game.legacy[chosen];
-      c.innerHTML = `<div class="os-mechanism-layout"><nav class="os-lessons" aria-label="Mehanizmi">${MECHANISMS.map((m, i) => `<button data-mechanism="${m.id}" aria-current="${chosen === m.id ? "page" : "false"}"><b>${String(i + 1).padStart(2, "0")}</b><span>${esc3(m.title)}<small>${esc3(m.part)}</small></span></button>`).join("")}<button class="button secondary" data-report>Izvještaj o učenju</button></nav><article class="os-experiment"><span class="label">${esc3(l.part)}</span><h2>${esc3(l.title)}</h2><p class="os-goal">${esc3(l.goal)}</p><details class="os-details" ${d.step === 0 ? "open" : ""}><summary>Prije pokusa · pojmovi</summary><dl class="os-terms">${l.terms.map(([term, text]) => `<div><dt>${esc3(term)}</dt><dd>${esc3(text)}</dd></div>`).join("")}</dl></details><label class="os-field"><strong>Uvjeti pokusa</strong><select id="os-variant">${l.variants.map(([value, label]) => `<option value="${value}" ${d.variant === value ? "selected" : ""}>${esc3(label)}</option>`).join("")}</select><small>Promjena uvjeta otvara novi pokušaj. Zabilježeni pokusi ostaju u usporedbi i izvještaju.</small></label><label class="os-field"><strong>1. Predvidi ishod</strong><span>${esc3(COURSE.find((item) => item.id === chosen).experiment.prompt)}</span><select id="os-prediction" ${d.step > 0 ? "disabled" : ""}><option value="">Odaberi očekivani ishod…</option>${choices.map((text, i) => `<option value="${i}" ${d.prediction === text ? "selected" : ""}>${esc3(text)}</option>`).join("")}${d.prediction && !choices.includes(d.prediction) ? `<option value="legacy" selected>${esc3(d.prediction)}</option>` : ""}</select><small>Predviđanje se ne boduje. Nakon pokusa provjerit ćeš ishod i razlog.</small></label><div class="os-controls"><button class="button secondary" id="os-back" ${d.step === 0 ? "disabled" : ""}>Natrag</button><button class="button primary" id="os-next" ${finished || !d.prediction.trim() ? "disabled" : ""}>${d.step === 0 ? "Pokreni pokus" : "Sljedeći korak"} ${icon2("arrow")}</button><span>Korak ${d.step} / ${trace.steps.length}</span><button class="button subtle" id="os-reset">Na početak</button></div><div class="os-stage" aria-live="polite">${current ? `<div class="os-event"><span class="label">2. PROMATRAJ · ${esc3(PARTS.find((p) => p.id === current.actor)?.name || current.actor)}</span><h3>${esc3(current.title)}</h3><p>${esc3(current.why)}</p></div><dl class="os-state">${Object.entries(current.state).map(([key2, value]) => `<div class="${previous && previous.state[key2] !== value ? "changed" : ""}"><dt>${FIELDS[key2] || key2}</dt><dd>${esc3(typeof value === "boolean" ? value ? "Da" : "Ne" : value)}</dd></div>`).join("")}</dl><p class="os-state-note">Polja prikazuju stanje nakon događaja. Obojena polja promijenila su se u odnosu na prethodni korak. Koraci ne prikazuju trajanje.</p>` : '<div class="os-waiting"><span>◌</span><h3>Prvo pretpostavka. Zatim promatranje.</h3><p>Odaberi predviđanje pa pokreni prvi korak. Pratit ćeš aktivni dio sustava, stanje procesa i resurse.</p></div>'}</div>${current ? `<details class="os-details"><summary>Gdje se trenutačno odvija događaj?</summary>${map(current.actor)}<p id="os-component-description">${esc3(PARTS.find((p) => p.id === current.actor)?.text || "")}</p></details><details class="os-details"><summary>Trag događaja · prikazano ${d.step} / ${trace.steps.length}</summary><ol class="os-trace">${trace.steps.slice(0, d.step).map((s) => `<li><strong>${esc3(s.title)}</strong><p>${esc3(s.why)}</p></li>`).join("")}</ol></details>` : ""}<h3>3. Poveži ishod i razlog · 10 XP po uvjetu</h3>${taskHTML(`m-${chosen}-${d.variant}-outcome`, fs.state, esc3)}${taskHTML(`m-${chosen}-${d.variant}-reason`, fs.state, esc3)}<p class="os-state-note">Odgovori i bodovi spremaju se automatski. Promjena uvjeta ne briše osvojene bodove. Za prijenos rada koristi JSON kopiju kroz Moj rad.</p>${legacy ? `<details class="game-legacy"><summary>Tvoj raniji nacrt · ${esc3(l.variants.find((v) => v[0] === legacy.variant)[1])}</summary><p>Predviđanje: ${esc3(legacy.prediction)}</p><p>Bilješka: ${esc3(legacy.reflection)}</p></details>` : ""}${records.length ? `<section class="os-comparison"><h3>Bilješke iz ranijih pokusa</h3><div class="table-scroll"><table class="study-table"><thead><tr><th>Uvjeti</th><th>Dobiveni ishod</th><th>Tvoje objašnjenje</th></tr></thead><tbody>${records.map((r) => `<tr><td>${esc3(l.variants.find((v) => v[0] === r.variant)[1])}</td><td>${esc3(traceMechanism(l.id, r.variant).steps.at(-1).state.result)}</td><td>${esc3(r.reflection)}</td></tr>`).join("")}</tbody></table></div></section>` : ""}<details class="os-details"><summary>Pretpostavke i granice modela</summary><p>${esc3(l.limit)}</p><p>Ovo je samostalan nastavni pokus. Pokazuje odabrani mehanizam i ne mjeri ponašanje web-preglednika ni tvog računala.</p></details><div class="os-next-lab"><span>Primijeni razumijevanje u povezanom laboratoriju.</span><button class="button secondary" id="os-open-lab">Otvori laboratorij ${icon2("arrow")}</button></div></article></div>`;
+      c.innerHTML = `<div class="os-mechanism-layout"><nav class="os-lessons" aria-label="Mehanizmi">${MECHANISMS.map((m, i) => `<button data-mechanism="${m.id}" aria-current="${chosen === m.id ? "page" : "false"}"><b>${String(i + 1).padStart(2, "0")}</b><span>${esc3(m.title)}<small>${esc3(m.part)}</small></span></button>`).join("")}<button class="button secondary" data-report>Izvještaj o učenju</button></nav><article class="os-experiment"><span class="label">${esc3(l.part)}</span><h2>${esc3(l.title)}</h2><p class="os-goal">${esc3(l.goal)}</p><details class="os-details" ${d.step === 0 ? "open" : ""}><summary>Prije pokusa · pojmovi</summary><dl class="os-terms">${l.terms.map(([term, text]) => `<div><dt>${esc3(term)}</dt><dd>${esc3(text)}</dd></div>`).join("")}</dl></details><label class="os-field"><strong>Uvjeti pokusa</strong><select id="os-variant">${l.variants.map(([value, label]) => `<option value="${value}" ${d.variant === value ? "selected" : ""}>${esc3(label)}</option>`).join("")}</select><small>Promjena uvjeta otvara novi pokušaj. Zabilježeni pokusi ostaju u usporedbi i izvještaju.</small></label><label class="os-field"><strong>1. Predvidi ishod</strong><span>${esc3(COURSE.find((item) => item.id === chosen).experiment.prompt)}</span><select id="os-prediction" ${d.step > 0 ? "disabled" : ""}><option value="">Odaberi očekivani ishod…</option>${choices.map((text, i) => `<option value="${i}" ${d.prediction === text ? "selected" : ""}>${esc3(text)}</option>`).join("")}${d.prediction && !choices.includes(d.prediction) ? `<option value="legacy" selected>${esc3(d.prediction)}</option>` : ""}</select><small>Predviđanje se ne boduje. Nakon pokusa provjerit ćeš ishod i razlog.</small></label><div class="os-controls"><button class="button secondary" id="os-back" ${d.step === 0 ? "disabled" : ""}>Natrag</button><button class="button primary" id="os-next" ${finished || !d.prediction.trim() ? "disabled" : ""}>${d.step === 0 ? "Pokreni pokus" : "Sljedeći korak"} ${icon2("arrow")}</button><span>Korak ${d.step} / ${trace.steps.length}</span><button class="button subtle" id="os-reset">Na početak</button></div><div class="os-stage" aria-live="polite">${current ? `<div class="os-event"><span class="label">2. PROMATRAJ · ${esc3(PARTS.find((p) => p.id === current.actor)?.name || current.actor)}</span><h3>${esc3(current.title)}</h3><p>${esc3(current.why)}</p></div><dl class="os-state">${Object.entries(current.state).map(([key3, value]) => `<div class="${previous && previous.state[key3] !== value ? "changed" : ""}"><dt>${FIELDS[key3] || key3}</dt><dd>${esc3(typeof value === "boolean" ? value ? "Da" : "Ne" : value)}</dd></div>`).join("")}</dl><p class="os-state-note">Polja prikazuju stanje nakon događaja. Obojena polja promijenila su se u odnosu na prethodni korak. Koraci ne prikazuju trajanje.</p>` : '<div class="os-waiting"><span>◌</span><h3>Prvo pretpostavka. Zatim promatranje.</h3><p>Odaberi predviđanje pa pokreni prvi korak. Pratit ćeš aktivni dio sustava, stanje procesa i resurse.</p></div>'}</div>${current ? `<details class="os-details"><summary>Gdje se trenutačno odvija događaj?</summary>${map(current.actor)}<p id="os-component-description">${esc3(PARTS.find((p) => p.id === current.actor)?.text || "")}</p></details><details class="os-details"><summary>Trag događaja · prikazano ${d.step} / ${trace.steps.length}</summary><ol class="os-trace">${trace.steps.slice(0, d.step).map((s) => `<li><strong>${esc3(s.title)}</strong><p>${esc3(s.why)}</p></li>`).join("")}</ol></details>` : ""}<h3>3. Poveži ishod i razlog · 10 XP po uvjetu</h3>${taskHTML(`m-${chosen}-${d.variant}-outcome`, fs.state, esc3)}${taskHTML(`m-${chosen}-${d.variant}-reason`, fs.state, esc3)}<p class="os-state-note">Odgovori i bodovi spremaju se automatski. Promjena uvjeta ne briše osvojene bodove. Za prijenos rada koristi JSON kopiju kroz Moj rad.</p>${legacy ? `<details class="game-legacy"><summary>Tvoj raniji nacrt · ${esc3(l.variants.find((v) => v[0] === legacy.variant)[1])}</summary><p>Predviđanje: ${esc3(legacy.prediction)}</p><p>Bilješka: ${esc3(legacy.reflection)}</p></details>` : ""}${records.length ? `<section class="os-comparison"><h3>Bilješke iz ranijih pokusa</h3><div class="table-scroll"><table class="study-table"><thead><tr><th>Uvjeti</th><th>Dobiveni ishod</th><th>Tvoje objašnjenje</th></tr></thead><tbody>${records.map((r) => `<tr><td>${esc3(l.variants.find((v) => v[0] === r.variant)[1])}</td><td>${esc3(traceMechanism(l.id, r.variant).steps.at(-1).state.result)}</td><td>${esc3(r.reflection)}</td></tr>`).join("")}</tbody></table></div></section>` : ""}<details class="os-details"><summary>Pretpostavke i granice modela</summary><p>${esc3(l.limit)}</p><p>Ovo je samostalan nastavni pokus. Pokazuje odabrani mehanizam i ne mjeri ponašanje web-preglednika ni tvog računala.</p></details><div class="os-next-lab"><span>Primijeni razumijevanje u povezanom laboratoriju.</span><button class="button secondary" id="os-open-lab">Otvori laboratorij ${icon2("arrow")}</button></div></article></div>`;
       bindLessons(c);
       $("[data-report]", c).onclick = () => openApp("report");
       $("#os-variant", c).onchange = (e) => {
@@ -4142,7 +4142,7 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
   function buildWorkReport({ lessons, checks, learning, student = null, date = (/* @__PURE__ */ new Date()).toLocaleString("hr-HR") }) {
     const progress = (group) => ({ done: COURSE.filter((l) => l.group === group && completedLesson(learning.game, l.id)).length, total: COURSE.filter((l) => l.group === group).length }), base = progress("Osnove"), extra = progress("Proširenje");
     const e = escapeReport, cpu = cpuRun(learning.cpu, learning.cpu.steps), summary = cpuSummary(cpu), mem = pageRun(learning.memory, learning.memory.steps), net = learning.network;
-    return `<article class="work-report"><div class="eyebrow">zljixOS · IZVJEŠTAJ O RADU · LOKALNO 0.15.2</div><h1>Od pokusa do objašnjenja.</h1><div class="report-meta"><div><span>Ime i prezime učenika / učenice</span><strong data-report-owner>${e(studentName(student))}</strong></div><div><span>Oznaka rada</span><strong data-report-label>${e(learning.label || "Nije upisana")}</strong></div><div><span>Izvezeno</span>${e(date)}</div><div><span>Vođene lekcije</span>${base.done}/${base.total} osnova · ${extra.done}/${extra.total} proširenja</div><div><span>Praktične vježbe</span>${lessons.filter((_, i) => learning.game.labs.includes(i) && solved(learning.game, "lab-" + i)).length} / ${lessons.length}</div></div><p class="report-note">Radnje, strukturirani odgovori i završni izazov boduju se automatski. Ponavljanje služi učenju. XP pokazuje napredak; ne predstavlja školsku ocjenu ni dokaz samostalnosti.</p>${scoreReport({ learning }, e)}${Object.values(learning.course.records).some((r) => r.reflection || r.firstAnswers.some((a) => a !== null)) ? "<h2>Arhiva rada iz ranijih izdanja</h2>" + courseReport(learning.course, e) : ""}${learning.explorer.records.length ? explorerReport(learning.explorer, e) : ""}<h2>Praktične radnje i ranije bilješke</h2>${lessons.map((l, i) => `<section class="report-lesson"><h3>${String(i + 1).padStart(2, "0")} · ${e(l.title)}</h3><ul class="report-checks">${l.checks.map((label, j) => `<li>${checks[i][j] ? "Potvrđeno" : "Nije potvrđeno"} — ${e(label)}</li>`).join("")}</ul><p><strong>Pitanje:</strong> ${e(l.question)}</p><div class="answer ${learning.answers[l.id] ? "" : "report-empty"}">${e(learning.answers[l.id] || "Nema ranije bilješke; za bodove se rješava strukturirani zadatak.")}</div></section>`).join("")}<h2>Trenutačni CPU pokus</h2><p>Algoritam: <strong>${e({ fcfs: "FCFS", rr: "Round Robin", sjf: "SJF" }[learning.cpu.algorithm])}</strong> · kvant ${learning.cpu.quantum} · proteklo ${cpu.t} simuliranih jedinica.</p><table><thead><tr><th>Proces</th><th>Dolazak</th><th>CPU ukupno</th><th>I/O nakon / traje</th><th>Čekanje</th><th>Odziv</th><th>Obrtaj</th></tr></thead><tbody>${cpu.jobs.map((j) => `<tr><td>${e(j.name)}</td><td>${j.arrival}</td><td>${j.burst}</td><td>${j.ioAt} / ${j.ioFor}</td><td>${j.wait}</td><td>${j.first === null ? "—" : j.first - j.arrival}</td><td>${j.finish === null ? "—" : j.finish - j.arrival}</td></tr>`).join("")}</tbody></table><p>Prosječno čekanje: ${number(summary.waiting)} · prosječan odziv: ${number(summary.response)} · prosječan obrtaj: ${number(summary.turnaround)}.</p><h2>Trenutačni pokus memorije</h2><p>${e(learning.memory.algorithm.toUpperCase())} · ${learning.memory.frames} okvira · ${mem.step}/${mem.refs.length} pristupa.</p><p>Slijed: <code>${e(learning.memory.sequence)}</code></p><table><thead><tr><th>Pogoci</th><th>Promašaji</th><th>Upisi izmijenjenih stranica</th></tr></thead><tbody><tr><td>${mem.hits}</td><td>${mem.faults}</td><td>${mem.writebacks}</td></tr></tbody></table><h2>Mrežna dijagnostika</h2><p>Trenutačna konfiguracija: <code>${e(net.config.ip)}/${net.config.prefix}</code> · pristupnik <code>${e(net.config.gateway || "nije postavljen")}</code> · DNS <code>${e(net.config.dns || "nije postavljen")}</code>.</p><table><thead><tr><th>Izazov</th><th>Radnje</th></tr></thead><tbody>${NETWORK_CASES.map((t) => `<tr><td>${e(t.title)}</td><td>${net.completed.includes(t.id) ? "Ranije potvrđene" : "Još nisu potvrđene"}</td></tr>`).join("")}</tbody></table>${(net.records || []).map((r) => `<section class="report-lesson"><h3>${e(NETWORK_CASES.find((t) => t.id === r.id).title)}</h3><p class="report-note">Potvrđeno: ${e(new Date(r.at).toLocaleString("hr-HR"))} · pomoć: ${r.hint ? "otvorena" : "nije otvarana"}.</p><p>Automatska dijagnoza: ${e(NETWORK_DIAGNOSES[r.id]?.options[r.diagnosis] || "Nema dijagnoze iz nove provjere.")} · ${r.diagnosis === NETWORK_DIAGNOSES[r.id]?.answer ? 20 : 0}/20 XP.</p>${r.notes ? `<div class="answer">${e(r.notes)}</div>` : ""}</section>`).join("")}<h3>Ranija bilješka trenutačnog mrežnog pokusa</h3><div class="answer">${e(net.notes || "Nema ranije bilješke; za bodove se rješava strukturirani zadatak.")}</div><h3>Zadnjih osam provjera</h3><table><thead><tr><th>Naredba</th><th>Revizija</th><th>Ishod i objašnjenje</th></tr></thead><tbody>${net.history.slice(-8).map((h) => {
+    return `<article class="work-report"><div class="eyebrow">zljixOS · IZVJEŠTAJ O RADU · LOKALNO 0.16.0</div><h1>Od pokusa do objašnjenja.</h1><div class="report-meta"><div><span>Ime i prezime učenika / učenice</span><strong data-report-owner>${e(studentName(student))}</strong></div><div><span>Oznaka rada</span><strong data-report-label>${e(learning.label || "Nije upisana")}</strong></div><div><span>Izvezeno</span>${e(date)}</div><div><span>Vođene lekcije</span>${base.done}/${base.total} osnova · ${extra.done}/${extra.total} proširenja</div><div><span>Praktične vježbe</span>${lessons.filter((_, i) => learning.game.labs.includes(i) && solved(learning.game, "lab-" + i)).length} / ${lessons.length}</div></div><p class="report-note">Radnje, strukturirani odgovori i završni izazov boduju se automatski. Ponavljanje služi učenju. XP pokazuje napredak; ne predstavlja školsku ocjenu ni dokaz samostalnosti.</p>${scoreReport({ learning }, e)}${Object.values(learning.course.records).some((r) => r.reflection || r.firstAnswers.some((a) => a !== null)) ? "<h2>Arhiva rada iz ranijih izdanja</h2>" + courseReport(learning.course, e) : ""}${learning.explorer.records.length ? explorerReport(learning.explorer, e) : ""}<h2>Praktične radnje i ranije bilješke</h2>${lessons.map((l, i) => `<section class="report-lesson"><h3>${String(i + 1).padStart(2, "0")} · ${e(l.title)}</h3><ul class="report-checks">${l.checks.map((label, j) => `<li>${checks[i][j] ? "Potvrđeno" : "Nije potvrđeno"} — ${e(label)}</li>`).join("")}</ul><p><strong>Pitanje:</strong> ${e(l.question)}</p><div class="answer ${learning.answers[l.id] ? "" : "report-empty"}">${e(learning.answers[l.id] || "Nema ranije bilješke; za bodove se rješava strukturirani zadatak.")}</div></section>`).join("")}<h2>Trenutačni CPU pokus</h2><p>Algoritam: <strong>${e({ fcfs: "FCFS", rr: "Round Robin", sjf: "SJF" }[learning.cpu.algorithm])}</strong> · kvant ${learning.cpu.quantum} · proteklo ${cpu.t} simuliranih jedinica.</p><table><thead><tr><th>Proces</th><th>Dolazak</th><th>CPU ukupno</th><th>I/O nakon / traje</th><th>Čekanje</th><th>Odziv</th><th>Obrtaj</th></tr></thead><tbody>${cpu.jobs.map((j) => `<tr><td>${e(j.name)}</td><td>${j.arrival}</td><td>${j.burst}</td><td>${j.ioAt} / ${j.ioFor}</td><td>${j.wait}</td><td>${j.first === null ? "—" : j.first - j.arrival}</td><td>${j.finish === null ? "—" : j.finish - j.arrival}</td></tr>`).join("")}</tbody></table><p>Prosječno čekanje: ${number(summary.waiting)} · prosječan odziv: ${number(summary.response)} · prosječan obrtaj: ${number(summary.turnaround)}.</p><h2>Trenutačni pokus memorije</h2><p>${e(learning.memory.algorithm.toUpperCase())} · ${learning.memory.frames} okvira · ${mem.step}/${mem.refs.length} pristupa.</p><p>Slijed: <code>${e(learning.memory.sequence)}</code></p><table><thead><tr><th>Pogoci</th><th>Promašaji</th><th>Upisi izmijenjenih stranica</th></tr></thead><tbody><tr><td>${mem.hits}</td><td>${mem.faults}</td><td>${mem.writebacks}</td></tr></tbody></table><h2>Mrežna dijagnostika</h2><p>Trenutačna konfiguracija: <code>${e(net.config.ip)}/${net.config.prefix}</code> · pristupnik <code>${e(net.config.gateway || "nije postavljen")}</code> · DNS <code>${e(net.config.dns || "nije postavljen")}</code>.</p><table><thead><tr><th>Izazov</th><th>Radnje</th></tr></thead><tbody>${NETWORK_CASES.map((t) => `<tr><td>${e(t.title)}</td><td>${net.completed.includes(t.id) ? "Ranije potvrđene" : "Još nisu potvrđene"}</td></tr>`).join("")}</tbody></table>${(net.records || []).map((r) => `<section class="report-lesson"><h3>${e(NETWORK_CASES.find((t) => t.id === r.id).title)}</h3><p class="report-note">Potvrđeno: ${e(new Date(r.at).toLocaleString("hr-HR"))} · pomoć: ${r.hint ? "otvorena" : "nije otvarana"}.</p><p>Automatska dijagnoza: ${e(NETWORK_DIAGNOSES[r.id]?.options[r.diagnosis] || "Nema dijagnoze iz nove provjere.")} · ${r.diagnosis === NETWORK_DIAGNOSES[r.id]?.answer ? 20 : 0}/20 XP.</p>${r.notes ? `<div class="answer">${e(r.notes)}</div>` : ""}</section>`).join("")}<h3>Ranija bilješka trenutačnog mrežnog pokusa</h3><div class="answer">${e(net.notes || "Nema ranije bilješke; za bodove se rješava strukturirani zadatak.")}</div><h3>Zadnjih osam provjera</h3><table><thead><tr><th>Naredba</th><th>Revizija</th><th>Ishod i objašnjenje</th></tr></thead><tbody>${net.history.slice(-8).map((h) => {
       const r = probeNetwork(h.config, h.kind, h.target);
       return `<tr><td><code>${h.kind} ${e(h.target)}</code></td><td>${h.revision}</td><td><strong>${r.ok ? "Uspjeh" : "Neuspjeh"}</strong><br>${e(r.message)}</td></tr>`;
     }).join("") || '<tr><td colspan="3">Nema zabilježenih mrežnih provjera.</td></tr>'}</tbody></table><p class="report-note">Povijesni rezultati odnose se na postavke tijekom provjere. Simulator ne šalje pakete. Izvještaj ne sadrži tekstove osobnih datoteka iz aplikacije Datoteke.</p></article>`;
@@ -4222,7 +4222,7 @@ Prvi odgovor točan bez zatražene pomoći: ${s.first}/${s.attempted} (bez mrež
         const f = e.currentTarget.elements;
         update(() => {
           const state = fs.state.learning.network;
-          for (const key2 of ["webRunning", "blockHttp", "blockIcmp"]) state.config[key2] = f[key2].checked;
+          for (const key3 of ["webRunning", "blockHttp", "blockIcmp"]) state.config[key3] = f[key3].checked;
           state.revision++;
         });
       };
@@ -4452,7 +4452,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
         if (prev?.id === slot.id) prev.end = slot.end;
         else segments.push({ ...slot });
       }
-      c.innerHTML = `<div class="study-app">${intro("PROCESOR I RASPOREĐIVANJE", "Jedan CPU. Više procesa.", "Raspoređivač bira spreman proces. Jedan korak ovdje traje jednu simuliranu vremensku jedinicu.")}<p class="model-note"><strong>Tko je tko?</strong> P1, P2, P3 itd. oznake su zasebnih procesa, odnosno izvođenja programa. Broj služi razlikovanju procesa i ne označava prioritet. Nazive i trajanja možeš promijeniti u tablici „Procesi i primjeri”. <strong>t</strong> je proteklo simulirano vrijeme, a <strong>I/O</strong> ulaz/izlaz, primjerice čitanje s diska.</p><div class="concept-strip"><span><b>Spreman</b> čeka CPU</span><span><b>Izvodi se</b> koristi CPU</span><span><b>Čeka I/O</b> čeka uređaj</span></div><div class="sim-controls"><label>Algoritam<select id="cpu-algorithm"><option value="fcfs" ${config.algorithm === "fcfs" ? "selected" : ""}>FCFS — redoslijedom dolaska</option><option value="rr" ${config.algorithm === "rr" ? "selected" : ""}>Round Robin — kružno</option><option value="sjf" ${config.algorithm === "sjf" ? "selected" : ""}>SJF — najkraći sljedeći CPU odsječak</option></select></label><label>Kvant<input id="cpu-quantum" type="number" min="1" max="10" value="${config.quantum}" ${config.algorithm !== "rr" ? "disabled" : ""}></label><button id="cpu-step" class="button primary" ${summary.done ? "disabled" : ""}>${icon2("play")} Korak +1</button><button id="cpu-run" class="button secondary" ${summary.done ? "disabled" : ""}>Do kraja</button><button id="cpu-reset" class="button subtle">Početak</button></div><p class="form-hint">${config.algorithm === "fcfs" ? "FCFS ne prekida proces samo zato što je stigao drugi; CPU se oslobađa završetkom ili I/O čekanjem." : config.algorithm === "rr" ? "Kvant je najveći broj uzastopnih jedinica CPU-a prije povratka procesa na kraj reda spremnih." : "SJF ovdje bira najkraći poznati sljedeći CPU odsječak i ne prekida već pokrenuti odsječak."}</p><div class="cpu-stage"><div class="cpu-chip">${icon2("cpu")}<span>CPU u zadnjem koraku</span><strong>${s.last?.name || "Spreman za pokretanje"}</strong><small>t = ${s.t}</small></div><div class="ready-queue"><span class="label">RED SPREMNIH</span><div>${s.queue.length ? s.queue.map((id) => `<span style="--process:${colors[id]}">${esc3(s.jobs[id].name)}</span>`).join("") : "<small>Nema procesa u redu.</small>"}</div><p>${s.jobs.some((j) => j.state === "blocked") ? "I/O čeka: " + s.jobs.filter((j) => j.state === "blocked").map((j) => j.name + " do t=" + j.wake).join(", ") : "Nema procesa na I/O čekanju."}</p></div></div><h3 class="study-subtitle">Vremenska crta</h3><div class="timeline" aria-label="Raspored procesora">${segments.length ? segments.map((seg) => `<div style="min-width:${Math.max(35, (seg.end - seg.start) * 25)}px;flex:${seg.end - seg.start};--process:${seg.id === null ? "#adb0bb" : colors[seg.id]}"><strong>${esc3(seg.name)}</strong><small>${seg.start}–${seg.end}</small></div>`).join("") : '<span class="empty-state">Pokreni prvi korak.</span>'}</div><div class="table-scroll"><table class="study-table"><thead><tr><th>Proces</th><th>Stanje nakon koraka</th><th>CPU iskorišten</th><th>Čekanje na CPU</th><th>Odziv</th><th>Obrtaj</th></tr></thead><tbody>${s.jobs.map((j) => `<tr><td><span class="process-dot" style="background:${colors[j.id]}"></span>${esc3(j.name)}</td><td><span class="state-pill state-${j.state}">${states[j.state]}</span></td><td>${j.used} / ${j.burst}</td><td>${j.wait}</td><td>${j.first === null ? "—" : j.first - j.arrival}</td><td>${j.finish === null ? "—" : j.finish - j.arrival}</td></tr>`).join("")}</tbody></table></div><details class="study-details" open><summary>Procesi i primjeri</summary><div class="example-buttons">${[["basic", "Svi dolaze u t=0"], ["arrivals", "Različiti dolasci"], ["io", "Proces s I/O čekanjem"]].map(([id, label]) => `<button class="button secondary" data-cpu-example="${id}">${label}</button>`).join("")}</div><form id="cpu-jobs"><div class="table-scroll"><table class="study-table edit-table"><thead><tr><th>Naziv</th><th>Dolazak</th><th>Ukupno CPU</th><th>I/O nakon CPU</th><th>Trajanje I/O</th><th></th></tr></thead><tbody>${config.jobs.map((j, i) => `<tr data-job="${i}"><td><input name="job-name" value="${esc3(j.name)}" maxlength="12" aria-label="Naziv procesa ${i + 1}"></td>${[["arrival", "Dolazak"], ["burst", "CPU"], ["ioAt", "I/O nakon"], ["ioFor", "Trajanje I/O"]].map(([key2, label]) => `<td><input type="number" name="${key2}" value="${j[key2]}" min="0" max="30" aria-label="${label} procesa ${i + 1}"></td>`).join("")}<td><button type="button" class="icon-button" data-remove-job="${i}" aria-label="Ukloni proces ${i + 1}" ${config.jobs.length === 1 ? "disabled" : ""}>${icon2("close")}</button></td></tr>`).join("")}</tbody></table></div><div class="study-actions"><button class="button primary">Primijeni procese</button><button type="button" class="button secondary" id="add-job" ${config.jobs.length >= 8 ? "disabled" : ""}>Dodaj proces</button></div></form><p class="form-hint">I/O 0/0 znači bez prekida. Primjer 2/3: nakon 2 odrađene CPU jedinice proces čeka I/O 3 jedinice. Promjena ulaza vraća model na početak.</p></details><details class="study-details" id="cpu-comparison"><summary>Usporedi algoritme na istim ulazima</summary><table class="study-table"><thead><tr><th>Algoritam</th><th>Prosječno čekanje</th><th>Prosječan odziv</th><th>Prosječan obrtaj</th></tr></thead><tbody>${comparison.map((row) => `<tr><td>${algorithms[row.algorithm]}</td><td>${fmt(row.waiting)}</td><td>${fmt(row.response)}</td><td>${fmt(row.turnaround)}</td></tr>`).join("")}</tbody></table><p class="study-text">Odziv = prvo izvođenje − dolazak. Obrtaj = završetak − dolazak. Čekanje broji samo vrijeme u redu spremnih, ne I/O čekanje. Niži prosjek nije jedini kriterij izbora algoritma.</p></details><div class="model-note">Model ima jedan CPU, najviše jedan I/O prekid po procesu i nulti trošak prebacivanja konteksta. Trajanja su unaprijed poznata. Na granici koraka novi dolasci i završeci I/O-a ulaze u red prije procesa kojem je istekao kvant. Ovi pokusi su odvojeni od popisa otvorenih aplikacija.</div></div>`;
+      c.innerHTML = `<div class="study-app">${intro("PROCESOR I RASPOREĐIVANJE", "Jedan CPU. Više procesa.", "Raspoređivač bira spreman proces. Jedan korak ovdje traje jednu simuliranu vremensku jedinicu.")}<p class="model-note"><strong>Tko je tko?</strong> P1, P2, P3 itd. oznake su zasebnih procesa, odnosno izvođenja programa. Broj služi razlikovanju procesa i ne označava prioritet. Nazive i trajanja možeš promijeniti u tablici „Procesi i primjeri”. <strong>t</strong> je proteklo simulirano vrijeme, a <strong>I/O</strong> ulaz/izlaz, primjerice čitanje s diska.</p><div class="concept-strip"><span><b>Spreman</b> čeka CPU</span><span><b>Izvodi se</b> koristi CPU</span><span><b>Čeka I/O</b> čeka uređaj</span></div><div class="sim-controls"><label>Algoritam<select id="cpu-algorithm"><option value="fcfs" ${config.algorithm === "fcfs" ? "selected" : ""}>FCFS — redoslijedom dolaska</option><option value="rr" ${config.algorithm === "rr" ? "selected" : ""}>Round Robin — kružno</option><option value="sjf" ${config.algorithm === "sjf" ? "selected" : ""}>SJF — najkraći sljedeći CPU odsječak</option></select></label><label>Kvant<input id="cpu-quantum" type="number" min="1" max="10" value="${config.quantum}" ${config.algorithm !== "rr" ? "disabled" : ""}></label><button id="cpu-step" class="button primary" ${summary.done ? "disabled" : ""}>${icon2("play")} Korak +1</button><button id="cpu-run" class="button secondary" ${summary.done ? "disabled" : ""}>Do kraja</button><button id="cpu-reset" class="button subtle">Početak</button></div><p class="form-hint">${config.algorithm === "fcfs" ? "FCFS ne prekida proces samo zato što je stigao drugi; CPU se oslobađa završetkom ili I/O čekanjem." : config.algorithm === "rr" ? "Kvant je najveći broj uzastopnih jedinica CPU-a prije povratka procesa na kraj reda spremnih." : "SJF ovdje bira najkraći poznati sljedeći CPU odsječak i ne prekida već pokrenuti odsječak."}</p><div class="cpu-stage"><div class="cpu-chip">${icon2("cpu")}<span>CPU u zadnjem koraku</span><strong>${s.last?.name || "Spreman za pokretanje"}</strong><small>t = ${s.t}</small></div><div class="ready-queue"><span class="label">RED SPREMNIH</span><div>${s.queue.length ? s.queue.map((id) => `<span style="--process:${colors[id]}">${esc3(s.jobs[id].name)}</span>`).join("") : "<small>Nema procesa u redu.</small>"}</div><p>${s.jobs.some((j) => j.state === "blocked") ? "I/O čeka: " + s.jobs.filter((j) => j.state === "blocked").map((j) => j.name + " do t=" + j.wake).join(", ") : "Nema procesa na I/O čekanju."}</p></div></div><h3 class="study-subtitle">Vremenska crta</h3><div class="timeline" aria-label="Raspored procesora">${segments.length ? segments.map((seg) => `<div style="min-width:${Math.max(35, (seg.end - seg.start) * 25)}px;flex:${seg.end - seg.start};--process:${seg.id === null ? "#adb0bb" : colors[seg.id]}"><strong>${esc3(seg.name)}</strong><small>${seg.start}–${seg.end}</small></div>`).join("") : '<span class="empty-state">Pokreni prvi korak.</span>'}</div><div class="table-scroll"><table class="study-table"><thead><tr><th>Proces</th><th>Stanje nakon koraka</th><th>CPU iskorišten</th><th>Čekanje na CPU</th><th>Odziv</th><th>Obrtaj</th></tr></thead><tbody>${s.jobs.map((j) => `<tr><td><span class="process-dot" style="background:${colors[j.id]}"></span>${esc3(j.name)}</td><td><span class="state-pill state-${j.state}">${states[j.state]}</span></td><td>${j.used} / ${j.burst}</td><td>${j.wait}</td><td>${j.first === null ? "—" : j.first - j.arrival}</td><td>${j.finish === null ? "—" : j.finish - j.arrival}</td></tr>`).join("")}</tbody></table></div><details class="study-details" open><summary>Procesi i primjeri</summary><div class="example-buttons">${[["basic", "Svi dolaze u t=0"], ["arrivals", "Različiti dolasci"], ["io", "Proces s I/O čekanjem"]].map(([id, label]) => `<button class="button secondary" data-cpu-example="${id}">${label}</button>`).join("")}</div><form id="cpu-jobs"><div class="table-scroll"><table class="study-table edit-table"><thead><tr><th>Naziv</th><th>Dolazak</th><th>Ukupno CPU</th><th>I/O nakon CPU</th><th>Trajanje I/O</th><th></th></tr></thead><tbody>${config.jobs.map((j, i) => `<tr data-job="${i}"><td><input name="job-name" value="${esc3(j.name)}" maxlength="12" aria-label="Naziv procesa ${i + 1}"></td>${[["arrival", "Dolazak"], ["burst", "CPU"], ["ioAt", "I/O nakon"], ["ioFor", "Trajanje I/O"]].map(([key3, label]) => `<td><input type="number" name="${key3}" value="${j[key3]}" min="0" max="30" aria-label="${label} procesa ${i + 1}"></td>`).join("")}<td><button type="button" class="icon-button" data-remove-job="${i}" aria-label="Ukloni proces ${i + 1}" ${config.jobs.length === 1 ? "disabled" : ""}>${icon2("close")}</button></td></tr>`).join("")}</tbody></table></div><div class="study-actions"><button class="button primary">Primijeni procese</button><button type="button" class="button secondary" id="add-job" ${config.jobs.length >= 8 ? "disabled" : ""}>Dodaj proces</button></div></form><p class="form-hint">I/O 0/0 znači bez prekida. Primjer 2/3: nakon 2 odrađene CPU jedinice proces čeka I/O 3 jedinice. Promjena ulaza vraća model na početak.</p></details><details class="study-details" id="cpu-comparison"><summary>Usporedi algoritme na istim ulazima</summary><table class="study-table"><thead><tr><th>Algoritam</th><th>Prosječno čekanje</th><th>Prosječan odziv</th><th>Prosječan obrtaj</th></tr></thead><tbody>${comparison.map((row) => `<tr><td>${algorithms[row.algorithm]}</td><td>${fmt(row.waiting)}</td><td>${fmt(row.response)}</td><td>${fmt(row.turnaround)}</td></tr>`).join("")}</tbody></table><p class="study-text">Odziv = prvo izvođenje − dolazak. Obrtaj = završetak − dolazak. Čekanje broji samo vrijeme u redu spremnih, ne I/O čekanje. Niži prosjek nije jedini kriterij izbora algoritma.</p></details><div class="model-note">Model ima jedan CPU, najviše jedan I/O prekid po procesu i nulti trošak prebacivanja konteksta. Trajanja su unaprijed poznata. Na granici koraka novi dolasci i završeci I/O-a ulaze u red prije procesa kojem je istekao kvant. Ovi pokusi su odvojeni od popisa otvorenih aplikacija.</div></div>`;
       $3("#cpu-comparison", c).addEventListener("toggle", (e) => {
         if (e.currentTarget.open) set(() => recordCpuProof(fs.state.learning, true), ["lab"]);
       });
@@ -4573,11 +4573,11 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
     }
     function drive(c) {
       const d = fs.state.learning.disk, used = d.files.reduce((n, f) => n + f.blocks.length, 0), fragmented = d.files.filter((f) => fragments(f) > 1).length;
-      const bytes = fs.state.nodes.filter((n) => n.type === "file").reduce((sum, n) => sum + new TextEncoder().encode(n.content).length, 0);
+      const bytes2 = fs.state.nodes.filter((n) => n.type === "file").reduce((sum, n) => sum + new TextEncoder().encode(n.content).length, 0);
       c.innerHTML = `<div class="study-app">${intro("POHRANA I DATOTEČNI SUSTAV", "Gdje žive datoteke?", "Pokusni disk ima 32 bloka po 4 KiB. Dodjela blokova ovdje je odvojena od tvojih tekstova u Datotekama.")}<div class="metrics three"><div class="metric"><span class="metric-label">ZAUZETO</span><div class="metric-value">${used * 4}<span>/ 128 KiB</span></div></div><div class="metric"><span class="metric-label">SLOBODNI BLOKOVI</span><div class="metric-value">${32 - used}</div></div><div class="metric"><span class="metric-label">FRAGMENTIRANE DATOTEKE</span><div class="metric-value">${fragmented}</div></div></div><div class="disk-map" aria-label="32 bloka pokusnog diska">${Array.from({ length: 32 }, (_, i) => {
         const owner = d.files.findIndex((f) => f.blocks.includes(i));
         return `<div class="disk-block ${owner < 0 ? "free" : "used"}" style="--process:${owner < 0 ? "#e8e3ef" : colors[owner % colors.length]}" title="Blok ${i}: ${owner < 0 ? "slobodan" : esc3(d.files[owner].name)}"><small>${i}</small><strong>${owner < 0 ? "·" : esc3(d.files[owner].id)}</strong></div>`;
-      }).join("")}</div><form id="allocate-form" class="sim-controls"><label>Naziv<input name="filename" maxlength="30" placeholder="Projekt" required></label><label>Blokovi<input name="blocks" type="number" min="1" max="32" value="4" required></label><label>Način dodjele<select name="method"><option value="split">Prvi slobodni blokovi</option><option value="continuous">Neprekinuti niz</option></select></label><button class="button primary">Dodaj zapis</button></form><div class="table-scroll"><table class="study-table"><thead><tr><th>Zapis</th><th>Veličina</th><th>Blokovi</th><th>Fragmenti</th><th></th></tr></thead><tbody>${d.files.map((f, i) => `<tr><td><span class="process-dot" style="background:${colors[i % colors.length]}"></span>${esc3(f.name)} · ${f.id}</td><td>${f.blocks.length * 4} KiB</td><td class="mono">${f.blocks.join(", ")}</td><td>${fragments(f)}</td><td><button class="button subtle" data-free="${f.id}" aria-label="Ukloni pokusni zapis ${esc3(f.name)}">Ukloni</button></td></tr>`).join("") || '<tr><td colspan="5">Pokusni disk je prazan.</td></tr>'}</tbody></table></div><div class="study-actions"><button class="button secondary" id="disk-example">Učitaj primjer fragmentacije</button><button class="button primary" id="disk-compact" ${!d.files.length ? "disabled" : ""}>Posloži blokove</button><button class="button subtle" id="disk-clear" ${!d.files.length ? "disabled" : ""}>Isprazni pokusni disk</button></div><div class="model-note"><strong>Fragmentacija datoteke</strong> znači da njezini blokovi čine više odvojenih nizova. Ukupno slobodan prostor ne jamči jedan dovoljno velik neprekinuti niz. „Posloži blokove” prikazuje idealizirano preslagivanje; nije preporuka za ručnu defragmentaciju SSD-a. Ovo nije implementacija NTFS-a ili FAT-a.</div><div class="actual-storage"><div><span class="label">TVOJE BILJEŠKE U zljixOS-u</span><h3>${fs.state.nodes.filter((n) => n.type === "file").length} tekstualnih datoteka · ${(bytes / 1024).toFixed(1)} KiB sadržaja</h3><p>To su bajtovi teksta, bez metapodataka i Koša. Model blokova iznad ne mijenja ove datoteke.</p></div><button class="button secondary" data-study-open="settings">Sigurnosna kopija</button></div></div>`;
+      }).join("")}</div><form id="allocate-form" class="sim-controls"><label>Naziv<input name="filename" maxlength="30" placeholder="Projekt" required></label><label>Blokovi<input name="blocks" type="number" min="1" max="32" value="4" required></label><label>Način dodjele<select name="method"><option value="split">Prvi slobodni blokovi</option><option value="continuous">Neprekinuti niz</option></select></label><button class="button primary">Dodaj zapis</button></form><div class="table-scroll"><table class="study-table"><thead><tr><th>Zapis</th><th>Veličina</th><th>Blokovi</th><th>Fragmenti</th><th></th></tr></thead><tbody>${d.files.map((f, i) => `<tr><td><span class="process-dot" style="background:${colors[i % colors.length]}"></span>${esc3(f.name)} · ${f.id}</td><td>${f.blocks.length * 4} KiB</td><td class="mono">${f.blocks.join(", ")}</td><td>${fragments(f)}</td><td><button class="button subtle" data-free="${f.id}" aria-label="Ukloni pokusni zapis ${esc3(f.name)}">Ukloni</button></td></tr>`).join("") || '<tr><td colspan="5">Pokusni disk je prazan.</td></tr>'}</tbody></table></div><div class="study-actions"><button class="button secondary" id="disk-example">Učitaj primjer fragmentacije</button><button class="button primary" id="disk-compact" ${!d.files.length ? "disabled" : ""}>Posloži blokove</button><button class="button subtle" id="disk-clear" ${!d.files.length ? "disabled" : ""}>Isprazni pokusni disk</button></div><div class="model-note"><strong>Fragmentacija datoteke</strong> znači da njezini blokovi čine više odvojenih nizova. Ukupno slobodan prostor ne jamči jedan dovoljno velik neprekinuti niz. „Posloži blokove” prikazuje idealizirano preslagivanje; nije preporuka za ručnu defragmentaciju SSD-a. Ovo nije implementacija NTFS-a ili FAT-a.</div><div class="actual-storage"><div><span class="label">TVOJE BILJEŠKE U zljixOS-u</span><h3>${fs.state.nodes.filter((n) => n.type === "file").length} tekstualnih datoteka · ${(bytes2 / 1024).toFixed(1)} KiB sadržaja</h3><p>To su bajtovi teksta, bez metapodataka i Koša. Model blokova iznad ne mijenja ove datoteke.</p></div><button class="button secondary" data-study-open="settings">Sigurnosna kopija</button></div></div>`;
       $3("#allocate-form", c).onsubmit = (e) => {
         e.preventDefault();
         const f = e.currentTarget;
@@ -4733,11 +4733,47 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
     return { users, cpu, memory, drive, trash, journal, lab, guide, permissions, exportReport, report };
   }
 
-  // public/orbit/recovery-model.js
-  function serializeBackup(state, date = (/* @__PURE__ */ new Date()).toISOString()) {
-    return JSON.stringify({ format: "zljixos-backup", formatVersion: 2, student: validateStudent(state.student), exportedAt: date, workspace: validateState(state) }, null, 2);
+  // public/orbit/backup-integrity.js
+  var KEY_HEX = "fbf41343272126f6bfcd8f4f4b5137c284f39942860d8f0434eb8720fbaa2ae1";
+  var DOMAIN = "zljixOS/backup/v3\n";
+  var encoder = new TextEncoder();
+  var invalid = () => Error("Provjera potpisa nije uspjela. Ime, prezime ili sadržaj kopije promijenjeni su nakon izvoza, ili je kopija oštećena. Rad nije učitan.");
+  function canonical(value, depth = 0) {
+    if (depth > 64) throw Error("JSON kopija ima preduboko ugniježđene podatke.");
+    if (value === null || typeof value === "string" || typeof value === "boolean") return JSON.stringify(value);
+    if (typeof value === "number" && Number.isFinite(value)) return JSON.stringify(value);
+    if (Array.isArray(value)) return "[" + value.map((v) => canonical(v, depth + 1)).join(",") + "]";
+    if (value && typeof value === "object") return "{" + Object.keys(value).sort().map((k) => JSON.stringify(k) + ":" + canonical(value[k], depth + 1)).join(",") + "}";
+    throw Error("Kopija sadrži nepodržanu vrijednost.");
   }
-  function parseBackup(text, expectedStudent) {
+  function cryptoAPI() {
+    const subtle = globalThis.crypto?.subtle;
+    if (!subtle) throw Error("Preglednik ne podržava provjeru potpisa. Otvori zljixOS preko HTTPS adrese ili preuzeti HTML u novijem pregledniku.");
+    return subtle;
+  }
+  var bytes = (hex) => Uint8Array.from(hex.match(/../g), (pair3) => parseInt(pair3, 16));
+  var key2 = (api) => api.importKey("raw", bytes(KEY_HEX), { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
+  var data = (payload) => encoder.encode(DOMAIN + canonical(payload));
+  async function signBackup(payload) {
+    const message = data(payload), api = cryptoAPI();
+    const value = await api.sign("HMAC", await key2(api), message);
+    return { algorithm: "HMAC-SHA-256", keyId: "local-v1", value: Array.from(new Uint8Array(value), (b) => b.toString(16).padStart(2, "0")).join("") };
+  }
+  async function verifyBackup(payload, integrity) {
+    if (!integrity || typeof integrity !== "object" || Array.isArray(integrity) || Object.keys(integrity).sort().join(",") !== "algorithm,keyId,value" || integrity.algorithm !== "HMAC-SHA-256" || integrity.keyId !== "local-v1" || typeof integrity.value !== "string" || !/^[0-9a-f]{64}$/.test(integrity.value)) throw invalid();
+    const message = data(payload), api = cryptoAPI();
+    if (!await api.verify("HMAC", await key2(api), bytes(integrity.value), message)) throw invalid();
+  }
+
+  // public/orbit/recovery-model.js
+  async function serializeBackup(state, date = (/* @__PURE__ */ new Date()).toISOString()) {
+    const workspace = validateState(state), student = validateStudent(workspace.student);
+    if (!student) throw Error("Prije izvoza unesi ime i prezime.");
+    if (typeof date !== "string" || !Number.isFinite(Date.parse(date))) throw Error("Neispravan datum izvoza.");
+    const payload = { format: "zljixos-backup", formatVersion: 3, student, exportedAt: date, workspace };
+    return JSON.stringify({ ...payload, integrity: await signBackup(payload) }, null, 2);
+  }
+  async function parseBackup(text, expectedStudent) {
     if (typeof text !== "string" || text.length > 8e6) throw new Error("JSON kopija je prevelika.");
     let raw;
     try {
@@ -4745,22 +4781,14 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
     } catch {
       throw new Error("Datoteka nije valjani JSON. Provjeri je li kopirana u cijelosti.");
     }
-    if (raw?.format === "zljixos-backup") {
-      if (raw.formatVersion !== 2 || typeof raw.exportedAt !== "string" || !Number.isFinite(Date.parse(raw.exportedAt))) throw Error("Nepodržan format ili neispravan datum kopije.");
-      const state2 = validateState(raw.workspace), owner = validateStudent(raw.student);
-      if (owner || state2.student) requireSameStudent(owner, state2.student);
-      if (expectedStudent) requireSameStudent(expectedStudent, state2.student);
-      return { state: state2, exportedAt: raw.exportedAt, legacy: false };
-    }
-    if (raw?.format === "orbit-backup") {
-      if (raw.formatVersion !== 1 || typeof raw.exportedAt !== "string" || !Number.isFinite(Date.parse(raw.exportedAt))) throw new Error("Nepodržan format ili neispravan datum kopije.");
-      const state2 = validateState(raw.workspace);
-      if (expectedStudent) requireSameStudent(expectedStudent, state2.student);
-      return { state: state2, exportedAt: raw.exportedAt, legacy: false };
-    }
-    const state = validateState(raw);
+    if (raw?.format !== "zljixos-backup" || raw.formatVersion !== 3) throw Error("Ova kopija nema podržan kontrolni potpis. Stare i nepotpisane JSON kopije više se ne učitavaju. Ako je rad još u izvornom pregledniku, otvori novo izdanje igre i ponovno izvezi JSON.");
+    const { integrity, ...payload } = raw;
+    await verifyBackup(payload, integrity);
+    if (typeof raw.exportedAt !== "string" || !Number.isFinite(Date.parse(raw.exportedAt))) throw Error("Neispravan datum kopije.");
+    const state = validateState(raw.workspace), owner = validateStudent(raw.student);
+    requireSameStudent(owner, state.student);
     if (expectedStudent) requireSameStudent(expectedStudent, state.student);
-    return { state, exportedAt: null, legacy: true };
+    return { state, exportedAt: raw.exportedAt, legacy: false, integrityVerified: true };
   }
   function workspaceStats(state) {
     return { files: state.nodes.filter((n) => n.type === "file").length, folders: state.nodes.filter((n) => n.type === "dir" && n.id !== "root").length, versions: state.versions?.length || 0, trash: state.archive.length, reflections: Object.values(state.learning.answers).filter((v) => v.trim()).length };
@@ -4823,7 +4851,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
   var statusNames = { same: "Jednak tekst", changed: "Promijenjen tekst", missing: "Nema na toj putanji", conflict: "Na putanji je mapa", blocked: "Nema dozvole za usporedbu" };
   function createRecovery(ctx) {
     const { fs, esc: esc3, icon: icon2, openApp, openFile, openFolder, toast, ask, download, chooseFile, refresh } = ctx;
-    let tab = "versions", fileId = null, versionId = null, incoming = null, selected = /* @__PURE__ */ new Set(), previewId = null, notice = "";
+    let tab = "versions", fileId = null, versionId = null, incoming = null, selected = /* @__PURE__ */ new Set(), previewId = null, notice = "", reviewId = 0;
     const date = (iso) => new Date(iso).toLocaleString("hr-HR");
     const changed = () => {
       ctx.changed();
@@ -4909,13 +4937,15 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
       return `<div class="backup-metrics"><div><strong>${stats.files}</strong><span>aktivnih tekstova</span></div><div><strong>${stats.folders}</strong><span>mapa</span></div><div><strong>${stats.versions}</strong><span>verzija</span></div><div><strong>${stats.reflections}</strong><span>osvrta</span></div></div>`;
     }
     function backupView(c) {
-      c.innerHTML = `<section class="backup-section"><span class="label">1 · SAČUVAJ PROSTOR</span><h3>Kopija koju nosiš sa sobom.</h3><p>JSON kopija obuhvaća aktivne datoteke, Koš, verzije tekstova, simulirane profile, postavke, osvrte i pokuse. Preuzmi je na računalo i provjeri gdje je spremljena.</p>${summary(workspaceStats(fs.state))}<div class="study-actions"><button id="recovery-export" class="button primary">${icon2("download")} Preuzmi JSON kopiju</button><button id="recovery-show-json" class="button secondary">Prikaži JSON za kopiranje</button></div><div id="backup-text-output" hidden><label>JSON kopija za ručno spremanje<textarea rows="6" readonly aria-label="JSON kopija za kopiranje"></textarea></label><button class="button secondary" id="backup-copy-json">Kopiraj JSON</button><p class="form-hint">Spremi cijeli tekst u običnu tekstualnu datoteku s nastavkom .json i kodiranjem UTF-8. Prikaz ovog teksta još nije zasebna sigurnosna kopija.</p></div></section><section class="backup-section"><span class="label">2 · PROVJERI KOPIJU</span><h3>Najprije pogledaj što vraćaš.</h3><p>Učitaj kopiju ili zalijepi njezin JSON. Pregled provjerava format i sadržaj zapisa. Samo učitavanje ne zamjenjuje tvoj radni prostor.</p><div class="study-actions"><button class="button secondary" id="recovery-import">${icon2("upload")} Odaberi JSON datoteku</button></div><details class="study-details"><summary>Ili zalijepi JSON</summary><form id="backup-paste-form"><label>Tekst JSON kopije<textarea id="backup-paste" rows="5" maxlength="8000000" spellcheck="false" placeholder="Zalijepi cijeli sadržaj kopije…"></textarea></label><button class="button secondary">Učitaj i pregledaj</button></form></details></section><div id="backup-review"></div>`;
+      c.innerHTML = `<section class="backup-section"><span class="label">1 · SAČUVAJ PROSTOR</span><h3>Kopija koju nosiš sa sobom.</h3><p>JSON kopija obuhvaća aktivne datoteke, Koš, verzije tekstova, simulirane profile, postavke, osvrte i pokuse. Preuzmi je na računalo i provjeri gdje je spremljena.</p>${summary(workspaceStats(fs.state))}<div class="study-actions"><button id="recovery-export" class="button primary">${icon2("download")} Preuzmi JSON kopiju</button><button id="recovery-show-json" class="button secondary">Prikaži JSON za kopiranje</button></div><div id="backup-text-output" hidden><label>JSON kopija za ručno spremanje<textarea rows="6" readonly aria-label="JSON kopija za kopiranje"></textarea></label><button class="button secondary" id="backup-copy-json">Kopiraj JSON</button><p class="form-hint">Spremi cijeli tekst u običnu tekstualnu datoteku s nastavkom .json i kodiranjem UTF-8. Sačuvaj cijeli tekst i kontrolni potpis bez mijenjanja vrijednosti. Prikaz ovog teksta još nije zasebna sigurnosna kopija.</p></div></section><section class="backup-section"><span class="label">2 · PROVJERI KOPIJU</span><h3>Najprije pogledaj što vraćaš.</h3><p>Učitaj kopiju ili zalijepi njezin JSON. Pregled provjerava kontrolni potpis, ime, prezime i sadržaj zapisa. Promijenjene i stare nepotpisane kopije ne učitavaju se. Samo učitavanje ne zamjenjuje tvoj radni prostor.</p><div class="study-actions"><button class="button secondary" id="recovery-import">${icon2("upload")} Odaberi JSON datoteku</button></div><details class="study-details"><summary>Ili zalijepi JSON</summary><form id="backup-paste-form"><label>Tekst JSON kopije<textarea id="backup-paste" rows="5" maxlength="8000000" spellcheck="false" placeholder="Zalijepi cijeli sadržaj kopije…"></textarea></label><button class="button secondary">Učitaj i pregledaj</button></form></details></section><div id="backup-review"></div>`;
       $4("#recovery-export", c).onclick = () => exportBackup();
-      $4("#recovery-show-json", c).onclick = () => {
+      $4("#recovery-show-json", c).onclick = async () => {
         try {
+          const text = await serializeBackup(fs.state);
+          if (!c.isConnected) return;
           const output = $4("#backup-text-output", c);
           output.hidden = false;
-          $4("textarea", output).value = serializeBackup(fs.state);
+          $4("textarea", output).value = text;
           $4("textarea", output).focus();
           $4("textarea", output).select();
         } catch (e) {
@@ -4940,20 +4970,26 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
       };
       if (incoming) reviewView($4("#backup-review", c));
     }
-    function reviewText(text) {
+    async function reviewText(text) {
+      const id = ++reviewId;
+      incoming = null;
+      selected.clear();
+      previewId = null;
+      tab = "backup";
+      notice = "Provjeravam kontrolni potpis kopije…";
+      refresh("recovery");
       try {
-        const parsed = parseBackup(text, fs.state.student);
+        const parsed = await parseBackup(await text, fs.state.student);
+        if (id !== reviewId) return;
         fs.transact(() => {
           fs.state.learning.evidence.backupReviewed = true;
-          fs.event("kopija", "JSON kopija provjerena, bez zamjene prostora.");
+          fs.event("kopija", "JSON kopija: potpis i vlasnik provjereni, bez zamjene prostora.");
         });
         incoming = parsed;
-        selected = /* @__PURE__ */ new Set();
-        previewId = null;
-        tab = "backup";
-        notice = "Kopija je valjana za učitavanje. Pregledaj sadržaj i odaberi način oporavka.";
+        notice = "Kontrolni potpis i vlasnik kopije su provjereni. Pregledaj sadržaj i odaberi način oporavka.";
         changed();
       } catch (e) {
+        if (id !== reviewId) return;
         incoming = null;
         selected.clear();
         previewId = null;
@@ -4962,30 +4998,13 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
         toast(e.message);
       }
     }
-    async function reviewFile(file3) {
-      if (file3.size > 8e6) {
-        incoming = null;
-        selected.clear();
-        previewId = null;
-        notice = "Odaberi JSON datoteku do 8 MB.";
-        toast(notice);
-        refresh("recovery");
-        return;
-      }
-      try {
-        reviewText(await file3.text());
-      } catch (e) {
-        incoming = null;
-        selected.clear();
-        previewId = null;
-        fail(e);
-        refresh("recovery");
-      }
+    function reviewFile(file3) {
+      return reviewText(file3.size > 8e6 ? Promise.reject(Error("Odaberi JSON datoteku do 8 MB.")) : file3.text());
     }
     function reviewView(c) {
       const rows = compareBackup(fs, incoming.state);
       if (!rows.some((r) => r.id === previewId)) previewId = rows[0]?.id || null;
-      c.innerHTML = `<section class="backup-section backup-review"><span class="label">3 · ODABERI OPORAVAK</span><h3>Provjerena kopija</h3><p><strong>Učenik / učenica: ${esc3(studentName(incoming.state.student))}</strong></p><p>${incoming.exportedAt ? "Izvoz: " + esc3(date(incoming.exportedAt)) : "Stariji format kopije — datum izvoza nije zapisan."} · ${incoming.state.archive.length} zapisa u Košu</p>${summary(workspaceStats(incoming.state))}<div class="recovery-callout"><strong>Vrati odabrane tekstove u novu mapu.</strong><p>Stvorit će se mapa Oporavak u /Dokumenti. Unutar nje ostaju izvorni nazivi i raspored mapa. Nove datoteke pripadaju aktivnom profilu, uz dozvole 644; nove mape imaju 755. Postojeći zapisi ostaju na svom mjestu.</p></div><div class="study-actions"><button id="backup-select-all" class="button secondary">Odaberi sve tekstove</button><button id="backup-select-none" class="button subtle">Poništi odabir</button><span id="backup-selection-count"></span></div><div class="backup-file-list" aria-label="Tekstovi iz sigurnosne kopije">${rows.map((r) => `<div class="backup-file-row"><input type="checkbox" data-backup-select="${r.id}" aria-label="Vrati ${esc3(r.path)}" ${selected.has(r.id) ? "checked" : ""}><button data-backup-preview="${r.id}" class="${r.id === previewId ? "selected" : ""}"><strong>${esc3(r.path)}</strong><span class="backup-diff diff-${r.status}">${statusNames[r.status]}</span></button></div>`).join("") || "<p>Nema aktivnih tekstova. Koš i verzije vraćaju se zamjenom cijelog prostora.</p>"}</div><div id="backup-file-preview"></div><div class="study-actions"><button id="backup-restore-selected" class="button primary">${icon2("copy")} Vrati odabrane kao nove kopije</button></div><details class="study-details full-restore"><summary>Zamjena cijelog prostora</summary><p>Ova radnja zamjenjuje aktivne datoteke, Koš, spremljene verzije, profile, postavke i napredak vrijednostima iz kopije. Prvo izvezi trenutačni rad. Za oporavak pojedinih tekstova koristi gornji odabir.</p><button id="backup-restore-full" class="button danger">Zamijeni cijeli prostor…</button></details><p class="form-hint">Usporedba traži istu putanju i uspoređuje tekst. Ne provjerava izvor ni autentičnost kopije. Prikazani datum izvoza zapis je iz datoteke.</p></section>`;
+      c.innerHTML = `<section class="backup-section backup-review"><span class="label">3 · ODABERI OPORAVAK</span><h3>Provjerena kopija</h3><p>Kontrolni potpis kopije je valjan.</p><p><strong>Učenik / učenica: ${esc3(studentName(incoming.state.student))}</strong></p><p>${incoming.exportedAt ? "Izvoz: " + esc3(date(incoming.exportedAt)) : "Stariji format kopije — datum izvoza nije zapisan."} · ${incoming.state.archive.length} zapisa u Košu</p>${summary(workspaceStats(incoming.state))}<div class="recovery-callout"><strong>Vrati odabrane tekstove u novu mapu.</strong><p>Stvorit će se mapa Oporavak u /Dokumenti. Unutar nje ostaju izvorni nazivi i raspored mapa. Nove datoteke pripadaju aktivnom profilu, uz dozvole 644; nove mape imaju 755. Postojeći zapisi ostaju na svom mjestu.</p></div><div class="study-actions"><button id="backup-select-all" class="button secondary">Odaberi sve tekstove</button><button id="backup-select-none" class="button subtle">Poništi odabir</button><span id="backup-selection-count"></span></div><div class="backup-file-list" aria-label="Tekstovi iz sigurnosne kopije">${rows.map((r) => `<div class="backup-file-row"><input type="checkbox" data-backup-select="${r.id}" aria-label="Vrati ${esc3(r.path)}" ${selected.has(r.id) ? "checked" : ""}><button data-backup-preview="${r.id}" class="${r.id === previewId ? "selected" : ""}"><strong>${esc3(r.path)}</strong><span class="backup-diff diff-${r.status}">${statusNames[r.status]}</span></button></div>`).join("") || "<p>Nema aktivnih tekstova. Koš i verzije vraćaju se zamjenom cijelog prostora.</p>"}</div><div id="backup-file-preview"></div><div class="study-actions"><button id="backup-restore-selected" class="button primary">${icon2("copy")} Vrati odabrane kao nove kopije</button></div><details class="study-details full-restore"><summary>Zamjena cijelog prostora</summary><p>Ova radnja zamjenjuje aktivne datoteke, Koš, spremljene verzije, profile, postavke i napredak vrijednostima iz kopije. Prvo izvezi trenutačni rad. Za oporavak pojedinih tekstova koristi gornji odabir.</p><button id="backup-restore-full" class="button danger">Zamijeni cijeli prostor…</button></details><p class="form-hint">Kontrolni potpis otkriva ručne izmjene kopije. Ne potvrđuje stvarni identitet osobe ni samostalnost rada. Usporedba tekstova traži istu putanju.</p></section>`;
       const update = () => {
         $4("#backup-selection-count", c).textContent = selected.size + " odabrano";
         $4("#backup-restore-selected", c).disabled = !selected.size;
@@ -5035,11 +5054,12 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
           toast("Prvo spremi ili preuzmi nespremljeni tekst iz Bilježaka.");
           return;
         }
-        const state = incoming.state, stats = workspaceStats(state);
+        const id = reviewId, state = incoming.state, stats = workspaceStats(state);
         const ok = await ask({ title: "Zamijeniti cijeli zljixOS prostor?", description: `Vlasnik: ${studentName(state.student)}. Kopija sadrži ${stats.files} aktivnih tekstova, ${stats.versions} verzija i ${stats.reflections} osvrta. Zamijenit će sve sadašnje podatke. Provjeri da si sadašnji rad izvezao ako ga želiš sačuvati.`, confirm: "Zamijeni i vrati", danger: true });
-        if (ok) {
+        if (ok && id === reviewId) {
           try {
             ctx.replaceWorkspace(state);
+            reviewId++;
             incoming = null;
             selected.clear();
             notice = "Cijeli prostor vraćen je iz kopije. Provjeri sadržaj datoteka i napredak.";
@@ -5051,12 +5071,13 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
         }
       };
     }
-    function exportBackup() {
+    async function exportBackup() {
       try {
         fs.evidence("backupExport");
-        download(studentFilename(fs.state.student, "sigurnosna-kopija"), serializeBackup(fs.state), "application/json");
+        const name = studentFilename(fs.state.student, "sigurnosna-kopija"), text = await serializeBackup(fs.state);
+        download(name, text, "application/json");
         refresh("lab");
-        toast("Preuzimanje je pokrenuto. Provjeri spremljenu JSON datoteku na računalu.");
+        toast("Preuzimanje kopije s kontrolnim potpisom je pokrenuto. Provjeri spremljenu JSON datoteku na računalu.");
       } catch (e) {
         fail(e);
       }
@@ -5181,7 +5202,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
   var studentStorageKey = (student) => STORAGE_KEY + studentKey(student);
   function createLocalStore(storage, student) {
     student = validateStudent(student);
-    const key2 = studentStorageKey(student);
+    const key3 = studentStorageKey(student);
     let initial = seed(student), lastRaw = null, revision = 0, pending = null, kind = "memory";
     let message = "Lokalna pohrana nije dostupna. Prije zatvaranja izvezi rad u JSON.";
     let corrupt = false, corruptRaw = null;
@@ -5198,7 +5219,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
     }
     try {
       if (storage) {
-        lastRaw = storage.getItem(key2);
+        lastRaw = storage.getItem(key3);
         if (lastRaw !== null) {
           try {
             const loaded = read(lastRaw);
@@ -5220,7 +5241,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
     function checkForChanges() {
       if (!storage || corrupt) return false;
       try {
-        if (storage.getItem(key2) !== lastRaw) {
+        if (storage.getItem(key3) !== lastRaw) {
           kind = "conflict";
           message = "Lokalni zapis promijenjen je u drugom prozoru. Izvezi ovaj rad, zatim otvori spremljeni rad. zljixOS koristi u jednoj kartici.";
           notify();
@@ -5242,7 +5263,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
       try {
         if (!storage) throw new Error("Storage unavailable");
         const next = JSON.stringify({ format: "orbit-local", version: 1, revision: revision + 1, updatedAt: (/* @__PURE__ */ new Date()).toISOString(), state: validated });
-        storage.setItem(key2, next);
+        storage.setItem(key3, next);
         lastRaw = next;
         revision++;
         pending = null;
@@ -5259,7 +5280,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
     }
     return {
       initial,
-      key: key2,
+      key: key3,
       persist,
       flush() {
         if (!pending) return kind === "saved";
@@ -5315,7 +5336,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
       dialog.className = "local-work-dialog";
       dialog.setAttribute("aria-labelledby", "local-title");
       document.body.append(dialog);
-      let incoming = null;
+      let incoming = null, reviewId = 0, exportId = 0, preparedCopy = null;
       const ready = () => {
         if (isEditorDirty()) {
           toast("Prvo spremi ili preuzmi nespremljeni tekst iz Bilježaka.");
@@ -5326,14 +5347,45 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
       function filename() {
         return studentFilename(getState().student, "rad-" + (/* @__PURE__ */ new Date()).toISOString().slice(0, 10));
       }
-      function exportWork() {
+      async function exportWork() {
         if (!ready()) return;
-        download(filename(), serializeBackup(getState()), "application/json");
-        toast("JSON kopija pripremljena je za preuzimanje. Provjeri da je datoteka spremljena.");
+        try {
+          const name = filename(), text = await serializeBackup(getState());
+          download(name, text, "application/json");
+          toast("JSON kopija s kontrolnim potpisom pripremljena je za preuzimanje. Provjeri da je datoteka spremljena.");
+        } catch (error) {
+          toast(error.message);
+        }
+      }
+      async function prepareCopy() {
+        const id = ++exportId;
+        preparedCopy = null;
+        const share = dialog.querySelector("[data-share]"), copy7 = dialog.querySelector("[data-copy]");
+        if (share) share.disabled = true;
+        if (copy7) {
+          copy7.value = "";
+          copy7.placeholder = "Pripremam kopiju s kontrolnim potpisom…";
+        }
+        try {
+          const name = filename(), text = await serializeBackup(getState());
+          if (id !== exportId || !dialog.open) return;
+          preparedCopy = { name, text };
+          if (share) share.disabled = false;
+          if (copy7) {
+            copy7.value = text;
+            copy7.placeholder = "";
+          }
+        } catch (error) {
+          if (id === exportId && dialog.open) dialog.querySelector("#local-error").textContent = error.message;
+        }
       }
       async function shareWork() {
         if (!ready()) return;
-        const file3 = new File([serializeBackup(getState())], filename(), { type: "application/json" });
+        if (!preparedCopy) {
+          toast("Pričekaj da se pripremi kopija.");
+          return;
+        }
+        const file3 = new File([preparedCopy.text], preparedCopy.name, { type: "application/json" });
         try {
           if (!navigator.canShare?.({ files: [file3] })) {
             exportWork();
@@ -5353,18 +5405,22 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
         warning.querySelector("p").textContent = status.message;
         const statusText = dialog.querySelector("[data-local-status]");
         if (statusText) statusText.textContent = local.label();
+        if (dialog.open) prepareCopy();
       }
       function show() {
         incoming = null;
+        reviewId++;
+        exportId++;
+        preparedCopy = null;
         dialog.innerHTML = `<header class="local-dialog-heading"><div><span class="label">zljixOS · LOKALNO IZDANJE</span><h2 id="local-title">Moj rad</h2></div><button class="button secondary" data-close aria-label="Zatvori Moj rad">Zatvori</button><\/header>
-        <div class="student-owner"><span>Učenik / učenica</span><strong>${esc(studentName(getState().student))}</strong><small>Ime je vezano uz ovaj rad i ne može se preimenovati.</small></div><p class="local-lead">${mobile ? "Pokusi, datoteke i odgovori ostaju na ovom uređaju. Status u gornjoj traci pokazuje je li aplikacija preuzeta za rad bez interneta." : "Uči bez interneta i poslužitelja. Pokusi, datoteke i odgovori ostaju na ovom računalu."}</p>
+        <div class="student-owner"><span>Učenik / učenica</span><strong>${esc(studentName(getState().student))}</strong><small>Kopija je vezana uz ime i prezime. Ručno promijenjena kopija neće se učitati.</small></div><p class="local-lead">${mobile ? "Pokusi, datoteke i odgovori ostaju na ovom uređaju. Status u gornjoj traci pokazuje je li aplikacija preuzeta za rad bez interneta." : "Uči bez interneta i poslužitelja. Pokusi, datoteke i odgovori ostaju na ovom računalu."}</p>
         <div class="local-storage-note"><strong data-local-status>${esc(local.label())}</strong><p>Preglednik pokušava automatski sačuvati rad. Za nastavak na drugom uređaju ili nakon brisanja podataka preglednika spremi zasebnu JSON kopiju.</p></div>
         <label class="local-field">Oznaka rada <input id="local-work-label" maxlength="80" placeholder="npr. 2B – Ana – Procesi" value="${esc(getState().learning.label)}"></label>
         <p class="local-help">Oznaka rada je neobvezna napomena i ne mijenja ime vlasnika. Profili Učenik i Nastavnik služe samo vježbi dozvola.</p>
         <div class="local-actions"><button class="button primary" data-export>Spremi rad u JSON</button>${typeof navigator.share === "function" ? '<button class="button secondary" data-share>Podijeli JSON kopiju</button>' : ""}<button class="button secondary" data-report>Moji rezultati i izvještaj</button></div>
-        <details><summary>Prikaži JSON za kopiranje</summary><p>Kopiraj cijeli tekst u običnu tekstualnu datoteku s nastavkom .json. To je kopija trenutka otvaranja ovog prikaza.</p><textarea data-copy readonly aria-label="JSON kopija rada" spellcheck="false"></textarea></details>
-        <section class="local-import"><h3>Nastavi spremljeni rad</h3><p>Odaberi svoju JSON kopiju iz datoteka uređaja. Prije zamjene prikazat će se pregled sadržaja.</p><label class="local-field">Odaberi JSON datoteku<input id="local-import-file" type="file" accept=".json,application/json"></label><details><summary>Ili zalijepi JSON kopiju</summary><textarea id="local-import-text" aria-label="JSON za učitavanje" placeholder="Zalijepi cijeli JSON…" spellcheck="false"></textarea><button class="button secondary" data-preview>Pregledaj zalijepljenu kopiju</button></details><div id="local-import-preview" role="status"></div></section>
-        <p id="local-error" class="error" role="alert"></p><div class="local-actions local-bottom"><button class="button secondary" data-student>Drugi učenik / učenica</button><button class="button secondary" data-new>Započni svoj rad iznova</button>${local.status().kind === "conflict" ? '<button class="button secondary" data-reload>Otvori spremljeni rad</button>' : ""}${local.original() !== null ? '<button class="button secondary" data-original>Preuzmi izvorni nečitljivi zapis</button>' : ""}</div><p class="local-help">Za drugi identitet odaberi Drugi učenik / učenica. Tvoj rad ostaje zasebno spremljen. Starije kopije bez imena ne mogu se učitati kao tvoji rezultati. ${mobile ? "Koristi jedan prozor i isti način otvaranja zljixOS-a. Promjena preglednika ili otvaranje s nove ikone može otvoriti zasebnu pohranu; tada učitaj svoj JSON." : "Koristi jednu karticu i istu putanju HTML datoteke. Promjena preglednika, premještanje datoteke ili privatni način mogu otvoriti prazan prostor; tada učitaj svoj JSON."}</p>`;
+        <details><summary>Prikaži JSON za kopiranje</summary><p>Kopiraj cijeli tekst u običnu tekstualnu datoteku s nastavkom .json. Kopija uključuje kontrolni potpis. Sačuvaj cijeli tekst bez mijenjanja vrijednosti.</p><textarea data-copy readonly aria-label="JSON kopija rada" spellcheck="false"></textarea></details>
+        <section class="local-import"><h3>Nastavi spremljeni rad</h3><p>Odaberi svoju JSON kopiju iz datoteka uređaja. Prije pregleda provjeravaju se kontrolni potpis, ime i prezime. Promijenjene i stare nepotpisane kopije ne mogu se učitati.</p><label class="local-field">Odaberi JSON datoteku<input id="local-import-file" type="file" accept=".json,application/json"></label><details><summary>Ili zalijepi JSON kopiju</summary><textarea id="local-import-text" aria-label="JSON za učitavanje" placeholder="Zalijepi cijeli JSON…" spellcheck="false"></textarea><button class="button secondary" data-preview>Pregledaj zalijepljenu kopiju</button></details><div id="local-import-preview" role="status"></div></section>
+        <p id="local-error" class="error" role="alert"></p><div class="local-actions local-bottom"><button class="button secondary" data-student>Drugi učenik / učenica</button><button class="button secondary" data-new>Započni svoj rad iznova</button>${local.status().kind === "conflict" ? '<button class="button secondary" data-reload>Otvori spremljeni rad</button>' : ""}${local.original() !== null ? '<button class="button secondary" data-original>Preuzmi izvorni nečitljivi zapis</button>' : ""}</div><p class="local-help">Za drugi identitet odaberi Drugi učenik / učenica. Tvoj rad ostaje zasebno spremljen. Za prijenos koristi JSON iz izdanja 0.16.0 ili novijeg. Ako imaš staru kopiju, novi JSON izvezi iz preglednika u kojem je rad sačuvan. ${mobile ? "Koristi jedan prozor i isti način otvaranja zljixOS-a. Promjena preglednika ili otvaranje s nove ikone može otvoriti zasebnu pohranu; tada učitaj svoj JSON." : "Koristi jednu karticu i istu putanju HTML datoteke. Promjena preglednika, premještanje datoteke ili privatni način mogu otvoriti prazan prostor; tada učitaj svoj JSON."}</p>`;
         const q = (s) => dialog.querySelector(s);
         q("[data-close]").onclick = () => dialog.close();
         q("[data-export]").onclick = exportWork;
@@ -5382,23 +5438,24 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
           openApp("report");
         };
         const copy7 = q("[data-copy]");
-        copy7.closest("details").ontoggle = (e) => {
-          if (e.target.open) copy7.value = serializeBackup(getState());
-        };
         copy7.onclick = () => copy7.select();
-        function preview(text) {
+        async function preview(text) {
+          const id = ++reviewId;
           incoming = null;
           q("#local-import-preview").replaceChildren();
           q("#local-error").textContent = "";
+          q("#local-import-preview").textContent = "Provjeravam kontrolni potpis kopije…";
           try {
-            incoming = parseBackup(text, getState().student);
+            const parsed = await parseBackup(await text, getState().student);
+            if (id !== reviewId || !dialog.open) return;
+            incoming = parsed;
             const stats = workspaceStats(incoming.state), records = incoming.state.learning.explorer.records.length;
-            q("#local-import-preview").innerHTML = `<div class="local-storage-note"><strong>Učenik / učenica: ${esc(studentName(incoming.state.student))}</strong><p>${esc(incoming.state.learning.label || "Rad bez dodatne oznake")}</p><p>${stats.files} tekstova · ${stats.versions} verzija · ${records} zabilježenih OS pokusa</p><p>${incoming.exportedAt ? "Izvezeno: " + esc(new Date(incoming.exportedAt).toLocaleString("hr-HR")) : "Stariji format radnog prostora"}</p><button class="button primary" data-import>Učitaj cijeli rad</button></div>`;
+            q("#local-import-preview").innerHTML = `<div class="local-storage-note"><strong>Učenik / učenica: ${esc(studentName(incoming.state.student))}</strong><p>Kontrolni potpis kopije je valjan.</p><p>${esc(incoming.state.learning.label || "Rad bez dodatne oznake")}</p><p>${stats.files} tekstova · ${stats.versions} verzija · ${records} zabilježenih OS pokusa</p><p>${incoming.exportedAt ? "Izvezeno: " + esc(new Date(incoming.exportedAt).toLocaleString("hr-HR")) : "Stariji format radnog prostora"}</p><button class="button primary" data-import>Učitaj cijeli rad</button></div>`;
             q("[data-import]").onclick = async () => {
               if (!ready()) return;
-              const ok = await ask({ title: "Učitati spremljeni rad?", description: "Vlasnik kopije: " + studentName(incoming.state.student) + ". Ova kopija zamijenit će tvoje sadašnje datoteke, postavke i odgovore. Najprije ih izvezi ako ih želiš sačuvati.", confirm: "Učitaj i zamijeni", danger: true });
-              if (ok) try {
-                replaceWorkspace(incoming.state);
+              const ok = await ask({ title: "Učitati spremljeni rad?", description: "Vlasnik kopije: " + studentName(parsed.state.student) + ". Ova kopija zamijenit će tvoje sadašnje datoteke, postavke i odgovore. Najprije ih izvezi ako ih želiš sačuvati.", confirm: "Učitaj i zamijeni", danger: true });
+              if (ok && id === reviewId) try {
+                replaceWorkspace(parsed.state);
                 dialog.close();
                 toast("Učitan rad: " + studentName(getState().student) + ". " + local.label() + ".");
               } catch (error) {
@@ -5406,20 +5463,16 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
               }
             };
           } catch (error) {
-            q("#local-error").textContent = error.message;
-          }
-        }
-        q("#local-import-file").onchange = async (e) => {
-          const file3 = e.target.files[0];
-          if (!file3) return;
-          try {
-            if (file3.size > 8e6) throw new Error("JSON datoteka je prevelika (najviše 8 MB).");
-            preview(await file3.text());
-          } catch (error) {
+            if (id !== reviewId || !dialog.open) return;
             incoming = null;
             q("#local-import-preview").replaceChildren();
             q("#local-error").textContent = error.message;
           }
+        }
+        q("#local-import-file").onchange = (e) => {
+          const file3 = e.target.files[0];
+          if (!file3) return;
+          preview(file3.size > 8e6 ? Promise.reject(Error("JSON datoteka je prevelika (najviše 8 MB).")) : file3.text());
         };
         q("[data-preview]").onclick = () => preview(q("#local-import-text").value);
         q("[data-new]").onclick = async () => {
@@ -5452,6 +5505,12 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
         q("[data-close]").focus();
         update();
       }
+      dialog.addEventListener("close", () => {
+        reviewId++;
+        exportId++;
+        incoming = null;
+        preparedCopy = null;
+      });
       button.onclick = show;
       warning.querySelector("[data-local-open]").onclick = show;
       warning.querySelector("[data-local-retry]").onclick = () => {
@@ -5566,7 +5625,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
     const windows = /* @__PURE__ */ new Map();
     let zIndex = 10, pid = 100, active = null;
     let cwd = "docs", selected = null, editorId = "welcome", editorDirty = false, termCwd = "root", terminalHistory = [], historyIndex = 0;
-    let terminalLines = [{ text: "zljixOS terminal 0.15.2 · lokalno", type: "banner" }, { text: "Mali terminal, tvoj virtualni disk. Upiši help za popis naredbi.\n", type: "" }];
+    let terminalLines = [{ text: "zljixOS terminal 0.16.0 · lokalno", type: "banner" }, { text: "Mali terminal, tvoj virtualni disk. Upiši help za popis naredbi.\n", type: "" }];
     let toastTimer, fileClipboard = null, fileSearch = "";
     const teaching = createTeaching({ fs, esc: esc2, icon, openApp, toast, ask, download, refresh, changed: dataChanged, permissionsChanged, switchUser, dirty: () => editorDirty, openLesson: (id) => {
       fs.transact(() => {
@@ -5861,7 +5920,7 @@ ${r.steps.map((s) => `${s.ok ? "✓" : "×"} ${s.label}: ${s.detail}`).join("\n"
       for (const b of $$5("[data-open]", root)) b.onclick = () => openApp(b.dataset.open);
     }
     function homeView(c) {
-      c.innerHTML = `<div class="home-content"><div class="home-eyebrow"><span class="label">zljixOS · UČENJE OPERACIJSKIH SUSTAVA</span><span class="tag">LOKALNO · 0.15.2</span></div><div class="hero"><div><h1>Razumij sustav,<br><em>korak po korak.</em></h1><p>Kreni bez predznanja: upoznaj dijelove računala, razumij jedan primjer, isprobaj ga i provjeri razumijevanje.</p><div class="hero-actions"><button class="button primary" data-open="course">Uči od početka ${icon("arrow")}</button><button class="button subtle" data-open="shell">DOS/CMD, Linux i PowerShell · 18 razina</button></div></div><div class="hero-art" aria-hidden="true"><div class="hero-orb"></div><span class="hero-star">✧</span></div></div><div class="section-line"><h2>Produbi razumijevanje pokusom</h2><span>Predvidi → promatraj → objasni.</span></div><div class="home-apps">${["cpu", "memory", "drive", "network"].map((id) => `<button class="home-app" data-open="${id}">${appIcon(id)}<strong>${APPS[id].title}</strong><small>${APPS[id].desc}</small></button>`).join("")}</div><div class="home-lab">${icon("guide")}<div><strong>Od dijelova do mehanizma.</strong><p>Šest osnovnih lekcija i dva proširenja pripremaju te za istraživanje detaljnih mehanizama.</p></div><button data-open="course" aria-label="Uči od početka">${icon("arrow")}</button></div><div class="home-bottom"><span><i class="status-dot"></i>Spremanje i prijenos rada: Moj rad</span><span>Nastavni simulator operacijskog sustava</span></div></div>`;
+      c.innerHTML = `<div class="home-content"><div class="home-eyebrow"><span class="label">zljixOS · UČENJE OPERACIJSKIH SUSTAVA</span><span class="tag">LOKALNO · 0.16.0</span></div><div class="hero"><div><h1>Razumij sustav,<br><em>korak po korak.</em></h1><p>Kreni bez predznanja: upoznaj dijelove računala, razumij jedan primjer, isprobaj ga i provjeri razumijevanje.</p><div class="hero-actions"><button class="button primary" data-open="course">Uči od početka ${icon("arrow")}</button><button class="button subtle" data-open="shell">DOS/CMD, Linux i PowerShell · 18 razina</button></div></div><div class="hero-art" aria-hidden="true"><div class="hero-orb"></div><span class="hero-star">✧</span></div></div><div class="section-line"><h2>Produbi razumijevanje pokusom</h2><span>Predvidi → promatraj → objasni.</span></div><div class="home-apps">${["cpu", "memory", "drive", "network"].map((id) => `<button class="home-app" data-open="${id}">${appIcon(id)}<strong>${APPS[id].title}</strong><small>${APPS[id].desc}</small></button>`).join("")}</div><div class="home-lab">${icon("guide")}<div><strong>Od dijelova do mehanizma.</strong><p>Šest osnovnih lekcija i dva proširenja pripremaju te za istraživanje detaljnih mehanizama.</p></div><button data-open="course" aria-label="Uči od početka">${icon("arrow")}</button></div><div class="home-bottom"><span><i class="status-dot"></i>Spremanje i prijenos rada: Moj rad</span><span>Nastavni simulator operacijskog sustava</span></div></div>`;
       openButtons(c);
     }
     function breadcrumb(id) {
@@ -6342,7 +6401,7 @@ Slobodno: ${(32 - used) * 4} KiB`);
       for (const b of $$5("[data-end]", c)) b.onclick = () => closeApp(b.dataset.end, true);
     }
     function settingsView(c) {
-      c.innerHTML = `<div class="settings-app"><h2>Uredi svoj prostor.</h2><div class="setting-section"><h3>Pozadina</h3><div class="theme-grid">${[["dusk", "Sumrak"], ["sea", "Obala"], ["dawn", "Zora"]].map(([value, label]) => `<button class="theme-option ${fs.state.theme === value ? "selected" : ""}" data-theme="${value}" aria-pressed="${fs.state.theme === value}"><div class="theme-preview"></div><span>${label}</span></button>`).join("")}</div></div><div class="setting-section setting-line"><div><h3>Veći tekst bilježaka</h3><p>Ugodnije čitanje i pisanje u uređivaču.</p></div><button class="switch ${fs.state.large ? "on" : ""}" id="large-text" role="switch" aria-checked="${fs.state.large}" aria-label="Veći tekst bilježaka"><span></span></button></div><div class="setting-section"><h3>Sigurnosna kopija</h3><div class="setting-line"><p>Preuzmi sve mape, tekstove i postavke u jednu datoteku. Kopiju možeš vratiti ovdje ili u zljixOS-u na drugom uređaju.</p></div><div class="backup-actions"><button class="button secondary" id="backup-export">${icon("download")} Preuzmi kopiju</button><button class="button secondary" id="backup-import">${icon("upload")} Pregledaj i vrati kopiju</button></div></div><div class="settings-note"><strong>Rad se čuva lokalno u pregledniku.</strong><br>Prije izlaska provjeri status spremanja. U izborniku Moj rad izvezi JSON za nastavak na drugom računalu ili predaju nastavniku. HTML datoteka ne sadrži naknadno upisane odgovore. Radi u jednoj kartici; na zajedničkom računalu izvezi rad pa započni novi. Simulirani profili nisu stvarni računi.<br><br>zljixOS je nastavni simulator strukture, funkcija i mehanizama OS-a. Terminal i model procesa ne upravljaju stvarnim OS-om, uređajima ili aplikacijama računala.</div><div class="settings-version">zljixOS · LOKALNO NASTAVNO IZDANJE 0.15.2</div></div>`;
+      c.innerHTML = `<div class="settings-app"><h2>Uredi svoj prostor.</h2><div class="setting-section"><h3>Pozadina</h3><div class="theme-grid">${[["dusk", "Sumrak"], ["sea", "Obala"], ["dawn", "Zora"]].map(([value, label]) => `<button class="theme-option ${fs.state.theme === value ? "selected" : ""}" data-theme="${value}" aria-pressed="${fs.state.theme === value}"><div class="theme-preview"></div><span>${label}</span></button>`).join("")}</div></div><div class="setting-section setting-line"><div><h3>Veći tekst bilježaka</h3><p>Ugodnije čitanje i pisanje u uređivaču.</p></div><button class="switch ${fs.state.large ? "on" : ""}" id="large-text" role="switch" aria-checked="${fs.state.large}" aria-label="Veći tekst bilježaka"><span></span></button></div><div class="setting-section"><h3>Sigurnosna kopija</h3><div class="setting-line"><p>Preuzmi sve mape, tekstove i postavke u jednu datoteku. Kopiju možeš vratiti ovdje ili u zljixOS-u na drugom uređaju.</p></div><div class="backup-actions"><button class="button secondary" id="backup-export">${icon("download")} Preuzmi kopiju</button><button class="button secondary" id="backup-import">${icon("upload")} Pregledaj i vrati kopiju</button></div></div><div class="settings-note"><strong>Rad se čuva lokalno u pregledniku.</strong><br>Prije izlaska provjeri status spremanja. U izborniku Moj rad izvezi JSON za nastavak na drugom računalu ili predaju nastavniku. HTML datoteka ne sadrži naknadno upisane odgovore. Radi u jednoj kartici; na zajedničkom računalu izvezi rad pa započni novi. Simulirani profili nisu stvarni računi.<br><br>zljixOS je nastavni simulator strukture, funkcija i mehanizama OS-a. Terminal i model procesa ne upravljaju stvarnim OS-om, uređajima ili aplikacijama računala.</div><div class="settings-version">zljixOS · LOKALNO NASTAVNO IZDANJE 0.16.0</div></div>`;
       for (const b of $$5(".theme-option", c)) b.onclick = () => safe(() => {
         fs.transact(() => {
           fs.state.theme = b.dataset.theme;

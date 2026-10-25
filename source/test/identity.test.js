@@ -25,19 +25,21 @@ test('two students in one browser have separate scores and both resume their own
  assert.equal(gameStats(createLocalStore(storage,ana).initial).total,20);assert.equal(gameStats(createLocalStore(storage,ivo).initial).total,0);
  assert.notEqual(createLocalStore(storage,ana).initial.nodes.find(n=>n.id==='welcome').content,'Ivin tekst');
 });
-test('same-student portable backup keeps identity, shell commands and points',()=>{
- const fs=new FileSystem(seed(ana));score(fs);const raw=serializeBackup(fs.state),copy=parseBackup(raw,createStudent('ana','HORVAT'));
- assert.deepEqual(copy.state.student,ana);assert.equal(gameStats(copy.state).total,20);assert.match(raw,/"firstName": "Ana"/);
+test('same-student portable backup keeps identity, shell commands and points',async()=>{
+ const fs=new FileSystem(seed(ana));score(fs);const raw=await serializeBackup(fs.state),copy=await parseBackup(raw,createStudent('ana','HORVAT'));
+ assert.deepEqual(copy.state.student,ana);assert.equal(gameStats(copy.state).total,20);assert.equal(copy.integrityVerified,true);assert.match(raw,/"firstName": "Ana"/);
  assert.match(studentFilename(ana,'rezultati','html'),/zljixOS-Ana-Horvat-rezultati.html/);
 });
-test('foreign and anonymous imports are rejected, including legacy raw workspaces',()=>{
+test('foreign signed imports and all unsigned imports are rejected',async()=>{
  const foreign=new FileSystem(seed(ivo));score(foreign);
- for(const raw of [serializeBackup(foreign.state),JSON.stringify(foreign.state)])assert.throws(()=>parseBackup(raw,ana),/Ivo Ivić.*Ana Horvat.*Tuđi/);
- for(const raw of [serializeBackup(seed()),JSON.stringify(seed()),JSON.stringify({format:'orbit-backup',formatVersion:1,exportedAt:new Date().toISOString(),workspace:seed()})])assert.throws(()=>parseBackup(raw,ana),/nema ime/);
+ await assert.rejects(parseBackup(await serializeBackup(foreign.state),ana),/Ivo Ivić.*Ana Horvat.*Tuđi/);
+ for(const raw of [JSON.stringify(foreign.state),JSON.stringify(seed()),JSON.stringify({format:'orbit-backup',formatVersion:1,exportedAt:new Date().toISOString(),workspace:seed()})])await assert.rejects(parseBackup(raw,ana),/potpis/);
+ await assert.rejects(serializeBackup(seed()),/ime i prezime/);
 });
-test('a conflicting owner in the JSON header is rejected',()=>{
- const raw=JSON.parse(serializeBackup(seed(ivo)));raw.student=ana;assert.throws(()=>parseBackup(JSON.stringify(raw),ana),/Tuđi/);
- delete raw.workspace.student;assert.throws(()=>parseBackup(JSON.stringify(raw),ana),/nema ime/);
+test('a changed or removed owner in either JSON location is rejected by the MAC',async()=>{
+ const raw=JSON.parse(await serializeBackup(seed(ivo)));raw.student=ana;
+ await assert.rejects(parseBackup(JSON.stringify(raw),ana),/potpisa/);
+ delete raw.workspace.student;await assert.rejects(parseBackup(JSON.stringify(raw),ana),/potpisa/);
 });
 test('the store rejects identity changes atomically, even if the editable work label matches',()=>{
  const storage=memory(),store=createLocalStore(storage,ana);store.flush();const fs=new FileSystem(store.initial,store.persist);score(fs);const saved=storage.getItem(store.key);

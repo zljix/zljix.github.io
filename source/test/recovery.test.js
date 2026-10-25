@@ -28,13 +28,13 @@ test('History limits and storage errors roll back without losing current text or
   bad.versions=Array(31).fill(before.versions[0]);assert.throws(()=>validateState(bad));
   fs.persist=()=>{throw new Error('Nema mjesta');};assert.throws(()=>fs.recoverVersion(before.versions[0].id));assert.deepEqual(fs.state,before);
 });
-test('Envelope backups round-trip all data and legacy raw backups migrate additively',()=>{
-  const fs=new FileSystem(seed());fs.state.learning.answers.recovery='Provjeren sadržaj.';fs.saveVersion('welcome','Početak');
-  const exported=serializeBackup(fs.state,'2026-10-22T16:00:00.000Z'),parsed=parseBackup(exported);
+test('Signed envelope backups round-trip all data and unsigned legacy backups are rejected',async()=>{
+  const fs=new FileSystem(seed({version:1,firstName:'Ana',lastName:'Horvat'}));fs.state.learning.answers.recovery='Provjeren sadržaj.';fs.saveVersion('welcome','Početak');
+  const exported=await serializeBackup(fs.state,'2026-10-22T16:00:00.000Z'),parsed=await parseBackup(exported);
   assert.deepEqual(parsed.state,fs.state);assert.equal(parsed.exportedAt,'2026-10-22T16:00:00.000Z');
   const old=clone(fs.state);delete old.versions;delete old.learning.network;
-  const legacy=parseBackup(JSON.stringify(old));assert.equal(legacy.legacy,true);assert.deepEqual(legacy.state.versions,[]);assert.equal(legacy.state.learning.answers.recovery,'Provjeren sadržaj.');
-  assert.throws(()=>parseBackup(exported.slice(0,-5)));assert.throws(()=>parseBackup(JSON.stringify({format:'orbit-backup',formatVersion:4,workspace:fs.state})));
+  await assert.rejects(parseBackup(JSON.stringify(old)),/potpis/);
+  await assert.rejects(parseBackup(exported.slice(0,-5)));await assert.rejects(parseBackup(JSON.stringify({format:'orbit-backup',formatVersion:4,workspace:fs.state})));
   assert.equal(workspaceStats(fs.state).versions,1);
 });
 test('Backup comparison uses paths rather than IDs and does not reveal denied live text',()=>{

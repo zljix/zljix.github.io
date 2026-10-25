@@ -20,10 +20,10 @@ test('local workspace persists the full learning state and restores it in a new 
   assert.equal(reopened.initial.theme,'sea');assert.ok(reopened.initial.nodes.some(n=>n.content==='Sačuvano lokalno'));
   assert.equal(reopened.hasPending(),false);assert.equal(reopened.label(),'Spremljeno lokalno');
 });
-test('blocked storage preserves edits in memory and supports a portable JSON copy',()=>{
+test('blocked storage preserves edits in memory and supports a portable JSON copy',async()=>{
   const local=createLocalStore(null),fs=new FileSystem(local.initial,local.persist);
   fs.create('docs','Privremeno.txt','file','Sadržaj bez pohrane');assert.equal(local.hasPending(),true);assert.equal(local.flush(),false);
-  assert.ok(parseBackup(serializeBackup(fs.state)).state.nodes.some(n=>n.content==='Sadržaj bez pohrane'));
+  assert.ok((await parseBackup(await serializeBackup(fs.state))).state.nodes.some(n=>n.content==='Sadržaj bez pohrane'));
   assert.equal(local.status().kind,'memory');
 });
 test('quota failure leaves the old saved copy intact and retry saves the latest edit',()=>{
@@ -52,10 +52,10 @@ test('invalid imports cannot replace a saved workspace',()=>{
   const storage=memoryStorage(),local=createLocalStore(storage);local.flush();const raw=storage.getItem(STORAGE_KEY);
   assert.throws(()=>local.persist({version:2,nodes:[]}));assert.equal(storage.getItem(STORAGE_KEY),raw);
 });
-test('new work and portable restore preserve the complete prior workspace in a separate copy',()=>{
+test('new work and portable restore preserve the complete prior workspace in a separate copy',async()=>{
   const storage=memoryStorage(),local=createLocalStore(storage),fs=new FileSystem(local.initial,local.persist);
   fs.transact(()=>{fs.state.learning.label='Moj pokus';});fs.write('welcome','Prenosiva bilješka');fs.saveVersion('welcome','Prije izmjene');
-  const text=serializeBackup(fs.state);fs.transact(()=>{fs.state=seed();});assert.equal(fs.state.learning.label,'');
-  const imported=parseBackup(text);fs.transact(()=>{fs.state=imported.state;});
+  const text=await serializeBackup(fs.state);fs.transact(()=>{fs.state=seed();});assert.equal(fs.state.learning.label,'');
+  const imported=await parseBackup(text);fs.transact(()=>{fs.state=imported.state;});
   assert.equal(fs.read('welcome'),'Prenosiva bilješka');assert.equal(fs.state.versions.length,1);assert.equal(createLocalStore(storage).initial.learning.label,'Moj pokus');
 });

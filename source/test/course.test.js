@@ -56,12 +56,12 @@ test('first responses are retained when a learner corrects an answer using feedb
   assert.equal(c.records.hardware.firstAnswers[0],wrong);assert.equal(c.records.hardware.answers[0],right);assert.equal(c.records.hardware.attempts[0],2);
   assert.match(courseReportText(c),/pokušaji: 2/);
 });
-test('course progress and current stage round-trip through local reload and portable backup',()=>{
+test('course progress and current stage round-trip through local reload and portable backup',async()=>{
   const map=new Map(),storage={getItem:key=>map.get(key)??null,setItem:(key,value)=>map.set(key,value)};
   const local=createLocalStore(storage,{version:1,firstName:'Ana',lastName:'Horvat'});local.flush();const fs=new FileSystem(local.initial,local.persist);
   fs.transact(()=>{fs.state.learning.course=changeCourse(completedCourse(),{type:'stage',value:3});});
   const reloaded=createLocalStore(storage,{version:1,firstName:'Ana',lastName:'Horvat'});assert.deepEqual(reloaded.initial.learning.course,fs.state.learning.course);
-  const imported=parseBackup(serializeBackup(fs.state)).state;assert.deepEqual(imported.learning.course,fs.state.learning.course);
+  const imported=(await parseBackup(await serializeBackup(fs.state))).state;assert.deepEqual(imported.learning.course,fs.state.learning.course);
   assert.equal(imported.learning.course.stage,3);assert.equal(imported.learning.course.overview,false);
 });
 test('malformed and forged progress cannot replace an existing workspace',()=>{

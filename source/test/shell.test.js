@@ -67,10 +67,10 @@ test('Hard hints require an attempt; hint history and command evidence survive i
  assert.throws(()=>validateShell({...s,records:{bogus:{events:[]}}}),/Nepoznata/);
  assert.throws(()=>replayShell('cmd-1',{events:[{type:'command',line:'dir',mode:'cheat'}]}),/težina/);
 });
-test('Old workspaces migrate additively and backups preserve the new track and original files',()=>{
- const old=seed();delete old.learning.shell;const fs=new FileSystem(old);assert.equal(shellStats(fs.state.learning.shell).total,0);const original=structuredClone(fs.state.nodes);
+test('Old workspaces migrate additively and backups preserve the new track and original files',async()=>{
+ const old=seed({version:1,firstName:'Ana',lastName:'Horvat'});delete old.learning.shell;const fs=new FileSystem(old);assert.equal(shellStats(fs.state.learning.shell).total,0);const original=structuredClone(fs.state.nodes);
  fs.transact(()=>solve(fs.state.learning.shell,SHELL_LESSONS[0],'easy',0,3));assert.equal(gameStats(fs.state).total,60);assert.equal(gameStats(fs.state).shell,60);assert.equal(gameStats(fs.state).max,MAX_XP);assert.equal(MAX_XP,3520);assert.deepEqual(fs.state.nodes,original);
- const imported=parseBackup(serializeBackup(fs.state)).state;assert.deepEqual(imported.learning.shell,fs.state.learning.shell);assert.equal(gameStats(validateState(imported)).shell,60);
+ const imported=(await parseBackup(await serializeBackup(fs.state))).state;assert.deepEqual(imported.learning.shell,fs.state.learning.shell);assert.equal(gameStats(validateState(imported)).shell,60);
  const forged=structuredClone(imported);forged.learning.shell.xp=99999;forged.learning.shell.records['cmd-1'].earned=[true,true,true,true,true];assert.equal(gameStats(validateState(forged)).shell,60);
  assert.match(shellReportText(fs.state.learning.shell),/60\/1800/);assert.match(scoreReport(fs.state,String),/DOS\/CMD, Linux Shell i PowerShell/);
 });

@@ -1,26 +1,25 @@
 import {requireSameStudent,validateStudent} from './identity.js';
 import {validateState,uid} from './core.js';
+import {signBackup,verifyBackup} from './backup-integrity.js';
 
-export function serializeBackup(state,date=new Date().toISOString()){
-  return JSON.stringify({format:'zljixos-backup',formatVersion:2,student:validateStudent(state.student),exportedAt:date,workspace:validateState(state)},null,2);
+export async function serializeBackup(state,date=new Date().toISOString()){
+  const workspace=validateState(state),student=validateStudent(workspace.student);
+  if(!student)throw Error('Prije izvoza unesi ime i prezime.');
+  if(typeof date!=='string'||!Number.isFinite(Date.parse(date)))throw Error('Neispravan datum izvoza.');
+  const payload={format:'zljixos-backup',formatVersion:3,student,exportedAt:date,workspace};
+  return JSON.stringify({...payload,integrity:await signBackup(payload)},null,2);
 }
-export function parseBackup(text,expectedStudent){
+export async function parseBackup(text,expectedStudent){
   if(typeof text!=='string'||text.length>8000000)throw new Error('JSON kopija je prevelika.');
   let raw;try{raw=JSON.parse(text);}catch{throw new Error('Datoteka nije valjani JSON. Provjeri je li kopirana u cijelosti.');}
-  if(raw?.format==='zljixos-backup'){
-    if(raw.formatVersion!==2||typeof raw.exportedAt!=='string'||!Number.isFinite(Date.parse(raw.exportedAt)))throw Error('Nepodržan format ili neispravan datum kopije.');
-    const state=validateState(raw.workspace),owner=validateStudent(raw.student);
-    if(owner||state.student)requireSameStudent(owner,state.student);
-    if(expectedStudent)requireSameStudent(expectedStudent,state.student);
-    return {state,exportedAt:raw.exportedAt,legacy:false};
-  }
-  if(raw?.format==='orbit-backup'){
-    if(raw.formatVersion!==1||typeof raw.exportedAt!=='string'||!Number.isFinite(Date.parse(raw.exportedAt)))throw new Error('Nepodržan format ili neispravan datum kopije.');
-    const state=validateState(raw.workspace);if(expectedStudent)requireSameStudent(expectedStudent,state.student);
-    return {state,exportedAt:raw.exportedAt,legacy:false};
-  }
-  const state=validateState(raw);if(expectedStudent)requireSameStudent(expectedStudent,state.student);
-  return {state,exportedAt:null,legacy:true};
+  if(raw?.format!=='zljixos-backup'||raw.formatVersion!==3)throw Error('Ova kopija nema podržan kontrolni potpis. Stare i nepotpisane JSON kopije više se ne učitavaju. Ako je rad još u izvornom pregledniku, otvori novo izdanje igre i ponovno izvezi JSON.');
+  const {integrity,...payload}=raw;
+  await verifyBackup(payload,integrity);
+  if(typeof raw.exportedAt!=='string'||!Number.isFinite(Date.parse(raw.exportedAt)))throw Error('Neispravan datum kopije.');
+  const state=validateState(raw.workspace),owner=validateStudent(raw.student);
+  requireSameStudent(owner,state.student);
+  if(expectedStudent)requireSameStudent(expectedStudent,state.student);
+  return {state,exportedAt:raw.exportedAt,legacy:false,integrityVerified:true};
 }
 export function workspaceStats(state){return {files:state.nodes.filter(n=>n.type==='file').length,folders:state.nodes.filter(n=>n.type==='dir'&&n.id!=='root').length,versions:state.versions?.length||0,trash:state.archive.length,reflections:Object.values(state.learning.answers).filter(v=>v.trim()).length};}
 export function nodePaths(nodes){

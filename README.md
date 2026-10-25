@@ -1,4 +1,6 @@
-# zljixOS 0.15.2
+# zljixOS 0.16.0
+
+Izdanje 0.16.0 dodaje obvezni kontrolni potpis JSON kopija (format 3). Pri izvozu HMAC-SHA-256 povezuje ime, prezime, datum i cijeli radni prostor; pri učitavanju se provjerava prije prikaza i vraćanja rezultata. Uređivanje vrijednosti, uklanjanje potpisa ili povratak na stari format odbija kopiju.
 
 Izdanje 0.15.2 prikazuje putanje Akademije terminala redom DOS/CMD → Linux Shell → PowerShell. Početna putanja ostaje DOS/CMD.
 
@@ -6,7 +8,7 @@ U izdanju 0.15.1 provjera verzije stalno je dostupna u gornjoj traci, pokraj pre
 
 Izdanje 0.15.0 popravlja provjeru Linux dozvola, zasebno bilježi vođenje, natuknice i otvaranje postupka te povezuje CPU i memorijske laboratorije s konkretnim postavkama, usporedbama i rezultatima. Završni izazov koristi odvojene problemske slučajeve. Rangovi zahtijevaju i dovršene temeljne misije; OS navigator traži novu primjenu od najmanje 80/100. Pokus s dretvama omogućuje učeniku da bira sljedeću radnju i prati zajednički brojač. Detalji: [Metodička analiza](source/METODICKA_ANALIZA.md).
 
-**Za otvaranje novog izdanja nakon stare offline verzije:** https://zljix.github.io/igra.html. Verzija **v0.15.2** vidljiva je već na početnom unosu i u gornjoj traci. Novi ulaz dijeli isti lokalni rad s početnom adresom; ne briši podatke preglednika.
+**Za otvaranje novog izdanja nakon stare offline verzije:** https://zljix.github.io/igra.html. Verzija **v0.16.0** vidljiva je već na početnom unosu i u gornjoj traci. Novi ulaz dijeli isti lokalni rad s početnom adresom; ne briši podatke preglednika.
 
 Interaktivna igra na hrvatskom za učenje operacijskih sustava. Objavljuje se na **https://zljix.github.io/** iz repozitorija `zljix/zljix.github.io`. Nastavlja postojeću igru Orbit OS, uključujući DOS/CMD i Linux razine iz izdanja 0.12.
 
@@ -17,10 +19,11 @@ Pri svakom otvaranju igre obvezno se unose **ime i prezime**. Dok unos nije dovr
 - Svako ime ima zaseban lokalni rad. **Moj rad → Drugi učenik / učenica** vraća na početni unos; prethodni rad ostaje sačuvan.
 - Pri učitavanju iz datoteke ili zalijepljenog JSON-a vlasnik kopije mora odgovarati aktivnom imenu. Isto vrijedi u aplikaciji **Oporavak**, za cijeli prostor i odabrane datoteke. Tuđa kopija odbija se prije prikaza njezina sadržaja i bodova.
 - Ime vezano uz postojeće bodove nema mogućnost preimenovanja. Neobvezna oznaka rada služi samo napomeni.
-- Stare kopije bez imena i prezimena ne mogu se pripisati novom učeniku. Izvorni stari zapisi u pregledniku ostaju netaknuti; ne preuzimaju se automatski.
+- **Stare JSON kopije bez potpisa više se ne učitavaju**, uključujući format 2, Orbit kopije i sirovi radni prostor. Za novi prijenos izvezi JSON u izdanju 0.16.0 ili novijem iz preglednika u kojem je rad sačuvan. Postojeći lokalni rad pod istim imenom ostaje dostupan.
+- Ista provjera vrijedi za datoteku, zalijepljeni JSON i Oporavak. Neuspjela provjera ne mijenja trenutačni rad ili bodove. Razmaci i redoslijed ključeva u JSON-u mogu se promijeniti; vrijednosti ne mogu.
 - Razmaci na rubovima, ponovljeni razmaci i veličina slova u imenu ne stvaraju novi profil. Hrvatska slova, višedijelna imena, crtice i apostrofi su podržani. Različiti dijakritički znakovi razlikuju se.
 
-**Granica zaštite:** ovo je lokalna identifikacija imenom, bez autentikacije. Sprječava miješanje i učitavanje kopija s drugim imenom kroz sučelje. Ne potvrđuje tko je upisao ime, ne razlikuje dvije osobe jednakog imena i ne sprječava namjerno uređivanje JSON-a ili koda. Za provjeru stvarnog identiteta i zaštićeno ocjenjivanje potrebni su računi i poslužiteljska provjera. Imena i rezultati ne šalju se automatski na GitHub ili drugom primatelju.
+**Granica zaštite:** kontrolni potpis otkriva ručno uređivanje izvezene JSON kopije. HMAC ključ dolazi s offline aplikacijom i nije stvarna tajna pred osobom koja pregledava ili mijenja kod. To nije poslužiteljski digitalni potpis, šifriranje osobnih podataka ni dokaz identiteta ili samostalnosti. Izmjena lokalne pohrane/koda i ponovno potpisivanje ostaju mogući; dvije osobe istoga imena nisu razlikovane. Za zaštićeno ocjenjivanje potrebni su računi i poslužiteljska provjera. Imena i rezultati ne šalju se automatski na GitHub ili drugom primatelju.
 
 ## Učenje i bodovanje
 
@@ -77,4 +80,4 @@ npm run check:artifact
 
 Izgradnja stvara `dist/zljixOS.html` i `dist/mobitel/`. GitHub Pages koristi `main`, mapu `/`; mobilni paket ide u korijen, a samostalni HTML u `downloads/zljixOS.html`. Ne objavljuju se učeničke kopije, QA radni prostori ni `node_modules`.
 
-120 automatiziranih testova prolazi: postojeća igra, svih 90 terminalskih ciljeva, objekti PowerShella, pogrešne naredbe, tri težine, pomoć, ponavljanje, ukupni XP, odvojeni učenici, prenosive kopije i odbijanje tuđih/anonimnih rezultata. Provjere samostalnog i mobilnog paketa potvrđuju ugrađene resurse i valjan offline worker. Detalji provedene provjere su u `source/RAZVOJ.md`; metodički opis u `source/NASTAVA.md`.
+Automatizirane provjere obuhvaćaju: postojeća igra, svih 90 terminalskih ciljeva, objekti PowerShella, pogrešne naredbe, tri težine, pomoć, ponavljanje, ukupni XP, odvojeni učenici, prenosive kopije i odbijanje tuđih/anonimnih rezultata. Provjere samostalnog i mobilnog paketa potvrđuju ugrađene resurse i valjan offline worker. Detalji provedene provjere su u `source/RAZVOJ.md`; metodički opis u `source/NASTAVA.md`.

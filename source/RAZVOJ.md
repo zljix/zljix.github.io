@@ -114,3 +114,15 @@ Provjereno: 12 testova offline rada i preuzimanja; provjere samostalnog HTML-a i
 ## Redoslijed Akademije terminala 0.15.2
 
 Kartice putanja prikazuju se redom DOS/CMD, Linux Shell, PowerShell, u skladu s postojećim redoslijedom lekcija i izvještaja. Nova putanja i dalje počinje s DOS/CMD-om; učenik može odabrati i druge terminale. Sadržaj zadataka i pravila bodovanja ostaju isti.
+
+
+## Kontrolni potpis JSON kopija 0.16.0
+
+- Novi format 3 s obveznim HMAC-SHA-256 oznakom `integrity`. Potpis pokriva oba zapisa vlasnika, datum i sve podatke radnog prostora. Web Crypto obrađuje UTF-8 kanonski JSON; redoslijed ključeva i uvlačenje nisu važni. Provjera prethodi validaciji/migraciji stanja i prikazu ili zamjeni rada.
+- Format 2, Orbit kopije, lokalni omoti i sirovi radni prostor odbijaju se: nema povratka na stari način učitavanja. Lokalni rad postojećeg učenika ostaje dostupan za novi izvoz; taj se rad ne može retroaktivno potvrditi.
+- Spremanje, dijeljenje i oba prikaza JSON-a koriste isti potpisani izvoz. Moj rad i Oporavak dijele istu provjeru. Zakašnjele provjere odbacuju se, neuspjeh uklanja prethodni pregled i zamjena odabira tijekom potvrde poništava vraćanje. Dijeljenje na mobitelu koristi unaprijed pripremljenu kopiju kako bi ostalo povezano s klikom.
+- Bez Web Crypto podrške izvoz/uvoz prikazuje pogrešku, bez nepotpisanog zamjenskog puta. Kriptografski algoritam nije ručno implementiran.
+- Ključ je dio javne offline aplikacije i mora ostati stabilan za čitanje kopija u budućim nadogradnjama. Ovo nije autentikacija, šifriranje, poslužiteljski potpis ni dokaz pošteno stečenih bodova. Napredan korisnik može izmijeniti aplikaciju/lokalnu pohranu ili ponovno izračunati HMAC.
+- Testovi pokrivaju usporedbu s Node HMAC-om, hrvatska slova, oba promijenjena imena, napredak i sadržaj, nedostajući i tuđi potpis, stare formate, nepromijenjenu lokalnu pohranu nakon odbijanja, valjan povrat i nedostupnu kriptografiju.
+
+Provjera izdanja: 146 automatiziranih testova prolazi; samostalni i mobilni paket prolaze provjere izgradnje i ugrađenih resursa.
