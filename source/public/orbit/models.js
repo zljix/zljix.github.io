@@ -1,3 +1,4 @@
+import {defaultLabProof,validateLabProof} from './lab-evidence.js';
 import {defaultShell,validateShell} from './shell-model.js';
 import {defaultCourse,validateCourse} from './course-model.js';
 import {defaultGame,validateGame} from './game-model.js';
@@ -71,7 +72,7 @@ export function allocate(d,name,count,contiguous=false){
 export const fragments=f=>f.blocks.reduce((n,b,i)=>n+(i===0||b!==f.blocks[i-1]+1?1:0),0);
 export function defragment(d){let offset=0;for(const f of d.files){f.blocks=f.blocks.map(()=>offset++);}return d;}
 export function fragmentedDisk(){const d=emptyDisk();allocate(d,'Sustav',6);const b=allocate(d,'Stari zapis',5);allocate(d,'Bilješke',4);allocate(d,'Slike',6);d.files=d.files.filter(f=>f.id!==b.id);allocate(d,'Projekt',8);return d;}
-export function defaultLearning(){return {cpu:{algorithm:'fcfs',quantum:2,jobs:copy(CPU_EXAMPLES.basic),steps:0},memory:{algorithm:'fifo',frames:3,sequence:'0 1w 2 0 3 0 4 1 2 3 4',steps:0},disk:emptyDisk(),network:defaultNetwork(),explorer:defaultExplorer(),course:defaultCourse(),game:defaultGame(),shell:defaultShell(),evidence:{},answers:{},label:''};}
+export function defaultLearning(){return {cpu:{algorithm:'fcfs',quantum:2,jobs:copy(CPU_EXAMPLES.basic),steps:0},memory:{algorithm:'fifo',frames:3,sequence:'0 1w 2 0 3 0 4 1 2 3 4',steps:0},disk:emptyDisk(),network:defaultNetwork(),explorer:defaultExplorer(),course:defaultCourse(),game:defaultGame(),shell:defaultShell(),labProof:defaultLabProof(),evidence:{},answers:{},label:''};}
 export function validateLearning(raw){
   const d=defaultLearning();if(!raw)return d;
   const cpu=raw.cpu||d.cpu;checkJobs(cpu.jobs);scheduler(cpu);if(!int(cpu.steps,0,400))throw new Error('Neispravan korak CPU modela.');
@@ -81,5 +82,5 @@ export function validateLearning(raw){
   if(Object.keys(answers).length>40||Object.keys(evidence).length>80)throw new Error('Prevelik zapis vježbi.');
   const explorer=validateExplorer(raw.explorer),game=validateGame(raw.game);
   if(raw.game===undefined)for(const [id,d]of Object.entries(explorer.drafts))if(d.prediction||d.reflection)game.legacy[id]={variant:d.variant,prediction:d.prediction,reflection:d.reflection};
-  return {cpu:{algorithm:cpu.algorithm,quantum:cpu.quantum,jobs:copy(cpu.jobs),steps:cpu.steps},memory:{algorithm:memory.algorithm,frames:memory.frames,sequence:memory.sequence,steps:memory.steps},disk:validateDisk(raw.disk||d.disk),network:validateNetwork(raw.network),explorer,course:validateCourse(raw.course),game,shell:validateShell(raw.shell),evidence,answers,label:typeof raw.label==='string'?raw.label.slice(0,80):''};
+  return {cpu:{algorithm:cpu.algorithm,quantum:cpu.quantum,jobs:copy(cpu.jobs),steps:cpu.steps},memory:{algorithm:memory.algorithm,frames:memory.frames,sequence:memory.sequence,steps:memory.steps},disk:validateDisk(raw.disk||d.disk),network:validateNetwork(raw.network),explorer,course:validateCourse(raw.course),game,shell:validateShell(raw.shell),labProof:validateLabProof(raw.labProof),evidence,answers,label:typeof raw.label==='string'?raw.label.slice(0,80):''};
 }

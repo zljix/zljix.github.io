@@ -40,7 +40,7 @@ Primjeri novih dijagnoza: nespremljena promjena nije dokaz kvara SSD-a; dodavanj
 
 Osnova svake misije ima 100 XP: temelj 10, redoslijed 20, usporedba 20, dvije provjere 20, prijenos 30. Izvorne aktivnosti zajedno donose 1720 XP (nove terminalske razine dodaju 1800 XP, ukupno 3520): misije s dodatnim slučajevima 1120, laboratoriji 220, detaljni mehanizmi 140, mrežni izazovi 140 i završni izazov 100.
 
-Pet rangova: Početnik (0), Istraživač (150), Analitičar (400), Poznavatelj sustava (700), OS navigator (1000). Deset znački: prva misija, šest osnova, svih 18 uvjeta, ispravljena pogreška, dretve i zastoj, tri laboratorija, završni rezultat najmanje 80/100 te po jedna značka za potpuno dovršenu CMD, Linux i PowerShell putanju.
+Pet rangova spaja XP i temeljne misije: Početnik (0), Istraživač (150 XP i 1 misija), Analitičar (400 XP i 3 misije), Poznavatelj sustava (700 XP i 6 misija), OS navigator (1000 XP, svih 8 misija i najmanje 80/100 na novim završnim slučajevima). Deset znački: prva misija, šest osnova, svih 18 uvjeta, ispravljena pogreška, dretve i zastoj, tri laboratorija, završni rezultat najmanje 80/100 te po jedna značka za potpuno dovršenu CMD, Linux i PowerShell putanju.
 
 Bodovi se izvode iz odgovora i potvrđenih radnji, ne iz spremljenog zbroja ili vremena provedenog u aplikaciji. Pogreške i pomoć ne smanjuju osvojive bodove. Točan zadatak zaključava se i više ne donosi bodove. Ponavljanje uvjeta ne briše ranije postignuće. Nema rangiranja učenika, odbrojavanja, niza obveznih dnevnih dolazaka ni kazne za pauzu.
 
@@ -54,7 +54,7 @@ Mrežni izazov daje 20 XP tek nakon početnog neuspjeha, potrebnih provjera s ak
 
 ## Završna provjera i izvještaj
 
-Završni izazov otključava se nakon svih osam misija dovršenih na trenutačno odabranoj težini. Svaka težina ima vlastitu banku od 20 pitanja (dvije inačice po temi). Težina već započetog pokušaja ostaje nepromjenjiva do predaje, i nakon promjene težine misija. Sadrži deset pitanja iz osam tema i dva povezivanja tema. Svako vrijedi 10 bodova. Nema pomoći ili informacije o točnosti prije predaje; nakon predaje svaki odgovor dobiva objašnjenje. U XP ulazi najbolji rezultat. Pokušaj se može pauzirati i nastaviti. Dvije inačice po temi izmjenjuju se; zato ponovljeni pokušaji nisu neovisni standardizirani ispiti.
+Završni izazov otključava se nakon svih osam misija dovršenih na trenutačno odabranoj težini. Zasebna završna banka donosi tri tipa problemske situacije po temi te mijenja početne vrijednosti i uvjete ovisno o pokušaju i težini. Pitanja nisu preuzeta iz vježbi. U završnoj provjeri i Easy prikazuje četiri potpune mogućnosti; Easy sužavanje na dvije mogućnosti ostaje samo pomoć tijekom vježbanja. Težina već započetog pokušaja ostaje nepromjenjiva do predaje, i nakon promjene težine misija. Sadrži deset pitanja iz osam tema i dva povezivanja tema. Svako vrijedi 10 bodova. Nema pomoći ili informacije o točnosti prije predaje; nakon predaje svaki odgovor dobiva objašnjenje. U XP ulazi najbolji rezultat. Pokušaj se može pauzirati i nastaviti. Banka je ograničena i srodne situacije mogu se ponoviti. Rezultati nisu neovisni standardizirani ispiti; prikazuju se prvi, posljednji i najbolji rezultat po težini.
 
 Izvještaj razdvaja XP ostvaren uz ispravke od točnosti prvih odgovora bez zatražene pomoći. Mrežne dijagnoze imaju zaseban rezultat bez statistike prvog odgovora. Prikazuje se težina prvog i zadnjeg odgovora, najbolji završni rezultat za svaku težinu, povijest i pregled zadnjeg pokušaja. Easy sadrži ugrađeno vođenje; prvi odgovori i rezultati različitih težina nisu izravno usporedivi. U ukupni XP ulazi jedan najbolji završni rezultat, ne zbroj rezultata po težinama.
 
@@ -83,3 +83,11 @@ Treća putanja ima šest razina: orijentacija i parametri → stvaranje i dopisi
 Prije rada učenik upoznaje naziv cmdleta glagol-imenica i razliku između parametra i njegove vrijednosti. U četvrtoj razini uvode se objekt, svojstvo i MatchInfo; objašnjeni su Line, LineNumber i Path prije izdvajanja Line u cjevovodu. Peta razina povezuje svojstva Name, Length i Extension s filtriranjem, sortiranjem i zbrajanjem. Jasno se razlikuju bajtovi i znakovi; primjerne datoteke imaju jednostavan ASCII sadržaj. Remove-Item i -WhatIf objašnjeni su prije završnog čišćenja.
 
 Potpuna imena cmdleta daju početniku stabilan obrazac. Podržani sinonimi i drugačiji raspored imenovanih parametara također vrijede. Ciljevi provjeravaju stvarni rezultat i potrebne radnje, ne samo doslovni unos ponuđenog rješenja. Nema promjene ranije strukture OS misija ili zahtjeva za nastavničkim bodovanjem.
+
+## Dorada nakon recenzije 0.15
+
+CPU laboratorij 4 traži isti početni primjer s FCFS-om i RR kvantovima 2, 1 i 6 te otvorenu usporedbu pri kvantu 2. Laboratorij 5 traži i opaženo I/O čekanje u pojedinom koraku. Memorijski laboratorij 6 traži početni slijed s tri okvira, FIFO i LRU, usporedbu te točno provjeren prijevod adrese 1024. Izvještaj navodi parametre i rezultate ovih pokusa.
+
+U lekciji o dretvama učenik dodatno bira čitanje, izračun ili zapis T1/T2. Prati zajednički x i dvije lokalne vrijednosti, uspoređuje lokot samo pri zapisu sa zaštitom cijelog postupka te provjerava predviđanje. Slobodni pokus ne dodjeljuje XP; boduje se zasebna primjena. Prikaz je razumljiv i bez razlikovanja boja.
+
+Terminalski izvještaj odvojeno navodi automatsko Easy vođenje, zatraženu natuknicu i otvoreni cjelovit postupak. Pomoć ne oduzima bodove. Viša težina proširuje opseg, ali ranije ciljeve ne potvrđuje ponovno kao samostalno riješene.

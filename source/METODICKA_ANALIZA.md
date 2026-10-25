@@ -1,4 +1,21 @@
-# zljixOS 0.14.0 — metodička i didaktička analiza
+# zljixOS 0.15.0 — dorada nakon recenzije
+
+## Provedene promjene
+
+- Valjana apsolutna putanja u Linuxu 5 priznaje se neovisno o radnoj mapi; pogrešna datoteka ne prolazi.
+- Evidencija razlikuje automatsko vođenje, natuknicu i cijeli postupak.
+- Potvrde CPU, I/O i memorijskih laboratorija povezuju se s propisanim postavkama i provjerenim rezultatima.
+- Završni izazov ima zasebne problemske slučajeve, četiri mogućnosti i prvi/posljednji/najbolji rezultat po težini.
+- Rangovi zahtijevaju širinu temeljnih misija; najviši i najmanje 80/100 na novim slučajevima.
+- Učenik upravlja redoslijedom dretvi i vidi lokalne vrijednosti, zajednički x i lokot.
+- Početni Nastavi nalazi se prije duljeg uvoda; PowerShell ima konkretan prikaz svojstava jednog rezultata.
+- Uvjerljivi pogrešni odgovori zamjenjuju trivijalne distraktore. Prije numeričkih zadataka objašnjeno je rastavljanje adrese na stranicu i pomak.
+
+Ovo je dorada obrazovnog softvera na temelju pregleda i testova. Nije provedeno istraživanje učinkovitosti na učenicima.
+
+## Polazišna analiza izdanja 0.14
+
+### Metodička i didaktička analiza 0.14
 
 Analiza obuhvaća osam misija, 18 uvjeta pokusa, tri terminalske putanje, praktične laboratorije, detaljne simulatore, mrežne izazove i izvještavanje. Polazište je učenik koji prvi put sustavno uči operacijske sustave. Razred, trajanje sata i prethodno iskustvo nisu zadani; zato se težina bira i mijenja tijekom rada.
 

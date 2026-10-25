@@ -90,3 +90,17 @@ Vizualno provjereni pitanja o dretvama i resursima, Hard zadatci, legenda CPU-a 
 `learning-guide.js` odvaja scenarij i uloge od kratkog zahtjeva zadatka te daje prvi trag za ponovno razmišljanje. `learning.css` oblikuje scenarije, usporedbu stanja, slijed događaja i jedan aktivan zadatak. `course.js` čuva povratnu informaciju do gumba za sljedeći zadatak, prikazuje samo opažene ishode i povezuje preduvjete s pripremnim korakom. Ne mijenja banke ni format spremljenih odgovora.
 
 `shell-demo.js` reproducira primjere u zasebnom virtualnom prostoru; primjeri ne nose XP i ne mijenjaju učenički terminal. `teaching.js` povezuje laboratorije s potrebnim predznanjem. `release.js`, `pwa.js` i worker čine verziju i dostupnu nadogradnju vidljivima. Detalji, granice i plan nastavne primjene: [METODICKA_ANALIZA.md](METODICKA_ANALIZA.md).
+
+## Popravci nakon recenzije 0.15.0
+
+Linux razina 5 provjerava ciljnu datoteku kanonskom putanjom, neovisno o trenutačnoj mapi. Terminal odvojeno bilježi automatsko vođenje, traženu natuknicu i otvoren cjelovit postupak. Učeniku je objašnjeno da svaka razina ima zasebne datoteke. PowerShell uvod pokazuje svojstva jednog objekta prije izdvajanja teksta.
+
+CPU i memorijski laboratoriji spremaju konfiguracije izvedenih pokusa, a pri provjeri ponovno računaju rezultate. CPU traži zadani FCFS i RR s kvantima 2, 1 i 6 te usporedbu. I/O laboratorij traži opaženo blokiranje i dva dovršena rasporeda. Memorijski laboratorij traži isti slijed s tri okvira, FIFO/LRU, usporedbu i provjeren prijevod adrese. Opće zastavice dovršetka više nisu dovoljne.
+
+Završni izazov koristi odvojene problemske slučajeve s četiri odgovora i promjenjivim uvjetima; izvještaj odvaja prvi, posljednji i najbolji rezultat po težini. Rangovi traže i dovršene temeljne misije, a najviši rang i najmanje 80/100 na novoj završnoj provjeri. XP iz terminala sam ne daje rang poznavanja OS-a.
+
+Učenik u dodatnom pokusu s dretvama bira svaku sljedeću radnju. Prikaz odvaja zajedničku memoriju od lokalnih vrijednosti dretvi te uspoređuje rad bez lokota, lokot samo za zapis i lokot za cijelo povećanje. Pokus ne daje dodatne XP. Početni pregled ističe jedan gumb za nastavak. Dio distraktora zamijenjen je odgovorima koji odražavaju stvarne početničke zabune.
+
+Provjera: 136 automatiziranih testova; uključeni su apsolutne putanje, evidencija pomoći, uvjeti laboratorija, banke završnih pitanja i iscrpna provjera svih dopuštenih slijedova šest radnji dviju dretvi. U cloud Chromiumu provjereni su gubitak povećanja i ispravno zaključavanje, pomoć iz stvarnog Easy sučelja u izvještaju, dodjela CPU bodova tek nakon svih kvanta, odbijanje pogrešnog i prihvaćanje ispravnog prijevoda memorijske adrese. Dva probna završna pokušaja daju 100 pa 80 bodova: prvi 100, posljednji 80, najbolji 100; ukupni XP se ne udvostručuju. Za pristup završnom sučelju uvezena je jasno označena sintetska JSON kopija.
+
+Novi prikaz dretvi i stalna traka provjereni su u iframe prikazima širine 320, 375 i 414 px, bez vodoravnog prelijevanja dokumenta. Fizički mobilni uređaji i Safari nisu testirani. Samostalni HTML i mobilni paket prolaze provjere ugrađenih skripti, resursa i offline workera.

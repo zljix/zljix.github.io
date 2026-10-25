@@ -1,3 +1,4 @@
+import {completeCpuLab,completeRemainingSimulationLabs} from './lab-fixture.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {seed,FileSystem,validateState} from '../public/orbit/core.js';
@@ -61,7 +62,7 @@ test('Mechanism and lab conclusions require actual completed activity, remain is
  assert.throws(()=>submit(fs,id),/mehanizam/);assert.throws(()=>submit(fs,'lab-3'),/radnje/);
  fs.transact(()=>{fs.state.learning.explorer.drafts[m.id]={variant:v,step:traceMechanism(m.id,v).steps.length,prediction:'Predviđam',reflection:''};});
  submit(fs,id);submit(fs,`m-${m.id}-${v}-reason`);assert.equal(gameStats(fs.state).mechanisms,10);
- fs.evidence('cpu_fcfs');assert.equal(gameStats(fs.state).lab,0);fs.evidence('cpu_rr');assert.equal(gameStats(fs.state).lab,10);submit(fs,'lab-3');assert.equal(gameStats(fs.state).lab,20);fs.evidence('cpu_rr');assert.equal(gameStats(fs.state).lab,20);
+ fs.evidence('cpu_fcfs');assert.equal(gameStats(fs.state).lab,0);fs.evidence('cpu_rr');assert.equal(gameStats(fs.state).lab,0);fs.transact(()=>completeCpuLab(fs.state.learning));assert.equal(gameStats(fs.state).lab,10);submit(fs,'lab-3');assert.equal(gameStats(fs.state).lab,20);fs.evidence('cpu_rr');assert.equal(gameStats(fs.state).lab,20);
 });
 test('Final challenge unlocks only after missions, grades only complete attempts and counts the best once',()=>{
  const fs=new FileSystem(seed());assert.throws(()=>startFinal(fs.state),/osam/);for(const l of COURSE)mission(fs,l.id);
@@ -83,6 +84,7 @@ test('Original categories reach 1720 XP and all terminal objectives reach the co
  const fs=new FileSystem(seed());for(const l of COURSE)mission(fs,l.id);
  for(const m of MECHANISMS)for(const [v]of m.variants){fs.transact(()=>{fs.state.learning.explorer.drafts[m.id]={variant:v,step:traceMechanism(m.id,v).steps.length,prediction:'Ishod',reflection:''};});submit(fs,`m-${m.id}-${v}-outcome`);submit(fs,`m-${m.id}-${v}-reason`);}
  const folder=fs.create('docs','Moja_vjezba','dir');fs.create(folder.id,'biljeska.txt','file','Spremljena bilješka s dovoljno teksta.');fs.transact(()=>{fs.state.lesson={minimized:true,ended:true};for(const key of ['copied','restored','backupExport','permissionChanged','permissionGroup','permissionDenied','cpu_fcfs','cpu_rr','cpu_io','cpu_sjf','memory_fifo','memory_lru','disk_fragmented','disk_compacted','terminalWrite','terminalRead','network_local','network_dns','network_http','network_case_dns','network_case_gateway','network_case_icmp','versionSaved','versionRecovered','backupReviewed','backupRecovered'])fs.state.learning.evidence[key]=true;});
+ fs.transact(()=>{completeCpuLab(fs.state.learning);completeRemainingSimulationLabs(fs.state.learning);});
  for(let i=0;i<11;i++)submit(fs,'lab-'+i);
  for(const t of NETWORK_CASES){fs.transact(()=>{const n=startNetworkCase(fs.state.learning.network,t.id);if(t.id==='cable')recordNetworkProbe(n,'ping',NET.peer);else if(t.id==='icmp')recordNetworkProbe(n,'ping',NET.web);else recordNetworkProbe(n,'curl','http://'+NET.host);if(t.id!=='icmp'){n.config=defaultNetworkConfig();n.revision++;}recordNetworkProbe(n,'ping',NET.peer);recordNetworkProbe(n,'ping',NET.web);recordNetworkProbe(n,'nslookup',NET.host);recordNetworkProbe(n,'curl','http://'+NET.host);n.diagnosis=NETWORK_DIAGNOSES[t.id].answer;completeNetworkCase(n);completeNetworkCase(n);fs.state.learning.network=n;});}
  fs.transact(()=>{fs.state.learning.game.difficulty='hard';});for(const t of TASKS.filter(t=>t.area==='extension'))submit(fs,t.id);

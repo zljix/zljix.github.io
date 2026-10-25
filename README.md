@@ -1,8 +1,8 @@
-# zljixOS 0.14.0
+# zljixOS 0.15.0
 
-Izdanje 0.14.0 donosi metodičku doradu cijelog puta učenja: osam scenarija s objašnjenim sudionicima, usporedbu stanja prije i poslije koraka, slijed opaženih događaja, usporedbu ishoda pokusa i jedan aktivan zadatak u samostalnoj provjeri. Prvi pogrešan odgovor usmjerava razmišljanje. Svih 18 terminalskih razina ima zaseban izvedeni primjer s pripremljenim datotekama, a svaki laboratorij objašnjava predznanje i vodi do povezane lekcije. Detaljna analiza i provjere opisane su u [Metodičkoj analizi](source/METODICKA_ANALIZA.md).
+Izdanje 0.15.0 popravlja provjeru Linux dozvola, zasebno bilježi vođenje, natuknice i otvaranje postupka te povezuje CPU i memorijske laboratorije s konkretnim postavkama, usporedbama i rezultatima. Završni izazov koristi odvojene problemske slučajeve. Rangovi zahtijevaju i dovršene temeljne misije; OS navigator traži novu primjenu od najmanje 80/100. Pokus s dretvama omogućuje učeniku da bira sljedeću radnju i prati zajednički brojač. Detalji: [Metodička analiza](source/METODICKA_ANALIZA.md).
 
-**Za otvaranje novog izdanja nakon stare offline verzije:** https://zljix.github.io/igra.html. Verzija **v0.14.0** vidljiva je već na početnom unosu i u gornjoj traci. Novi ulaz dijeli isti lokalni rad s početnom adresom; ne briši podatke preglednika.
+**Za otvaranje novog izdanja nakon stare offline verzije:** https://zljix.github.io/igra.html. Verzija **v0.15.0** vidljiva je već na početnom unosu i u gornjoj traci. Novi ulaz dijeli isti lokalni rad s početnom adresom; ne briši podatke preglednika.
 
 Interaktivna igra na hrvatskom za učenje operacijskih sustava. Objavljuje se na **https://zljix.github.io/** iz repozitorija `zljix/zljix.github.io`. Nastavlja postojeću igru Orbit OS, uključujući DOS/CMD i Linux razine iz izdanja 0.12.
 
@@ -34,7 +34,7 @@ Osam misija povezuje objašnjenje pojmova, riješen primjer, pokus i automatski 
 | PowerShell — šest razina | 600 |
 | **Ukupno** | **3520** |
 
-Pet rangova i deset znački prate napredak. Ponavljanje ne gomila bodove. Prati se prva i posljednja težina odgovora, broj pokušaja i zatražena pomoć. Završni izazov od deset pitanja otključava se nakon osam misija na odabranoj težini; rezultat i objašnjenja vide se nakon predaje. Najbolji rezultat prikazuje se po težini, a u ukupni XP ulazi jedan najbolji rezultat. XP označava napredak uz dostupnu pomoć, a ne školsku ocjenu.
+Pet rangova i deset znački prate napredak. Ponavljanje ne gomila bodove. Prati se prva i posljednja težina odgovora, broj pokušaja i zatražena pomoć. Završni izazov od deset pitanja otključava se nakon osam misija na odabranoj težini; rezultat i objašnjenja vide se nakon predaje. Prvi, posljednji i najbolji rezultat novih slučajeva prikazuju se po težini, a u ukupni XP ulazi jedan najbolji rezultat. XP označava napredak uz dostupnu pomoć, a ne školsku ocjenu.
 
 ## Akademija terminala
 

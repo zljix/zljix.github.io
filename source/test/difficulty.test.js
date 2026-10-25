@@ -47,7 +47,7 @@ test('Final difficulty has its own question bank and stays fixed through a pause
  assert.ok(scoreReport(restored.state,escapeReport).includes('Najbolji rezultati po težini'));assert.ok(scoreReportText(restored.state).includes('hard'));
 });
 test('Legacy final answers keep their original keys and score; legacy answer assistance is retained',()=>{
- const s=seed(),g=s.learning.game;delete g.difficulty;g.round=1;g.runs=[{round:1,answers:finalQuestions(1).map(q=>q.answer)}];
+ const s=seed(),g=s.learning.game;delete g.difficulty;g.round=1;g.runs=[{round:1,answers:finalQuestions(1,'moderate',1).map(q=>q.answer)}];
  g.answers['c-hardware-warm']={first:[0],last:[0],tries:1,help:true};
  const restored=validateState(s).learning.game;assert.equal(restored.difficulty,'easy');assert.equal(restored.runs[0].difficulty,'moderate');assert.equal(runScore(restored.runs[0]),100);assert.equal(restored.answers['c-hardware-warm'].firstMode,'moderate');assert.equal(restored.answers['c-hardware-warm'].help,true);
  s.learning.game.difficulty='unknown';assert.throws(()=>validateState(s),/težine/);
@@ -57,7 +57,7 @@ test('All difficulty banks are complete, use distinct alternatives and alternate
  for(const d of DIFFICULTIES){const a=finalQuestions(1,d.id),b=finalQuestions(2,d.id);assert.equal(a.length,10);assert.equal(new Set(a.map(q=>q.topic)).size,10);assert.ok(a.every((q,i)=>q.id!==b[i].id));}
 });
 test('Bounded history retains each difficulty best and the latest result',()=>{
- const s=seed(),g=s.learning.game;g.round=20;g.runs=Array.from({length:20},(_,i)=>({round:i+1,difficulty:i===0?'hard':i===1?'moderate':'easy',answers:finalQuestions(i+1,i===0?'hard':i===1?'moderate':'easy').map(q=>q.answer)}));
- g.round=21;g.active={round:21,difficulty:'easy',cursor:9,answers:finalQuestions(21,'easy').map(q=>(q.answer+1)%q.options.length)};
+ const s=seed(),g=s.learning.game;g.round=20;g.runs=Array.from({length:20},(_,i)=>({round:i+1,bankVersion:2,difficulty:i===0?'hard':i===1?'moderate':'easy',answers:finalQuestions(i+1,i===0?'hard':i===1?'moderate':'easy').map(q=>q.answer)}));
+ g.round=21;g.active={round:21,bankVersion:2,difficulty:'easy',cursor:9,answers:finalQuestions(21,'easy').map(q=>(q.answer+1)%q.options.length)};
  const fs=new FileSystem(s);assert.equal(fs.transact(()=>finishFinal(fs.state)),0);assert.equal(fs.state.learning.game.runs.length,20);assert.equal(runScore(fs.state.learning.game.runs.at(-1)),0);for(const d of DIFFICULTIES)assert.equal(bestFinal(fs.state.learning.game,d.id),100);
 });
