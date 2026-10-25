@@ -104,3 +104,9 @@ Učenik u dodatnom pokusu s dretvama bira svaku sljedeću radnju. Prikaz odvaja 
 Provjera: 136 automatiziranih testova; uključeni su apsolutne putanje, evidencija pomoći, uvjeti laboratorija, banke završnih pitanja i iscrpna provjera svih dopuštenih slijedova šest radnji dviju dretvi. U cloud Chromiumu provjereni su gubitak povećanja i ispravno zaključavanje, pomoć iz stvarnog Easy sučelja u izvještaju, dodjela CPU bodova tek nakon svih kvanta, odbijanje pogrešnog i prihvaćanje ispravnog prijevoda memorijske adrese. Dva probna završna pokušaja daju 100 pa 80 bodova: prvi 100, posljednji 80, najbolji 100; ukupni XP se ne udvostručuju. Za pristup završnom sučelju uvezena je jasno označena sintetska JSON kopija.
 
 Novi prikaz dretvi i stalna traka provjereni su u iframe prikazima širine 320, 375 i 414 px, bez vodoravnog prelijevanja dokumenta. Fizički mobilni uređaji i Safari nisu testirani. Samostalni HTML i mobilni paket prolaze provjere ugrađenih skripti, resursa i offline workera.
+
+## Stalna provjera verzije 0.15.1
+
+Gumb provjere verzije premješten je iz početnog pregleda lekcija u gornju traku, neposredno lijevo od preuzimanja. Oba gumba ostaju zajedno i na uskim zaslonima; provjera je ikona kružne strelice s pristupačnim nazivom i opisom. Dostupna nadogradnja ističe ikonu, a zelena ikona preuzimanja i dalje ovisi o potvrđenoj offline spremnosti. Uklonjen je raniji plutajući položaj gumba za novo izdanje na mobitelu.
+
+Provjereno: 12 testova offline rada i preuzimanja; provjere samostalnog HTML-a i mobilnog paketa; položaj oba gumba i izostanak vodoravnog prelijevanja na širinama 320, 375 i 414 px u iframe prikazu Chromiuma. Gumbi imaju površinu 44×44 px na uskom zaslonu.

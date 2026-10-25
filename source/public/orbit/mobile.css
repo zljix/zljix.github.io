@@ -3,11 +3,14 @@
 .topbar{position:fixed;top:0;left:0;right:0}
 #global-score{flex:none;gap:7px;padding:6px 10px;border:1px solid #e0c38180;border-radius:9px;background:#352e45;color:#ffe1a3;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
 #global-score svg{height:18px;width:18px;fill:none;stroke:currentColor;stroke-width:1.7}
-#pwa-status-button{flex:none;justify-content:center;width:38px;height:34px;padding:6px;border:1px solid #ffffff40;border-radius:9px;color:#c4bfcb;background:#ffffff0a}
-#pwa-status-button svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8}
-#pwa-status-button:disabled{opacity:.55;cursor:default}
+.app-version-controls{display:flex;align-items:center;gap:6px;flex:none}
+#app-update-button,#pwa-status-button{flex:none;justify-content:center;width:38px;height:34px;padding:6px;border:1px solid #ffffff40;border-radius:9px;color:#c4bfcb;background:#ffffff0a}
+#app-update-button svg,#pwa-status-button svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8}
+#app-update-button:disabled,#pwa-status-button:disabled{opacity:.55;cursor:default}
 #pwa-status-button[data-ready=true]{color:#c4ffe1;background:#175d47;border-color:#71dba7}
 #pwa-status-button[data-ready=true]:hover{background:#217956}
+#app-update-button[data-available=true]{color:#ffe1a3;background:#534329;border-color:#e0c381}
+#app-update-button:focus-visible{outline:3px solid #b899e2;outline-offset:3px}
 .pwa-download{display:flex;width:100%;justify-content:center;margin-top:16px;text-decoration:none}
 @media(max-width:1100px){#clock{display:none}.topbar{gap:10px}.top-right{gap:8px}}
 #pwa-dialog{color:#423652;background:#fcfaff;width:min(540px,94vw);max-height:90dvh;overflow:auto;border:1px solid #ddd4ec;border-radius:20px;padding:24px;font-size:15px;line-height:1.6}
@@ -29,7 +32,7 @@
   .local-work-button{font-size:13px!important;padding:7px 10px!important;min-height:44px}
   .local-badge{max-width:100px;font-size:10px}
   html[data-distribution=pwa] .local-badge{display:none!important}
-  #pwa-status-button{width:44px;min-width:44px;height:44px;padding:9px}
+  #app-update-button,#pwa-status-button{width:44px;min-width:44px;height:44px;padding:9px}
   #global-score{font-size:13px;padding:6px 9px;min-height:44px}
   #global-score svg{width:16px;height:16px}
   .topbar .local-badge{display:none!important}
@@ -90,6 +93,6 @@
   #dialog-description{font-size:14px;line-height:1.6}
   .dialog-actions .button{font-size:14px}
 }
-@media(max-width:350px){#brand strong{font-size:16px}#brand .brand-symbol{font-size:25px}.topbar{gap:4px}.local-work-button{padding:6px!important}.os-tabs button{font-size:11px;padding:8px 3px}.os-tabs button span{display:none}}
+@media(max-width:350px){#global-score svg{display:none}#brand strong{font-size:16px}#brand .brand-symbol{font-size:25px}.topbar{gap:4px}.local-work-button{padding:6px!important}.os-tabs button{font-size:11px;padding:8px 3px}.os-tabs button span{display:none}}
 @media(max-width:380px){#workspace-search-button{display:none!important}}
 @media(max-height:500px) and (max-width:1000px){.launcher{max-height:70dvh;overflow:auto}.window{min-height:0}}

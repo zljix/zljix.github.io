@@ -1,8 +1,10 @@
-# zljixOS 0.15.0
+# zljixOS 0.15.1
+
+U izdanju 0.15.1 provjera verzije stalno je dostupna u gornjoj traci, pokraj preuzimanja. Ikona kružne strelice otvara provjeru, a ističe se kada je novo izdanje spremno.
 
 Izdanje 0.15.0 popravlja provjeru Linux dozvola, zasebno bilježi vođenje, natuknice i otvaranje postupka te povezuje CPU i memorijske laboratorije s konkretnim postavkama, usporedbama i rezultatima. Završni izazov koristi odvojene problemske slučajeve. Rangovi zahtijevaju i dovršene temeljne misije; OS navigator traži novu primjenu od najmanje 80/100. Pokus s dretvama omogućuje učeniku da bira sljedeću radnju i prati zajednički brojač. Detalji: [Metodička analiza](source/METODICKA_ANALIZA.md).
 
-**Za otvaranje novog izdanja nakon stare offline verzije:** https://zljix.github.io/igra.html. Verzija **v0.15.0** vidljiva je već na početnom unosu i u gornjoj traci. Novi ulaz dijeli isti lokalni rad s početnom adresom; ne briši podatke preglednika.
+**Za otvaranje novog izdanja nakon stare offline verzije:** https://zljix.github.io/igra.html. Verzija **v0.15.1** vidljiva je već na početnom unosu i u gornjoj traci. Novi ulaz dijeli isti lokalni rad s početnom adresom; ne briši podatke preglednika.
 
 Interaktivna igra na hrvatskom za učenje operacijskih sustava. Objavljuje se na **https://zljix.github.io/** iz repozitorija `zljix/zljix.github.io`. Nastavlja postojeću igru Orbit OS, uključujući DOS/CMD i Linux razine iz izdanja 0.12.
 
