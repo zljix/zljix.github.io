@@ -41,7 +41,7 @@ export function mountMobile(){
   }
   updateButton.disabled=false;
   const updateDialog=document.createElement('dialog');updateDialog.id='update-dialog';updateDialog.setAttribute('aria-labelledby','update-title');
-  updateDialog.innerHTML=`<h2 id="update-title">Verzija igre</h2><p>Otvorena verzija: <strong>${APP_VERSION}</strong></p><p data-update-status role="status">Provjeravam dostupna izdanja…</p><button class="button primary" data-apply-update hidden>Otvori novo izdanje</button><button class="button secondary" data-check-update>Provjeri ponovno</button><button class="button secondary" data-close-update>Zatvori</button><p>Potvrđeni odgovori i bodovi ostaju uz tvoje ime. Prije osvježavanja dovrši unos i spremi nespremljeni tekst.</p>`;
+  updateDialog.innerHTML=`<h2 id="update-title">Verzija igre</h2><p>Otvorena verzija: <strong>${APP_VERSION}</strong></p><div class="release-note"><strong>zljixOS 0.16.0 · Provjera spremljenog rada</strong><p>Nove JSON kopije imaju kontrolni potpis za ime, prezime i rezultate. Za prijenos izvezi novi JSON kroz „Moj rad”.</p></div><p data-update-status role="status">Provjeravam dostupna izdanja…</p><button class="button primary" data-apply-update hidden>Otvori novo izdanje</button><button class="button secondary" data-check-update>Provjeri ponovno</button><button class="button secondary" data-close-update>Zatvori</button><p>Potvrđeni odgovori i bodovi ostaju uz tvoje ime. Prije osvježavanja dovrši unos i spremi nespremljeni tekst.</p>`;
   document.body.append(updateDialog);
   const updateStatus=updateDialog.querySelector('[data-update-status]'),applyButton=updateDialog.querySelector('[data-apply-update]');
   updateDialog.querySelector('[data-close-update]').onclick=()=>updateDialog.close();

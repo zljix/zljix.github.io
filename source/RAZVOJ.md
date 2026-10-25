@@ -126,3 +126,8 @@ Kartice putanja prikazuju se redom DOS/CMD, Linux Shell, PowerShell, u skladu s 
 - Testovi pokrivaju usporedbu s Node HMAC-om, hrvatska slova, oba promijenjena imena, napredak i sadržaj, nedostajući i tuđi potpis, stare formate, nepromijenjenu lokalnu pohranu nakon odbijanja, valjan povrat i nedostupnu kriptografiju.
 
 Provjera izdanja: 146 automatiziranih testova prolazi; samostalni i mobilni paket prolaze provjere izgradnje i ugrađenih resursa.
+
+
+## Obavijest u provjeri verzije 0.16.1
+
+Obavijest o kontrolnom potpisu izdanja 0.16.0 uklonjena je iz pregleda misija. Isti tekst prikazuje se isključivo u dijalogu „Verzija igre”, koji se otvara gumbom uz preuzimanje.
