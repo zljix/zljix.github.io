@@ -3,6 +3,7 @@ import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 const dir=new URL('../dist/mobitel/',import.meta.url);
 const html=await readFile(new URL('index.html',dir),'utf8');
+assert.equal(await readFile(new URL('igra.html',dir),'utf8'),html);
 const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script\s*>/gi)];
 assert.equal(scripts.length,1);new vm.Script(scripts[0][1]);
 assert.ok(html.includes('data-distribution="pwa"'));assert.ok(html.includes("worker-src 'self'"));

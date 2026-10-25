@@ -1,4 +1,4 @@
-# zljixOS 0.13.1 — razvoj
+# zljixOS 0.14.0 — razvoj
 
 Samostalni desktop HTML i mobilni PWA nastaju iz `public/orbit/` pomoću `scripts/build.mjs` i esbuilda 0.28.0. Nema aplikacijskog poslužitelja niti udaljenog bodovanja.
 
@@ -29,15 +29,15 @@ npm run build
 npm run check:artifact
 ```
 
-120 testova pokriva postojeće modele, postupke oporavka, migraciju, ograničenja bodovanja, sve kategorije do 3520 XP, neponavljanje bodova, sve uvjete usporedbe, pogrešne i nepotpune odgovore, čuvanje pomoći i prvog odgovora, završne pokušaje, ograničenje povijesti, uvoz/izvoz i očuvanje ranijih mrežnih bilježaka. Provjera artefakta traži jednu valjanu ugrađenu skriptu, ugrađene stilove, desktop bez mrežnih API poziva, valjan manifest i offline worker.
+126 testova pokriva postojeće modele, postupke oporavka, migraciju, ograničenja bodovanja, sve kategorije do 3520 XP, neponavljanje bodova, sve uvjete usporedbe, pogrešne i nepotpune odgovore, čuvanje pomoći i prvog odgovora, završne pokušaje, ograničenje povijesti, uvoz/izvoz i očuvanje ranijih mrežnih bilježaka. Provjera artefakta traži jednu valjanu ugrađenu skriptu, ugrađene stilove, desktop bez mrežnih API poziva, valjan manifest i offline worker.
 
 Ranija UI provjera u Chromiumu: misija do 100 XP s pogreškom i ispravkom; nastavak nakon osvježavanja; završni rezultati 40/100 i 100/100 s obnovom aktivnog pokušaja; laboratorijski zaključak; svih sedam koraka jednog detaljnog mehanizma; mrežni DNS izazov prije/poslije popravka; širine 320, 375 i 414 px. Provjera 0.11: prva misija 100 → 120 → 140 XP, pogrešna Hard dijagnoza, pomoć i ispravak; promjena težine bez gubitka XP-a i ponovno otvaranje; trajna traka i prikaz 320/375/414 px. Fizički iPhone/Android i rad s razredom nisu testirani.
 
 ## Objava
 
-Korijen GitHub repozitorija sadrži šest mobilnih datoteka. Desktop HTML je u `downloads/`, izvor u `source/`. Ne objavljuj učeničke JSON kopije, testne radne prostore, QA HTML ni `node_modules`.
+Korijen GitHub repozitorija sadrži mobilne ulaze `index.html` i `igra.html`, manifest, worker i tri ikone. Desktop HTML je u `downloads/`, izvor u `source/`. Ne objavljuj učeničke JSON kopije, testne radne prostore, QA HTML ni `node_modules`.
 
-Worker provjerava šest predmemoriranih resursa: mobilni HTML, manifest, tri ikone i `downloads/zljixOS.html`. Spremnost ikone zahtijeva potvrđene `ready` i `downloadReady` te uspješno pripremljen neprazan HTML Blob. Eksplicitni `fetch` prolazi kroz worker i preuzima datoteku u memoriju prije zelene ikone; klik sprema Blob bez novog mrežnog zahtjeva. To pokriva preglednike čije nativno preuzimanje ne prolazi kroz worker; ikona je inače onemogućena. Stari worker ne može pogrešno potvrditi novi paket. Gumb otvara dijalog s HTML preuzimanjem, instalacijom kad preglednik nudi događaj i uputama za mobilne preglednike. Desktop preuzimanje radi i iz offline predmemorije. Worker dobiva oznaku iz verzije i hashiranog sadržaja oba HTML-a, manifesta, workera i ikona. Nova predmemorija instalira se cjelovito, bez brisanja stare pri pogrešci. Ne koristi `skipWaiting`; nadogradnja čeka zatvaranje prethodnih prozora aplikacije. Učenički podatci u localStorage odvojeni su od predmemorije aplikacije.
+Worker provjerava sedam predmemoriranih resursa: oba mobilna HTML ulaza, manifest, tri ikone i `downloads/zljixOS.html`. Spremnost ikone zahtijeva potvrđene `ready` i `downloadReady` te uspješno pripremljen neprazan HTML Blob. Eksplicitni `fetch` prolazi kroz worker i preuzima datoteku u memoriju prije zelene ikone; klik sprema Blob bez novog mrežnog zahtjeva. To pokriva preglednike čije nativno preuzimanje ne prolazi kroz worker; ikona je inače onemogućena. Stari worker ne može pogrešno potvrditi novi paket. Gumb otvara dijalog s HTML preuzimanjem, instalacijom kad preglednik nudi događaj i uputama za mobilne preglednike. Desktop preuzimanje radi i iz offline predmemorije. Worker dobiva oznaku iz verzije i hashiranog sadržaja oba HTML-a, manifesta, workera i ikona. Nova predmemorija instalira se cjelovito, bez brisanja stare pri pogrešci. Navigacija prvo traži aktualni HTML na mreži, uz vremensko ograničenje i povrat na cjelovitu instaliranu kopiju pri pogrešci. Ne aktivira se prisilno tijekom instalacije. `skipWaiting` se poziva samo na izričit zahtjev gumba za novo izdanje, nakon provjere nespremljenog rada. Samo kartica koja je zatražila nadogradnju osvježava se na `controllerchange`; druge nastavljaju rad. HTML i samostalni preuzeti paket potpuno su uključeni, bez dijeljenih JavaScript modula koji bi miješali verzije. Preuzimanje zahtijeva da worker odgovara otvorenoj verziji. Ulaz `igra.html` omogućuje prvi dolazak do novog sučelja i kroz stariji worker koji predmemorira `index.html`. Učenički podatci u localStorage odvojeni su od predmemorije aplikacije.
 
 ## Akademija terminala (0.13)
 
@@ -84,3 +84,9 @@ Pitanja izričito određuju procese P1/P2/P3, dretve T1/T2 istog procesa, resurs
 Provjera kompatibilnosti svih 103 zadatka i 60 pitanja završnih izazova potvrđuje da su promijenjeni samo tekstovi pitanja: svi identifikatori, ponuđeni odgovori, indeksi točnih odgovora, uvjeti i bodovi ostaju identični. Jasniji kontekst dobilo je 89 generiranih pitanja. Svih 120 postojećih testova prolazi, kao i provjere samostalnog HTML-a i mobilnog paketa.
 
 Vizualno provjereni pitanja o dretvama i resursima, Hard zadatci, legenda CPU-a i nazivi memorijskih stranica u cloud Chromiumu. Odgovor na dopunjeno pitanje daje 10 XP, a ponovno otvaranje s istim imenom čuva taj rezultat. U prikazima širokim 320/375/414 px (iframe s odgovarajućom širinom prikaza) pitanja se prelamaju bez vodoravnog prelijevanja. To nije provjera na fizičkom mobitelu.
+
+## Metodička dorada 0.14.0
+
+`learning-guide.js` odvaja scenarij i uloge od kratkog zahtjeva zadatka te daje prvi trag za ponovno razmišljanje. `learning.css` oblikuje scenarije, usporedbu stanja, slijed događaja i jedan aktivan zadatak. `course.js` čuva povratnu informaciju do gumba za sljedeći zadatak, prikazuje samo opažene ishode i povezuje preduvjete s pripremnim korakom. Ne mijenja banke ni format spremljenih odgovora.
+
+`shell-demo.js` reproducira primjere u zasebnom virtualnom prostoru; primjeri ne nose XP i ne mijenjaju učenički terminal. `teaching.js` povezuje laboratorije s potrebnim predznanjem. `release.js`, `pwa.js` i worker čine verziju i dostupnu nadogradnju vidljivima. Detalji, granice i plan nastavne primjene: [METODICKA_ANALIZA.md](METODICKA_ANALIZA.md).

@@ -40,8 +40,9 @@ for(const icon of ['icon-192.png','icon-512.png','apple-touch-icon.png']){
   hash.update(await readFile(path.join(source,'icons',icon)));
   await copyFile(path.join(source,'icons',icon),path.join(root,'dist/mobitel',icon));
 }
-const worker=workerTemplate.replace('__ORBIT_BUILD__','0.13.1-'+hash.digest('hex').slice(0,16));
+const worker=workerTemplate.replace('__ORBIT_BUILD__','0.14.0-'+hash.digest('hex').slice(0,16));
 await writeFile(path.join(root,'dist/mobitel/index.html'),mobile);
+await writeFile(path.join(root,'dist/mobitel/igra.html'),mobile);
 await writeFile(path.join(root,'dist/mobitel/manifest.webmanifest'),manifestText);
 await writeFile(path.join(root,'dist/mobitel/sw.js'),worker);
 console.log(`Desktop: ${Buffer.byteLength(desktop)} bytes. Mobile: ${Buffer.byteLength(mobile)} bytes + offline worker, manifest and icons.`);

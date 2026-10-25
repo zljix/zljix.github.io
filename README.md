@@ -1,6 +1,8 @@
-# zljixOS 0.13.1
+# zljixOS 0.14.0
 
-Izdanje 0.13.1 pojašnjava oznake u samim pitanjima: P1/P2/P3 su procesi, T1/T2 dretve istog procesa, R1/R2 resursi, a x zajednički brojač. Svaki slučaj navodi potrebno početno stanje, uključujući završne izazove na svim težinama. CPU laboratorij ima objašnjenje oznaka, a memorijski laboratorij stranice označava punim nazivom kako ih se ne bi zamijenilo s procesima. Identifikatori zadataka, točni odgovori i bodovanje ostaju isti.
+Izdanje 0.14.0 donosi metodičku doradu cijelog puta učenja: osam scenarija s objašnjenim sudionicima, usporedbu stanja prije i poslije koraka, slijed opaženih događaja, usporedbu ishoda pokusa i jedan aktivan zadatak u samostalnoj provjeri. Prvi pogrešan odgovor usmjerava razmišljanje. Svih 18 terminalskih razina ima zaseban izvedeni primjer s pripremljenim datotekama, a svaki laboratorij objašnjava predznanje i vodi do povezane lekcije. Detaljna analiza i provjere opisane su u [Metodičkoj analizi](source/METODICKA_ANALIZA.md).
+
+**Za otvaranje novog izdanja nakon stare offline verzije:** https://zljix.github.io/igra.html. Verzija **v0.14.0** vidljiva je već na početnom unosu i u gornjoj traci. Novi ulaz dijeli isti lokalni rad s početnom adresom; ne briši podatke preglednika.
 
 Interaktivna igra na hrvatskom za učenje operacijskih sustava. Objavljuje se na **https://zljix.github.io/** iz repozitorija `zljix/zljix.github.io`. Nastavlja postojeću igru Orbit OS, uključujući DOS/CMD i Linux razine iz izdanja 0.12.
 
@@ -47,7 +49,7 @@ Tri neovisne putanje imaju ukupno **18 razina i 90 praktičnih zadataka**. Svaka
 | 5 | `del`, `rd`, čuvanje podataka | `chmod`, čitanje/pisanje vlasnika | Svojstva, `Where-Object`, `Sort-Object`, `Measure-Object` |
 | 6 | Predaja, arhiva i čišćenje | Predaja, arhiva i čišćenje | Predaja, arhiva, `Remove-Item`, `-WhatIf` |
 
-**Easy** obuhvaća tri zadatka (60 XP) uz ponuđene naredbe. **Moderate** dodaje primjenu (80 XP) uz pomoć na zahtjev. **Hard** uključuje peti povezani zadatak (100 XP), uz pomoć nakon prvog pokušaja. Sljedeća razina otključava se nakon prva tri zadatka prethodne. Svaki zadatak donosi 20 XP samo jednom.
+**Easy** obuhvaća tri zadatka (60 XP) uz objašnjenje i postupak koji učenik otvara po potrebi. **Moderate** dodaje primjenu (80 XP) uz pomoć na zahtjev. **Hard** uključuje peti povezani zadatak (100 XP), uz pomoć nakon prvog pokušaja. Sljedeća razina otključava se nakon prva tri zadatka prethodne. Svaki zadatak donosi 20 XP samo jednom.
 
 PowerShell cjevovod prenosi podržane objekte i njihova svojstva, a ne samo tekstualni ispis tablice. Model je ograničen na opisane cmdlete i parametre u Windows okruženju. Kodiranja, puni datotečni provider i sva ponašanja stvarnog PowerShella nisu simulirani. Niti jedan terminal ne izvršava naredbe računala, skripte, programe ili mrežne radnje. Pogrešne naredbe u modelu ne mijenjaju datoteke; stvarni shell može imati djelomične učinke.
 
@@ -55,7 +57,7 @@ PowerShell cjevovod prenosi podržane objekte i njihova svojstva, a ne samo teks
 
 Za računalo preuzmi [zljixOS.html](downloads/zljixOS.html) i otvori ga preglednikom. Mobilna aplikacija treba prvo otvaranje preko interneta. Ikona preuzimanja ostaje siva dok cijeli paket nije spreman; zelena ikona otvara preuzimanje HTML-a i upute za dodavanje na početni zaslon. Aplikacija se može ponovno otvoriti bez mreže nakon uspješnog predmemoriranja.
 
-**Aplikacija i rezultati odvojene su datoteke.** Za prijenos rada na drugi uređaj ili u samostalni HTML spremi JSON kroz **Moj rad**, na drugom uređaju upiši isto ime i prezime te učitaj svoj JSON. Nakon nadogradnje zatvori sve kartice/prozore stare igre i ponovno je otvori. Nova offline verzija ne prekida aktivnu vježbu.
+**Aplikacija i rezultati odvojene su datoteke.** Za prijenos rada na drugi uređaj ili u samostalni HTML spremi JSON kroz **Moj rad**, na drugom uređaju upiši isto ime i prezime te učitaj svoj JSON. Na internetu se učitava aktualna stranica; bez interneta ostaje posljednja potpuno spremljena verzija. Gumb **Novo izdanje** otvara preuzetu nadogradnju nakon provjere da nema nedovršenog unosa i da je rad spremljen. Druge kartice ne osvježavaju se automatski. Ako dolaziš sa starijeg izdanja, koristi ulaz `igra.html`.
 
 ## Razvoj i provjera
 
