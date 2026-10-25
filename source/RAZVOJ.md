@@ -110,3 +110,7 @@ Novi prikaz dretvi i stalna traka provjereni su u iframe prikazima širine 320, 
 Gumb provjere verzije premješten je iz početnog pregleda lekcija u gornju traku, neposredno lijevo od preuzimanja. Oba gumba ostaju zajedno i na uskim zaslonima; provjera je ikona kružne strelice s pristupačnim nazivom i opisom. Dostupna nadogradnja ističe ikonu, a zelena ikona preuzimanja i dalje ovisi o potvrđenoj offline spremnosti. Uklonjen je raniji plutajući položaj gumba za novo izdanje na mobitelu.
 
 Provjereno: 12 testova offline rada i preuzimanja; provjere samostalnog HTML-a i mobilnog paketa; položaj oba gumba i izostanak vodoravnog prelijevanja na širinama 320, 375 i 414 px u iframe prikazu Chromiuma. Gumbi imaju površinu 44×44 px na uskom zaslonu.
+
+## Redoslijed Akademije terminala 0.15.2
+
+Kartice putanja prikazuju se redom DOS/CMD, Linux Shell, PowerShell, u skladu s postojećim redoslijedom lekcija i izvještaja. Nova putanja i dalje počinje s DOS/CMD-om; učenik može odabrati i druge terminale. Sadržaj zadataka i pravila bodovanja ostaju isti.

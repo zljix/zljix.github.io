@@ -2,7 +2,29 @@ import {POWERSHELL_LESSONS} from './powershell-data.js';
 import {shellHome,shellNode} from './shell-engine.js';
 
 export const SHELL_MODES = {easy:{label:'Easy',count:3,target:60,description:'Tri temeljna zadatka uz objašnjenje. Primjer postupka otvaraš ako ti zatreba.'},moderate:{label:'Moderate',count:4,target:80,description:'Temelji i nova primjena. Sam biraš naredbe; pomoć otvaraš po potrebi.'},hard:{label:'Hard',count:5,target:100,description:'Pet zadataka, uključujući povezani izazov. Pomoć se otvara nakon pokušaja.'}};
-export const SHELL_TRACKS = {powershell:{name:'PowerShell',subtitle:'Cmdleti i objekti',intro:'PowerShell je shell i okruženje za automatizaciju. Učiš cmdlete s imenovanim parametrima i cjevovod koji prenosi objekte. Ovdje vježbamo odabrane naredbe u Windows modelu; puni PowerShell postoji i za Linux i macOS.',prompt:'PS C:\\ucenik>',caseNote:'Cmdleti i putanje ovog Windows modela ne razlikuju velika i mala slova. Parametar počinje crticom, npr. -Path. Na Linuxu stvarne putanje ovise o datotečnom sustavu.'},cmd:{name:'DOS / CMD',subtitle:'Windows naredbeni redak',intro:'Ovdje vježbaš odabrane naredbe Windowsova cmd.exe, od kojih mnoge potječu iz DOS-a. MS-DOS je stariji operacijski sustav; CMD je tumač naredbi u Windowsu. Nisu isto, a ovo nije PowerShell.',prompt:'C:\\ucenik>',caseNote:'Naredbe i putanje u ovom CMD modelu ne razlikuju velika i mala slova. Putanje koriste obrnutu kosu crtu \\.'},linux:{name:'Linux Shell',subtitle:'Osnove rada nalik Bashu',intro:'Terminal je prozor za unos i ispis teksta. Shell je program koji tumači naredbu. Bash je jedan od shellova u Linuxu. Ovdje učiš odabrane Bash naredbe i alate, kroz mali virtualni datotečni sustav.',prompt:'ucenik@zljixOS:/home/ucenik$',caseNote:'Linux razlikuje velika i mala slova: Plan.txt i plan.txt mogu biti dvije datoteke. Putanje koriste kosu crtu /.'}};
+export const SHELL_TRACKS = {
+  "cmd": {
+    "name": "DOS / CMD",
+    "subtitle": "Windows naredbeni redak",
+    "intro": "Ovdje vježbaš odabrane naredbe Windowsova cmd.exe, od kojih mnoge potječu iz DOS-a. MS-DOS je stariji operacijski sustav; CMD je tumač naredbi u Windowsu. Nisu isto, a ovo nije PowerShell.",
+    "prompt": "C:\\ucenik>",
+    "caseNote": "Naredbe i putanje u ovom CMD modelu ne razlikuju velika i mala slova. Putanje koriste obrnutu kosu crtu \\."
+  },
+  "linux": {
+    "name": "Linux Shell",
+    "subtitle": "Osnove rada nalik Bashu",
+    "intro": "Terminal je prozor za unos i ispis teksta. Shell je program koji tumači naredbu. Bash je jedan od shellova u Linuxu. Ovdje učiš odabrane Bash naredbe i alate, kroz mali virtualni datotečni sustav.",
+    "prompt": "ucenik@zljixOS:/home/ucenik$",
+    "caseNote": "Linux razlikuje velika i mala slova: Plan.txt i plan.txt mogu biti dvije datoteke. Putanje koriste kosu crtu /."
+  },
+  "powershell": {
+    "name": "PowerShell",
+    "subtitle": "Cmdleti i objekti",
+    "intro": "PowerShell je shell i okruženje za automatizaciju. Učiš cmdlete s imenovanim parametrima i cjevovod koji prenosi objekte. Ovdje vježbamo odabrane naredbe u Windows modelu; puni PowerShell postoji i za Linux i macOS.",
+    "prompt": "PS C:\\ucenik>",
+    "caseNote": "Cmdleti i putanje ovog Windows modela ne razlikuju velika i mala slova. Parametar počinje crticom, npr. -Path. Na Linuxu stvarne putanje ovise o datotečnom sustavu."
+  }
+};
 const file=(path,content,mode)=>({path,content,mode});
 const dir=path=>({path,type:'dir'});
 const has=(s,path,type='file')=>shellNode(s,shellHome(s.dialect)+'/'+path)?.type===type;
