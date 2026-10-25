@@ -1,4 +1,4 @@
-# Orbit OS 0.11.1 — razvoj
+# zljixOS 0.13.0 — razvoj
 
 Samostalni desktop HTML i mobilni PWA nastaju iz `public/orbit/` pomoću `scripts/build.mjs` i esbuilda 0.28.0. Nema aplikacijskog poslužitelja niti udaljenog bodovanja.
 
@@ -14,7 +14,7 @@ Samostalni desktop HTML i mobilni PWA nastaju iz `public/orbit/` pomoću `script
 - `network-model.js`: objektivna dijagnoza uz provjerene pokuse; stari tekst ostaje arhiviran i pri ponovnom rješavanju.
 - `teaching.js`, `explorer.js`: postojeći laboratoriji i mehanizmi koriste isto automatsko bodovanje.
 
-`learning.game` je aditivno proširenje radnog prostora. Odsutno polje inicijalizira prazne rezultate i čuva kopiju ranijih nacrta mehanizama u `legacy`. Datoteke, stare lekcije, bilješke, mrežni zapisi i spremljene verzije zadržavaju se. U 0.11 dodani su `difficulty`, `firstMode`, `lastMode` i težina svakog završnog pokušaja. Postojeći zapisi bez težine pokazuju Easy putanju radi očuvanja dovršenih misija; stari odgovori i završni ključevi ostaju Moderate, prema izvornom bodovanju. Lokalni ključ ostaje `orbit-os.offline.workspace.v1`.
+`learning.game` je aditivno proširenje radnog prostora. Odsutno polje inicijalizira prazne rezultate i čuva kopiju ranijih nacrta mehanizama u `legacy`. Datoteke, stare lekcije, bilješke, mrežni zapisi i spremljene verzije zadržavaju se. U 0.11 dodani su `difficulty`, `firstMode`, `lastMode` i težina svakog završnog pokušaja. Postojeći zapisi bez težine pokazuju Easy putanju radi očuvanja dovršenih misija; stari odgovori i završni ključevi ostaju Moderate, prema izvornom bodovanju. U 0.13 `state.student` čuva obvezno ime i prezime stvarnog učenika, odvojeno od simuliranih korisnika. `identity.js` normalizira i validira imena te provjerava vlasništvo. Pohrana koristi `zljixos.workspace.v1:` s ključem izvedenim iz oba dijela imena. Ključevi 0.11/0.12 ostaju netaknuti i ne migriraju se automatski jer nemaju provjerljivog vlasnika. Nova kopija ima format `zljixos-backup`, verziju 2, vlasnika u zaglavlju i u radnom prostoru. Model može čitati stare formate za analizu, ali svi korisnički uvozi zahtijevaju podudarno ime. Provjera postoji u lokalnoj pohrani, pregledu uvoza, zamjeni prostora i djelomičnom oporavku.
 
 `FileSystem.transact()` validira stanje, dopunjuje dokaze aktivnosti, sprema i vraća prethodno stanje ako operacija ne uspije. Milestones su monotoni; nova inačica pokusa ne briše ranije potvrđenu aktivnost. XP i značke računaju se iz provjerenih oblika odgovora i evidencija; uvezeni proizvoljni zbroj XP-a se ignorira. To nije zaštita od izmjene klijentskog koda ili smisleno krivotvorenog lokalnog zapisa.
 
@@ -29,7 +29,7 @@ npm run build
 npm run check:artifact
 ```
 
-90 testova pokriva postojeće modele, postupke oporavka, migraciju, ograničenja bodovanja, sve kategorije do 1720 XP, neponavljanje bodova, sve uvjete usporedbe, pogrešne i nepotpune odgovore, čuvanje pomoći i prvog odgovora, završne pokušaje, ograničenje povijesti, uvoz/izvoz i očuvanje ranijih mrežnih bilježaka. Provjera artefakta traži jednu valjanu ugrađenu skriptu, ugrađene stilove, desktop bez mrežnih API poziva, valjan manifest i offline worker.
+120 testova pokriva postojeće modele, postupke oporavka, migraciju, ograničenja bodovanja, sve kategorije do 3520 XP, neponavljanje bodova, sve uvjete usporedbe, pogrešne i nepotpune odgovore, čuvanje pomoći i prvog odgovora, završne pokušaje, ograničenje povijesti, uvoz/izvoz i očuvanje ranijih mrežnih bilježaka. Provjera artefakta traži jednu valjanu ugrađenu skriptu, ugrađene stilove, desktop bez mrežnih API poziva, valjan manifest i offline worker.
 
 Ranija UI provjera u Chromiumu: misija do 100 XP s pogreškom i ispravkom; nastavak nakon osvježavanja; završni rezultati 40/100 i 100/100 s obnovom aktivnog pokušaja; laboratorijski zaključak; svih sedam koraka jednog detaljnog mehanizma; mrežni DNS izazov prije/poslije popravka; širine 320, 375 i 414 px. Provjera 0.11: prva misija 100 → 120 → 140 XP, pogrešna Hard dijagnoza, pomoć i ispravak; promjena težine bez gubitka XP-a i ponovno otvaranje; trajna traka i prikaz 320/375/414 px. Fizički iPhone/Android i rad s razredom nisu testirani.
 
@@ -37,4 +37,42 @@ Ranija UI provjera u Chromiumu: misija do 100 XP s pogreškom i ispravkom; nasta
 
 Korijen GitHub repozitorija sadrži šest mobilnih datoteka. Desktop HTML je u `downloads/`, izvor u `source/`. Ne objavljuj učeničke JSON kopije, testne radne prostore, QA HTML ni `node_modules`.
 
-Worker provjerava šest predmemoriranih resursa: mobilni HTML, manifest, tri ikone i `downloads/Orbit-OS.html`. Spremnost ikone zahtijeva potvrđene `ready` i `downloadReady` te uspješno pripremljen neprazan HTML Blob. Eksplicitni `fetch` prolazi kroz worker i preuzima datoteku u memoriju prije zelene ikone; klik sprema Blob bez novog mrežnog zahtjeva. To pokriva preglednike čije nativno preuzimanje ne prolazi kroz worker; ikona je inače onemogućena. Stari worker ne može pogrešno potvrditi novi paket. Gumb otvara dijalog s HTML preuzimanjem, instalacijom kad preglednik nudi događaj i uputama za mobilne preglednike. Desktop preuzimanje radi i iz offline predmemorije. Worker dobiva oznaku iz verzije i hashiranog sadržaja oba HTML-a, manifesta, workera i ikona. Nova predmemorija instalira se cjelovito, bez brisanja stare pri pogrešci. Ne koristi `skipWaiting`; nadogradnja čeka zatvaranje prethodnih prozora aplikacije. Učenički podatci u localStorage odvojeni su od predmemorije aplikacije.
+Worker provjerava šest predmemoriranih resursa: mobilni HTML, manifest, tri ikone i `downloads/zljixOS.html`. Spremnost ikone zahtijeva potvrđene `ready` i `downloadReady` te uspješno pripremljen neprazan HTML Blob. Eksplicitni `fetch` prolazi kroz worker i preuzima datoteku u memoriju prije zelene ikone; klik sprema Blob bez novog mrežnog zahtjeva. To pokriva preglednike čije nativno preuzimanje ne prolazi kroz worker; ikona je inače onemogućena. Stari worker ne može pogrešno potvrditi novi paket. Gumb otvara dijalog s HTML preuzimanjem, instalacijom kad preglednik nudi događaj i uputama za mobilne preglednike. Desktop preuzimanje radi i iz offline predmemorije. Worker dobiva oznaku iz verzije i hashiranog sadržaja oba HTML-a, manifesta, workera i ikona. Nova predmemorija instalira se cjelovito, bez brisanja stare pri pogrešci. Ne koristi `skipWaiting`; nadogradnja čeka zatvaranje prethodnih prozora aplikacije. Učenički podatci u localStorage odvojeni su od predmemorije aplikacije.
+
+## Akademija terminala (0.13)
+
+- `shell-engine.js`: ograničeni interpreter CMD/Linux, putanje, tekstualni datotečni sustav, cjevovodi i izlaz; bez `eval`, pokretanja procesa ili mrežnih poziva.
+- `shell-data.js`: 18 razina, pojmovi, primjeri, 90 provjerljivih ciljeva i jedna moguća rješenja za pomoć.
+- `shell-model.js`: zapis naredbi, težine, pomoći i ponavljanja. Radni prostor, tijek, osvojeni zadatci i XP rekonstruiraju se izvršavanjem tog zapisa. Uvezeni XP i oznake dovršenosti ignoriraju se. To nije zaštita od namjernog krivotvorenja valjanog zapisa ili izmjene klijentskog koda.
+- `shell-ui.js`, `shell.css`: tri putanje, uvod prije terminala, mobilne tipke za posebne znakove i vidljiv cilj. Novi zapis `learning.shell` je aditivan; stari radni prostori dobivaju prazne terminalske rezultate.
+- `test/shell.test.js`: 12 smislenih testova interpretera, svih ciljeva, težina, pomoći, migracije, alternativnih rješenja, ograničenja i ukupnog bodovanja.
+
+Tri/četiri/pet zadataka znače 60/80/100 XP. Osvojeni zadatak ostaje označen pri ponavljanju; trenutni prolaz ponovno kreće od prvog. Terminalska kategorija dodaje 1800 XP, pa ukupni maksimum igre postaje 3520 XP. Nove značke zahtijevaju svih 600 XP odgovarajućeg dijalekta. Svaka razina sprema najviše 400 radnji; nastavni disk ima najviše 80 stavki, datoteka 8000 znakova, naredba 400 znakova. Koristi se ograničen predmemorirani rezultat rekonstrukcije za svaku razinu.
+
+Svjesna pojednostavnjenja: nema zamjenskih znakova, varijabli, ekspanzija, skripti, simboličkih poveznica, pokretanja programa ili mreže. Linux provjerava vlasnikovo čitanje/pisanje obične datoteke; ne modelira potpunu hijerarhiju prava direktorija i ACL. Nepodržana ili neuspjela naredba atomarno vraća stanje; stvarni shell može imati djelomične učinke. Na to se učenika upozorava u samoj vježbi. CMD `find` pri izravnom čitanju daje zaglavlje; u zadatcima za čisti izvještaj koristi se `type | find`.
+
+Provjereni primarni izvori za ponašanje naredbi:
+- https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
+- https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/dir
+- https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/find
+- https://www.gnu.org/software/bash/manual/html_node/Pipelines.html
+- https://www.gnu.org/software/bash/manual/html_node/Redirections.html
+- https://www.gnu.org/software/coreutils/manual/html_node/chmod-invocation.html
+
+Provjera sučelja 0.12: Chromium 134, desktop 1365×950 i mobilni prikazi 320/375/414×850. Provjereni su pogrešan unos, sve težine prve CMD razine, povrat nakon osvježavanja, Linux 400 → odbijen zapis → 600 → uspješan zapis, pomoć na Hard i odsutnost vodoravnog prelijevanja. Provjerena je instalacija workera pod projektom `/zljixos.github.io/`, ponovno otvaranje bez mreže, preuzimanje pripremljenog Bloba i pokretanje samostalnog HTML-a. Nema JavaScript runtime pogrešaka. Fizički uređaji i Safari nisu testirani.
+
+## PowerShell i identitet u izdanju 0.13
+
+`powershell-engine.js` dodaje Windows putanje, cmdlete i imenovane parametre bez izvršavanja sistemskog koda. Cjevovod čuva objekte do projekcije/izdvajanja svojstva; prikaz tablice služi samo prikazu. `powershell-data.js` sadrži šest razina i 30 ciljeva. Nepodržana pretvorba objekta u tekst jasno se odbija umjesto podučavanja pogrešnog sadržaja. Podržani su Select-String s doslovnim pretraživanjem i odabirom osjetljivosti na velika slova, Select-Object, jednostavni Where-Object, Sort-Object i Measure-Object.
+
+`identity.css` dodaje početni unos i stalnu traku s imenom; visina trake prilagođava položaj prozora i na mobitelu. Početni unos nije unaprijed popunjen posljednjim učenikom. Promjena učenika ponovno učitava aplikaciju, bez prijenosa prethodnih prozora, rezultata ili nacrta. Autentikacija nije uvedena: korisnici jednakog normaliziranog imena dijele lokalni ključ, a klijentski kod i JSON nisu kriptografski zaštićeni.
+
+Provjereni Microsoftovi izvori za PowerShell:
+- https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-content
+- https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content
+- https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-string
+- https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object
+
+Objava 0.13 vraća se u `zljix/zljix.github.io`, na adresu https://zljix.github.io/. Stara izdvojena kopija u repozitoriju zljixos.github.io nije odredište ove nadogradnje.
+
+Provjera sučelja 0.13 u Chromiumu 134: svih 30 PowerShell zadataka preko stvarnog polja za unos i porast do 600 XP; pogrešna naredba i pomoć na Hard; obvezan unos imena prije otvaranja prozora; odvojeni učenici nakon promjene i osvježavanja; vidljiv vlasnik u JSON/HTML/TXT/ispisu; promjena oznake rada ne mijenja vlasnika; odbijanje tuđeg JSON-a iz datoteke, lijepljenjem i preko Oporavka; odbijanje anonimne kopije; uspješno vraćanje vlastite kopije; ponovno otvaranje bez mreže i preuzimanje samostalnog HTML-a. Na širinama 320/375/414 px ime i bodovi ostaju vidljivi i nema vodoravnog prelijevanja. Samostalni HTML pokreće unos identiteta i PowerShell bez poslužitelja. Nema zabilježenih JavaScript pogrešaka. Fizički iPhone/Android i Safari nisu testirani.

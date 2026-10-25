@@ -1,50 +1,72 @@
-# Orbit OS 0.11.1
+# zljixOS 0.13.0
 
-Aplikacija na hrvatskom za samostalno učenje strukture, funkcija i mehanizama operacijskih sustava. Radi u pregledniku, bez računa i aplikacijskog poslužitelja. Objavljena na https://zljix.github.io/.
+Interaktivna igra na hrvatskom za učenje operacijskih sustava. Objavljuje se na **https://zljix.github.io/** iz repozitorija `zljix/zljix.github.io`. Nastavlja postojeću igru Orbit OS, uključujući DOS/CMD i Linux razine iz izdanja 0.12.
 
-## Vođeno učenje i igrifikacija
+## Ime, prezime i rezultati
 
-**Uči od početka** vodi kroz osam misija: dijelovi računala, uloga OS-a, procesi, CPU, memorija, čitanje datoteke, dretve i zastoj. Svaka povezuje ranije znanje, cilj, jednostavne definicije, čestu zabludu, riješeni primjer, promjenu uvjeta pokusa i primjenu na novi slučaj.
+Pri svakom otvaranju igre obvezno se unose **ime i prezime**. Dok unos nije dovršen, radni prostor i prethodni rezultati nisu otvoreni. Ime je stalno vidljivo ispod gornje trake s bodovima te u pregledu rada, JSON kopiji, TXT/HTML izvještaju, kopiji za Word i ispisu/PDF-u. Nazivi datoteka rezultata uključuju ime i prezime.
 
-Osnova svake misije donosi **100 XP**: kratka provjera 10, redoslijed 20, usporedba uvjeta 20, dvije provjere po 10 i samostalna primjena 30. Za usporedbu treba proći sve uvjete (dva ili tri). Predviđanja se ne kažnjavaju. Zadnji zadatak traži i ishod i razlog.
+- Svako ime ima zaseban lokalni rad. **Moj rad → Drugi učenik / učenica** vraća na početni unos; prethodni rad ostaje sačuvan.
+- Pri učitavanju iz datoteke ili zalijepljenog JSON-a vlasnik kopije mora odgovarati aktivnom imenu. Isto vrijedi u aplikaciji **Oporavak**, za cijeli prostor i odabrane datoteke. Tuđa kopija odbija se prije prikaza njezina sadržaja i bodova.
+- Ime vezano uz postojeće bodove nema mogućnost preimenovanja. Neobvezna oznaka rada služi samo napomeni.
+- Stare kopije bez imena i prezimena ne mogu se pripisati novom učeniku. Izvorni stari zapisi u pregledniku ostaju netaknuti; ne preuzimaju se automatski.
+- Razmaci na rubovima, ponovljeni razmaci i veličina slova u imenu ne stvaraju novi profil. Hrvatska slova, višedijelna imena, crtice i apostrofi su podržani. Različiti dijakritički znakovi razlikuju se.
 
-**Easy** (100 XP po misiji) vodi početnika kroz dva izbora i početak redoslijeda. **Moderate** (120 XP) dodaje primjenu u novoj situaciji. **Hard** (140 XP) dodaje dijagnozu s tri povezane odluke i pomoć nakon prvog pokušaja. Težinu možeš promijeniti bez gubitka ili udvostručavanja bodova.
+**Granica zaštite:** ovo je lokalna identifikacija imenom, bez autentikacije. Sprječava miješanje i učitavanje kopija s drugim imenom kroz sučelje. Ne potvrđuje tko je upisao ime, ne razlikuje dvije osobe jednakog imena i ne sprječava namjerno uređivanje JSON-a ili koda. Za provjeru stvarnog identiteta i zaštićeno ocjenjivanje potrebni su računi i poslužiteljska provjera. Imena i rezultati ne šalju se automatski na GitHub ili drugom primatelju.
+
+## Učenje i bodovanje
+
+Osam misija povezuje objašnjenje pojmova, riješen primjer, pokus i automatski provjerenu primjenu. **Easy** daje osnovnih 100 XP po misiji uz vođenje, **Moderate** dodaje primjenu do 120 XP, a **Hard** dijagnostički slučaj do 140 XP. Težina se može promijeniti bez gubitka ili udvostručavanja bodova.
 
 | Aktivnost | Najviše XP |
 | --- | ---: |
-| Osam misija s dodatnim primjenama i dijagnozama | 1120 |
+| Osam misija s primjenama i dijagnozama | 1120 |
 | Jedanaest praktičnih laboratorija | 220 |
-| Četrnaest uvjeta detaljnih mehanizama | 140 |
+| Detaljni mehanizmi | 140 |
 | Sedam mrežnih izazova | 140 |
 | Završni izazov — najbolji rezultat | 100 |
-| **Ukupno** | **1720** |
+| DOS/CMD — šest razina | 600 |
+| Linux Shell — šest razina | 600 |
+| PowerShell — šest razina | 600 |
+| **Ukupno** | **3520** |
 
-Pet rangova i sedam znački prate postignuća. Pogreška otvara objašnjenje, pomoć i ponavljanje. Svaki zadatak boduje se jednom; ponavljanje ne gomila XP. Posebno se čuvaju prvi odgovor, zadnji odgovor, njihove težine, broj pokušaja i pomoć. Easy sadrži ugrađeno vođenje. Bodovi su uvijek vidljivi u gornjoj traci, u svim aplikacijama. Mrežne dijagnoze nisu uključene u statistiku prvih odgovora.
+Pet rangova i deset znački prate napredak. Ponavljanje ne gomila bodove. Prati se prva i posljednja težina odgovora, broj pokušaja i zatražena pomoć. Završni izazov od deset pitanja otključava se nakon osam misija na odabranoj težini; rezultat i objašnjenja vide se nakon predaje. Najbolji rezultat prikazuje se po težini, a u ukupni XP ulazi jedan najbolji rezultat. XP označava napredak uz dostupnu pomoć, a ne školsku ocjenu.
 
-Nakon osam misija dovršenih na odabranoj težini otključava se završni izazov: deset pitanja, bez pomoći i povratne informacije o točnosti do predaje. Nakon predaje slijede rezultat, objašnjenja i plan ponavljanja. Svaka težina ima vlastitu banku i dvije inačice pitanja po temi. Već započeti pokušaj zadržava izvornu težinu. Najbolji rezultati prikazuju se po težinama, a u ukupni XP ulazi jedan najbolji rezultat. Čuva se najviše 20 pokušaja, uključujući najbolji za svaku težinu i najnoviji. Nema vremenskog ograničenja.
+## Akademija terminala
 
-Sve radnje i strukturirani odgovori boduju se automatski, bez nastavničke intervencije. Stare slobodne bilješke ostaju arhivirane; ne pretvaraju se automatski u dokaz znanja. XP je napredak u učenju uz dostupnu pomoć, a ne školska ocjena niti zaštićen ispitni zapis.
+Tri neovisne putanje imaju ukupno **18 razina i 90 praktičnih zadataka**. Svaka razina prvo uvodi pojmove i pokazuje primjere, a zatim učenik upisuje naredbe u virtualni terminal. Cilj se automatski provjerava nakon naredbe. Vrijede i druga ispravna rješenja unutar podržane sintakse.
 
-## Spremanje i offline rad
+| Razina | DOS/CMD | Linux Shell | PowerShell |
+| --- | --- | --- | --- |
+| 1 | `dir`, `cd`, `type`, putanje | `pwd`, `ls`, `cd`, `cat` | `Get-Location`, `Get-ChildItem`, `Set-Location`, `Get-Content` |
+| 2 | `mkdir`, `echo`, `>`, `>>` | `mkdir`, `echo`, `>`, `>>` | `New-Item`, `Set-Content`, `Add-Content` |
+| 3 | `copy`, `ren`, `move` | `cp`, `mv` | `Copy-Item`, `Rename-Item`, `Move-Item` |
+| 4 | `find`, cjevovodi, izvještaj | `grep -F`, cjevovodi, izvještaj | `Select-String`, objekt `MatchInfo`, izdvajanje `Line` |
+| 5 | `del`, `rd`, čuvanje podataka | `chmod`, čitanje/pisanje vlasnika | Svojstva, `Where-Object`, `Sort-Object`, `Measure-Object` |
+| 6 | Predaja, arhiva i čišćenje | Predaja, arhiva i čišćenje | Predaja, arhiva, `Remove-Item`, `-WhatIf` |
 
-- Napredak, bodovi, pokušaji i datoteke spremaju se lokalno. **Moj rad** omogućuje JSON kopiju za prijenos na drugi uređaj.
-- Nadogradnja čuva stare datoteke, pokuse, osvrte i nedovršene nacrte. Novi zadatci imaju zaseban zapis bodovanja.
-- Za prvo otvaranje na mobitelu potreban je internet. Ikona preuzimanja je siva i onemogućena dok cijeli paket nije spreman. Zatim postaje zelena i otvara **Spremi za offline rad**: preuzimanje samostalnog HTML-a, dodavanje na uređaj kad je podržano i upute za početni zaslon. HTML datoteka također je predmemorirana pa se može preuzeti bez veze.
-- Poslije nadogradnje zatvori sve kartice/prozore Orbita i ponovno otvori aplikaciju; nova offline verzija ne zamjenjuje aktivnu lekciju usred rada.
-- Za računalo preuzmi [Orbit-OS.html](downloads/Orbit-OS.html) i otvori ga preglednikom bez lokalnog poslužitelja. Rad prenosi zasebnom JSON kopijom.
-- **Izvještaj** prikazuje automatske bodove, odgovore, pokušaje i potvrđene radnje. Može se kopirati, ispisati ili izvesti; nikome se ne šalje automatski.
+**Easy** obuhvaća tri zadatka (60 XP) uz ponuđene naredbe. **Moderate** dodaje primjenu (80 XP) uz pomoć na zahtjev. **Hard** uključuje peti povezani zadatak (100 XP), uz pomoć nakon prvog pokušaja. Sljedeća razina otključava se nakon prva tri zadatka prethodne. Svaki zadatak donosi 20 XP samo jednom.
 
-## Razvoj i objava
+PowerShell cjevovod prenosi podržane objekte i njihova svojstva, a ne samo tekstualni ispis tablice. Model je ograničen na opisane cmdlete i parametre u Windows okruženju. Kodiranja, puni datotečni provider i sva ponašanja stvarnog PowerShella nisu simulirani. Niti jedan terminal ne izvršava naredbe računala, skripte, programe ili mrežne radnje. Pogrešne naredbe u modelu ne mijenjaju datoteke; stvarni shell može imati djelomične učinke.
 
-Izvorni kod, testovi i skripte su u `source/`. Uz Node.js i npm:
+## Offline rad i prijenos
+
+Za računalo preuzmi [zljixOS.html](downloads/zljixOS.html) i otvori ga preglednikom. Mobilna aplikacija treba prvo otvaranje preko interneta. Ikona preuzimanja ostaje siva dok cijeli paket nije spreman; zelena ikona otvara preuzimanje HTML-a i upute za dodavanje na početni zaslon. Aplikacija se može ponovno otvoriti bez mreže nakon uspješnog predmemoriranja.
+
+**Aplikacija i rezultati odvojene su datoteke.** Za prijenos rada na drugi uređaj ili u samostalni HTML spremi JSON kroz **Moj rad**, na drugom uređaju upiši isto ime i prezime te učitaj svoj JSON. Nakon nadogradnje zatvori sve kartice/prozore stare igre i ponovno je otvori. Nova offline verzija ne prekida aktivnu vježbu.
+
+## Razvoj i provjera
+
+Izvorni kod je u `source/`. Uz Node.js:
 
 ```sh
-npm install
+cd source
+npm ci
 npm test
 npm run build
 npm run check:artifact
 ```
 
-Izgradnja stvara `dist/Orbit-OS.html` i mobilni paket u `dist/mobitel/`, uključujući `downloads/Orbit-OS.html`. GitHub Pages koristi `main`, mapu `/`; mobilne datoteke objavljuju se u korijenu, a desktop HTML u `downloads/`. Ne objavljuju se QA datoteke, učenički radovi ni `node_modules`.
+Izgradnja stvara `dist/zljixOS.html` i `dist/mobitel/`. GitHub Pages koristi `main`, mapu `/`; mobilni paket ide u korijen, a samostalni HTML u `downloads/zljixOS.html`. Ne objavljuju se učeničke kopije, QA radni prostori ni `node_modules`.
 
-Verzija 0.11.1 ima 90 automatiziranih testova. Provjereni su prijelaz prve misije kroz 100/120/140 XP, pomoć na Hard, trajna traka bodova, očuvanje težine i ranijih rezultata, početnička misija do 100 XP, ispravci, nastavak nakon osvježavanja, oba završna pokušaja, praktični zaključak, detaljni mehanizam, mrežna dijagnostika i širine 320, 375 i 414 px u Chromiumu. Test na fizičkim iPhone/Android uređajima ni evaluacija s razredom nisu provedeni.
+120 automatiziranih testova prolazi: postojeća igra, svih 90 terminalskih ciljeva, objekti PowerShella, pogrešne naredbe, tri težine, pomoć, ponavljanje, ukupni XP, odvojeni učenici, prenosive kopije i odbijanje tuđih/anonimnih rezultata. Provjere samostalnog i mobilnog paketa potvrđuju ugrađene resurse i valjan offline worker. Detalji provedene provjere su u `source/RAZVOJ.md`; metodički opis u `source/NASTAVA.md`.

@@ -1,4 +1,4 @@
-// Short lessons precede the detailed OS models. Text is authored for Orbit.
+// Short lessons precede the detailed OS models. Text is authored for zljixOS.
 export const COURSE = [
  {
   id:'hardware',title:'Što je u računalu?',question:'Gdje je tvoja bilješka dok pišeš, a gdje nakon spremanja?',group:'Osnove',

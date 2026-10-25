@@ -1,10 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {FileSystem,seed} from '../public/orbit/core.js';
-import {createLocalStore,STORAGE_KEY} from '../public/orbit/local-store.js';
+import {FileSystem,seed as coreSeed} from '../public/orbit/core.js';
+import {createLocalStore as baseStore,studentStorageKey,LEGACY_STORAGE_KEY} from '../public/orbit/local-store.js';
 import {parseBackup,serializeBackup} from '../public/orbit/recovery-model.js';
 
+const student={version:1,firstName:'Ana',lastName:'Horvat'},seed=()=>coreSeed(student),STORAGE_KEY=studentStorageKey(student),createLocalStore=storage=>baseStore(storage,student);
 function memoryStorage(){const map=new Map();return {map,getItem:key=>map.get(key)??null,setItem:(key,value)=>map.set(key,value)};}
+test('anonymous legacy work is kept intact and never assigned to a new student',()=>{
+ const storage=memoryStorage(),old=coreSeed();old.learning.label='Raniji učenik';
+ const legacy=JSON.stringify({format:'orbit-local',version:1,revision:12,state:old});storage.setItem(LEGACY_STORAGE_KEY,legacy);storage.setItem('orbit-os.offline.workspace.v1.shell12',legacy);
+ const store=createLocalStore(storage);assert.equal(store.initial.learning.label,'');assert.deepEqual(store.initial.student,student);assert.equal(store.flush(),true);
+ assert.equal(storage.getItem(LEGACY_STORAGE_KEY),legacy);assert.equal(storage.getItem('orbit-os.offline.workspace.v1.shell12'),legacy);
+});
 test('local workspace persists the full learning state and restores it in a new session',()=>{
   const storage=memoryStorage(),first=createLocalStore(storage);assert.equal(first.flush(),true);
   const fs=new FileSystem(first.initial,first.persist);fs.create('docs','Moj tekst.txt','file','Sačuvano lokalno');

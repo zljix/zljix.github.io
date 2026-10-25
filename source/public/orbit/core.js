@@ -1,3 +1,4 @@
+import {validateStudent} from './identity.js';
 import {defaultLearning,validateLearning} from './models.js';
 import {syncGameEvidence} from './game-model.js';
 let idCounter=0;
@@ -36,7 +37,7 @@ function normalizeVersions(raw,users){
   });
 }
 export function validateState(data){
-  if(!data||![1,2].includes(data.version)||JSON.stringify(data).length>2500000)throw new Error('Ovo nije podržana sigurnosna kopija Orbita ili je prevelika.');
+  if(!data||![1,2].includes(data.version)||JSON.stringify(data).length>2500000)throw new Error('Ovo nije podržana sigurnosna kopija zljixOS-a ili je prevelika.');
   const users=data.version===1?defaultUsers():clone(data.users||defaultUsers());
   if(!Array.isArray(users)||users.length<4||users.length>20)throw new Error('Neispravan popis simuliranih korisnika.');
   const userIds=new Set();for(const u of users){if(!u||!/^[a-z][a-z0-9_]{2,23}$/.test(u.id)||userIds.has(u.id)||typeof u.name!=='string'||u.name.length<1||u.name.length>50||!Array.isArray(u.groups)||u.groups.length<1||u.groups.some(g=>!['razred','gosti','nastavnici'].includes(g))||typeof u.admin!=='boolean')throw new Error('Neispravan simulirani korisnik.');userIds.add(u.id);}
@@ -47,7 +48,7 @@ export function validateState(data){
   for(const entry of data.archive||[]){if(!entry||typeof entry.key!=='string'||!/^[\w-]{1,100}$/.test(entry.key)||archiveKeys.has(entry.key)||typeof entry.from!=='string'||!userIds.has(entry.by)||typeof entry.at!=='string')throw new Error('Neispravan zapis koša.');archiveKeys.add(entry.key);const parts=normalizeNodes(entry.nodes,users,entry.rootId);for(const n of parts){if(allIds.has(n.id)||PROTECTED.includes(n.id))throw new Error('Ponovljena datoteka u košu.');allIds.add(n.id);}archive.push({key:entry.key,from:entry.from,by:entry.by,at:entry.at,rootId:entry.rootId,nodes:parts});}
   if(allIds.size>1000)throw new Error('Prostor podržava najviše 1 000 stavki, zajedno s košem.');
   const events=(Array.isArray(data.events)?data.events:[]).slice(-80).filter(e=>e&&typeof e.text==='string'&&e.text.length<=300&&typeof e.kind==='string'&&typeof e.at==='string'&&typeof e.user==='string').map(e=>({at:e.at,kind:e.kind.slice(0,30),user:e.user.slice(0,24),text:e.text}));
-  return {version:2,nodes,users,activeUser:userIds.has(data.activeUser)?data.activeUser:'ucenik',archive,versions:normalizeVersions(data.versions,users),events,learning:validateLearning(data.learning),theme:['dusk','sea','dawn'].includes(data.theme)?data.theme:'dusk',large:!!data.large,lesson:{minimized:!!data.lesson?.minimized,ended:!!data.lesson?.ended}};
+  return {version:2,student:validateStudent(data.student),nodes,users,activeUser:userIds.has(data.activeUser)?data.activeUser:'ucenik',archive,versions:normalizeVersions(data.versions,users),events,learning:validateLearning(data.learning),theme:['dusk','sea','dawn'].includes(data.theme)?data.theme:'dusk',large:!!data.large,lesson:{minimized:!!data.lesson?.minimized,ended:!!data.lesson?.ended}};
 }
 export class FileSystem{
   constructor(state,persist=()=>{}){this.state=validateState(state);syncGameEvidence(this.state);this.persist=persist;}
@@ -98,13 +99,13 @@ export class FileSystem{
   target(path,cwd){if(!path||path.endsWith('/'))throw new Error('Navedi naziv datoteke ili mape.');const i=path.lastIndexOf('/'),name=path.slice(i+1),parent=this.resolve(i<0?'.':path.slice(0,i)||'/',cwd);if(parent?.type!=='dir')throw new Error('Odredišna mapa ne postoji.');return {parent:parent.id,name};}
 }
 
-export function seed() {
-  return {version:2,users:defaultUsers(),activeUser:'ucenik',archive:[],events:[],learning:defaultLearning(),theme:'dusk',large:false,lesson:{minimized:false,ended:false},nodes:[
-    {id:'root',parent:null,name:'Orbit',type:'dir'},
+export function seed(student=null) {
+  return {version:2,student:validateStudent(student),users:defaultUsers(),activeUser:'ucenik',archive:[],events:[],learning:defaultLearning(),theme:'dusk',large:false,lesson:{minimized:false,ended:false},nodes:[
+    {id:'root',parent:null,name:'zljixOS',type:'dir'},
     {id:'docs',parent:'root',name:'Dokumenti',type:'dir'},
     {id:'labs',parent:'root',name:'Vjezbe',type:'dir'},
-    {id:'welcome',parent:'docs',name:'Dobrodosli.txt',type:'file',content:'Dobro došli u Orbit OS!\n\nOvo je radna površina koja radi u pregledniku.\n\nRačunalno izdanje radi lokalno bez interneta. Mobilno izdanje treba prvo preuzeti preko HTTPS poveznice i pričekati oznaku Offline spreman; nakon toga ugrađeni pokusi rade bez interneta. Preglednik pokušava automatski sačuvati datoteke, bilješke i odgovore. Prije izlaska provjeri stanje spremanja kroz Moj rad. Kroz Moj rad izvezi JSON kopiju za nastavak ili predaju nastavniku. Sama HTML datoteka ne mijenja se tijekom rada.\n\nZa početak:\n1. Napravite mapu u aplikaciji Datoteke.\n2. Dodajte tekstualnu datoteku i napišite nekoliko rečenica.\n3. Otvorite Terminal i isprobajte naredbu ls.\n4. U Procesima pogledajte što se događa kada aplikaciju minimizirate ili zatvorite.\n\nTerminal i prikaz RAM-a nastavni su modeli. Ne upravljaju operacijskim sustavom vašeg računala.\n'},
-    {id:'commands',parent:'labs',name:'Naredbe.txt',type:'file',content:'KRATKI PODSJETNIK\n\nhelp — prikaz podržanih naredbi\npwd — trenutačna putanja\nls — sadržaj mape\ncd Dokumenti — promjena mape\nmkdir Moja_vjezba — nova mapa\ntouch biljeska.txt — nova tekstualna datoteka\ncat biljeska.txt — prikaz sadržaja\necho "Pozdrav" > biljeska.txt — upis u datoteku\nps — otvorene aplikacije\nkill PID — zatvaranje aplikacije\nclear — čišćenje terminala\n\nNavodnici omogućuju razmake u nazivima.\nSve naredbe rade samo nad podacima u Orbitu.\n'}]};
+    {id:'welcome',parent:'docs',name:'Dobrodosli.txt',type:'file',content:'Dobro došli u zljixOS!\n\nOvo je radna površina koja radi u pregledniku.\n\nRačunalno izdanje radi lokalno bez interneta. Mobilno izdanje treba prvo preuzeti preko HTTPS poveznice i pričekati oznaku Offline spreman; nakon toga ugrađeni pokusi rade bez interneta. Preglednik pokušava automatski sačuvati datoteke, bilješke i odgovore. Prije izlaska provjeri stanje spremanja kroz Moj rad. Kroz Moj rad izvezi JSON kopiju za nastavak ili predaju nastavniku. Sama HTML datoteka ne mijenja se tijekom rada.\n\nZa početak:\n1. Napravite mapu u aplikaciji Datoteke.\n2. Dodajte tekstualnu datoteku i napišite nekoliko rečenica.\n3. Otvorite Terminal i isprobajte naredbu ls.\n4. U Procesima pogledajte što se događa kada aplikaciju minimizirate ili zatvorite.\n\nTerminal i prikaz RAM-a nastavni su modeli. Ne upravljaju operacijskim sustavom vašeg računala.\n'},
+    {id:'commands',parent:'labs',name:'Naredbe.txt',type:'file',content:'KRATKI PODSJETNIK\n\nhelp — prikaz podržanih naredbi\npwd — trenutačna putanja\nls — sadržaj mape\ncd Dokumenti — promjena mape\nmkdir Moja_vjezba — nova mapa\ntouch biljeska.txt — nova tekstualna datoteka\ncat biljeska.txt — prikaz sadržaja\necho "Pozdrav" > biljeska.txt — upis u datoteku\nps — otvorene aplikacije\nkill PID — zatvaranje aplikacije\nclear — čišćenje terminala\n\nNavodnici omogućuju razmake u nazivima.\nSve naredbe rade samo nad podacima u zljixOS-u.\n'}]};
 }
 
 export function tokenize(line) {

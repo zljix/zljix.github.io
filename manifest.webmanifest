@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "Orbit OS — učenje operacijskih sustava",
-  "short_name": "Orbit OS",
+  "name": "zljixOS — učenje operacijskih sustava",
+  "short_name": "zljixOS",
   "description": "Struktura, funkcije i mehanizmi operacijskog sustava. Pokusi i odgovori na tvom uređaju.",
   "lang": "hr",
   "start_url": "./index.html",

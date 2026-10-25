@@ -2,7 +2,7 @@
 const BUILD='__ORBIT_BUILD__';
 const PREFIX='orbit-mobile:'+self.registration.scope+':';
 const CACHE=PREFIX+BUILD;
-const ASSETS=['index.html','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png','downloads/Orbit-OS.html'].map(file=>new URL(file,self.registration.scope).href);
+const ASSETS=['index.html','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png','downloads/zljixOS.html'].map(file=>new URL(file,self.registration.scope).href);
 const INDEX=ASSETS[0];
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{

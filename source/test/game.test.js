@@ -6,6 +6,8 @@ import {changeCourse} from '../public/orbit/course-model.js';
 import {TASKS,FINAL_BANK,taskById} from '../public/orbit/game-data.js';
 import {MECHANISMS,traceMechanism} from '../public/orbit/mechanisms-model.js';
 import {NETWORK_CASES,NETWORK_DIAGNOSES,defaultNetworkConfig,startNetworkCase,recordNetworkProbe,completeNetworkCase,NET} from '../public/orbit/network-model.js';
+import {shellCommand} from '../public/orbit/shell-model.js';
+import {SHELL_MAX_XP,SHELL_LESSONS} from '../public/orbit/shell-data.js';
 import {correct,validValue,solved,lessonXP,gameStats,completedLesson,finalUnlocked,submitTask,revealHint,startFinal,answerFinal,finishFinal,finalQuestions,runScore,validateGame,reviewTasks,badges,MAX_XP,scoreReport} from '../public/orbit/game-model.js';
 import {escapeReport} from '../public/orbit/reports.js';
 import {optionOrder,taskHTML} from '../public/orbit/game-ui.js';
@@ -24,7 +26,7 @@ test('Every authored task has valid answers, stable shuffled options and complet
  for(const t of [...TASKS,...FINAL_BANK]){assert.ok(validValue(t,answer(t)),t.id);assert.ok(correct(t,answer(t)));assert.ok(t.why.length>20);const list=t.options||t.items||t.fields[0].options;assert.deepEqual([...optionOrder(t.id,list.length)].sort(),list.map((_,i)=>i));}
  for(const l of COURSE)assert.equal(TASKS.filter(t=>t.lesson===l.id&&t.area==='course').reduce((s,t)=>s+t.points,0),100);
  assert.equal(TASKS.filter(t=>t.area==='mechanism').reduce((s,t)=>s+t.points,0),140);
- assert.equal(TASKS.reduce((s,t)=>s+t.points,0)+110+140+100,MAX_XP);
+ assert.equal(TASKS.reduce((s,t)=>s+t.points,0)+110+140+100+SHELL_MAX_XP,MAX_XP);
  for(let r=1;r<5;r++){assert.equal(finalQuestions(r).length,10);assert.equal(new Set(finalQuestions(r).map(q=>q.topic)).size,10);}
  assert.ok(finalQuestions(1).every((q,i)=>q.id!==finalQuestions(2)[i].id));
 });
@@ -77,7 +79,7 @@ test('Migration preserves old files, notes and mechanism drafts without inventin
  const forged={...migrated.learning.game,xp:999999,badges:['all']};const valid=validateGame(forged);assert.equal(valid.xp,undefined);assert.deepEqual(valid.answers,{});
  const bad=structuredClone(valid);bad.answers.unknown={first:[0],last:[0],tries:1,help:false};assert.throws(()=>validateGame(bad));
 });
-test('Every scored category can reach the documented 1720 XP; repeated network completion does not inflate it',()=>{
+test('Original categories reach 1720 XP and all terminal objectives reach the combined 3520 XP maximum',()=>{
  const fs=new FileSystem(seed());for(const l of COURSE)mission(fs,l.id);
  for(const m of MECHANISMS)for(const [v]of m.variants){fs.transact(()=>{fs.state.learning.explorer.drafts[m.id]={variant:v,step:traceMechanism(m.id,v).steps.length,prediction:'Ishod',reflection:''};});submit(fs,`m-${m.id}-${v}-outcome`);submit(fs,`m-${m.id}-${v}-reason`);}
  const folder=fs.create('docs','Moja_vjezba','dir');fs.create(folder.id,'biljeska.txt','file','Spremljena bilješka s dovoljno teksta.');fs.transact(()=>{fs.state.lesson={minimized:true,ended:true};for(const key of ['copied','restored','backupExport','permissionChanged','permissionGroup','permissionDenied','cpu_fcfs','cpu_rr','cpu_io','cpu_sjf','memory_fifo','memory_lru','disk_fragmented','disk_compacted','terminalWrite','terminalRead','network_local','network_dns','network_http','network_case_dns','network_case_gateway','network_case_icmp','versionSaved','versionRecovered','backupReviewed','backupRecovered'])fs.state.learning.evidence[key]=true;});
@@ -85,7 +87,8 @@ test('Every scored category can reach the documented 1720 XP; repeated network c
  for(const t of NETWORK_CASES){fs.transact(()=>{const n=startNetworkCase(fs.state.learning.network,t.id);if(t.id==='cable')recordNetworkProbe(n,'ping',NET.peer);else if(t.id==='icmp')recordNetworkProbe(n,'ping',NET.web);else recordNetworkProbe(n,'curl','http://'+NET.host);if(t.id!=='icmp'){n.config=defaultNetworkConfig();n.revision++;}recordNetworkProbe(n,'ping',NET.peer);recordNetworkProbe(n,'ping',NET.web);recordNetworkProbe(n,'nslookup',NET.host);recordNetworkProbe(n,'curl','http://'+NET.host);n.diagnosis=NETWORK_DIAGNOSES[t.id].answer;completeNetworkCase(n);completeNetworkCase(n);fs.state.learning.network=n;});}
  fs.transact(()=>{fs.state.learning.game.difficulty='hard';});for(const t of TASKS.filter(t=>t.area==='extension'))submit(fs,t.id);
  final(fs);const s=gameStats(fs.state);assert.deepEqual([s.course,s.lab,s.mechanisms,s.net,s.final,s.total],[1120,220,140,140,100,1720]);assert.equal(badges(fs.state).filter(b=>b.earned).length,6);
- const html=scoreReport(fs.state,escapeReport);assert.ok(html.includes('1720/1720 XP'));assert.ok(html.includes('Zadnji odgovor:'));assert.ok(html.includes('Pokušaj 1'));
+ fs.transact(()=>{for(const l of SHELL_LESSONS)for(const step of l.steps)for(const line of step.solution)shellCommand(fs.state.learning.shell,l.id,line,'hard');});assert.equal(gameStats(fs.state).total,MAX_XP);
+ const html=scoreReport(fs.state,escapeReport);assert.ok(html.includes('3520/3520 XP'));assert.ok(html.includes('Zadnji odgovor:'));assert.ok(html.includes('Pokušaj 1'));
 });
 
 test('The newest final result is retained even after twenty perfect results',()=>{const fs=new FileSystem(seed());for(const l of COURSE)mission(fs,l.id);for(let i=0;i<20;i++)final(fs);assert.equal(final(fs,10),0);assert.equal(runScore(fs.state.learning.game.runs.at(-1)),0);assert.equal(gameStats(fs.state).final,100);assert.equal(fs.state.learning.game.runs.length,20);});

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
-const html=await readFile(new URL('../dist/Orbit-OS.html',import.meta.url),'utf8');
+const html=await readFile(new URL('../dist/zljixOS.html',import.meta.url),'utf8');
 const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script\s*>/gi)];
 assert.equal(scripts.length,1,'Exactly one classic inline script is expected');
 new vm.Script(scripts[0][1]);

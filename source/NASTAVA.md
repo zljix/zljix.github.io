@@ -1,4 +1,4 @@
-# Orbit OS 0.11 — samostalno učenje i automatska provjera
+# zljixOS 0.13 — samostalno učenje i automatska provjera
 
 Cilj je povezati **strukturu** (dijelovi i odnosi), **funkciju** (problem koji OS rješava) i **mehanizam** (redoslijed događaja i promjena stanja). Polazi se od pisanja bilješke i spremanja, a zatim postupno uvode procesi, raspoređivanje, virtualna memorija, I/O i sinkronizacija.
 
@@ -38,9 +38,9 @@ Primjeri novih dijagnoza: nespremljena promjena nije dokaz kvara SSD-a; dodavanj
 
 ## Igrifikacija koja prati učenje
 
-Osnova svake misije ima 100 XP: temelj 10, redoslijed 20, usporedba 20, dvije provjere 20, prijenos 30. Sve aktivnosti zajedno donose 1720 XP: misije s dodatnim slučajevima 1120, laboratoriji 220, detaljni mehanizmi 140, mrežni izazovi 140 i završni izazov 100.
+Osnova svake misije ima 100 XP: temelj 10, redoslijed 20, usporedba 20, dvije provjere 20, prijenos 30. Izvorne aktivnosti zajedno donose 1720 XP (nove terminalske razine dodaju 1800 XP, ukupno 3520): misije s dodatnim slučajevima 1120, laboratoriji 220, detaljni mehanizmi 140, mrežni izazovi 140 i završni izazov 100.
 
-Pet rangova: Početnik (0), Istraživač (150), Analitičar (400), Poznavatelj sustava (700), OS navigator (1000). Sedam znački: prva misija, šest osnova, svih 18 uvjeta, ispravljena pogreška, dretve i zastoj, tri laboratorija, završni rezultat najmanje 80/100.
+Pet rangova: Početnik (0), Istraživač (150), Analitičar (400), Poznavatelj sustava (700), OS navigator (1000). Deset znački: prva misija, šest osnova, svih 18 uvjeta, ispravljena pogreška, dretve i zastoj, tri laboratorija, završni rezultat najmanje 80/100 te po jedna značka za potpuno dovršenu CMD, Linux i PowerShell putanju.
 
 Bodovi se izvode iz odgovora i potvrđenih radnji, ne iz spremljenog zbroja ili vremena provedenog u aplikaciji. Pogreške i pomoć ne smanjuju osvojive bodove. Točan zadatak zaključava se i više ne donosi bodove. Ponavljanje uvjeta ne briše ranije postignuće. Nema rangiranja učenika, odbrojavanja, niza obveznih dnevnih dolazaka ni kazne za pauzu.
 
@@ -62,8 +62,24 @@ Arhivirani slobodni osvrti iz ranijih izdanja ostaju sačuvani, ali nisu obvezni
 
 ## Upotreba i granice
 
-Učenik počinje u **Uči od početka**, a zatim ide u **Istraži OS** i praktične laboratorije. Bodovi su stalno u gornjoj traci u svim aplikacijama. Zelena ikona otvara spremanje aplikacije tek kad su i mobilni paket i samostalni HTML predmemorirani. Na kraju izvozi JSON kroz **Moj rad**. Na zajedničkom računalu svaki učenik čuva vlastitu kopiju; simulirani profili služe učenju dozvola i ne odvajaju stvarne korisnike.
+Učenik počinje u **Uči od početka**, a zatim ide u **Istraži OS** i praktične laboratorije. Bodovi su stalno u gornjoj traci u svim aplikacijama. Zelena ikona otvara spremanje aplikacije tek kad su i mobilni paket i samostalni HTML predmemorirani. Na kraju izvozi JSON kroz **Moj rad**. Prije otvaranja učenik unosi ime i prezime. Igra otvara zaseban rad pod tim imenom; vlasnik je vidljiv uz bodove i na svim izvještajima. Kopije s drugim imenom ili bez imena odbijaju se. Simulirani profili i dalje služe samo učenju dozvola. Unos imena nije autentikacija: identično ime ili namjerno izmijenjeni zapisi nisu pouzdano razlučivi bez poslužitelja.
 
 Modeli jasno označavaju pojednostavljenja: jedan logički CPU, unaprijed zadani događaji, odabrani mehanizmi. Nisu mjerenje ponašanja stvarnog računala. Ugrađeni sadržaj radi offline nakon preuzimanja; vanjski izvori trebaju mrežu.
 
-Temeljna literatura: [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/) — procesi, ograničeno izravno izvođenje, raspoređivanje, memorija, I/O, dretve i lokoti; [GNU dozvole](https://www.gnu.org/software/coreutils/manual/html_node/Mode-Structure.html); Microsoftove upute za ping, ipconfig i nslookup povezane su uz mrežni model. Pitanja i pojednostavljeni pokusi napisani su za Orbit.
+Temeljna literatura: [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/) — procesi, ograničeno izravno izvođenje, raspoređivanje, memorija, I/O, dretve i lokoti; [GNU dozvole](https://www.gnu.org/software/coreutils/manual/html_node/Mode-Structure.html); Microsoftove upute za ping, ipconfig i nslookup povezane su uz mrežni model. Pitanja i pojednostavljeni pokusi napisani su za zljixOS.
+
+## Dodatak 0.12: DOS/CMD i Linux Shell
+
+Svaka putanja sadrži šest razina. Prije praktičnog unosa učenik čita kratko objašnjenje, pojmove i primjere s protumačenim rezultatom. Prompt, argument i putanja uvode se na prvoj razini; preusmjeravanje tek na drugoj; cjevovodi nakon rada s datotekama. Linux dozvole uvode se uz značenje `r`, `w`, `x` i izračun znamenke prije zahtjeva za primjenu `chmod`.
+
+Redoslijed je orijentacija → stvaranje → kopiranje i premještanje → izdvajanje teksta → čišćenje (CMD) / dozvole (Linux) → cjelovita predaja. Linux brisanje objašnjeno je prije završnog zadatka. Težine su 60/80/100 XP po razini, a ne 100/120/140 kao u teorijskim misijama. Razlika je jasno označena uz izbor težine terminala. Igra nema vremensko ograničenje i ne kažnjava pokušaj. Na Linux razini 5 odbijen zapis jest očekivani ishod četvrtog zadatka i donosi bodove samo uz odgovarajuće dozvole i očuvan sadržaj.
+
+Nastavnik nije potreban za dodjelu bodova. U izvještaju su svaki cilj, ostvareni bodovi, broj naredbi, prva težina i zatražena pomoć. Ugrađeno Easy vođenje navodi mogući postupak, pa XP nije ocjena samostalnosti. Ponovni prolaz ne umnožava bodove. Na početku razina nastaju novi virtualni podaci, ne pravi korisnički dokumenti.
+
+## PowerShell (0.13)
+
+Treća putanja ima šest razina: orijentacija i parametri → stvaranje i dopisivanje → kopiranje i premještanje → pretraživanje teksta → obrada objekata → cjelovita predaja. Svih 30 zadataka slijedi isti model 60/80/100 XP.
+
+Prije rada učenik upoznaje naziv cmdleta glagol-imenica i razliku između parametra i njegove vrijednosti. U četvrtoj razini uvode se objekt, svojstvo i MatchInfo; objašnjeni su Line, LineNumber i Path prije izdvajanja Line u cjevovodu. Peta razina povezuje svojstva Name, Length i Extension s filtriranjem, sortiranjem i zbrajanjem. Jasno se razlikuju bajtovi i znakovi; primjerne datoteke imaju jednostavan ASCII sadržaj. Remove-Item i -WhatIf objašnjeni su prije završnog čišćenja.
+
+Potpuna imena cmdleta daju početniku stabilan obrazac. Podržani sinonimi i drugačiji raspored imenovanih parametara također vrijede. Ciljevi provjeravaju stvarni rezultat i potrebne radnje, ne samo doslovni unos ponuđenog rješenja. Nema promjene ranije strukture OS misija ili zahtjeva za nastavničkim bodovanjem.

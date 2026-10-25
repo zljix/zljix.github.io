@@ -34,7 +34,7 @@ export function createNetworking(ctx){
     $('#network-probe',c).onsubmit=e=>{e.preventDefault();selectedKind=$('#probe-kind',c).value;selectedTarget=$('#probe-target',c).value;try{run(selectedKind,selectedTarget);}catch(err){toast(err.message);}};
     for(const b of $$('[data-probe]',c))b.onclick=()=>{selectedKind=b.dataset.probe;selectedTarget=b.dataset.target;try{run(selectedKind,selectedTarget);}catch(e){toast(e.message);}};
     $('#network-terminal',c).onclick=()=>openApp('terminal');
-    $('#network-export',c).onclick=()=>download('Orbit-mrezni-pokusi.txt',networkLogText(fs.state.learning.network));
+    $('#network-export',c).onclick=()=>download('zljixOS-mrezni-pokusi.txt',networkLogText(fs.state.learning.network));
   }
   function challenges(s,task){
     const checks=networkCaseChecks(s);
@@ -60,4 +60,4 @@ export function createNetworking(ctx){
   }
   return {network,command};
 }
-export function networkLogText(s){return ['ORBIT OS — MREŽNI POKUSI','Ovo su rezultati simulacije, bez slanja stvarnih paketa.',...s.history.flatMap(h=>{const r=probeNetwork(h.config,h.kind,h.target);return ['',`${h.at} · revizija ${h.revision} · ${h.origin}`,`${h.kind} ${h.target}`,`Konfiguracija: ${JSON.stringify(h.config)}`,r.message,...r.steps.map(x=>`${x.ok?'[DA]':'[NE]'} ${x.label}: ${x.detail}`)];}),'','Odabrano objašnjenje: '+(NETWORK_DIAGNOSES[s.scenario]?.options[s.diagnosis]||'(nije odabrano)'),'Ranija bilješka: '+(s.notes||'(nema)')].join('\n');}
+export function networkLogText(s){return ['zljixOS — MREŽNI POKUSI','Ovo su rezultati simulacije, bez slanja stvarnih paketa.',...s.history.flatMap(h=>{const r=probeNetwork(h.config,h.kind,h.target);return ['',`${h.at} · revizija ${h.revision} · ${h.origin}`,`${h.kind} ${h.target}`,`Konfiguracija: ${JSON.stringify(h.config)}`,r.message,...r.steps.map(x=>`${x.ok?'[DA]':'[NE]'} ${x.label}: ${x.detail}`)];}),'','Odabrano objašnjenje: '+(NETWORK_DIAGNOSES[s.scenario]?.options[s.diagnosis]||'(nije odabrano)'),'Ranija bilješka: '+(s.notes||'(nema)')].join('\n');}
