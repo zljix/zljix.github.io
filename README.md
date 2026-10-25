@@ -1,4 +1,6 @@
-# zljixOS 0.13.0
+# zljixOS 0.13.1
+
+Izdanje 0.13.1 pojašnjava oznake u samim pitanjima: P1/P2/P3 su procesi, T1/T2 dretve istog procesa, R1/R2 resursi, a x zajednički brojač. Svaki slučaj navodi potrebno početno stanje, uključujući završne izazove na svim težinama. CPU laboratorij ima objašnjenje oznaka, a memorijski laboratorij stranice označava punim nazivom kako ih se ne bi zamijenilo s procesima. Identifikatori zadataka, točni odgovori i bodovanje ostaju isti.
 
 Interaktivna igra na hrvatskom za učenje operacijskih sustava. Objavljuje se na **https://zljix.github.io/** iz repozitorija `zljix/zljix.github.io`. Nastavlja postojeću igru Orbit OS, uključujući DOS/CMD i Linux razine iz izdanja 0.12.
 

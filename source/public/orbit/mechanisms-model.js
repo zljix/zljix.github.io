@@ -5,7 +5,7 @@ export const MECHANISMS = [
     goal:'Razlikovati program na disku, proces i njegov adresni prostor.',
     terms:[['Program','Pohranjene upute i podaci.'],['Proces','Instanca programa tijekom izvođenja, s identifikatorom (PID), stanjem i resursima.'],['Adresni prostor','Skup virtualnih adresa dostupnih procesu.'],['PCB','Zapis kojim jezgra prati proces, primjerice njegov PID i stanje.']],
     variants:[['one','Jedna instanca'],['two','Dvije instance istog programa']],
-    predict:'Koliko će biti programa na disku, a koliko procesa i adresnih prostora?',
+    predict:'P1 i P2 oznake su procesa nastalih zasebnim pokretanjima programa Bilješke. Koliko će biti programa na disku, a koliko procesa i adresnih prostora?',
     question:'Zašto zatvaranje jednog procesa ne briše program niti nužno zatvara drugu instancu?',
     limit:'Prikazujemo apstraktno stvaranje procesa. Ne razrađujemo posebne API-je pojedinog OS-a ni učitavanje stranica na zahtjev. Različiti virtualni adresni prostori mogu dijeliti fizičke stranice koda.'},
   {id:'read',title:'Što se događa pri čitanju datoteke?',part:'Datoteke i I/O',app:'users',
@@ -19,7 +19,7 @@ export const MECHANISMS = [
     goal:'Razlikovati ulazak u jezgru od prebacivanja na drugi proces.',
     terms:[['Kontekst','Stanje izvođenja, npr. registri i adresa sljedeće instrukcije (PC).'],['Kvant','Dodijeljeni vremenski odsječak CPU-a.'],['Raspoređivač','Odabire sljedeći spremni tok izvođenja.'],['Preotimanje','OS prekida izvođenje procesa radi raspoređivanja.']],
     variants:[['ready','P2 je spreman'],['alone','Nema drugog spremnog procesa']],
-    predict:'Mora li nakon isteka kvanta proces P1 prepustiti CPU drugom procesu u ovom slučaju?',
+    predict:'P1 je proces obrade teksta, a P2 proces obrade glazbe. Mora li nakon isteka kvanta P1 prepustiti CPU drugom procesu prema odabranom uvjetu?',
     question:'U kojem slučaju mijenjamo proces, a u kojem samo način rada CPU-a? Što se mora sačuvati?',
     limit:'Jedna logička jezgra, po jedna dretva u procesu, Round Robin. PC prikazuje mjesto nastavka korisničkog konteksta; adrese instrukcija same jezgre izostavljene su. Prikaz ne mjeri trajanje prekida ni promjene konteksta.'},
   {id:'memory',title:'Virtualna adresa i iznimka stranice',part:'Memorija',app:'memory',
@@ -33,14 +33,14 @@ export const MECHANISMS = [
     goal:'Objasniti kako ispreplitanje dretvi mijenja rezultat nad dijeljenim podatkom.',
     terms:[['Dretva','Tok izvođenja s vlastitim registrima i stogom; dretve procesa dijele adresni prostor.'],['Utrka nad podatkom','Nesinkronizirani sukobljeni pristupi dijeljenom podatku.'],['Kritični odsječak','Dio programa koji pristupa dijeljenom resursu i treba zaštitu.'],['Mutex','Lokot koji samo jednoj dretvi dopušta ulazak u zaštićeni odsječak.']],
     variants:[['race','Bez lokota'],['mutex','Cijelo povećanje pod lokotom']],
-    predict:'Dvije dretve trebaju povećati x za 1. Početno x = 0. Koji završni rezultat očekuješ?',
+    predict:'T1 i T2 dvije su dretve istog procesa, a x njihov zajednički brojač, početno 0. Svaka ga treba povećati za 1. Koji završni rezultat očekuješ?',
     question:'Zašto x = x + 1 nije nužno jedna nedjeljiva radnja? Koji dio mora štititi isti lokot?',
     limit:'Model instrukcija čitaj–izračunaj–upiši, s unaprijed određenim ispreplitanjem na jednom CPU-u. To nije izvršavanje izvornog C/JavaScript koda niti prikaz svih memorijskih modela. Zastoji i detalji implementacije mutexa ovdje su izostavljeni.'},
   {id:'deadlock',title:'Kružno čekanje i zastoj',part:'Sinkronizacija · proširenje',app:'cpu',
     goal:'Uočiti uzajamno čekanje i provjeriti učinak istog redoslijeda zauzimanja resursa.',
-    terms:[['Resurs','Objekt koji proces treba, ovdje isključivo zauzeti lokot R1 ili R2.'],['Zastoj (deadlock)','Procesi se ne mogu nastaviti jer međusobno čekaju resurse koje drže.'],['Kružno čekanje','Zatvoreni krug ovisnosti među procesima.']],
+    terms:[['Resurs','Objekt koji proces treba, primjerice datoteka. R1 i R2 označavaju dva resursa; pristup svakome ovdje štiti zaseban lokot.'],['Zastoj (deadlock)','Procesi se ne mogu nastaviti jer međusobno čekaju resurse koje drže.'],['Kružno čekanje','Zatvoreni krug ovisnosti među procesima.']],
     variants:[['cycle','Različit redoslijed'],['ordered','Oba procesa traže R1 pa R2']],
-    predict:'Mogu li oba procesa završiti ako svaki već drži jedan lokot i čeka drugi?',
+    predict:'P1 i P2 dva su procesa kojima trebaju resursi R1 i R2, svaki zaštićen zasebnim lokotom. Mogu li oba procesa završiti uz odabrani redoslijed zauzimanja?',
     question:'Kako isti redoslijed zauzimanja uklanja krug? Zašto obično čekanje još nije zastoj?',
     limit:'Dva procesa, dva isključiva lokota, bez prisilnog oduzimanja ili odustajanja. Jednaki redoslijed sprječava ovaj krug; ne jamči sve poželjne osobine složenog sustava, poput pravednosti.'}
 ];
@@ -123,7 +123,7 @@ export function traceMechanism(id,variant){
   }
   if(id==='threads'){
     let x=0;const registers={T1:null,T2:null};
-    add('shared','apps','Dvije dretve dijele x','Svaka želi jednom povećati x. Registri su zasebni, podatak x je zajednički.',{cpu:'T1',process:'Jedan proces, dvije dretve',x,registers:'T1: —; T2: —',memory:'Dijeljeni x = 0',lock:'Slobodan'});
+    add('shared','apps','Dvije dretve dijele x','T1 i T2 dvije su dretve istog procesa. Svaka želi jednom povećati zajednički brojač x. Registri su zasebni, podatak x je zajednički.',{cpu:'T1',process:'Jedan proces, dvije dretve',x,registers:'T1: —; T2: —',memory:'Dijeljeni x = 0',lock:'Slobodan'});
     const schedule=variant==='race'?[[1,'read'],[2,'read'],[1,'add'],[2,'add'],[1,'write'],[2,'write']]:[[1,'lock'],[1,'read'],[1,'add'],[1,'write'],[1,'unlock'],[2,'lock'],[2,'read'],[2,'add'],[2,'write'],[2,'unlock']];
     for(const [n,op] of schedule){
       const t='T'+n;
@@ -137,7 +137,7 @@ export function traceMechanism(id,variant){
     add('result','apps','Usporedi očekivanje i rezultat',variant==='race'?'Obje su dretve pročitale 0. Posljednji upis prebrisao je povećanje prve. To je jedan mogući ishod bez zaštite.':'Druga dretva čita vrijednost koju je prva već upisala.',{result:`Dva povećanja; očekivano 2; dobiveno ${x}.`});
   }
   if(id==='deadlock'){
-    add('start','apps','P1 i P2 trebaju oba resursa','Lokot može držati samo jedan proces. Čekajući proces zadržava već zauzeti lokot.',{cpu:'P1',r1:'Slobodan',r2:'Slobodan',process:'P1 i P2 spremni'});
+    add('start','apps','P1 i P2 trebaju oba resursa','P1 i P2 oznake su procesa, a R1 i R2 resursa, svaki sa svojim lokotom. Lokot može držati samo jedan proces. Čekajući proces zadržava već zauzeti lokot.',{cpu:'P1',r1:'Slobodan',r2:'Slobodan',process:'P1 i P2 spremni'});
     add('p1r1','apps','P1 zauzima R1','P1 treba još i R2.',{r1:'P1'});
     if(variant==='cycle'){
       add('p2r2','apps','P2 zauzima R2','P2 traži resurse obrnutim redoslijedom.',{cpu:'P2',r2:'P2'});

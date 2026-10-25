@@ -1,4 +1,4 @@
-# zljixOS 0.13.0 — razvoj
+# zljixOS 0.13.1 — razvoj
 
 Samostalni desktop HTML i mobilni PWA nastaju iz `public/orbit/` pomoću `scripts/build.mjs` i esbuilda 0.28.0. Nema aplikacijskog poslužitelja niti udaljenog bodovanja.
 
@@ -76,3 +76,11 @@ Provjereni Microsoftovi izvori za PowerShell:
 Objava 0.13 vraća se u `zljix/zljix.github.io`, na adresu https://zljix.github.io/. Stara izdvojena kopija u repozitoriju zljixos.github.io nije odredište ove nadogradnje.
 
 Provjera sučelja 0.13 u Chromiumu 134: svih 30 PowerShell zadataka preko stvarnog polja za unos i porast do 600 XP; pogrešna naredba i pomoć na Hard; obvezan unos imena prije otvaranja prozora; odvojeni učenici nakon promjene i osvježavanja; vidljiv vlasnik u JSON/HTML/TXT/ispisu; promjena oznake rada ne mijenja vlasnika; odbijanje tuđeg JSON-a iz datoteke, lijepljenjem i preko Oporavka; odbijanje anonimne kopije; uspješno vraćanje vlastite kopije; ponovno otvaranje bez mreže i preuzimanje samostalnog HTML-a. Na širinama 320/375/414 px ime i bodovi ostaju vidljivi i nema vodoravnog prelijevanja. Samostalni HTML pokreće unos identiteta i PowerShell bez poslužitelja. Nema zabilježenih JavaScript pogrešaka. Fizički iPhone/Android i Safari nisu testirani.
+
+## Kontekst oznaka u izdanju 0.13.1
+
+Pitanja izričito određuju procese P1/P2/P3, dretve T1/T2 istog procesa, resurse R1/R2 i zajednički brojač x s potrebnom početnom vrijednošću. Verzije, mape i memorijski okviri A/B objašnjeni su u konkretnom slučaju. Dopunjeni su uvodi, pokusi i sve težine završnog izazova. CPU laboratorij objašnjava oznake procesa, t i I/O; memorijski laboratorij prikazuje „Stranica 0” umjesto dvosmislenog „P0”.
+
+Provjera kompatibilnosti svih 103 zadatka i 60 pitanja završnih izazova potvrđuje da su promijenjeni samo tekstovi pitanja: svi identifikatori, ponuđeni odgovori, indeksi točnih odgovora, uvjeti i bodovi ostaju identični. Jasniji kontekst dobilo je 89 generiranih pitanja. Svih 120 postojećih testova prolazi, kao i provjere samostalnog HTML-a i mobilnog paketa.
+
+Vizualno provjereni pitanja o dretvama i resursima, Hard zadatci, legenda CPU-a i nazivi memorijskih stranica u cloud Chromiumu. Odgovor na dopunjeno pitanje daje 10 XP, a ponovno otvaranje s istim imenom čuva taj rezultat. U prikazima širokim 320/375/414 px (iframe s odgovarajućom širinom prikaza) pitanja se prelamaju bez vodoravnog prelijevanja. To nije provjera na fizičkom mobitelu.
