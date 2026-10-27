@@ -1,85 +1,28 @@
-# zljixOS 0.16.1
+# zljix · Uči kroz igru
 
-Izdanje 0.16.1 premješta obavijest o potpisanim kopijama iz početnog pregleda misija u prozor provjere verzije.
+Početna stranica s izborom edukativnih igara na **https://zljix.github.io/**.
 
-Izdanje 0.16.0 dodaje obvezni kontrolni potpis JSON kopija (format 3). Pri izvozu HMAC-SHA-256 povezuje ime, prezime, datum i cijeli radni prostor; pri učitavanju se provjerava prije prikaza i vraćanja rezultata. Uređivanje vrijednosti, uklanjanje potpisa ili povratak na stari format odbija kopiju.
+| Igra | Adresa | Repozitorij |
+| --- | --- | --- |
+| zljixOS — operacijski sustavi | https://zljix.github.io/zljixOS/ | [zljix/zljixOS](https://github.com/zljix/zljixOS) |
+| SISgame — sigurnost informacijskih sustava | https://zljix.github.io/SISgame/ | [zljix/SISgame](https://github.com/zljix/SISgame) |
 
-Izdanje 0.15.2 prikazuje putanje Akademije terminala redom DOS/CMD → Linux Shell → PowerShell. Početna putanja ostaje DOS/CMD.
+Ovaj repozitorij sadrži samo portal i male datoteke za kompatibilnost starih poveznica. Izvorni kod, testovi, PWA paket i samostalni HTML igre zljixOS nalaze se u zasebnom repozitoriju. Izvorna povijest razvoja igre ostaje dostupna u Git povijesti ovog repozitorija do commita `3fe8cf279e082524cf0f2d6f99cd388183e0aca4`.
 
-U izdanju 0.15.1 provjera verzije stalno je dostupna u gornjoj traci, pokraj preuzimanja. Ikona kružne strelice otvara provjeru, a ističe se kada je novo izdanje spremno.
+## Razvoj i objava
 
-Izdanje 0.15.0 popravlja provjeru Linux dozvola, zasebno bilježi vođenje, natuknice i otvaranje postupka te povezuje CPU i memorijske laboratorije s konkretnim postavkama, usporedbama i rezultatima. Završni izazov koristi odvojene problemske slučajeve. Rangovi zahtijevaju i dovršene temeljne misije; OS navigator traži novu primjenu od najmanje 80/100. Pokus s dretvama omogućuje učeniku da bira sljedeću radnju i prati zajednički brojač. Detalji: [Metodička analiza](source/METODICKA_ANALIZA.md).
+Statični HTML, CSS i JavaScript bez biblioteka, vanjskih fontova, analitike ili koraka izgradnje. GitHub Pages: grana `main`, mapa `/ (root)`. Svaki repozitorij igre zasebno upravlja svojom objavom.
 
-**Za otvaranje novog izdanja nakon stare offline verzije:** https://zljix.github.io/igra.html. Verzija **v0.16.1** vidljiva je već na početnom unosu i u gornjoj traci. Novi ulaz dijeli isti lokalni rad s početnom adresom; ne briši podatke preglednika.
+Za lokalnu provjeru pokreni bilo koji statični HTTP poslužitelj iz korijena ovog repozitorija. Poveznice `/zljixOS/` i `/SISgame/` na lokalnom poslužitelju zahtijevaju montirane mape tih igara; na GitHub Pagesu pripadaju zasebnim projektnim stranicama.
 
-Interaktivna igra na hrvatskom za učenje operacijskih sustava. Objavljuje se na **https://zljix.github.io/** iz repozitorija `zljix/zljix.github.io`. Nastavlja postojeću igru Orbit OS, uključujući DOS/CMD i Linux razine iz izdanja 0.12.
+## Stare instalacije zljixOS-a
 
-## Ime, prezime i rezultati
+- `/igra.html` vodi na `/zljixOS/`.
+- `/downloads/zljixOS.html` vodi na novu samostalnu HTML igru.
+- `/manifest.webmanifest` ostaje samo za kompatibilnost stare instalacije i usmjerava na novu adresu igre. Portal ne instalira vlastiti PWA.
+- `/sw.js` povlači stari root worker i briše isključivo cache s prefiksom `orbit-mobile:https://zljix.github.io/:`. Ne dira workere ni predmemorije `/zljixOS/` i `/SISgame/`, lokalne rezultate ili otvorene lekcije.
+- Lokalna pohrana ostaje na istoj domeni i koristi nepromijenjene ključeve. Staru ikonu na početnom zaslonu zamijeni instalacijom igre s nove adrese.
 
-Pri svakom otvaranju igre obvezno se unose **ime i prezime**. Dok unos nije dovršen, radni prostor i prethodni rezultati nisu otvoreni. Ime je stalno vidljivo ispod gornje trake s bodovima te u pregledu rada, JSON kopiji, TXT/HTML izvještaju, kopiji za Word i ispisu/PDF-u. Nazivi datoteka rezultata uključuju ime i prezime.
+## Dodavanje igre
 
-- Svako ime ima zaseban lokalni rad. **Moj rad → Drugi učenik / učenica** vraća na početni unos; prethodni rad ostaje sačuvan.
-- Pri učitavanju iz datoteke ili zalijepljenog JSON-a vlasnik kopije mora odgovarati aktivnom imenu. Isto vrijedi u aplikaciji **Oporavak**, za cijeli prostor i odabrane datoteke. Tuđa kopija odbija se prije prikaza njezina sadržaja i bodova.
-- Ime vezano uz postojeće bodove nema mogućnost preimenovanja. Neobvezna oznaka rada služi samo napomeni.
-- **Stare JSON kopije bez potpisa više se ne učitavaju**, uključujući format 2, Orbit kopije i sirovi radni prostor. Za novi prijenos izvezi JSON u izdanju 0.16.0 ili novijem iz preglednika u kojem je rad sačuvan. Postojeći lokalni rad pod istim imenom ostaje dostupan.
-- Ista provjera vrijedi za datoteku, zalijepljeni JSON i Oporavak. Neuspjela provjera ne mijenja trenutačni rad ili bodove. Razmaci i redoslijed ključeva u JSON-u mogu se promijeniti; vrijednosti ne mogu.
-- Razmaci na rubovima, ponovljeni razmaci i veličina slova u imenu ne stvaraju novi profil. Hrvatska slova, višedijelna imena, crtice i apostrofi su podržani. Različiti dijakritički znakovi razlikuju se.
-
-**Granica zaštite:** kontrolni potpis otkriva ručno uređivanje izvezene JSON kopije. HMAC ključ dolazi s offline aplikacijom i nije stvarna tajna pred osobom koja pregledava ili mijenja kod. To nije poslužiteljski digitalni potpis, šifriranje osobnih podataka ni dokaz identiteta ili samostalnosti. Izmjena lokalne pohrane/koda i ponovno potpisivanje ostaju mogući; dvije osobe istoga imena nisu razlikovane. Za zaštićeno ocjenjivanje potrebni su računi i poslužiteljska provjera. Imena i rezultati ne šalju se automatski na GitHub ili drugom primatelju.
-
-## Učenje i bodovanje
-
-Osam misija povezuje objašnjenje pojmova, riješen primjer, pokus i automatski provjerenu primjenu. **Easy** daje osnovnih 100 XP po misiji uz vođenje, **Moderate** dodaje primjenu do 120 XP, a **Hard** dijagnostički slučaj do 140 XP. Težina se može promijeniti bez gubitka ili udvostručavanja bodova.
-
-| Aktivnost | Najviše XP |
-| --- | ---: |
-| Osam misija s primjenama i dijagnozama | 1120 |
-| Jedanaest praktičnih laboratorija | 220 |
-| Detaljni mehanizmi | 140 |
-| Sedam mrežnih izazova | 140 |
-| Završni izazov — najbolji rezultat | 100 |
-| DOS/CMD — šest razina | 600 |
-| Linux Shell — šest razina | 600 |
-| PowerShell — šest razina | 600 |
-| **Ukupno** | **3520** |
-
-Pet rangova i deset znački prate napredak. Ponavljanje ne gomila bodove. Prati se prva i posljednja težina odgovora, broj pokušaja i zatražena pomoć. Završni izazov od deset pitanja otključava se nakon osam misija na odabranoj težini; rezultat i objašnjenja vide se nakon predaje. Prvi, posljednji i najbolji rezultat novih slučajeva prikazuju se po težini, a u ukupni XP ulazi jedan najbolji rezultat. XP označava napredak uz dostupnu pomoć, a ne školsku ocjenu.
-
-## Akademija terminala
-
-Tri neovisne putanje imaju ukupno **18 razina i 90 praktičnih zadataka**. Svaka razina prvo uvodi pojmove i pokazuje primjere, a zatim učenik upisuje naredbe u virtualni terminal. Cilj se automatski provjerava nakon naredbe. Vrijede i druga ispravna rješenja unutar podržane sintakse.
-
-| Razina | DOS/CMD | Linux Shell | PowerShell |
-| --- | --- | --- | --- |
-| 1 | `dir`, `cd`, `type`, putanje | `pwd`, `ls`, `cd`, `cat` | `Get-Location`, `Get-ChildItem`, `Set-Location`, `Get-Content` |
-| 2 | `mkdir`, `echo`, `>`, `>>` | `mkdir`, `echo`, `>`, `>>` | `New-Item`, `Set-Content`, `Add-Content` |
-| 3 | `copy`, `ren`, `move` | `cp`, `mv` | `Copy-Item`, `Rename-Item`, `Move-Item` |
-| 4 | `find`, cjevovodi, izvještaj | `grep -F`, cjevovodi, izvještaj | `Select-String`, objekt `MatchInfo`, izdvajanje `Line` |
-| 5 | `del`, `rd`, čuvanje podataka | `chmod`, čitanje/pisanje vlasnika | Svojstva, `Where-Object`, `Sort-Object`, `Measure-Object` |
-| 6 | Predaja, arhiva i čišćenje | Predaja, arhiva i čišćenje | Predaja, arhiva, `Remove-Item`, `-WhatIf` |
-
-**Easy** obuhvaća tri zadatka (60 XP) uz objašnjenje i postupak koji učenik otvara po potrebi. **Moderate** dodaje primjenu (80 XP) uz pomoć na zahtjev. **Hard** uključuje peti povezani zadatak (100 XP), uz pomoć nakon prvog pokušaja. Sljedeća razina otključava se nakon prva tri zadatka prethodne. Svaki zadatak donosi 20 XP samo jednom.
-
-PowerShell cjevovod prenosi podržane objekte i njihova svojstva, a ne samo tekstualni ispis tablice. Model je ograničen na opisane cmdlete i parametre u Windows okruženju. Kodiranja, puni datotečni provider i sva ponašanja stvarnog PowerShella nisu simulirani. Niti jedan terminal ne izvršava naredbe računala, skripte, programe ili mrežne radnje. Pogrešne naredbe u modelu ne mijenjaju datoteke; stvarni shell može imati djelomične učinke.
-
-## Offline rad i prijenos
-
-Za računalo preuzmi [zljixOS.html](downloads/zljixOS.html) i otvori ga preglednikom. Mobilna aplikacija treba prvo otvaranje preko interneta. Ikona preuzimanja ostaje siva dok cijeli paket nije spreman; zelena ikona otvara preuzimanje HTML-a i upute za dodavanje na početni zaslon. Aplikacija se može ponovno otvoriti bez mreže nakon uspješnog predmemoriranja.
-
-**Aplikacija i rezultati odvojene su datoteke.** Za prijenos rada na drugi uređaj ili u samostalni HTML spremi JSON kroz **Moj rad**, na drugom uređaju upiši isto ime i prezime te učitaj svoj JSON. Na internetu se učitava aktualna stranica; bez interneta ostaje posljednja potpuno spremljena verzija. Gumb **Novo izdanje** otvara preuzetu nadogradnju nakon provjere da nema nedovršenog unosa i da je rad spremljen. Druge kartice ne osvježavaju se automatski. Ako dolaziš sa starijeg izdanja, koristi ulaz `igra.html`.
-
-## Razvoj i provjera
-
-Izvorni kod je u `source/`. Uz Node.js:
-
-```sh
-cd source
-npm ci
-npm test
-npm run build
-npm run check:artifact
-```
-
-Izgradnja stvara `dist/zljixOS.html` i `dist/mobitel/`. GitHub Pages koristi `main`, mapu `/`; mobilni paket ide u korijen, a samostalni HTML u `downloads/zljixOS.html`. Ne objavljuju se učeničke kopije, QA radni prostori ni `node_modules`.
-
-Automatizirane provjere obuhvaćaju: postojeća igra, svih 90 terminalskih ciljeva, objekti PowerShella, pogrešne naredbe, tri težine, pomoć, ponavljanje, ukupni XP, odvojeni učenici, prenosive kopije i odbijanje tuđih/anonimnih rezultata. Provjere samostalnog i mobilnog paketa potvrđuju ugrađene resurse i valjan offline worker. Detalji provedene provjere su u `source/RAZVOJ.md`; metodički opis u `source/NASTAVA.md`.
+Dodaj novu semantičku karticu u `index.html`, postavi poveznicu na njezinu projektnu adresu i ažuriraj broj igara. Portal radi i s isključenim JavaScriptom; `portal.js` služi samo povlačenju starog offline workera.
